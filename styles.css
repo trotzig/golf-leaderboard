@@ -118,6 +118,9 @@ h3 {
   grid-row-end: 3;
   text-align: center;
 }
+.leaderboard .favorite-player .to-par.under-par {
+  color: #fff;
+}
 .leaderboard .to-par.under-par {
   color: red;
 }
