@@ -25,9 +25,24 @@ h3 {
   margin: 0;
   margin-bottom: 20px;
 }
-.leaderboard {
+
+.alert {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 3px;
+  background-color: #c6ffe4;
+}
+
+.leaderboard, .competitions {
   max-width: 500px;
   margin: 0 auto;
+}
+
+.competitions ul {
+  padding: 10px;
+}
+.competitions ul li {
+  margin-bottom: 10px;
 }
 
 .leaderboard ul li {
@@ -130,4 +145,9 @@ h3 {
   opacity: 0.5;
   font-size: 12px;
   margin: 3px 0 5px;
+}
+footer {
+  text-align: center;
+  opacity: 0.3;
+  padding: 100px 10px
 }
