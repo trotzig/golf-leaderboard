@@ -7,6 +7,26 @@ function getEntries(data) {
   return entryKeys.map(key => entries[key]);
 }
 
+function Player({ entry }) {
+  return (
+    <li key={entry.RefID}>
+      <span>{entry.Position.Calculated}</span>
+      <span>
+        {entry.FirstName} {entry.LastName}
+        <br />
+        <span className="club">{entry.ClubName}</span>
+      </span>
+      <span
+        className={`to-par${
+          entry.ResultSum.ToParValue < 0 ? ' under-par' : ''
+        }`}
+      >
+        {entry.ResultSum.ToParText}
+      </span>
+    </li>
+  );
+}
+
 export default function StartPage() {
   const [data, setData] = useState();
   console.log(data);
@@ -27,16 +47,7 @@ export default function StartPage() {
       <ul>
         {entries &&
           entries.map(entry => {
-            return (
-              <li key={entry.RefID}>
-                <span>{entry.Position.Calculated}</span>
-                <span>
-                  {entry.FirstName} {entry.LastName}
-                </span>
-                <span className="to-par">{entry.ResultSum.ToParText}</span>
-                <span className="club">{entry.ClubName}</span>
-              </li>
-            );
+            return <Player key={entry.RefID} entry={entry} />;
           })}
       </ul>
     </div>
