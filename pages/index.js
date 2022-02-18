@@ -19,10 +19,14 @@ function Round({ round }) {
         const score = round.HoleScores[holeKey];
         const toParClass = !score
           ? 'unknown'
+          : score.Result.ToParValue < -1
+          ? 'eagle'
           : score.Result.ToParValue < 0
-          ? 'under-par'
+          ? 'birdie'
+          : score.Result.ToParValue > 1
+          ? 'bogey-plus'
           : score.Result.ToParValue > 0
-          ? 'over-par'
+          ? 'bogey'
           : 'on-par';
         const result = [
           <span key={holeKey} className={`round-score ${toParClass}`}>

@@ -29,7 +29,6 @@ h2 {
 
 .leaderboard .player {
   all: unset;
-  cursor: pointer;
   display: grid;
   grid-template-columns: 30px auto 30px;
   column-gap: 15px;
@@ -46,11 +45,10 @@ h2 {
 .leaderboard .round {
   font-family: monospace;
   font-size: 12px;
-  display: grid;
-  grid-template-columns: repeat(9, 1fr) 20px repeat(9, 1fr) 20px;
-  column-gap: 2px;
+  display: flex;
   opacity: 0.5;
   align-items: center;
+  justify-content: space-between;
 }
 
 .round-score {
@@ -64,13 +62,20 @@ h2 {
   align-items: center;
   justify-content: center;
 }
-.round-score.under-par {
-  border: 1px solid red;
+.round-score.birdie {
+  border: 1px solid rgba(0,0,0, 0.5);
+  border-radius: 50%;
+}
+.round-score.eagle {
+  border: 3px solid rgba(0,0,0, 0.5);
   border-radius: 50%;
 }
 
-.round-score.over-par {
+.round-score.bogey {
   border: 1px solid rgba(0,0,0, 0.5);
+}
+.round-score.bogey-plus {
+  border: 3px solid rgba(0,0,0, 0.5);
 }
 
 .leaderboard .to-par {
@@ -83,6 +88,8 @@ h2 {
 }
 
 .leaderboard .club {
+  display: block;
   opacity: 0.5;
   font-size: 12px;
+  margin: 3px 0 5px;
 }
