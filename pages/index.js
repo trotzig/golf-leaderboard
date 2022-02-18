@@ -48,10 +48,40 @@ function Round({ round }) {
 
 function Player({ entry }) {
   const rounds = getRounds(entry);
+  const [favorite, setFavorite] = useState(
+    localStorage.getItem(entry.MemberID),
+  );
+
+  useEffect(() => {
+    if (favorite) {
+      localStorage.setItem(entry.MemberID, '1');
+    } else {
+      localStorage.removeItem(entry.MemberID);
+    }
+  }, [favorite, entry]);
+
+  const classes = ['player'];
+  if (favorite) {
+    classes.push('favorite-player');
+  }
 
   return (
-    <li className="player">
-      <span className="position">{entry.Position.Calculated}</span>
+    <li className={classes.join(' ')}>
+      <span className="position">
+        <span>{entry.Position.Calculated}</span>
+        <button className="favorite" onClick={() => setFavorite(!favorite)}>
+          <svg
+            height="24px"
+            viewBox="0 0 24 24"
+            width="24px"
+            fill={favorite ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.2)'}
+          >
+            <path d="M0 0h24v24H0z" fill="none" stroke="none" />
+            <path d="M0 0h24v24H0z" fill="none" stroke="none" />
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+          </svg>
+        </button>
+      </span>
       <span>
         {entry.FirstName} {entry.LastName}
         <br />
@@ -90,7 +120,11 @@ export default function StartPage() {
   return (
     <div className="leaderboard">
       <h2>Leaderboard</h2>
-      <h3>{data.CompetitionData.Name} – {data.CompetitionData.Venue.Name}</h3>
+      {data && (
+        <h3>
+          {data.CompetitionData.Name} – {data.CompetitionData.Venue.Name}
+        </h3>
+      )}
       <ul>
         {entries &&
           entries.map(entry => {
