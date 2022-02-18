@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 body {
   margin: 0;
   padding: 0;
@@ -20,11 +23,54 @@ h2 {
 }
 
 .leaderboard ul li {
+  display: block;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.leaderboard .player {
+  all: unset;
+  cursor: pointer;
   display: grid;
-  grid-template-columns: 30px 1fr 30px;
+  grid-template-columns: 30px auto 30px;
   column-gap: 15px;
   padding: 10px 10px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.leaderboard .stats {
+  transition: all .2s;
+  overflow: hidden;
+  grid-column-start: 2;
+  grid-column-end: 4;
+}
+
+.leaderboard .round {
+  font-family: monospace;
+  font-size: 12px;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr) 20px repeat(9, 1fr) 20px;
+  column-gap: 2px;
+  opacity: 0.5;
+  align-items: center;
+}
+
+.round-score {
+  width: 15px;
+  height: 15px;
+  display: block;
+  text-align: center;
+  line-height: 1;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.round-score.under-par {
+  border: 1px solid red;
+  border-radius: 50%;
+}
+
+.round-score.over-par {
+  border: 1px solid rgba(0,0,0, 0.5);
 }
 
 .leaderboard .to-par {
@@ -32,7 +78,7 @@ h2 {
   font-size: 18px;
   align-self: center;
 }
-.leaderboard .under-par {
+.leaderboard .to-par.under-par {
   color: red;
 }
 

@@ -7,9 +7,39 @@ function getEntries(data) {
   return entryKeys.map(key => entries[key]);
 }
 
-function Player({ entry }) {
+function getRounds(entry) {
+  const roundKeys = Object.keys(entry.Rounds);
+  return roundKeys.map(key => entry.Rounds[key]);
+}
+
+function Round({ round }) {
   return (
-    <li key={entry.RefID}>
+    <div className="round">
+      {Object.keys(round.Holes).map((holeKey, i) => {
+        const score = round.HoleScores[holeKey];
+        const toParClass = !score
+          ? 'unknown'
+          : score.Result.ToParValue < 0
+          ? 'under-par'
+          : score.Result.ToParValue > 0
+          ? 'over-par'
+          : 'on-par';
+        const result = [
+          <span key={holeKey} className={`round-score ${toParClass}`}>
+            {score ? score.Result.ActualText : '-'}
+          </span>,
+        ];
+        return result;
+      })}
+    </div>
+  );
+}
+
+function Player({ entry }) {
+  const rounds = getRounds(entry);
+
+  return (
+    <li className="player">
       <span>{entry.Position.Calculated}</span>
       <span>
         {entry.FirstName} {entry.LastName}
@@ -22,6 +52,11 @@ function Player({ entry }) {
         }`}
       >
         {entry.ResultSum.ToParText}
+      </span>
+      <span className="stats" style={{ maxHeight: open ? 100 : 0 }}>
+        {rounds.map(round => {
+          return <Round key={round.RefID} round={round} />;
+        })}
       </span>
     </li>
   );
