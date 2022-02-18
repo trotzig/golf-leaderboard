@@ -83,6 +83,10 @@ h2 {
   font-size: 18px;
   align-self: center;
 }
+
+.leaderboard .position {
+  font-size: 18px;
+}
 .leaderboard .to-par.under-par {
   color: red;
 }

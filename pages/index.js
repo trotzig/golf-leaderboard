@@ -12,6 +12,13 @@ function getRounds(entry) {
   return roundKeys.map(key => entry.Rounds[key]);
 }
 
+function fixParValue(val) {
+  if (val === 'Par') {
+    return 'E';
+  }
+  return val;
+}
+
 function Round({ round }) {
   return (
     <div className="round">
@@ -44,7 +51,7 @@ function Player({ entry }) {
 
   return (
     <li className="player">
-      <span>{entry.Position.Calculated}</span>
+      <span className="position">{entry.Position.Calculated}</span>
       <span>
         {entry.FirstName} {entry.LastName}
         <br />
@@ -55,7 +62,7 @@ function Player({ entry }) {
           entry.ResultSum.ToParValue < 0 ? ' under-par' : ''
         }`}
       >
-        {entry.ResultSum.ToParText}
+        {fixParValue(entry.ResultSum.ToParText)}
       </span>
       <span className="stats" style={{ maxHeight: open ? 100 : 0 }}>
         {rounds.map(round => {
