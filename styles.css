@@ -15,8 +15,16 @@ ul {
 
 h2 {
   padding: 10px;
+  margin-bottom: 0;
 }
 
+h3 {
+  font-size: 14px;
+  font-weight: normal;
+  padding: 10px;
+  margin: 0;
+  margin-bottom: 20px;
+}
 .leaderboard {
   max-width: 500px;
   margin: 0 auto;

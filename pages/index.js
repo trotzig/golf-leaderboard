@@ -90,6 +90,7 @@ export default function StartPage() {
   return (
     <div className="leaderboard">
       <h2>Leaderboard</h2>
+      <h3>{data.CompetitionData.Name} – {data.CompetitionData.Venue.Name}</h3>
       <ul>
         {entries &&
           entries.map(entry => {
