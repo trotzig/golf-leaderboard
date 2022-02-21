@@ -1,5 +1,6 @@
 :root {
   --primary: #086b3c;
+  --dark: #333;
 }
 * {
   box-sizing: border-box;
@@ -8,6 +9,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: Futura, Gill Sans, sans-serif;
+  color: var(--dark);
 }
 
 ul {
@@ -56,29 +58,36 @@ a {
 
 .competitions li.completed {
   opacity: 0.3;
-  transition: all .1s;
+  transition: all 0.1s;
 }
 .competitions li.completed:hover {
   opacity: 1;
 }
-.competitions li.completed h4 {
-  color: inherit;
-}
-
 .competition {
   text-decoration: none;
   color: inherit;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  column-gap: 10px;
+  align-items: flex-start;
+  color: var(--primary);
+}
+.competition svg {
+  fill: currentColor;
+  opacity: 0.5;
 }
 .competition p {
   margin: 0;
   opacity: 0.7;
   font-size: 14px;
+  color: var(--dark);
 }
 .competition h4 {
   font-size: 16px;
   margin: 0;
-  margin-bottom: 10px;
-  color: var(--primary);
+}
+.competitions li.completed .competition {
+  color: inherit;
 }
 
 .leaderboard ul li {
