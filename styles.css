@@ -54,6 +54,17 @@ a {
   margin-bottom: 30px;
 }
 
+.competitions li.completed {
+  opacity: 0.3;
+  transition: all .1s;
+}
+.competitions li.completed:hover {
+  opacity: 1;
+}
+.competitions li.completed h4 {
+  color: inherit;
+}
+
 .competition {
   text-decoration: none;
   color: inherit;

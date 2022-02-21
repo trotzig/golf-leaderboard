@@ -11,29 +11,31 @@ import {
 
 const DATE_FORMAT = 'yyyyMMdd';
 
-function getCompetitions(data) {
+function getCompetitions(data, now) {
   const result = [];
   for (const c of Object.values(data.CompetitionData)) {
     for (const m of Object.values(c.Months)) {
       result.push(...Object.values(m.Entries));
     }
   }
+  result.forEach(comp => {
+    comp.start = parse(
+      comp.StartDate.slice(0, DATE_FORMAT.length),
+      DATE_FORMAT,
+      now,
+    );
+    comp.end = parse(
+      comp.EndDate.slice(0, DATE_FORMAT.length),
+      DATE_FORMAT,
+      now,
+    );
+  });
   return result;
 }
 
-function dateString(competition) {
-  const now = startOfDay(new Date());
-  const start = parse(
-    competition.StartDate.slice(0, DATE_FORMAT.length),
-    DATE_FORMAT,
-    now,
-  );
-  const end = parse(
-    competition.EndDate.slice(0, DATE_FORMAT.length),
-    DATE_FORMAT,
-    now,
-  );
-
+function dateString(competition, now) {
+  const start = competition.start;
+  const end = competition.end;
   const numberOfDays = differenceInDays(start, end);
 
   if (start <= now && now <= end) {
@@ -71,7 +73,8 @@ export default function StartPage() {
     scriptEl.src = url;
     document.body.appendChild(scriptEl);
   }, []);
-  const competitions = data && getCompetitions(data);
+  const now = startOfDay(new Date());
+  const competitions = data && getCompetitions(data, now);
 
   return (
     <div className="competitions">
@@ -79,12 +82,18 @@ export default function StartPage() {
       {competitions ? (
         <ul>
           {competitions.map(c => {
+            const badge =
+              c.start <= now && now <= c.end
+                ? 'current'
+                : now > c.end
+                ? 'completed'
+                : 'upcoming';
             return (
-              <li key={c.ID}>
+              <li key={c.ID} className={badge}>
                 <Link href={`/${c.ID}/3066464/0`}>
                   <a className="competition">
                     <h4>{c.Name}</h4>
-                    <p>{dateString(c)}</p>
+                    <p>{dateString(c, now)}</p>
                   </a>
                 </Link>
               </li>
