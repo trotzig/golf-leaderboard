@@ -1,3 +1,6 @@
+:root {
+  --primary: #086b3c;
+}
 * {
   box-sizing: border-box;
 }
@@ -26,6 +29,10 @@ h3 {
   margin-bottom: 20px;
 }
 
+a {
+  color: var(--primary);
+}
+
 .alert {
   margin: 10px;
   padding: 10px;
@@ -33,7 +40,8 @@ h3 {
   background-color: #c6ffe4;
 }
 
-.leaderboard, .competitions {
+.leaderboard,
+.competitions {
   max-width: 500px;
   margin: 0 auto;
 }
@@ -42,7 +50,23 @@ h3 {
   padding: 10px;
 }
 .competitions ul li {
+  margin-bottom: 30px;
+}
+
+.competition {
+  text-decoration: none;
+  color: inherit;
+}
+.competition p {
+  margin: 0;
+  opacity: 0.7;
+  font-size: 14px;
+}
+.competition h4 {
+  font-size: 16px;
+  margin: 0;
   margin-bottom: 10px;
+  color: var(--primary);
 }
 
 .leaderboard ul li {
@@ -149,5 +173,5 @@ h3 {
 footer {
   text-align: center;
   opacity: 0.3;
-  padding: 100px 10px
+  padding: 100px 10px;
 }

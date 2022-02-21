@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import {
+  differenceInDays,
+  startOfDay,
+  formatDistance,
+  parse,
+  format,
+  getDate,
+} from 'date-fns';
+
+const DATE_FORMAT = 'yyyyMMdd';
 
 function getCompetitions(data) {
   const result = [];
@@ -9,6 +19,44 @@ function getCompetitions(data) {
     }
   }
   return result;
+}
+
+function dateString(competition) {
+  const now = startOfDay(new Date());
+  const start = parse(
+    competition.StartDate.slice(0, DATE_FORMAT.length),
+    DATE_FORMAT,
+    now,
+  );
+  const end = parse(
+    competition.EndDate.slice(0, DATE_FORMAT.length),
+    DATE_FORMAT,
+    now,
+  );
+
+  const numberOfDays = differenceInDays(start, end);
+
+  if (start <= now && now <= end) {
+    // Currently active
+    return `Currently playing round ${
+      differenceInDays(start, now) - 1
+    } of ${numberOfDays}`;
+  }
+
+  if (now > end) {
+    return `Finished ${formatDistance(end, now)} ago`;
+  }
+  const daysUntilStart = differenceInDays(start, now);
+  if (daysUntilStart < 8) {
+    return `Starts in ${formatDistance(now, start)}`;
+  }
+  const startDay = getDate(start);
+  const endDay = getDate(end);
+  if (endDay < startDay) {
+    // crossing into different month
+    return `${format(start, 'MMMM d')}—${format(end, 'MMMM d')}`;
+  }
+  return `${format(start, 'MMMM d')}—${format(end, 'd')}`;
 }
 
 export default function StartPage() {
@@ -34,7 +82,10 @@ export default function StartPage() {
             return (
               <li key={c.ID}>
                 <Link href={`/${c.ID}/3066464/0`}>
-                  <a>{c.Name}</a>
+                  <a className="competition">
+                    <h4>{c.Name}</h4>
+                    <p>{dateString(c)}</p>
+                  </a>
                 </Link>
               </li>
             );
