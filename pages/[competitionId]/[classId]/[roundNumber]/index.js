@@ -152,7 +152,7 @@ function Player({ entry }) {
 export default function StartPage() {
   const [data, setData] = useState();
   const router = useRouter();
-  const { competitionId, classId, roundNumber } = router.query;
+  const { competitionId } = router.query;
   useEffect(() => {
     if (!competitionId) {
       return;
@@ -165,8 +165,7 @@ export default function StartPage() {
     const url = `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/?callback=${rndFunctionName}&_=${Date.now()}`;
     scriptEl.src = url;
     document.body.appendChild(scriptEl);
-  }, [competitionId, classId, roundNumber]);
-  console.log(data);
+  }, [competitionId]);
   const entries = data && getEntries(data);
   return (
     <div className="leaderboard">
