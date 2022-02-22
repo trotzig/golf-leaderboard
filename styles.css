@@ -12,6 +12,7 @@ body {
   padding: 0;
   font-family: Futura, Gill Sans, sans-serif;
   color: var(--dark);
+  overflow-y: scroll;
 }
 
 ul {
