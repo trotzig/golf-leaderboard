@@ -120,7 +120,7 @@ export default function StartPage() {
       setData(payload);
     };
     const scriptEl = document.createElement('script');
-    const url = `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/ClassId/${classId}/RoundNumber/${roundNumber}/language/2057/?callback=${rndFunctionName}&_=${Date.now()}`;
+    const url = `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/?callback=${rndFunctionName}&_=${Date.now()}`;
     scriptEl.src = url;
     document.body.appendChild(scriptEl);
   }, [competitionId, classId, roundNumber]);
