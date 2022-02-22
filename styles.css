@@ -1,5 +1,6 @@
 :root {
   --primary: #e54e37;
+  --primary-light: #f4c7c1;
   --secondary: #004987;
   --dark: #515151;
 }
@@ -98,9 +99,6 @@ nav {
   font-size: 16px;
 }
 
-
-
-
 .competition p {
   margin: 0;
   opacity: 0.7;
@@ -159,6 +157,7 @@ nav {
   opacity: 0.5;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 2px;
 }
 
 .leaderboard .round-start-time {
@@ -177,6 +176,15 @@ nav {
   align-items: center;
   justify-content: center;
   border: 0px solid rgba(0, 0, 0, 0.5);
+}
+.round-total {
+  font-weight: bold;
+}
+.round-total.under-par {
+  color: var(--primary);
+}
+.favorite-player .round-total.under-par {
+  color: var(--primary-light);
 }
 .favorite-player .round-score {
   border-color: rgba(255, 255, 255, 0.5);

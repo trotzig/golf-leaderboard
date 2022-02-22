@@ -27,6 +27,16 @@ function fixParValue(val) {
   return val;
 }
 
+function RoundTotal({ score }) {
+  const classes = ['round-score', 'round-total'];
+  if (score && score.Result.ToPar < 0) {
+    classes.push('under-par');
+  }
+  return (
+    <span className={classes.join(' ')}>{score && score.Result.Actual}</span>
+  );
+}
+
 function Round({ round }) {
   const now = new Date();
   const startTime = parse(round.StartDateTime, "yyyyMMdd'T'HHmmss", now);
@@ -54,6 +64,19 @@ function Round({ round }) {
               {score ? score.Result.ActualText : '-'}
             </span>,
           ];
+          if (i === 8) {
+            result.push(
+              <RoundTotal score={round.HoleScores['H-OUT']} key="out" />,
+            );
+          }
+          if (i === 17) {
+            result.push(
+              <RoundTotal score={round.HoleScores['H-IN']} key="in" />,
+            );
+            result.push(
+              <RoundTotal score={round.HoleScores['H-TOTAL']} key="total" />,
+            );
+          }
           return result;
         })
       )}
@@ -113,9 +136,7 @@ function Player({ entry }) {
         <span className="club">{entry.ClubName}</span>
       </span>
       <span
-        className={`score${
-          entry.ResultSum.ToParValue < 0 ? ' under-par' : ''
-        }`}
+        className={`score${entry.ResultSum.ToParValue < 0 ? ' under-par' : ''}`}
       >
         {fixParValue(entry.ResultSum.ToParText)}
       </span>
