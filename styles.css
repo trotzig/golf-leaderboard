@@ -43,9 +43,18 @@ a {
 }
 
 .leaderboard,
-.competitions {
+.competitions,
+nav {
   max-width: 500px;
   margin: 0 auto;
+}
+
+nav {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: flex-start;
+  column-gap: 20px;
 }
 
 .competitions ul {
@@ -98,7 +107,7 @@ a {
 .leaderboard .player {
   all: unset;
   display: grid;
-  grid-template-columns: 30px auto 30px;
+  grid-template-columns: 30px auto 80px;
   column-gap: 15px;
   padding: 10px 10px;
   transition: all 0.2s;
@@ -171,7 +180,7 @@ a {
   border-width: 3px;
 }
 
-.leaderboard .to-par {
+.leaderboard .score {
   text-align: right;
   font-size: 18px;
   line-height: 25px;
@@ -184,10 +193,10 @@ a {
   grid-row-end: 3;
   text-align: center;
 }
-.leaderboard .favorite-player .to-par.under-par {
+.leaderboard .favorite-player .score.under-par {
   color: #fff;
 }
-.leaderboard .to-par.under-par {
+.leaderboard .score.under-par {
   color: red;
 }
 

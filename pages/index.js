@@ -95,6 +95,7 @@ export default function StartPage() {
 
   return (
     <div className="chrome">
+      <Menu />
       <div className="competitions">
         <h2>Competitions</h2>
         {competitions ? (

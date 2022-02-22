@@ -5,7 +5,7 @@ export default function Menu({}) {
   return (
     <nav>
       <Link href="/">
-        <a>Competitions</a>
+        <a>Start</a>
       </Link>
       <Link href="/oom">
         <a>Order of merit</a>

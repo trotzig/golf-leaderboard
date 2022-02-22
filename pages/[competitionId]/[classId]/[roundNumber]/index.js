@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
 import ClockIcon from '../../../../src/ClockIcon';
+import Menu from '../../../../src/Menu';
 
 function getEntries(data) {
   if (!data.Classes) {
@@ -112,7 +113,7 @@ function Player({ entry }) {
         <span className="club">{entry.ClubName}</span>
       </span>
       <span
-        className={`to-par${
+        className={`score${
           entry.ResultSum.ToParValue < 0 ? ' under-par' : ''
         }`}
       >
@@ -148,6 +149,7 @@ export default function StartPage() {
   const entries = data && getEntries(data);
   return (
     <div className="leaderboard">
+      <Menu />
       <h2>Leaderboard</h2>
       {data && (
         <h3>
