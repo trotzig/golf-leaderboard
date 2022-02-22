@@ -2,6 +2,11 @@ import React, { useEffect, useState } from 'react';
 
 import Menu from '../src/Menu';
 
+const NUM_FORMATTER = Intl.NumberFormat('en-US', {
+  notation: 'compact',
+  maximumFractionDigits: 1,
+});
+
 function getEntries(data) {
   const entryKeys = Object.keys(data.Entries);
   return entryKeys.map(key => data.Entries[key]);
@@ -47,7 +52,9 @@ function Player({ entry }) {
         <br />
         <span className="club">{entry.ClubName}</span>
       </span>
-      <span className="score">{Math.round(entry.CalculatedResult)}</span>
+      <span className="score">
+        {NUM_FORMATTER.format(Math.round(entry.CalculatedResult))}
+      </span>
     </li>
   );
 }
