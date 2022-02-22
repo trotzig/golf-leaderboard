@@ -11,7 +11,7 @@ import React, { useEffect, useState } from 'react';
 
 import Menu from '../src/Menu';
 
-const DATE_FORMAT = 'yyyyMMdd';
+const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
 
 function getCompetitions(data, now) {
   const result = [];
@@ -22,12 +22,12 @@ function getCompetitions(data, now) {
   }
   result.forEach(comp => {
     comp.start = parse(
-      comp.StartDate.slice(0, DATE_FORMAT.length),
+      comp.StartDate,
       DATE_FORMAT,
       now,
     );
     comp.end = parse(
-      comp.EndDate.slice(0, DATE_FORMAT.length),
+      comp.EndDate,
       DATE_FORMAT,
       now,
     );
