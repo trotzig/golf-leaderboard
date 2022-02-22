@@ -50,7 +50,7 @@ a {
 
 .competitions ul {
   margin-top: 30px;
-  padding: 10px;
+  padding: 10px 10px 10px 0;
 }
 .competitions ul li {
   margin-bottom: 30px;
