@@ -102,6 +102,7 @@ a {
   column-gap: 15px;
   padding: 10px 10px;
   transition: all 0.2s;
+  min-height: 50px;
 }
 
 .leaderboard .player.favorite-player {
@@ -133,6 +134,11 @@ a {
   opacity: 0.5;
   align-items: center;
   justify-content: space-between;
+}
+
+.leaderboard .round-start-time {
+  grid-column-start: 1;
+  grid-column-end: 17;
 }
 
 .round-score {

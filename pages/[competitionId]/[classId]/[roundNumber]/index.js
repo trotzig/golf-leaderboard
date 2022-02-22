@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { parse, format } from 'date-fns';
 import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+
+import ClockIcon from '../../../../src/ClockIcon';
 
 function getEntries(data) {
   if (!data.Classes) {
@@ -24,30 +27,43 @@ function fixParValue(val) {
 }
 
 function Round({ round }) {
+  const now = new Date();
+  const startTime = parse(round.StartDateTime, "yyyyMMdd'T'HHmmss", now);
+
   return (
     <div className="round">
-      {Object.keys(round.Holes).map((holeKey, i) => {
-        const score = round.HoleScores[holeKey];
-        const toParClass = !score
-          ? 'unknown'
-          : score.Result.ToParValue < -1
-          ? 'eagle'
-          : score.Result.ToParValue < 0
-          ? 'birdie'
-          : score.Result.ToParValue > 1
-          ? 'bogey-plus'
-          : score.Result.ToParValue > 0
-          ? 'bogey'
-          : 'on-par';
-        const result = [
-          <span key={holeKey} className={`round-score ${toParClass}`}>
-            {score ? score.Result.ActualText : '-'}
-          </span>,
-        ];
-        return result;
-      })}
+      {now < startTime ? (
+        <div className="round-start-time">{format(startTime, 'HH:mm')}</div>
+      ) : (
+        Object.keys(round.Holes).map((holeKey, i) => {
+          const score = round.HoleScores[holeKey];
+          const toParClass = !score
+            ? 'unknown'
+            : score.Result.ToParValue < -1
+            ? 'eagle'
+            : score.Result.ToParValue < 0
+            ? 'birdie'
+            : score.Result.ToParValue > 1
+            ? 'bogey-plus'
+            : score.Result.ToParValue > 0
+            ? 'bogey'
+            : 'on-par';
+          const result = [
+            <span key={holeKey} className={`round-score ${toParClass}`}>
+              {score ? score.Result.ActualText : '-'}
+            </span>,
+          ];
+          return result;
+        })
+      )}
     </div>
   );
+}
+
+function getFirstRoundStart(round) {
+  const now = new Date();
+  const startTime = parse(round.StartDateTime, "yyyyMMdd'T'HHmmss", now);
+  return startTime;
 }
 
 function Player({ entry }) {
@@ -72,7 +88,11 @@ function Player({ entry }) {
   return (
     <li className={classes.join(' ')}>
       <span className="position">
-        <span>{entry.Position.Calculated}</span>
+        <span>
+          {entry.Position.Calculated || (
+            <ClockIcon date={getFirstRoundStart(rounds[0])} />
+          )}
+        </span>
         <button className="favorite" onClick={() => setFavorite(!favorite)}>
           <svg
             height="24px"
