@@ -21,16 +21,8 @@ function getCompetitions(data, now) {
     }
   }
   result.forEach(comp => {
-    comp.start = parse(
-      comp.StartDate,
-      DATE_FORMAT,
-      now,
-    );
-    comp.end = parse(
-      comp.EndDate,
-      DATE_FORMAT,
-      now,
-    );
+    comp.start = parse(comp.StartDate, DATE_FORMAT, now);
+    comp.end = parse(comp.EndDate, DATE_FORMAT, now);
   });
   return result;
 }
@@ -109,7 +101,7 @@ export default function StartPage() {
                   : 'upcoming';
               return (
                 <li key={c.ID} className={badge}>
-                  <Link href={`/${c.ID}/3066464/0`}>
+                  <Link href={`/competitions/${c.ID}`}>
                     <a className="competition">
                       <div className="calendar-event">
                         <b>{format(c.start, 'd')}</b>
