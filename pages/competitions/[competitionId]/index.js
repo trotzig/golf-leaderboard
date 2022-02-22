@@ -1,6 +1,7 @@
 import { parse, format } from 'date-fns';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import Head from 'next/head';
 
 import ClockIcon from '../../../src/ClockIcon';
 import Menu from '../../../src/Menu';
@@ -169,6 +170,12 @@ export default function CompetitionPage() {
   const entries = data && getEntries(data);
   return (
     <div className="leaderboard">
+      <Head>
+        <title>
+          Leaderboard
+          {data && ` | ${data.CompetitionData.Name}`}
+        </title>
+      </Head>
       <Menu />
       <h2>Leaderboard</h2>
       {data && (

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Head from 'next/head';
 
 import Menu from '../src/Menu';
 
@@ -75,6 +76,9 @@ export default function OrderOfMeritPage() {
   const entries = data && getEntries(data);
   return (
     <div className="leaderboard">
+      <Head>
+        <title>Order of merit</title>
+      </Head>
       <Menu />
       <h2>Order of merit</h2>
       {data ? (
