@@ -46,7 +46,7 @@ function dateString(competition, now) {
 
   if (start <= now && now <= end) {
     // Currently active
-    return `Currently playing round ${differenceInDays(start, now) + 1} of ${
+    return `Currently playing round ${differenceInDays(now, start) + 1} of ${
       numberOfDays + 1
     }`;
   }
