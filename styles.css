@@ -133,6 +133,26 @@ nav {
   color: inherit;
 }
 
+.competitions li.current .competition h4 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.competitions li.current .competition h4 > * {
+  margin-right: 10px;
+}
+.competitions li.current .competition h4:after {
+  content: 'current';
+  text-transform: uppercase;
+  background-color: var(--primary);
+  display: inline-block;
+  padding: 4px 7px;
+  border-radius: 3px;
+  font-size: 10px;
+  line-height: 1;
+  color: var(--light);
+}
+
 .leaderboard ul li {
   display: block;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -228,6 +248,7 @@ nav {
   text-align: center;
 }
 .leaderboard .player svg {
+  transition: fill .2s;
   fill: var(--dark);
 }
 .leaderboard .favorite-player svg {

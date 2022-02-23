@@ -108,7 +108,7 @@ export default function StartPage() {
                         <span>{format(c.start, 'MMM')}</span>
                       </div>
                       <div>
-                        <h4>{c.Name}</h4>
+                        <h4><span>{c.Name}</span></h4>
                         <p>{dateString(c, now)}</p>
                       </div>
                     </a>
