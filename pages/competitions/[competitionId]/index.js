@@ -91,20 +91,8 @@ function getFirstRoundStart(round) {
   return startTime;
 }
 
-function Player({ entry }) {
+function Player({ entry, onFavoriteChange, favorite }) {
   const rounds = getRounds(entry);
-  const [favorite, setFavorite] = useState(
-    localStorage.getItem(entry.MemberID),
-  );
-
-  useEffect(() => {
-    if (favorite) {
-      localStorage.setItem(entry.MemberID, '1');
-    } else {
-      localStorage.removeItem(entry.MemberID);
-    }
-  }, [favorite, entry]);
-
   const classes = ['player'];
   if (favorite) {
     classes.push('favorite-player');
@@ -118,7 +106,10 @@ function Player({ entry }) {
             <ClockIcon date={getFirstRoundStart(rounds[0])} />
           )}
         </span>
-        <button className="favorite" onClick={() => setFavorite(!favorite)}>
+        <button
+          className="favorite"
+          onClick={() => onFavoriteChange(!favorite, entry.MemberID)}
+        >
           <svg
             height="24px"
             viewBox="0 0 24 24"
@@ -152,8 +143,20 @@ function Player({ entry }) {
 
 export default function CompetitionPage() {
   const [data, setData] = useState();
+  const [entries, setEntries] = useState();
   const router = useRouter();
   const { competitionId } = router.query;
+
+  function handleFavoriteChange(favorite, memberId) {
+    console.log(favorite, memberId);
+    if (favorite) {
+      localStorage.setItem(memberId, '1');
+    } else {
+      localStorage.removeItem(memberId);
+    }
+    setEntries(old => [...old]);
+  }
+
   useEffect(() => {
     if (!competitionId) {
       return;
@@ -161,13 +164,13 @@ export default function CompetitionPage() {
     const rndFunctionName = `rnd_${Math.floor(Math.random() * 1000001)}`;
     window[rndFunctionName] = payload => {
       setData(payload);
+      setEntries(getEntries(payload));
     };
     const scriptEl = document.createElement('script');
     const url = `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/?callback=${rndFunctionName}&_=${Date.now()}`;
     scriptEl.src = url;
     document.body.appendChild(scriptEl);
   }, [competitionId]);
-  const entries = data && getEntries(data);
   return (
     <div className="leaderboard">
       <Head>
@@ -188,7 +191,14 @@ export default function CompetitionPage() {
       ) : entries ? (
         <ul>
           {entries.map(entry => {
-            return <Player key={entry.RefID} entry={entry} />;
+            return (
+              <Player
+                key={entry.RefID}
+                entry={entry}
+                favorite={localStorage.getItem(entry.MemberID)}
+                onFavoriteChange={handleFavoriteChange}
+              />
+            );
           })}
         </ul>
       ) : (
