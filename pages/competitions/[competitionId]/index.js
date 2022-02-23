@@ -13,7 +13,11 @@ function getEntries(data) {
   const classKey = Object.keys(data.Classes)[0];
   const entries = data.Classes[classKey].Leaderboard.Entries;
   const entryKeys = Object.keys(entries);
-  return entryKeys.map(key => entries[key]);
+  const result = entryKeys.map(key => entries[key]);
+  for (const entry of result) {
+    entry.isFavorite = localStorage.getItem(entry.MemberID);
+  }
+  return result;
 }
 
 function getRounds(entry) {
@@ -91,10 +95,10 @@ function getFirstRoundStart(round) {
   return startTime;
 }
 
-function Player({ entry, onFavoriteChange, favorite }) {
+function Player({ entry, onFavoriteChange }) {
   const rounds = getRounds(entry);
   const classes = ['player'];
-  if (favorite) {
+  if (entry.isFavorite) {
     classes.push('favorite-player');
   }
 
@@ -108,13 +112,12 @@ function Player({ entry, onFavoriteChange, favorite }) {
         </span>
         <button
           className="favorite"
-          onClick={() => onFavoriteChange(!favorite, entry.MemberID)}
+          onClick={() => onFavoriteChange(!entry.isFavorite, entry.MemberID)}
         >
           <svg
             height="24px"
             viewBox="0 0 24 24"
             width="24px"
-            fill={favorite ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.2)'}
           >
             <path d="M0 0h24v24H0z" fill="none" stroke="none" />
             <path d="M0 0h24v24H0z" fill="none" stroke="none" />
@@ -148,13 +151,12 @@ export default function CompetitionPage() {
   const { competitionId } = router.query;
 
   function handleFavoriteChange(favorite, memberId) {
-    console.log(favorite, memberId);
     if (favorite) {
       localStorage.setItem(memberId, '1');
     } else {
       localStorage.removeItem(memberId);
     }
-    setEntries(old => [...old]);
+    setEntries(getEntries(data));
   }
 
   useEffect(() => {
@@ -171,6 +173,8 @@ export default function CompetitionPage() {
     scriptEl.src = url;
     document.body.appendChild(scriptEl);
   }, [competitionId]);
+
+  const favorites = entries && entries.filter(e => e.isFavorite);
   return (
     <div className="leaderboard">
       <Head>
@@ -182,25 +186,44 @@ export default function CompetitionPage() {
       <Menu />
       <h2>Leaderboard</h2>
       {data && (
-        <h3>
+        <p className="leaderboard-subtitle">
           {data.CompetitionData.Name} – {data.CompetitionData.Venue.Name}
-        </h3>
+        </p>
       )}
       {data && !data.Classes ? (
         <p className="alert">This competition hasn't started yet</p>
       ) : entries ? (
-        <ul>
-          {entries.map(entry => {
-            return (
-              <Player
-                key={entry.RefID}
-                entry={entry}
-                favorite={localStorage.getItem(entry.MemberID)}
-                onFavoriteChange={handleFavoriteChange}
-              />
-            );
-          })}
-        </ul>
+        <div>
+          {favorites && favorites.length ? (
+            <div>
+              <h3 className="leaderboard-section-heading">Favorites</h3>
+              <ul>
+                {favorites.map(entry => {
+                  return (
+                    <Player
+                      key={entry.RefID}
+                      entry={entry}
+                      onFavoriteChange={handleFavoriteChange}
+                    />
+                  );
+                })}
+              </ul>
+              <h3 className="leaderboard-section-heading">Everyone</h3>
+            </div>
+          ) : null}
+
+          <ul>
+            {entries.map(entry => {
+              return (
+                <Player
+                  key={entry.RefID}
+                  entry={entry}
+                  onFavoriteChange={handleFavoriteChange}
+                />
+              );
+            })}
+          </ul>
+        </div>
       ) : (
         <div className="lds-ellipsis">
           <div></div>

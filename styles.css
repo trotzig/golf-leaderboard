@@ -3,6 +3,7 @@
   --primary-light: #f4c7c1;
   --secondary: #004987;
   --dark: #515151;
+  --light: #f0f0f0;
 }
 * {
   box-sizing: border-box;
@@ -27,6 +28,19 @@ h2 {
 }
 
 h3 {
+  font-size: 16px;
+  font-weight: normal;
+  padding: 10px;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.leaderboard-section-heading {
+  margin-top: 30px;
+  border-bottom: 1px solid var(--light);
+}
+
+.leaderboard-subtitle {
   font-size: 14px;
   font-weight: normal;
   padding: 10px;
@@ -129,11 +143,6 @@ nav {
   min-height: 50px;
 }
 
-.leaderboard .player.favorite-player {
-  background-color: rgba(0, 0, 0, 0.7);
-  color: #f0f0f0;
-}
-
 .leaderboard .stats {
   transition: all 0.2s;
   overflow: hidden;
@@ -184,12 +193,6 @@ nav {
 .round-total.under-par {
   color: var(--primary);
 }
-.favorite-player .round-total.under-par {
-  color: var(--primary-light);
-}
-.favorite-player .round-score {
-  border-color: rgba(255, 255, 255, 0.5);
-}
 .round-score.birdie {
   border-width: 1px;
   border-radius: 50%;
@@ -218,9 +221,13 @@ nav {
   grid-row-end: 3;
   text-align: center;
 }
-.leaderboard .favorite-player .score.under-par {
-  color: #fff;
+.leaderboard .player svg {
+  fill: var(--dark);
 }
+.leaderboard .favorite-player svg {
+  fill: var(--primary);
+}
+
 .leaderboard .score.under-par {
   color: red;
 }
