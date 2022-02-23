@@ -9,15 +9,16 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <title>Moregolf Mastercard Tour</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <link rel="icon" href="/favicon.png" />
+        <script
+          async
+          src="https://hosted.okayanalytics.com/tracker.js?tid=OA-8Z056CCN"
+        ></script>
       </Head>
       <Component {...pageProps} />
       <footer>
         by <a href="https://github.com/trotzig/golf-leaderboard">@trotzig</a>
       </footer>
-      <script
-        async
-        src="https://hosted.okayanalytics.com/tracker.js?tid=OA-8Z056CCN"
-      ></script>
     </div>
   );
 }
