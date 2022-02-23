@@ -35,9 +35,14 @@ h3 {
   margin-bottom: 20px;
 }
 
+button {
+  cursor: pointer;
+}
+
 .leaderboard-section-heading {
   margin-top: 30px;
   border-bottom: 1px solid var(--light);
+  margin-bottom: 10px;
 }
 
 .leaderboard-subtitle {
@@ -152,6 +157,7 @@ nav {
 
 .leaderboard .favorite {
   all: unset;
+  cursor: pointer;
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -229,7 +235,7 @@ nav {
 }
 
 .leaderboard .score.under-par {
-  color: red;
+  color: var(--primary);
 }
 
 .leaderboard .club {
