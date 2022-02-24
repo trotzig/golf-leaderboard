@@ -1,6 +1,7 @@
 :root {
   --primary: #e54e37;
   --primary-light: #f4c7c1;
+  --primary-lightest: #ffe6e2;
   --secondary: #004987;
   --dark: #515151;
   --light: #f0f0f0;
@@ -61,7 +62,8 @@ a {
   margin: 10px;
   padding: 10px;
   border-radius: 3px;
-  background-color: #c6ffe4;
+  background-color: var(--primary-lightest);
+  border: 1px solid var(--primary-light);
 }
 
 .leaderboard,

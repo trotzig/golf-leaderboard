@@ -13,6 +13,9 @@ function getEntries(data) {
   }
   const classKey = Object.keys(data.Classes)[0];
   const entries = data.Classes[classKey].Leaderboard.Entries;
+  if (!entries) {
+    return;
+  }
   const entryKeys = Object.keys(entries);
   const result = entryKeys.map(key => entries[key]);
   for (const entry of result) {
@@ -185,7 +188,7 @@ export default function CompetitionPage() {
           {data.CompetitionData.Name} – {data.CompetitionData.Venue.Name}
         </p>
       )}
-      {data && !data.Classes ? (
+      {data && !entries ? (
         <p className="alert">This competition hasn't started yet</p>
       ) : entries ? (
         <div>
