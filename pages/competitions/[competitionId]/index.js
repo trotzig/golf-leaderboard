@@ -219,7 +219,7 @@ export default function CompetitionPage() {
     } else {
       localStorage.removeItem(memberId);
     }
-    setEntries(getEntries(data));
+    setEntries(getEntries(data, timesData));
   }
 
   useEffect(() => {
