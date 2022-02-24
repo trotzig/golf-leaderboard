@@ -14,6 +14,9 @@ function pluralizeRounds(count) {
   return `${count} rounds`;
 }
 function getEntriesFromTimesData(timesData) {
+  if (!timesData.ActiveRoundNumber) {
+    return {};
+  }
   const entries = [];
   const round = timesData.Rounds[`R${timesData.ActiveRoundNumber}`];
   const startTimeIndex = {};
@@ -266,9 +269,11 @@ export default function CompetitionPage() {
           ) : null}
         </p>
       )}
-      {data && !entries ? (
-        <p className="alert">This competition hasn't started yet</p>
-      ) : entries ? (
+      {!loading &&
+        (!timesData || typeof timesData.ActiveRoundNumber !== 'number') && (
+          <p className="alert">This competition hasn't started yet</p>
+        )}
+      {entries ? (
         <div>
           {favorites && favorites.length ? (
             <div>
