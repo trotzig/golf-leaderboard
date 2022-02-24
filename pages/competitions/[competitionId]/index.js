@@ -7,19 +7,78 @@ import ClockIcon from '../../../src/ClockIcon';
 import Menu from '../../../src/Menu';
 import fetchJsonP from '../../../src/fetchJsonP';
 
-function getEntries(data) {
+function pluralizeRounds(count) {
+  if (count === 1) {
+    return 'one round';
+  }
+  return `${count} rounds`;
+}
+function getEntriesFromTimesData(timesData) {
+  const entries = [];
+  const round = timesData.Rounds[`R${timesData.ActiveRoundNumber}`];
+  const startTimeIndex = {};
+  for (const startList of Object.values(round.StartLists)) {
+    entries.push(...startList.Entries);
+  }
+  for (const round of Object.values(timesData.Rounds)) {
+    for (const startList of Object.values(round.StartLists)) {
+      for (const entry of Object.values(startList.Entries)) {
+        startTimeIndex[`R${round.Number}-${entry.MemberID}`] = entry.StartTime;
+      }
+    }
+  }
+
+  for (const entry of entries) {
+    entry.Rounds = {};
+    for (const roundKey of Object.keys(timesData.Rounds)) {
+      entry.Rounds[roundKey] = {
+        StartDateTime: startTimeIndex[`${roundKey}-${entry.MemberID}`],
+      };
+    }
+    entry.ResultSum = { ToParValue: 0, ToParText: 'E' };
+    entry.activeRoundNumber = timesData.ActiveRoundNumber;
+  }
+  entries.sort((a, b) => {
+    const aStart = a.Rounds[`R${a.activeRoundNumber}`].StartDateTime;
+    const bStart = b.Rounds[`R${b.activeRoundNumber}`].StartDateTime;
+    if (aStart > bStart) {
+      return 1;
+    }
+    if (aStart < bStart) {
+      return -1;
+    }
+    return 0;
+  });
+  const result = {};
+  for (const entry of entries) {
+    result[entry.MemberID] = entry;
+  }
+  return result;
+}
+
+function getEntries(data, timesData) {
   if (!data.Classes) {
     return;
   }
   const classKey = Object.keys(data.Classes)[0];
-  const entries = data.Classes[classKey].Leaderboard.Entries;
-  if (!entries) {
+  let entries = data.Classes[classKey].Leaderboard.Entries;
+  if (!entries && !timesData) {
     return;
+  }
+  const timeEntries = getEntriesFromTimesData(timesData);
+  if (!entries) {
+    // hasn't started yet, show start times
+    entries = Object.values(timeEntries);
   }
   const entryKeys = Object.keys(entries);
   const result = entryKeys.map(key => entries[key]);
   for (const entry of result) {
     entry.isFavorite = localStorage.getItem(entry.MemberID);
+    const timeEntry = timeEntries[entry.MemberID];
+    if (timeEntry) {
+      entry.activeRoundNumber = timeEntry.activeRoundNumber;
+      entry.Rounds = { ...timeEntry.Rounds, ...entry.Rounds };
+    }
   }
   return result;
 }
@@ -52,10 +111,10 @@ function Round({ round }) {
 
   return (
     <div className="round">
-      {now < startTime ? (
+      {now < startTime || !round.Holes ? (
         <div className="round-start-time">{format(startTime, 'HH:mm')}</div>
       ) : (
-        Object.keys(round.Holes).map((holeKey, i) => {
+        Object.keys(round.Holes || {}).map((holeKey, i) => {
           const score = round.HoleScores[holeKey];
           const toParClass = !score
             ? 'unknown'
@@ -110,8 +169,10 @@ function Player({ entry, onFavoriteChange }) {
     <li className={classes.join(' ')}>
       <span className="position">
         <span>
-          {entry.Position.Calculated || (
-            <ClockIcon date={getFirstRoundStart(rounds[0])} />
+          {(entry.Position && entry.Position.Calculated) || (
+            <ClockIcon
+              date={getFirstRoundStart(rounds[entry.activeRoundNumber - 1])}
+            />
           )}
         </span>
         <button
@@ -146,6 +207,8 @@ function Player({ entry, onFavoriteChange }) {
 
 export default function CompetitionPage() {
   const [data, setData] = useState();
+  const [loading, setLoading] = useState(true);
+  const [timesData, setTimesData] = useState();
   const [entries, setEntries] = useState();
   const router = useRouter();
   const { competitionId } = router.query;
@@ -164,10 +227,19 @@ export default function CompetitionPage() {
       return;
     }
     async function run() {
-      const url = `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/`;
-      const payload = await fetchJsonP(url);
-      setData(payload);
-      setEntries(getEntries(payload));
+      setLoading(true);
+      const [compPayload, timesPayload] = await Promise.all([
+        fetchJsonP(
+          `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/`,
+        ),
+        fetchJsonP(
+          `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competitionId}/language/2057/`,
+        ),
+      ]);
+      setData(compPayload);
+      setTimesData(timesPayload);
+      setEntries(getEntries(compPayload, timesPayload));
+      setLoading(false);
     }
     run();
   }, [competitionId]);
@@ -186,6 +258,12 @@ export default function CompetitionPage() {
       {data && (
         <p className="leaderboard-subtitle">
           {data.CompetitionData.Name} – {data.CompetitionData.Venue.Name}
+          {timesData && timesData.Rounds ? (
+            <span>
+              {' '}
+              – {pluralizeRounds(Object.keys(timesData.Rounds).length)}
+            </span>
+          ) : null}
         </p>
       )}
       {data && !entries ? (
@@ -214,7 +292,7 @@ export default function CompetitionPage() {
             {entries.map(entry => {
               return (
                 <Player
-                  key={entry.RefID}
+                  key={entry.MemberID}
                   entry={entry}
                   onFavoriteChange={handleFavoriteChange}
                 />
@@ -222,7 +300,8 @@ export default function CompetitionPage() {
             })}
           </ul>
         </div>
-      ) : (
+      ) : null}
+      {loading && (
         <div className="lds-ellipsis">
           <div></div>
           <div></div>
