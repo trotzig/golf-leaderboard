@@ -69,7 +69,7 @@ function Player({ entry }) {
           {Object.values(entry.Results).map(result => {
             return (
               <div
-                key={result.CompetitionId}
+                key={result.CompetitionID}
                 className={`round-score ${
                   isFirst(result.Position)
                     ? 'first'
