@@ -1,10 +1,11 @@
 import { parse, format } from 'date-fns';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
+import React, { useEffect, useState } from 'react';
 
 import ClockIcon from '../../../src/ClockIcon';
 import Menu from '../../../src/Menu';
+import fetchJsonP from '../../../src/fetchJsonP';
 
 function getEntries(data) {
   if (!data.Classes) {
@@ -114,11 +115,7 @@ function Player({ entry, onFavoriteChange }) {
           className="favorite"
           onClick={() => onFavoriteChange(!entry.isFavorite, entry.MemberID)}
         >
-          <svg
-            height="24px"
-            viewBox="0 0 24 24"
-            width="24px"
-          >
+          <svg height="24px" viewBox="0 0 24 24" width="24px">
             <path d="M0 0h24v24H0z" fill="none" stroke="none" />
             <path d="M0 0h24v24H0z" fill="none" stroke="none" />
             <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
@@ -163,15 +160,13 @@ export default function CompetitionPage() {
     if (!competitionId) {
       return;
     }
-    const rndFunctionName = `rnd_${Math.floor(Math.random() * 1000001)}`;
-    window[rndFunctionName] = payload => {
+    async function run() {
+      const url = `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/`;
+      const payload = await fetchJsonP(url);
       setData(payload);
       setEntries(getEntries(payload));
-    };
-    const scriptEl = document.createElement('script');
-    const url = `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/?callback=${rndFunctionName}&_=${Date.now()}`;
-    scriptEl.src = url;
-    document.body.appendChild(scriptEl);
+    }
+    run();
   }, [competitionId]);
 
   const favorites = entries && entries.filter(e => e.isFavorite);

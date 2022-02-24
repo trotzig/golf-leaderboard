@@ -10,6 +10,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
 import Menu from '../src/Menu';
+import fetchJsonP from '../src/fetchJsonP';
 
 const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
 
@@ -71,14 +72,12 @@ function dateString(competition, now) {
 export default function StartPage() {
   const [data, setData] = useState();
   useEffect(() => {
-    const rndFunctionName = `rnd_${Math.floor(Math.random() * 1000001)}`;
-    window[rndFunctionName] = payload => {
+    async function run() {
+      const url = `https://scores.golfbox.dk/Handlers/ScheduleHandler/GetSchedule/CustomerId/1/Season/2022/CompetitionId/0/language/2057/`;
+      const payload = await fetchJsonP(url);
       setData(payload);
-    };
-    const scriptEl = document.createElement('script');
-    const url = `https://scores.golfbox.dk/Handlers/ScheduleHandler/GetSchedule/CustomerId/1/Season/2022/CompetitionId/0/language/2057/?callback=${rndFunctionName}&_=${Date.now()}`;
-    scriptEl.src = url;
-    document.body.appendChild(scriptEl);
+    }
+    run();
   }, []);
   // const now = startOfDay(new Date(Date.now() + 24 * 60 * 60 * 1000));
   const now = startOfDay(new Date());
@@ -108,7 +107,9 @@ export default function StartPage() {
                         <span>{format(c.start, 'MMM')}</span>
                       </div>
                       <div>
-                        <h4><span>{c.Name}</span></h4>
+                        <h4>
+                          <span>{c.Name}</span>
+                        </h4>
                         <p>{dateString(c, now)}</p>
                       </div>
                     </a>

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
+import React, { useEffect, useState } from 'react';
 
 import Menu from '../src/Menu';
+import fetchJsonP from '../src/fetchJsonP';
 
 const NUM_FORMATTER = Intl.NumberFormat('en-US', {
   notation: 'compact',
@@ -63,14 +64,12 @@ function Player({ entry }) {
 export default function OrderOfMeritPage() {
   const [data, setData] = useState();
   useEffect(() => {
-    const rndFunctionName = `rnd_${Math.floor(Math.random() * 1000001)}`;
-    window[rndFunctionName] = payload => {
+    async function run() {
+      const url = `https://scores.golfbox.dk/Handlers/OrderOfMeritsHandler/GetOrderOfMerit/CustomerId/1/language/2057/OrderOfMeritID/157709/`;
+      const payload = await fetchJsonP(url);
       setData(payload);
-    };
-    const scriptEl = document.createElement('script');
-    const url = `https://scores.golfbox.dk/Handlers/OrderOfMeritsHandler/GetOrderOfMerit/CustomerId/1/language/2057/OrderOfMeritID/157709/?callback=${rndFunctionName}&_=${Date.now()}`;
-    scriptEl.src = url;
-    document.body.appendChild(scriptEl);
+    }
+    run();
   }, []);
 
   const entries = data && getEntries(data);
