@@ -199,7 +199,7 @@ function Player({ entry, onFavoriteChange }) {
       >
         {fixParValue(entry.ResultSum.ToParText)}
       </span>
-      <span className="stats" style={{ maxHeight: open ? 100 : 0 }}>
+      <span className="stats">
         {rounds.map(round => {
           return <Round key={round.RefID} round={round} />;
         })}

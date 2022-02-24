@@ -9,6 +9,13 @@ const NUM_FORMATTER = Intl.NumberFormat('en-US', {
   maximumFractionDigits: 1,
 });
 
+function isTop10(res) {
+  return /^T?[1-9]$/.test(res) || /^T?10$/.test(res);
+}
+function isFirst(res) {
+  return /^T?1$/.test(res);
+}
+
 function getEntries(data) {
   const entryKeys = Object.keys(data.Entries);
   return entryKeys.map(key => data.Entries[key]);
@@ -57,6 +64,26 @@ function Player({ entry }) {
       <span className="score">
         {NUM_FORMATTER.format(Math.round(entry.CalculatedResult))}
       </span>
+      <span className="stats">
+        <div className="round">
+          {Object.values(entry.Results).map(result => {
+            return (
+              <div
+                key={result.CompetitionId}
+                className={`round-score ${
+                  isFirst(result.Position)
+                    ? 'first'
+                    : isTop10(result.Position)
+                    ? 'top-10'
+                    : ''
+                }`}
+              >
+                {result.Result > 0 ? result.Position : '—'}
+              </div>
+            );
+          })}
+        </div>
+      </span>
     </li>
   );
 }
@@ -73,8 +100,9 @@ export default function OrderOfMeritPage() {
   }, []);
 
   const entries = data && getEntries(data);
+  console.log(entries);
   return (
-    <div className="leaderboard">
+    <div className="leaderboard oom">
       <Head>
         <title>Order of merit</title>
       </Head>

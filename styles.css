@@ -4,6 +4,7 @@
   --primary-lightest: #ffe6e2;
   --secondary: #004987;
   --dark: #515151;
+  --medium: #d0d0d0;
   --light: #f0f0f0;
 }
 * {
@@ -198,7 +199,6 @@ nav {
   justify-content: space-between;
   margin-bottom: 2px;
 }
-
 .leaderboard .round-start-time {
   grid-column-start: 1;
   grid-column-end: 17;
@@ -272,4 +272,26 @@ footer {
   text-align: center;
   opacity: 0.3;
   padding: 100px 10px;
+}
+
+.oom .round {
+  justify-content: flex-start;
+  opacity: 1;
+}
+
+.oom .round-score {
+  width: 24px;
+  height: auto;
+  line-height: 15px;
+  margin-right: 3px;
+}
+
+.oom .round-score.first {
+  background-color: var(--primary);
+  color: var(--light);
+  border: 1px solid var(--primary);
+  font-weight: bold;
+}
+.oom .round-score.top-10 {
+  border: 1px solid var(--medium);
 }
