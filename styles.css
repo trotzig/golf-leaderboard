@@ -195,7 +195,6 @@ nav {
   font-family: monospace;
   font-size: 12px;
   display: flex;
-  opacity: 0.5;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 2px;
@@ -206,6 +205,7 @@ nav {
 }
 
 .round-score {
+  opacity: 0.5;
   width: 15px;
   height: 15px;
   display: block;
@@ -313,25 +313,26 @@ footer {
   font-size: 14px;
 }
 
-.courses .course-4:before,
-.courses .course-3:before,
-.courses .course-2:before,
-.courses .course-1:before {
+.course-4:before,
+.course-3:before,
+.course-2:before,
+.course-1:before {
   content: ' ';
-  width: 10px;
-  height: 10px;
+  width: 5px;
+  height: 5px;
   display: inline-block;
   border-radius: 50%;
   background-color: var(--primary);
   margin-right: 5px;
+  vertical-align: middle;
 }
-.courses .course-2:before {
+.course-2:before {
   background-color: var(--secondary);
 }
-.courses .course-3:before {
+.course-3:before {
   background-color: var(--primary-light);
 }
-.courses .course-4:before {
+.course-4:before {
   background-color: var(--secondary-light);
 }
 

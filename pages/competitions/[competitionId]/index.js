@@ -131,12 +131,19 @@ function RoundTotal({ score }) {
   );
 }
 
-function Round({ round }) {
+function Round({ round, colors }) {
   const now = new Date();
   const startTime = parse(round.StartDateTime, "yyyyMMdd'T'HHmmss", now);
 
+  const classes = ['round'];
+  const color = Object.values(colors || {}).find(
+    c => c.CourseID === round.CourseRefID,
+  );
+  if (color) {
+    classes.push(color.CssName);
+  }
   return (
-    <div className="round">
+    <div className={classes.join(' ')}>
       {now < startTime || !round.Holes ? (
         <div className="round-start-time">{format(startTime, 'HH:mm')}</div>
       ) : (
@@ -184,7 +191,7 @@ function getFirstRoundStart(round) {
   return startTime;
 }
 
-function Player({ entry, onFavoriteChange }) {
+function Player({ entry, onFavoriteChange, colors }) {
   const rounds = getRounds(entry);
   const classes = ['player'];
   if (entry.isFavorite) {
@@ -224,7 +231,7 @@ function Player({ entry, onFavoriteChange }) {
       </span>
       <span className="stats">
         {rounds.map(round => {
-          return <Round key={round.RefID} round={round} />;
+          return <Round key={round.RefID} round={round} colors={colors} />;
         })}
       </span>
     </li>
@@ -328,6 +335,7 @@ export default function CompetitionPage() {
                 {favorites.map(entry => {
                   return (
                     <Player
+                      colors={data.CourseColours}
                       key={entry.RefID}
                       entry={entry}
                       onFavoriteChange={handleFavoriteChange}
@@ -343,6 +351,7 @@ export default function CompetitionPage() {
             {entries.map(entry => {
               return (
                 <Player
+                  colors={data.CourseColours}
                   key={entry.MemberID}
                   entry={entry}
                   onFavoriteChange={handleFavoriteChange}
