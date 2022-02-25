@@ -14,6 +14,28 @@ function pluralizeRounds(count) {
   }
   return `${count} rounds`;
 }
+
+function removeCommonPrefix(courses, courseName) {
+  if (courses.length === 1) {
+    return courseName;
+  }
+  const names = courses.map(c => c.Name);
+  names.sort((a, b) => a.length - b.length);
+  const lastMatch = (() => {
+    let i;
+    for (i = 0; i < names[0].length; i++) {
+      const refChar = names[0][i];
+      for (const name of names) {
+        if (name[i] !== refChar) {
+          return i;
+        }
+      }
+    }
+    return i;
+  })();
+
+  return courseName.slice(lastMatch);
+}
 function getEntriesFromTimesData(timesData) {
   if (!timesData.ActiveRoundNumber) {
     return {};
@@ -271,19 +293,26 @@ export default function CompetitionPage() {
               </span>
             ) : null}
           </p>
-          <div className="courses">
-            {Object.values(data.CourseColours).map(course => {
-              return (
-                <div key={course.CourseID}>
-                  <Link
-                    href={`/competitions/${competitionId}/courses/${course.CourseID}`}
-                  >
-                    <a className={course.CssName}>{course.Name}</a>
-                  </Link>
-                </div>
-              );
-            })}
-          </div>
+          {Object.values(data.Courses).length > 0 ? (
+            <div className="courses">
+              {Object.values(data.CourseColours || {}).map(course => {
+                return (
+                  <div key={course.CourseID}>
+                    <Link
+                      href={`/competitions/${competitionId}/courses/${course.CourseID}`}
+                    >
+                      <a className={course.CssName}>
+                        {removeCommonPrefix(
+                          Object.values(data.CourseColours),
+                          course.Name,
+                        )}
+                      </a>
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
+          ) : null}
         </>
       )}
       {!loading &&
