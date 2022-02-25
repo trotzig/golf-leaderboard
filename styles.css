@@ -3,6 +3,7 @@
   --primary-light: #f4c7c1;
   --primary-lightest: #ffe6e2;
   --secondary: #004987;
+  --secondary-light: #6eb4ef;
   --dark: #515151;
   --medium: #d0d0d0;
   --light: #f0f0f0;
@@ -52,7 +53,6 @@ button {
   font-weight: normal;
   padding: 10px;
   margin: 0;
-  margin-bottom: 20px;
 }
 
 a {
@@ -69,8 +69,9 @@ a {
 
 .leaderboard,
 .competitions,
+.course,
 nav {
-  max-width: 500px;
+  max-width: 600px;
   margin: 0 auto;
 }
 
@@ -294,4 +295,68 @@ footer {
 }
 .oom .round-score.top-10 {
   border: 1px solid var(--medium);
+}
+.courses {
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.courses > * {
+  margin-right: 10px;
+}
+.courses h4 {
+  margin: 0 0 5px;
+}
+.courses a {
+  text-decoration: none;
+  color: inherit;
+  font-size: 14px;
+}
+
+.courses .course-4:before,
+.courses .course-3:before,
+.courses .course-2:before,
+.courses .course-1:before {
+  content: ' ';
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border-radius: 50%;
+  background-color: var(--primary);
+  margin-right: 5px;
+}
+.courses .course-2:before {
+  background-color: var(--secondary);
+}
+.courses .course-3:before {
+  background-color: var(--primary-light);
+}
+.courses .course-4:before {
+  background-color: var(--secondary-light);
+}
+
+.course-table {
+  padding: 10px;
+  width: 100%;
+  overflow: auto;
+}
+.course {
+  margin-bottom: 15px;
+}
+
+.course table {
+  color: var(--dark);
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+.course table td {
+  text-align: center;
+}
+
+.course table td:first-child,
+.course table th:first-child {
+  text-align: left;
+  font-weight: bold;
+  white-space: nowrap;
 }

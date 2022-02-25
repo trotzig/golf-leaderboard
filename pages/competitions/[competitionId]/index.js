@@ -1,6 +1,7 @@
 import { parse, format } from 'date-fns';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
 import ClockIcon from '../../../src/ClockIcon';
@@ -239,6 +240,7 @@ export default function CompetitionPage() {
           `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competitionId}/language/2057/`,
         ),
       ]);
+      console.log(compPayload, timesPayload);
       setData(compPayload);
       setTimesData(timesPayload);
       setEntries(getEntries(compPayload, timesPayload));
@@ -259,15 +261,30 @@ export default function CompetitionPage() {
       <Menu />
       <h2>Leaderboard</h2>
       {data && (
-        <p className="leaderboard-subtitle">
-          {data.CompetitionData.Name} – {data.CompetitionData.Venue.Name}
-          {timesData && timesData.Rounds ? (
-            <span>
-              {' '}
-              – {pluralizeRounds(Object.keys(timesData.Rounds).length)}
-            </span>
-          ) : null}
-        </p>
+        <>
+          <p className="leaderboard-subtitle">
+            {data.CompetitionData.Name} – {data.CompetitionData.Venue.Name}
+            {timesData && timesData.Rounds ? (
+              <span>
+                {' '}
+                – {pluralizeRounds(Object.keys(timesData.Rounds).length)}
+              </span>
+            ) : null}
+          </p>
+          <div className="courses">
+            {Object.values(data.CourseColours).map(course => {
+              return (
+                <div key={course.CourseID}>
+                  <Link
+                    href={`/competitions/${competitionId}/courses/${course.CourseID}`}
+                  >
+                    <a className={course.CssName}>{course.Name}</a>
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+        </>
       )}
       {!loading &&
         (!timesData || typeof timesData.ActiveRoundNumber !== 'number') && (
