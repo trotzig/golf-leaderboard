@@ -13,7 +13,9 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/favicon.png" />
       </Head>
       <Script src="https://hosted.okayanalytics.com/tracker.js?tid=OA-8Z056CCN" />
-      <Component {...pageProps} />
+      <main>
+        <Component {...pageProps} />
+      </main>
       <footer>
         by <a href="https://github.com/trotzig/golf-leaderboard">@trotzig</a>
       </footer>

@@ -31,11 +31,12 @@ export default function StartPage() {
   // const now = startOfDay(new Date(Date.now() + 24 * 60 * 60 * 1000));
   const now = startOfDay(new Date());
   const competitions = data && getCompetitions(data, now);
-  console.log(competitions);
 
   return (
     <div className="chrome">
-      <Menu />
+      <Menu
+        defaultCompetitionId={data && data.DefaultCompetition.CompetitionID}
+      />
       <div className="competitions">
         <h2>Competitions</h2>
         {competitions ? (
