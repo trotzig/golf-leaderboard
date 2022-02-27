@@ -198,9 +198,14 @@ function Player({ entry, onFavoriteChange, colors }) {
     classes.push('favorite-player');
   }
 
+  const positionClassname =
+    entry.Position && entry.Position.Calculated.length > 3
+      ? 'position position-long-text'
+      : 'position';
+
   return (
     <li className={classes.join(' ')}>
-      <span className="position">
+      <span className={positionClassname}>
         <span>
           {(entry.Position && entry.Position.Calculated) || (
             <ClockIcon
@@ -260,7 +265,6 @@ export default function CompetitionPage() {
       return;
     }
     async function run() {
-      setLoading(true);
       const [compPayload, timesPayload] = await Promise.all([
         fetchJsonP(
           `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/`,
@@ -269,7 +273,6 @@ export default function CompetitionPage() {
           `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competitionId}/language/2057/`,
         ),
       ]);
-      console.log(compPayload, timesPayload);
       setData(compPayload);
       setTimesData(timesPayload);
       setEntries(getEntries(compPayload, timesPayload));

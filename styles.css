@@ -251,6 +251,9 @@ nav {
   grid-row-end: 3;
   text-align: center;
 }
+.leaderboard .position-long-text {
+  font-size: 12px;
+}
 .leaderboard .player svg {
   transition: fill .2s;
   fill: var(--dark);
