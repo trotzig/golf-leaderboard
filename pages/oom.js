@@ -18,24 +18,16 @@ function isFirst(res) {
 
 function getEntries(data) {
   const entryKeys = Object.keys(data.Entries);
-  return entryKeys.map(key => data.Entries[key]);
+  const result = entryKeys.map(key => data.Entries[key]);
+  for (const entry of result) {
+    entry.isFavorite = localStorage.getItem(entry.MemberID);
+  }
+  return result;
 }
 
-function Player({ entry }) {
-  const [favorite, setFavorite] = useState(
-    localStorage.getItem(entry.MemberID),
-  );
-
-  useEffect(() => {
-    if (favorite) {
-      localStorage.setItem(entry.MemberID, '1');
-    } else {
-      localStorage.removeItem(entry.MemberID);
-    }
-  }, [favorite, entry]);
-
+function Player({ entry, onFavorite }) {
   const classes = ['player'];
-  if (favorite) {
+  if (entry.isFavorite) {
     classes.push('favorite-player');
   }
 
@@ -43,12 +35,19 @@ function Player({ entry }) {
     <li className={classes.join(' ')}>
       <span className="position">
         <span>{entry.Position}</span>
-        <button className="favorite" onClick={() => setFavorite(!favorite)}>
+        <button
+          className="favorite"
+          onClick={() => onFavorite(!entry.isFavorite, entry.MemberID)}
+        >
           <svg
             height="24px"
             viewBox="0 0 24 24"
             width="24px"
-            fill={favorite ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.2)'}
+            fill={
+              entry.isFavorite
+                ? 'rgba(255, 255, 255, 0.7)'
+                : 'rgba(0, 0, 0, 0.2)'
+            }
           >
             <path d="M0 0h24v24H0z" fill="none" stroke="none" />
             <path d="M0 0h24v24H0z" fill="none" stroke="none" />
@@ -99,8 +98,17 @@ export default function OrderOfMeritPage() {
     run();
   }, []);
 
+  function handleFavoriteChange(favorite, memberId) {
+    if (favorite) {
+      localStorage.setItem(memberId, '1');
+    } else {
+      localStorage.removeItem(memberId);
+    }
+    setData({ ...data });
+  }
+
   const entries = data && getEntries(data);
-  console.log(entries);
+  const favorites = entries && entries.filter(e => e.isFavorite);
   return (
     <div className="leaderboard oom">
       <Head>
@@ -109,11 +117,37 @@ export default function OrderOfMeritPage() {
       <Menu />
       <h2>Order of merit</h2>
       {data ? (
-        <ul>
-          {entries.map(entry => {
-            return <Player key={entry.MemberID} entry={entry} />;
-          })}
-        </ul>
+        <>
+          {favorites.length > 0 ? (
+            <>
+              <h3 className="leaderboard-section-heading">Favorites</h3>
+              <ul>
+                {favorites.map(entry => {
+                  return (
+                    <Player
+                      key={entry.MemberID}
+                      entry={entry}
+                      onFavorite={handleFavoriteChange}
+                    />
+                  );
+                })}
+              </ul>
+              <h3 className="leaderboard-section-heading">Everyone</h3>
+            </>
+          ) : null}
+
+          <ul>
+            {entries.map(entry => {
+              return (
+                <Player
+                  key={entry.MemberID}
+                  entry={entry}
+                  onFavorite={handleFavoriteChange}
+                />
+              );
+            })}
+          </ul>
+        </>
       ) : (
         <div className="lds-ellipsis">
           <div></div>
