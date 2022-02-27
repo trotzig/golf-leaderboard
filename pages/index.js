@@ -1,15 +1,9 @@
-import {
-  differenceInDays,
-  startOfDay,
-  formatDistance,
-  parse,
-  format,
-  getDate,
-} from 'date-fns';
+import { startOfDay, parse, format } from 'date-fns';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
 import Menu from '../src/Menu';
+import competitionDateString from '../src/competitionDateString';
 import fetchJsonP from '../src/fetchJsonP';
 
 const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
@@ -21,52 +15,7 @@ function getCompetitions(data, now) {
       result.push(...Object.values(m.Entries));
     }
   }
-  result.forEach(comp => {
-    comp.start = parse(comp.StartDate, DATE_FORMAT, now);
-    comp.end = parse(comp.EndDate, DATE_FORMAT, now);
-  });
   return result;
-}
-
-function dateString(competition, now) {
-  const start = competition.start;
-  const end = competition.end;
-  const numberOfDays = differenceInDays(end, start);
-  const startDay = getDate(start);
-  const endDay = getDate(end);
-
-  if (numberOfDays > 4) {
-    // If the entry spans more than 4 days, we assume it's a "Sign up" entry.
-    // These will show the entire date.
-    if (endDay < startDay) {
-      // crossing into different month
-      return `${format(start, 'MMMM d')}—${format(end, 'MMMM d')}`;
-    }
-    return `${format(start, 'MMMM d')}—${format(end, 'd')}`;
-  }
-
-  if (start <= now && now <= end) {
-    // Currently active
-    return `Currently playing round ${differenceInDays(now, start) + 1} of ${
-      numberOfDays + 1
-    }`;
-  }
-
-  if (now > end) {
-    return `Finished ${formatDistance(end, now)} ago`;
-  }
-  const daysUntilStart = differenceInDays(start, now);
-  if (daysUntilStart === 1) {
-    return 'Starts tomorrow';
-  }
-  if (daysUntilStart < 8) {
-    return `Starts in ${formatDistance(now, start)}`;
-  }
-  if (endDay < startDay) {
-    // crossing into different month
-    return `${format(start, 'MMMM d')}—${format(end, 'MMMM d')}`;
-  }
-  return `${format(start, 'MMMM d')}—${format(end, 'd')}`;
 }
 
 export default function StartPage() {
@@ -92,10 +41,12 @@ export default function StartPage() {
         {competitions ? (
           <ul>
             {competitions.map(c => {
+              const start = parse(c.StartDate, DATE_FORMAT, now);
+              const end = parse(c.EndDate, DATE_FORMAT, now);
               const badge =
-                c.start <= now && now <= c.end
+                start <= now && now <= end
                   ? 'current'
-                  : now > c.end
+                  : now > end
                   ? 'completed'
                   : 'upcoming';
               return (
@@ -103,14 +54,14 @@ export default function StartPage() {
                   <Link href={`/competitions/${c.ID}`}>
                     <a className="competition">
                       <div className="calendar-event">
-                        <b>{format(c.start, 'd')}</b>
-                        <span>{format(c.start, 'MMM')}</span>
+                        <b>{format(start, 'd')}</b>
+                        <span>{format(start, 'MMM')}</span>
                       </div>
                       <div>
                         <h4>
                           <span>{c.Name}</span>
                         </h4>
-                        <p>{dateString(c, now)}</p>
+                        <p>{competitionDateString(c, now)}</p>
                       </div>
                     </a>
                   </Link>

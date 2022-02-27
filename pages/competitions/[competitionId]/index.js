@@ -6,7 +6,15 @@ import React, { useEffect, useState } from 'react';
 
 import ClockIcon from '../../../src/ClockIcon';
 import Menu from '../../../src/Menu';
+import competitionDateString from '../../../src/competitionDateString';
 import fetchJsonP from '../../../src/fetchJsonP';
+
+const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
+
+function parseAndFormatDate(dateStr) {
+  const d = parse(dateStr, DATE_FORMAT, new Date());
+  return format(d, 'MMMM d');
+}
 
 function pluralizeRounds(count) {
   if (count === 1) {
@@ -133,7 +141,7 @@ function RoundTotal({ score }) {
 
 function Round({ round, colors }) {
   const now = new Date();
-  const startTime = parse(round.StartDateTime, "yyyyMMdd'T'HHmmss", now);
+  const startTime = parse(round.StartDateTime, DATE_FORMAT, now);
 
   const classes = ['round'];
   const color = Object.values(colors || {}).find(
@@ -187,7 +195,7 @@ function Round({ round, colors }) {
 
 function getFirstRoundStart(round) {
   const now = new Date();
-  const startTime = parse(round.StartDateTime, "yyyyMMdd'T'HHmmss", now);
+  const startTime = parse(round.StartDateTime, DATE_FORMAT, now);
   return startTime;
 }
 
@@ -236,7 +244,7 @@ function Player({ entry, onFavoriteChange, colors }) {
       </span>
       <span className="stats">
         {rounds.map(round => {
-          return <Round key={round.RefID} round={round} colors={colors} />;
+          return <Round key={round.StartDateTime} round={round} colors={colors} />;
         })}
       </span>
     </li>
@@ -296,12 +304,9 @@ export default function CompetitionPage() {
         <>
           <p className="leaderboard-subtitle">
             {data.CompetitionData.Name} – {data.CompetitionData.Venue.Name}
-            {timesData && timesData.Rounds ? (
-              <span>
-                {' '}
-                – {pluralizeRounds(Object.keys(timesData.Rounds).length)}
-              </span>
-            ) : null}
+          </p>
+          <p className="leaderboard-dates">
+            {competitionDateString(data.CompetitionData)}
           </p>
           {Object.values(data.Courses).length > 0 ? (
             <div className="courses">

@@ -1,0 +1,52 @@
+import {
+  differenceInDays,
+  formatDistance,
+  format,
+  getDate,
+  parse,
+} from 'date-fns';
+
+const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
+
+export default function competitionDateString(competition, now = new Date()) {
+  const start = parse(competition.StartDate, DATE_FORMAT, now);
+  const end = parse(competition.EndDate, DATE_FORMAT, now);
+  const numberOfDays = differenceInDays(end, start);
+  const startDay = getDate(start);
+  const endDay = getDate(end);
+
+  if (numberOfDays > 4) {
+    // If the entry spans more than 4 days, we assume it's a "Sign up" entry.
+    // These will show the entire date.
+    if (endDay < startDay) {
+      // crossing into different month
+      return `${format(start, 'MMMM d')}—${format(end, 'MMMM d')}`;
+    }
+    return `${format(start, 'MMMM d')}—${format(end, 'd')}`;
+  }
+
+  let suffix = '';
+
+  if (start <= now && now <= end) {
+    // Currently active
+    suffix = ` — Currently playing round ${
+      differenceInDays(now, start) + 1
+    } of ${numberOfDays + 1}`;
+  } else {
+    if (now > end) {
+      return `Finished ${formatDistance(end, now)} ago`;
+    }
+    const daysUntilStart = differenceInDays(start, now);
+    if (daysUntilStart === 1) {
+      return 'Starts tomorrow';
+    }
+    if (daysUntilStart < 8) {
+      return `Starts in ${formatDistance(now, start)}`;
+    }
+  }
+  if (endDay < startDay) {
+    // crossing into different month
+    return `${format(start, 'MMMM d')}—${format(end, 'MMMM d')}${suffix}`;
+  }
+  return `${format(start, 'MMMM d')}—${format(end, 'd')}${suffix}`;
+}

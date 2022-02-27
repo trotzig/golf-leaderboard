@@ -48,6 +48,7 @@ button {
   margin-bottom: 10px;
 }
 
+.leaderboard-dates,
 .leaderboard-subtitle {
   font-size: 14px;
   font-weight: normal;
@@ -255,7 +256,7 @@ nav {
   font-size: 12px;
 }
 .leaderboard .player svg {
-  transition: fill .2s;
+  transition: fill 0.2s;
   fill: var(--dark);
 }
 .leaderboard .favorite-player svg {
