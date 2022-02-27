@@ -70,9 +70,13 @@ a {
 
 .leaderboard,
 .competitions,
-.course,
 nav {
   max-width: 600px;
+  margin: 0 auto;
+}
+
+.course {
+  max-width: 800px;
   margin: 0 auto;
 }
 
@@ -349,19 +353,42 @@ footer {
   margin-bottom: 15px;
 }
 
-.course table {
+.course-table {
   color: var(--dark);
-  font-size: 10px;
-  opacity: 0.7;
+  font-size: 12px;
+  opacity: 0.8;
 }
 
-.course table td {
+.course-table {
+  display: grid;
+  grid-template-columns: auto repeat(21, 1fr);
+  column-gap: 5px;
+}
+.course-item {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 5px;
   text-align: center;
 }
-
-.course table td:first-child,
-.course table th:first-child {
+.course-item > *:first-child {
+  font-weight: bold;
+}
+.course-item:first-child {
   text-align: left;
   font-weight: bold;
   white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .course-table {
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+    max-width: 200px;
+    margin: 0 auto;
+  }
+  .course-item {
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 5px;
+    text-align: left;
+  }
 }

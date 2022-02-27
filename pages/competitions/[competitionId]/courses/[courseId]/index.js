@@ -6,13 +6,12 @@ import fetchJsonP from '../../../../../src/fetchJsonP';
 
 export default function Course() {
   const [course, setCourse] = useState();
+  const [venue, setVenue] = useState();
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const { competitionId, courseId } = router.query;
-  console.log(competitionId, courseId);
 
   useEffect(() => {
-    console.log('effect');
     if (!competitionId || !courseId) {
       return;
     }
@@ -21,7 +20,9 @@ export default function Course() {
       const data = await fetchJsonP(
         `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/`,
       );
+      console.log(data);
       setCourse(data.Courses[`C${courseId}`]);
+      setVenue(data.CompetitionData.Venue);
       setLoading(false);
     }
     run();
@@ -39,39 +40,25 @@ export default function Course() {
           </div>
         ) : (
           <>
-            <h2>{course.Name}</h2>
+            <h2>{venue.Name} – {course.Name}</h2>
             <div className="course-table">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Hole</th>
-                    {Object.values(course.Holes)
-                      .slice(0, 18)
-                      .map(hole => (
-                        <th key={hole.Number}>{hole.Number}</th>
-                      ))}
-                    <th>In</th>
-                    <th>Out</th>
-                    <th>Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Len (m)</td>
-                    {Object.values(course.Holes).map(hole => {
-                      const tee = Object.values(hole.Tees)[0];
-                      return <td key={hole.Number}>{tee.Length}</td>;
-                    })}
-                  </tr>
-                  <tr>
-                    <td>Par</td>
-                    {Object.values(course.Holes).map(hole => {
-                      const tee = Object.values(hole.Tees)[0];
-                      return <td key={hole.Number}>{tee.Par}</td>;
-                    })}
-                  </tr>
-                </tbody>
-              </table>
+              <div className="course-item">
+                <span>Hole</span>
+                <span>Len(m)</span>
+                <span>Par</span>
+              </div>
+
+              {Object.keys(course.Holes).map(holeKey => {
+                const hole = course.Holes[holeKey];
+                const tee = Object.values(hole.Tees)[0];
+                return (
+                  <div key={holeKey} className="course-item">
+                    <span>{holeKey.replace(/^H-?/, '')}</span>
+                    <span>{tee.Length}</span>
+                    <span>{tee.Par}</span>
+                  </div>
+                );
+              })}
             </div>
           </>
         )}
