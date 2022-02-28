@@ -15,20 +15,20 @@ export const Ongoing = () => (
   <CompetitionPage
     {...ongoing}
     initialLoading={false}
-    now={new Date('2022-02-28 12:00')}
+    now={new Date('2022-02-28T12:00:00')}
   />
 );
 export const Finished = () => (
   <CompetitionPage
     {...finished}
     initialLoading={false}
-    now={new Date('2022-02-25 12:00')}
+    now={new Date('2022-02-28T12:00:00')}
   />
 );
 export const Upcoming = () => (
   <CompetitionPage
     {...upcoming}
     initialLoading={false}
-    now={new Date('2022-02-25 12:00')}
+    now={new Date('2022-02-28T12:00:00')}
   />
 );
