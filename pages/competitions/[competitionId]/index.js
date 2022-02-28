@@ -210,7 +210,9 @@ function Player({ entry, onFavoriteChange, colors, now, i }) {
       ? 'position position-long-text'
       : 'position';
 
-  const Wrapper = i > 20 ? Lazy : React.Fragment;
+  const StatsWrapper = i > 20 ? Lazy : 'div';
+  const statsHeight =
+    window.innerWidth < 400 ? 14 * rounds.length : 17 * rounds.length;
 
   return (
     <li className={classes.join(' ')}>
@@ -246,20 +248,18 @@ function Player({ entry, onFavoriteChange, colors, now, i }) {
       >
         {fixParValue(entry.ResultSum.ToParText)}
       </span>
-      <Wrapper minHeight={17 * rounds.length}>
-        <span className="stats">
-          {rounds.map(round => {
-            return (
-              <Round
-                key={round.StartDateTime}
-                round={round}
-                colors={colors}
-                now={now}
-              />
-            );
-          })}
-        </span>
-      </Wrapper>
+      <StatsWrapper className="stats" minHeight={statsHeight}>
+        {rounds.map(round => {
+          return (
+            <Round
+              key={round.StartDateTime}
+              round={round}
+              colors={colors}
+              now={now}
+            />
+          );
+        })}
+      </StatsWrapper>
     </li>
   );
 }
