@@ -5,6 +5,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
 import ClockIcon from '../../../src/ClockIcon';
+import Lazy from '../../../src/Lazy';
 import Menu from '../../../src/Menu';
 import competitionDateString from '../../../src/competitionDateString';
 import fetchJsonP from '../../../src/fetchJsonP';
@@ -197,7 +198,7 @@ function getFirstRoundStart(round, now) {
   return startTime;
 }
 
-function Player({ entry, onFavoriteChange, colors, now }) {
+function Player({ entry, onFavoriteChange, colors, now, i }) {
   const rounds = getRounds(entry);
   const classes = ['player'];
   if (entry.isFavorite) {
@@ -208,6 +209,8 @@ function Player({ entry, onFavoriteChange, colors, now }) {
     entry.Position && entry.Position.Calculated.length > 3
       ? 'position position-long-text'
       : 'position';
+
+  const Wrapper = i > 20 ? Lazy : React.Fragment;
 
   return (
     <li className={classes.join(' ')}>
@@ -243,18 +246,20 @@ function Player({ entry, onFavoriteChange, colors, now }) {
       >
         {fixParValue(entry.ResultSum.ToParText)}
       </span>
-      <span className="stats">
-        {rounds.map(round => {
-          return (
-            <Round
-              key={round.StartDateTime}
-              round={round}
-              colors={colors}
-              now={now}
-            />
-          );
-        })}
-      </span>
+      <Wrapper minHeight={17 * rounds.length}>
+        <span className="stats">
+          {rounds.map(round => {
+            return (
+              <Round
+                key={round.StartDateTime}
+                round={round}
+                colors={colors}
+                now={now}
+              />
+            );
+          })}
+        </span>
+      </Wrapper>
     </li>
   );
 }
@@ -386,7 +391,7 @@ export default function CompetitionPage({
           ) : null}
 
           <ul>
-            {entries.map(entry => {
+            {entries.map((entry, i) => {
               return (
                 <Player
                   now={now}
@@ -394,6 +399,7 @@ export default function CompetitionPage({
                   key={entry.MemberID}
                   entry={entry}
                   onFavoriteChange={handleFavoriteChange}
+                  i={i}
                 />
               );
             })}
