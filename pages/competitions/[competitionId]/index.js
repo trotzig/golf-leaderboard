@@ -1,4 +1,4 @@
-import { parse, format } from 'date-fns';
+import { parse, format, startOfDay } from 'date-fns';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -254,15 +254,16 @@ function Player({ entry, onFavoriteChange, colors }) {
 }
 
 function getHeading(data, finishedQueryParam) {
-  if (!data || !data.Classes) {
+  if (!data || !data.CompetitionData) {
     if (finishedQueryParam) {
       return 'Results';
     }
     return 'Leaderboard';
   }
 
-  const scoringOpen = Object.values(data.Classes)[0].Leaderboard.IsScoringOpen;
-  if (scoringOpen) {
+  const startOfToday = startOfDay(new Date());
+  const end = parse(data.CompetitionData.EndDate, DATE_FORMAT, new Date());
+  if (end >= startOfToday) {
     return 'Leaderboard';
   }
   return 'Results';
