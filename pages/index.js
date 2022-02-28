@@ -51,7 +51,12 @@ export default function StartPage() {
         defaultCompetitionId={data && data.DefaultCompetition.CompetitionID}
       />
       <div className="competitions">
-        <h2>Competitions</h2>
+        <h2>MoreGolf Mastercard Tour</h2>
+        <p className="competitions-desc">
+          <a href="https://www.nordicgolftour.app">Nordicgolftour.app</a> is the
+          unofficial home of the Nordic professional golf tour for men, also
+          known as MoreGolf Mastercard Tour.
+        </p>
         {loading ? (
           <div className="lds-ellipsis">
             <div></div>

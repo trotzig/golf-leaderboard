@@ -49,6 +49,17 @@ button {
   margin-bottom: 10px;
 }
 
+.competitions-desc {
+  padding: 10px;
+  margin: 0;
+  opacity: 0.7;
+  line-height: 1.5;
+}
+.competitions-desc a {
+  color: inherit;
+  text-decoration: underline;
+}
+
 .leaderboard-dates,
 .leaderboard-subtitle {
   font-size: 14px;
