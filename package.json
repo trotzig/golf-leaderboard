@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "happo": "happo",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -22,6 +23,8 @@
     "@storybook/addon-links": "^6.4.19",
     "@storybook/react": "^6.4.19",
     "@storybook/testing-library": "^0.0.9",
-    "babel-loader": "^8.2.3"
+    "babel-loader": "^8.2.3",
+    "happo-plugin-storybook": "^2.10.3",
+    "happo.io": "^7.0.2"
   }
 }
