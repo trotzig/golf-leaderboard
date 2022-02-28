@@ -303,7 +303,7 @@ export default function CompetitionPage() {
       setTimesData(timesPayload);
       setEntries(getEntries(compPayload, timesPayload));
       setLoading(false);
-      console.log(compPayload);
+      console.log(timesPayload);
     }
     run();
   }, [competitionId]);
@@ -327,7 +327,7 @@ export default function CompetitionPage() {
           <p className="leaderboard-dates">
             {competitionDateString(data.CompetitionData)}
           </p>
-          {Object.values(data.Courses).length > 0 ? (
+          {Object.values(data.Courses || {}).length > 0 ? (
             <div className="courses">
               {Object.values(data.CourseColours || {}).map(course => {
                 return (
@@ -350,7 +350,7 @@ export default function CompetitionPage() {
         </>
       )}
       {!loading &&
-        (!timesData || typeof timesData.ActiveRoundNumber !== 'number') && (
+        (!timesData || !timesData.ActiveRoundNumber) && (
           <p className="alert">This competition hasn't started yet</p>
         )}
       {entries ? (
