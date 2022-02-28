@@ -227,6 +227,7 @@ nav {
   justify-content: center;
   border: 0px solid rgba(0, 0, 0, 0.5);
 }
+
 .round-total {
   font-weight: bold;
 }
@@ -398,5 +399,23 @@ footer {
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 5px;
     text-align: left;
+  }
+}
+@media (max-width: 400px) {
+  .round-score {
+    font-size: 8px;
+    width: 12px;
+    height: 12px;
+  }
+  .leaderboard .player {
+    column-gap: 5px;
+    font-size: 15px;
+  }
+  .leaderboard .position {
+    font-size: 15px;
+  }
+  .leaderboard .score {
+    font-size: 15px;
+    line-height: 20px;
   }
 }
