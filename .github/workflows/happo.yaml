@@ -1,0 +1,21 @@
+name: Happo CI
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+jobs:
+  happo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 100
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - run: yarn install --frozen-lockfile
+      - run: yarn happo-ci-github-actions
+        env:
+          HAPPO_API_KEY: ${{ secrets.HAPPO_API_KEY }}
+          HAPPO_API_SECRET: ${{ secrets.HAPPO_API_SECRET }}
