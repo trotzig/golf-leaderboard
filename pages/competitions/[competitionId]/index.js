@@ -139,8 +139,7 @@ function RoundTotal({ score }) {
   );
 }
 
-function Round({ round, colors }) {
-  const now = new Date();
+function Round({ round, colors, now }) {
   const startTime = parse(round.StartDateTime, DATE_FORMAT, now);
 
   const classes = ['round'];
@@ -193,13 +192,12 @@ function Round({ round, colors }) {
   );
 }
 
-function getFirstRoundStart(round) {
-  const now = new Date();
+function getFirstRoundStart(round, now) {
   const startTime = parse(round.StartDateTime, DATE_FORMAT, now);
   return startTime;
 }
 
-function Player({ entry, onFavoriteChange, colors }) {
+function Player({ entry, onFavoriteChange, colors, now }) {
   const rounds = getRounds(entry);
   const classes = ['player'];
   if (entry.isFavorite) {
@@ -217,7 +215,10 @@ function Player({ entry, onFavoriteChange, colors }) {
         <span>
           {(entry.Position && entry.Position.Calculated) || (
             <ClockIcon
-              date={getFirstRoundStart(rounds[entry.activeRoundNumber - 1])}
+              date={getFirstRoundStart(
+                rounds[entry.activeRoundNumber - 1],
+                now,
+              )}
             />
           )}
         </span>
@@ -245,7 +246,12 @@ function Player({ entry, onFavoriteChange, colors }) {
       <span className="stats">
         {rounds.map(round => {
           return (
-            <Round key={round.StartDateTime} round={round} colors={colors} />
+            <Round
+              key={round.StartDateTime}
+              round={round}
+              colors={colors}
+              now={now}
+            />
           );
         })}
       </span>
@@ -269,13 +275,17 @@ function getHeading(data, finishedQueryParam) {
   return 'Results';
 }
 
-export default function CompetitionPage() {
-  const [data, setData] = useState();
-  const [loading, setLoading] = useState(true);
-  const [timesData, setTimesData] = useState();
-  const [entries, setEntries] = useState();
+export default function CompetitionPage({
+  initialData,
+  initialTimesData,
+  initialLoading = true,
+  now = new Date(),
+}) {
+  const [data, setData] = useState(initialData);
+  const [loading, setLoading] = useState(initialLoading);
+  const [timesData, setTimesData] = useState(initialTimesData);
   const router = useRouter();
-  const { competitionId, finished } = router.query;
+  const { competitionId, finished } = router ? router.query : {};
 
   function handleFavoriteChange(favorite, memberId) {
     if (favorite) {
@@ -283,7 +293,8 @@ export default function CompetitionPage() {
     } else {
       localStorage.removeItem(memberId);
     }
-    setEntries(getEntries(data, timesData));
+    setData({ ...data });
+    setTimesData({ ...timesData });
   }
 
   useEffect(() => {
@@ -301,13 +312,13 @@ export default function CompetitionPage() {
       ]);
       setData(compPayload);
       setTimesData(timesPayload);
-      setEntries(getEntries(compPayload, timesPayload));
       setLoading(false);
-      console.log(timesPayload);
+      console.log({ initialTimesData: timesPayload, initialData: compPayload });
     }
     run();
   }, [competitionId]);
 
+  const entries = data && timesData ? getEntries(data, timesData) : [];
   const favorites = entries && entries.filter(e => e.isFavorite);
   return (
     <div className="leaderboard">
@@ -325,7 +336,7 @@ export default function CompetitionPage() {
             {data.CompetitionData.Name} – {data.CompetitionData.Venue.Name}
           </p>
           <p className="leaderboard-dates">
-            {competitionDateString(data.CompetitionData)}
+            {competitionDateString(data.CompetitionData, now)}
           </p>
           {Object.values(data.Courses || {}).length > 0 ? (
             <div className="courses">
@@ -349,10 +360,9 @@ export default function CompetitionPage() {
           ) : null}
         </>
       )}
-      {!loading &&
-        (!timesData || !timesData.ActiveRoundNumber) && (
-          <p className="alert">This competition hasn't started yet</p>
-        )}
+      {!loading && (!timesData || !timesData.ActiveRoundNumber) && (
+        <p className="alert">This competition hasn't started yet</p>
+      )}
       {entries ? (
         <div>
           {favorites && favorites.length ? (
@@ -362,6 +372,7 @@ export default function CompetitionPage() {
                 {favorites.map(entry => {
                   return (
                     <Player
+                      now={now}
                       colors={data.CourseColours}
                       key={entry.RefID}
                       entry={entry}
@@ -378,6 +389,7 @@ export default function CompetitionPage() {
             {entries.map(entry => {
               return (
                 <Player
+                  now={now}
                   colors={data.CourseColours}
                   key={entry.MemberID}
                   entry={entry}

@@ -104,7 +104,7 @@ export default function StartPage() {
 }
 
 function CompetitionListItem({ competition, now, current }) {
-  const queryString = now > competition._start ? '?finished=1' : '';
+  const queryString = now > competition._end ? '?finished=1' : '';
   return (
     <li
       key={competition.ID}

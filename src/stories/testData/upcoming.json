@@ -1,0 +1,466 @@
+{
+    "initialTimesData": {
+        "CompetitionData": {
+            "Id": 3237428,
+            "CustomerId": 1,
+            "CustomerName": "Nordic Golf League",
+            "ClassificationId": -2147483648,
+            "Name": "Barncancerfonden Open presented by Ahlsell",
+            "Type": "StrokePlay",
+            "StartDate": "20220504T000000",
+            "EndDate": "20220506T000000",
+            "Category": -2147483648,
+            "AgeDate": "00010101T000000",
+            "Logo": "https://cdn.golfbox.dk/gbtour/Uploads/CompetitionLogoes/6a40e0a2-13cc-4ee2-ba4c-4d2584bc852f.png",
+            "IsFieldSelected": false,
+            "SignUpInformation": {
+                "EnableOnlineEntry": true,
+                "EntryOpens": "20220114T080000",
+                "EntryCloses": "20220421T120000",
+                "PaymentOpens": "20220421T180000",
+                "PaymentCloses": "20220504T220000",
+                "EntryWindowOpen": true,
+                "PaymentWindowOpen": false,
+                "TeeWishesOpenFor": "NoOne",
+                "AllowTeamName": true
+            },
+            "Venue": {
+                "Name": null,
+                "Address": null,
+                "Accommodation": null,
+                "DrivingInstructions": null,
+                "Latitude": null,
+                "Longitude": null,
+                "Locations": null
+            },
+            "Sponsors": null,
+            "ClassSetup": {
+                "EqualSize": false,
+                "EnabledParameters": {
+                    "Age": true,
+                    "Gender": true,
+                    "HCP": true,
+                    "MaxPlayers": true,
+                    "PlayerStatus": true
+                },
+                "MaxType": "SameForAll",
+                "HasAutomaticReservelist": false,
+                "EntriesInitiallyPending": false
+            },
+            "Classes": [
+                {
+                    "Id": 3122064,
+                    "Name": "Professionals",
+                    "ShortName": "P",
+                    "MaxPlayers": 156,
+                    "MaxUnitType": null,
+                    "ReserveListPrinciple": 3,
+                    "ReserveListPrincipleText": "BestPlayerCategory",
+                    "ClassType": "PlayerClass",
+                    "Cut": {
+                        "Enabled": false,
+                        "Limit": 45,
+                        "LimitType": "Players",
+                        "LimitMethod": 1,
+                        "AfterRound": 2,
+                        "ExcludeAmateurs": true,
+                        "IncludeScore": 0
+                    },
+                    "OrderOfMerits": null
+                }
+            ],
+            "RoundSetup": [],
+            "CourseColours": [],
+            "Status": null,
+            "LivescoringSettings": {
+                "CountryFlag": {
+                    "ShowOnPlayerList": true,
+                    "ShowOnStartList": true,
+                    "ShowOnLeaderboard": true
+                },
+                "CountryName": {
+                    "ShowOnPlayerList": false,
+                    "ShowOnStartList": false,
+                    "ShowOnLeaderboard": false
+                },
+                "ClubName": {
+                    "ShowOnPlayerList": true,
+                    "ShowOnStartList": true,
+                    "ShowOnLeaderboard": true
+                },
+                "Handicap": {
+                    "ShowOnPlayerList": false,
+                    "ShowOnStartList": false,
+                    "ShowOnLeaderboard": false
+                },
+                "PlayingHandicap": {
+                    "ShowOnPlayerList": false,
+                    "ShowOnStartList": false,
+                    "ShowOnLeaderboard": false
+                },
+                "MemberID": {
+                    "ShowOnPlayerList": false,
+                    "ShowOnStartList": false,
+                    "ShowOnLeaderboard": false
+                },
+                "ClassName": {
+                    "ShowOnPlayerList": false,
+                    "ShowOnStartList": false,
+                    "ShowOnLeaderboard": false
+                },
+                "CompanyName": {
+                    "ShowOnPlayerList": false,
+                    "ShowOnStartList": false,
+                    "ShowOnLeaderboard": false
+                },
+                "TeamName": {
+                    "ShowOnPlayerList": true,
+                    "ShowOnStartList": true,
+                    "ShowOnLeaderboard": false
+                },
+                "PlayerStatus": {
+                    "ShowOnPlayerList": false,
+                    "ShowOnStartList": false,
+                    "ShowOnLeaderboard": false
+                },
+                "HandicapStatus": {
+                    "ShowOnPlayerList": false,
+                    "ShowOnStartList": false,
+                    "ShowOnLeaderboard": false
+                },
+                "TeeName": {
+                    "ShowOnPlayerList": false,
+                    "ShowOnStartList": true,
+                    "ShowOnLeaderboard": false
+                },
+                "WAGRRank": {
+                    "ShowOnPlayerList": false,
+                    "ShowOnStartList": false,
+                    "ShowOnLeaderboard": false
+                },
+                "BirthYear": {
+                    "ShowOnPlayerList": false,
+                    "ShowOnStartList": false,
+                    "ShowOnLeaderboard": false
+                },
+                "PlayerListSettings": {
+                    "ShowPlayerList": true,
+                    "ShowIneligibles": false,
+                    "ShowReserves": true,
+                    "ShowPending": true
+                },
+                "LeaderboardSettings": {
+                    "ShowCutLine": false,
+                    "ShowStartHole": true,
+                    "ShowToParValue": true,
+                    "ShowStrokeIndexes": false
+                },
+                "StartListSettings": {
+                    "ShowStartHole": false
+                },
+                "ResultSettings": {
+                    "ShowEntryHoleScoreSubscription": false
+                },
+                "InfoPageSettings": {
+                    "ShowEligibility": true,
+                    "ShowRounds": true,
+                    "ShowCut": true,
+                    "ShowDecisions": true,
+                    "ShowOrderOfMerits": true,
+                    "ShowEntry": true,
+                    "ShowVenue": true,
+                    "ShowMap": true,
+                    "ShowContacts": true
+                },
+                "ClassSettings": [
+                    {
+                        "ClassReferenceID": 3122064,
+                        "ClassName": "Professionals",
+                        "ShowOOMRank": true,
+                        "OOMRID": 138336,
+                        "ShowAdditionalGrossScore": false,
+                        "ShowAdditionalNettScore": false,
+                        "StatusText": null,
+                        "StatusType": 2,
+                        "IncludeInCourseStats": true,
+                        "IncludeInPlayerStats": true
+                    }
+                ]
+            },
+            "MainCompetition": null,
+            "InterclubTournament": null,
+            "TimeZoneInfo": {
+                "Id": "W. Europe Standard Time",
+                "DisplayName": "(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna",
+                "StandardName": "W. Europe Standard Time",
+                "DaylightName": "W. Europe Daylight Time",
+                "BaseUtcOffset": "01:00:00",
+                "AdjustmentRules": [
+                    {
+                        "DateStart": "00010101T000000",
+                        "DateEnd": "99991231T000000",
+                        "DaylightDelta": "01:00:00",
+                        "DaylightTransitionStart": {
+                            "TimeOfDay": "00010101T020000",
+                            "Month": 3,
+                            "Week": 5,
+                            "Day": 1,
+                            "DayOfWeek": 0,
+                            "IsFixedDateRule": false
+                        },
+                        "DaylightTransitionEnd": {
+                            "TimeOfDay": "00010101T030000",
+                            "Month": 10,
+                            "Week": 5,
+                            "Day": 1,
+                            "DayOfWeek": 0,
+                            "IsFixedDateRule": false
+                        },
+                        "BaseUtcOffsetDelta": "00:00:00"
+                    }
+                ],
+                "SupportsDaylightSavingTime": true
+            },
+            "UtcOffsetString": "(UTC+01:00)"
+        },
+        "Rounds": {
+            "R0": {
+                "Number": 0,
+                "Name": null,
+                "StartLists": {}
+            }
+        },
+        "CourseNames": [],
+        "CourseColours": {},
+        "HasCountryIsoCode": false,
+        "ActiveRoundNumber": 0,
+        "ActiveStartlistId": 0,
+        "Loaded": "20220228T190637"
+    },
+    "initialData": {
+        "CompetitionData": {
+            "Id": 3237428,
+            "CustomerId": 1,
+            "CustomerName": "Nordic Golf League",
+            "ClassificationId": -2147483648,
+            "Name": "Barncancerfonden Open presented by Ahlsell",
+            "Type": "StrokePlay",
+            "StartDate": "20220504T000000",
+            "EndDate": "20220506T000000",
+            "Category": -2147483648,
+            "AgeDate": "00010101T000000",
+            "Logo": "https://cdn.golfbox.dk/gbtour/Uploads/CompetitionLogoes/6a40e0a2-13cc-4ee2-ba4c-4d2584bc852f.png",
+            "IsFieldSelected": false,
+            "SignUpInformation": {
+                "EnableOnlineEntry": true,
+                "EntryOpens": "20220114T080000",
+                "EntryCloses": "20220421T120000",
+                "PaymentOpens": "20220421T180000",
+                "PaymentCloses": "20220504T220000",
+                "EntryWindowOpen": true,
+                "PaymentWindowOpen": false,
+                "TeeWishesOpenFor": "NoOne",
+                "AllowTeamName": true
+            },
+            "Venue": {
+                "Name": null,
+                "Address": null,
+                "Accommodation": null,
+                "DrivingInstructions": null,
+                "Latitude": null,
+                "Longitude": null,
+                "Locations": null
+            },
+            "Sponsors": null,
+            "ClassSetup": {
+                "EqualSize": false,
+                "EnabledParameters": {
+                    "Age": true,
+                    "Gender": true,
+                    "HCP": true,
+                    "MaxPlayers": true,
+                    "PlayerStatus": true
+                },
+                "MaxType": "SameForAll",
+                "HasAutomaticReservelist": false,
+                "EntriesInitiallyPending": false
+            },
+            "Classes": [
+                {
+                    "Id": 3122064,
+                    "Name": "Professionals",
+                    "ShortName": "P",
+                    "MaxPlayers": 156,
+                    "MaxUnitType": null,
+                    "ReserveListPrinciple": 3,
+                    "ReserveListPrincipleText": "BestPlayerCategory",
+                    "ClassType": "PlayerClass",
+                    "Cut": {
+                        "Enabled": false,
+                        "Limit": 45,
+                        "LimitType": "Players",
+                        "LimitMethod": 1,
+                        "AfterRound": 2,
+                        "ExcludeAmateurs": true,
+                        "IncludeScore": 0
+                    },
+                    "OrderOfMerits": null
+                }
+            ],
+            "RoundSetup": [],
+            "CourseColours": [],
+            "Status": null,
+            "LivescoringSettings": {
+                "CountryFlag": {
+                    "ShowOnPlayerList": true,
+                    "ShowOnStartList": true,
+                    "ShowOnLeaderboard": true
+                },
+                "CountryName": {
+                    "ShowOnPlayerList": false,
+                    "ShowOnStartList": false,
+                    "ShowOnLeaderboard": false
+                },
+                "ClubName": {
+                    "ShowOnPlayerList": true,
+                    "ShowOnStartList": true,
+                    "ShowOnLeaderboard": true
+                },
+                "Handicap": {
+                    "ShowOnPlayerList": false,
+                    "ShowOnStartList": false,
+                    "ShowOnLeaderboard": false
+                },
+                "PlayingHandicap": {
+                    "ShowOnPlayerList": false,
+                    "ShowOnStartList": false,
+                    "ShowOnLeaderboard": false
+                },
+                "MemberID": {
+                    "ShowOnPlayerList": false,
+                    "ShowOnStartList": false,
+                    "ShowOnLeaderboard": false
+                },
+                "ClassName": {
+                    "ShowOnPlayerList": false,
+                    "ShowOnStartList": false,
+                    "ShowOnLeaderboard": false
+                },
+                "CompanyName": {
+                    "ShowOnPlayerList": false,
+                    "ShowOnStartList": false,
+                    "ShowOnLeaderboard": false
+                },
+                "TeamName": {
+                    "ShowOnPlayerList": true,
+                    "ShowOnStartList": true,
+                    "ShowOnLeaderboard": false
+                },
+                "PlayerStatus": {
+                    "ShowOnPlayerList": false,
+                    "ShowOnStartList": false,
+                    "ShowOnLeaderboard": false
+                },
+                "HandicapStatus": {
+                    "ShowOnPlayerList": false,
+                    "ShowOnStartList": false,
+                    "ShowOnLeaderboard": false
+                },
+                "TeeName": {
+                    "ShowOnPlayerList": false,
+                    "ShowOnStartList": true,
+                    "ShowOnLeaderboard": false
+                },
+                "WAGRRank": {
+                    "ShowOnPlayerList": false,
+                    "ShowOnStartList": false,
+                    "ShowOnLeaderboard": false
+                },
+                "BirthYear": {
+                    "ShowOnPlayerList": false,
+                    "ShowOnStartList": false,
+                    "ShowOnLeaderboard": false
+                },
+                "PlayerListSettings": {
+                    "ShowPlayerList": true,
+                    "ShowIneligibles": false,
+                    "ShowReserves": true,
+                    "ShowPending": true
+                },
+                "LeaderboardSettings": {
+                    "ShowCutLine": false,
+                    "ShowStartHole": true,
+                    "ShowToParValue": true,
+                    "ShowStrokeIndexes": false
+                },
+                "StartListSettings": {
+                    "ShowStartHole": false
+                },
+                "ResultSettings": {
+                    "ShowEntryHoleScoreSubscription": false
+                },
+                "InfoPageSettings": {
+                    "ShowEligibility": true,
+                    "ShowRounds": true,
+                    "ShowCut": true,
+                    "ShowDecisions": true,
+                    "ShowOrderOfMerits": true,
+                    "ShowEntry": true,
+                    "ShowVenue": true,
+                    "ShowMap": true,
+                    "ShowContacts": true
+                },
+                "ClassSettings": [
+                    {
+                        "ClassReferenceID": 3122064,
+                        "ClassName": "Professionals",
+                        "ShowOOMRank": true,
+                        "OOMRID": 138336,
+                        "ShowAdditionalGrossScore": false,
+                        "ShowAdditionalNettScore": false,
+                        "StatusText": null,
+                        "StatusType": 2,
+                        "IncludeInCourseStats": true,
+                        "IncludeInPlayerStats": true
+                    }
+                ]
+            },
+            "MainCompetition": null,
+            "InterclubTournament": null,
+            "TimeZoneInfo": {
+                "Id": "W. Europe Standard Time",
+                "DisplayName": "(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna",
+                "StandardName": "W. Europe Standard Time",
+                "DaylightName": "W. Europe Daylight Time",
+                "BaseUtcOffset": "01:00:00",
+                "AdjustmentRules": [
+                    {
+                        "DateStart": "00010101T000000",
+                        "DateEnd": "99991231T000000",
+                        "DaylightDelta": "01:00:00",
+                        "DaylightTransitionStart": {
+                            "TimeOfDay": "00010101T020000",
+                            "Month": 3,
+                            "Week": 5,
+                            "Day": 1,
+                            "DayOfWeek": 0,
+                            "IsFixedDateRule": false
+                        },
+                        "DaylightTransitionEnd": {
+                            "TimeOfDay": "00010101T030000",
+                            "Month": 10,
+                            "Week": 5,
+                            "Day": 1,
+                            "DayOfWeek": 0,
+                            "IsFixedDateRule": false
+                        },
+                        "BaseUtcOffsetDelta": "00:00:00"
+                    }
+                ],
+                "SupportsDaylightSavingTime": true
+            },
+            "UtcOffsetString": "(UTC+01:00)"
+        },
+        "Loaded": "20220228T190637"
+    }
+}
