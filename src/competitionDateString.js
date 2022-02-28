@@ -9,8 +9,8 @@ import {
 const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
 
 export default function competitionDateString(competition, now = new Date()) {
-  const start = parse(competition.StartDate, DATE_FORMAT, now);
-  const end = parse(competition.EndDate, DATE_FORMAT, now);
+  const start = competition._start || parse(competition.StartDate, DATE_FORMAT, now);
+  const end = competition._end || parse(competition.EndDate, DATE_FORMAT, now);
   const numberOfDays = differenceInDays(end, start);
   const startDay = getDate(start);
   const endDay = getDate(end);
@@ -41,7 +41,7 @@ export default function competitionDateString(competition, now = new Date()) {
       return 'Starts tomorrow';
     }
     if (daysUntilStart < 8) {
-      return `Starts in ${formatDistance(now, start)}`;
+      suffix = ` — Starts in ${formatDistance(now, start)}`;
     }
   }
   if (endDay < startDay) {
