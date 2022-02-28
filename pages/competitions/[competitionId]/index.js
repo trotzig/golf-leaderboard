@@ -244,11 +244,28 @@ function Player({ entry, onFavoriteChange, colors }) {
       </span>
       <span className="stats">
         {rounds.map(round => {
-          return <Round key={round.StartDateTime} round={round} colors={colors} />;
+          return (
+            <Round key={round.StartDateTime} round={round} colors={colors} />
+          );
         })}
       </span>
     </li>
   );
+}
+
+function getHeading(data, finishedQueryParam) {
+  if (!data || !data.Classes) {
+    if (finishedQueryParam) {
+      return 'Results';
+    }
+    return 'Leaderboard';
+  }
+
+  const scoringOpen = Object.values(data.Classes)[0].Leaderboard.IsScoringOpen;
+  if (scoringOpen) {
+    return 'Leaderboard';
+  }
+  return 'Results';
 }
 
 export default function CompetitionPage() {
@@ -257,7 +274,7 @@ export default function CompetitionPage() {
   const [timesData, setTimesData] = useState();
   const [entries, setEntries] = useState();
   const router = useRouter();
-  const { competitionId } = router.query;
+  const { competitionId, finished } = router.query;
 
   function handleFavoriteChange(favorite, memberId) {
     if (favorite) {
@@ -285,6 +302,7 @@ export default function CompetitionPage() {
       setTimesData(timesPayload);
       setEntries(getEntries(compPayload, timesPayload));
       setLoading(false);
+      console.log(compPayload);
     }
     run();
   }, [competitionId]);
@@ -294,12 +312,12 @@ export default function CompetitionPage() {
     <div className="leaderboard">
       <Head>
         <title>
-          Leaderboard
+          {getHeading(data, finished)}
           {data && ` | ${data.CompetitionData.Name}`}
         </title>
       </Head>
       <Menu />
-      <h2>Leaderboard</h2>
+      <h2>{getHeading(data, finished)}</h2>
       {data && (
         <>
           <p className="leaderboard-subtitle">

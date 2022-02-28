@@ -66,7 +66,12 @@ export default function StartPage() {
                 <h3>Current</h3>
                 <ul>
                   {currentCompetitions.map(c => (
-                    <CompetitionListItem key={c.ID} competition={c} now={now} />
+                    <CompetitionListItem
+                      key={c.ID}
+                      competition={c}
+                      now={now}
+                      current
+                    />
                   ))}
                 </ul>
               </>
@@ -98,10 +103,16 @@ export default function StartPage() {
   );
 }
 
-function CompetitionListItem({ competition, now }) {
+function CompetitionListItem({ competition, now, current }) {
+  const queryString = now > competition._start ? '?finished=1' : '';
   return (
-    <li key={competition.ID}>
-      <Link href={`/competitions/${competition.ID}`}>
+    <li
+      key={competition.ID}
+      className={
+        current ? 'competition-list-item current' : 'competition-list-item'
+      }
+    >
+      <Link href={`/competitions/${competition.ID}${queryString}`}>
         <a className="competition">
           <div className="calendar-event">
             <b>{format(competition._start, 'd')}</b>
