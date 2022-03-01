@@ -284,7 +284,7 @@ export default function CompetitionPage({
   initialData,
   initialTimesData,
   initialLoading = true,
-  now = new Date(),
+  now = startOfDay(new Date()),
 }) {
   const [data, setData] = useState(initialData);
   const [loading, setLoading] = useState(initialLoading);
