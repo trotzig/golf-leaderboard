@@ -285,7 +285,7 @@ export default function CompetitionPage({
   initialData,
   initialTimesData,
   initialLoading = true,
-  now = startOfDay(new Date()),
+  now = new Date(),
   lazyItems = true,
 }) {
   const [data, setData] = useState(initialData);
