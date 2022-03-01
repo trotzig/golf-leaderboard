@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 
 import ClockIcon from '../../../src/ClockIcon';
 import Lazy from '../../../src/Lazy';
+import LoadingSkeleton from '../../../src/LoadingSkeleton';
 import Menu from '../../../src/Menu';
 import competitionDateString from '../../../src/competitionDateString';
 import fetchJsonP from '../../../src/fetchJsonP';
@@ -406,14 +407,7 @@ export default function CompetitionPage({
           </ul>
         </div>
       ) : null}
-      {loading && (
-        <div className="lds-ellipsis">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      )}
+      {loading && <LoadingSkeleton />}
     </div>
   );
 }

@@ -2,7 +2,6 @@ import Head from 'next/head';
 import Script from 'next/script';
 
 import '../styles.css';
-import '../loading.css';
 
 function MyApp({ Component, pageProps }) {
   return (

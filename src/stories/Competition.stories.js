@@ -1,5 +1,4 @@
 import '../../styles.css';
-import '../../loading.css';
 import CompetitionPage from '../../pages/competitions/[competitionId]';
 import ongoing from './testData/ongoing.json';
 import finished from './testData/finished.json';
