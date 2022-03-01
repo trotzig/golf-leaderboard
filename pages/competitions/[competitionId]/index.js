@@ -199,7 +199,7 @@ function getFirstRoundStart(round, now) {
   return startTime;
 }
 
-function Player({ entry, onFavoriteChange, colors, now, i }) {
+function Player({ entry, onFavoriteChange, colors, now, lazy }) {
   const rounds = getRounds(entry);
   const classes = ['player'];
   if (entry.isFavorite) {
@@ -211,7 +211,7 @@ function Player({ entry, onFavoriteChange, colors, now, i }) {
       ? 'position position-long-text'
       : 'position';
 
-  const StatsWrapper = i > 20 ? Lazy : 'div';
+  const StatsWrapper = lazy ? Lazy : 'div';
   const statsHeight =
     window.innerWidth < 400 ? 14 * rounds.length : 17 * rounds.length;
 
@@ -286,6 +286,7 @@ export default function CompetitionPage({
   initialTimesData,
   initialLoading = true,
   now = startOfDay(new Date()),
+  lazyItems = true,
 }) {
   const [data, setData] = useState(initialData);
   const [loading, setLoading] = useState(initialLoading);
@@ -400,7 +401,7 @@ export default function CompetitionPage({
                   key={entry.MemberID}
                   entry={entry}
                   onFavoriteChange={handleFavoriteChange}
-                  i={i}
+                  lazy={lazyItems && i > 20}
                 />
               );
             })}
