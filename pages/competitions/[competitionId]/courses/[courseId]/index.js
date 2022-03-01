@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
+import LoadingSkeleton from '../../../../../src/LoadingSkeleton';
 import Menu from '../../../../../src/Menu';
 import fetchJsonP from '../../../../../src/fetchJsonP';
 
@@ -32,15 +33,12 @@ export default function Course() {
       <Menu />
       <div className="course">
         {loading ? (
-          <div className="lds-ellipsis">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
+          <LoadingSkeleton />
         ) : (
           <>
-            <h2>{venue.Name} – {course.Name}</h2>
+            <h2>
+              {venue.Name} – {course.Name}
+            </h2>
             <div className="course-table">
               <div className="course-item">
                 <span>Hole</span>

@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 
+import LoadingSkeleton from '../src/LoadingSkeleton';
 import Menu from '../src/Menu';
 import fetchJsonP from '../src/fetchJsonP';
 
@@ -149,12 +150,7 @@ export default function OrderOfMeritPage() {
           </ul>
         </>
       ) : (
-        <div className="lds-ellipsis">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
+        <LoadingSkeleton />
       )}
     </div>
   );
