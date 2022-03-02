@@ -221,10 +221,6 @@ nav {
   justify-content: space-between;
   margin-bottom: 2px;
 }
-.leaderboard .round-start-time {
-  grid-column-start: 1;
-  grid-column-end: 17;
-}
 
 .round-score {
   opacity: 0.5;
