@@ -343,13 +343,13 @@ footer {
 .course-2:before,
 .course-1:before {
   content: ' ';
-  width: 5px;
-  height: 5px;
+  width: 7px;
+  height: 7px;
   display: inline-block;
-  border-radius: 50%;
+  border-radius: 2px;
   background-color: var(--primary);
   margin-right: 5px;
-  vertical-align: middle;
+  vertical-align: baseline;
 }
 .course-2:before {
   background-color: var(--secondary);
@@ -408,6 +408,10 @@ footer {
     column-gap: 5px;
     text-align: left;
   }
+}
+
+.leaderboard .round-start-time {
+  opacity: 0.5;
 }
 @media (max-width: 400px) {
   .round-score {
