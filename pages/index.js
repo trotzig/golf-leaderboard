@@ -49,7 +49,11 @@ export default function StartPage() {
   return (
     <div className="chrome">
       <Menu
-        defaultCompetitionId={data && data.DefaultCompetition.CompetitionID}
+        defaultCompetitionId={
+          data &&
+          data.DefaultCompetition &&
+          data.DefaultCompetition.CompetitionID
+        }
       />
       <div className="competitions">
         <h2>MoreGolf Mastercard Tour</h2>
