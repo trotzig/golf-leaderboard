@@ -153,6 +153,8 @@ function Round({ round, colors, now }) {
           const score = round.HoleScores[holeKey];
           const toParClass = !score
             ? 'unknown'
+            : score.Result.ActualValue === 1
+            ? 'hio'
             : score.Result.ToParValue < -1
             ? 'eagle'
             : score.Result.ToParValue < 0

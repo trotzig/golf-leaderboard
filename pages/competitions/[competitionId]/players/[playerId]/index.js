@@ -70,6 +70,8 @@ function Round({ round, colors, courses, now }) {
           const toParClass =
             !hole || !hole.Result
               ? 'unknown'
+              : hole.Result.ActualValue === 1
+              ? 'hio'
               : hole.Result.ToParValue < -1
               ? 'eagle'
               : hole.Result.ToParValue < 0

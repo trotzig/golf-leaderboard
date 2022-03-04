@@ -258,6 +258,14 @@ nav {
   border-width: 3px;
   border-radius: 50%;
 }
+.round-score.hio {
+  opacity: 1;
+  font-weight: bold;
+  border-width: 0;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: var(--light);
+}
 .round-score.bogey {
   border-width: 1px;
 }
