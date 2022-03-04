@@ -4,12 +4,12 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
+import { cachedFetchJsonP } from '../../../src/fetchJsonP';
 import ClockIcon from '../../../src/ClockIcon';
 import Lazy from '../../../src/Lazy';
 import LoadingSkeleton from '../../../src/LoadingSkeleton';
 import Menu from '../../../src/Menu';
 import competitionDateString from '../../../src/competitionDateString';
-import fetchJsonP from '../../../src/fetchJsonP';
 
 const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
 
@@ -293,6 +293,7 @@ export default function CompetitionPage({
   const [timesData, setTimesData] = useState(initialTimesData);
   const router = useRouter();
   const { competitionId, finished } = router ? router.query : {};
+  console.log(router);
 
   function handleFavoriteChange(favorite, memberId) {
     if (favorite) {
@@ -310,10 +311,10 @@ export default function CompetitionPage({
     }
     async function run() {
       const [compPayload, timesPayload] = await Promise.all([
-        fetchJsonP(
+        cachedFetchJsonP(
           `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/`,
         ),
-        fetchJsonP(
+        cachedFetchJsonP(
           `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competitionId}/language/2057/`,
         ),
       ]);

@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
+import { cachedFetchJsonP } from '../../../../../src/fetchJsonP';
 import LoadingSkeleton from '../../../../../src/LoadingSkeleton';
 import Menu from '../../../../../src/Menu';
-import fetchJsonP from '../../../../../src/fetchJsonP';
 
 export default function Course() {
   const [course, setCourse] = useState();
@@ -18,10 +18,9 @@ export default function Course() {
     }
     async function run() {
       setLoading(true);
-      const data = await fetchJsonP(
+      const data = await cachedFetchJsonP(
         `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/`,
       );
-      console.log(data);
       setCourse(data.Courses[`C${courseId}`]);
       setVenue(data.CompetitionData.Venue);
       setLoading(false);
