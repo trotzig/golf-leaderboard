@@ -4,6 +4,17 @@ import ongoing from './testData/ongoing.json';
 import finished from './testData/finished.json';
 import upcoming from './testData/upcoming.json';
 
+function slimEntries(data) {
+  const entries = Object.values(data.initialData.Classes)[0].Leaderboard.Entries;
+  const toRemove = Object.keys(entries).slice(15);
+  for (const key of toRemove) {
+    delete entries[key];
+  }
+}
+
+slimEntries(ongoing);
+slimEntries(finished);
+
 export default {
   title: 'CompetitionPage',
   component: CompetitionPage,
