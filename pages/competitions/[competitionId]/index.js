@@ -264,7 +264,7 @@ function Player({ entry, onFavoriteChange, colors, now, lazy }) {
   );
 }
 
-function getHeading(data, finishedQueryParam) {
+function getHeading(data, finishedQueryParam, now) {
   if (!data || !data.CompetitionData) {
     if (finishedQueryParam) {
       return 'Results';
@@ -272,8 +272,8 @@ function getHeading(data, finishedQueryParam) {
     return 'Leaderboard';
   }
 
-  const startOfToday = startOfDay(new Date());
-  const end = parse(data.CompetitionData.EndDate, DATE_FORMAT, new Date());
+  const startOfToday = startOfDay(now);
+  const end = parse(data.CompetitionData.EndDate, DATE_FORMAT, now);
   if (end >= startOfToday) {
     return 'Leaderboard';
   }
@@ -313,7 +313,7 @@ export default function CompetitionPage({
 
   const entries = data && timesData ? getEntries(data, timesData) : [];
 
-  for (const entry of entries) {
+  for (const entry of entries || []) {
     entry.isFavorite = localStorage.getItem(entry.MemberID);
   }
 
@@ -322,12 +322,12 @@ export default function CompetitionPage({
     <div className="leaderboard">
       <Head>
         <title>
-          {getHeading(data, finished)}
+          {getHeading(data, finished, now)}
           {data && data.CompetitionData && ` | ${data.CompetitionData.Name}`}
         </title>
       </Head>
       <Menu />
-      <h2>{getHeading(data, finished)}</h2>
+      <h2>{getHeading(data, finished, now)}</h2>
       {data && (
         <>
           <p className="leaderboard-subtitle">
