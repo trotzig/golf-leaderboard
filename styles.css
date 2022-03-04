@@ -82,7 +82,6 @@ a {
 
 .leaderboard,
 .competitions,
-.player-profile,
 nav {
   max-width: 600px;
   margin: 0 auto;
@@ -92,6 +91,7 @@ nav {
   padding: 10px;
 }
 
+.player-profile,
 .course {
   max-width: 800px;
   margin: 0 auto;
@@ -521,6 +521,14 @@ footer {
   display: grid;
   grid-template-columns: 1fr 80px 80px;
   column-gap: 10px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.player-profile-course-heading {
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 20px;
+  margin-bottom: 20px;
 }
 .player-profile-name {
   font-size: 24px;
@@ -545,12 +553,14 @@ footer {
 }
 .player-round-scorecard {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   column-gap: 10px;
   row-gap: 3px;
   text-align: center;
-  font-size: 14px;
+  font-size: 12px;
   padding: 10px 0;
+  max-width: 250px;
+  margin: 0 auto;
 }
 .player-round-scorecard > * {
   opacity: 0.7;
@@ -563,15 +573,30 @@ footer {
   margin: 0 auto;
 }
 .player-profile-rounds {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 40px;
+  justify-content: center;
+  row-gap: 20px;
 }
-.player-profile-rounds > * {
-  margin-right: 40px;
-  margin-bottom: 30px;
+.player-profile-rounds.rounds-2 {
+  grid-template-columns: 1fr 1fr;
 }
-.player-profile-rounds > *:last-child {
-  margin-right: 0;
+.player-profile-rounds.rounds-1 {
+  grid-template-columns: 1fr !important;
+}
+@media (max-width: 850px) {
+  .player-profile-rounds {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 550px) {
+  .player-profile-rounds {
+    grid-template-columns: 1fr !important;
+  }
+  .player-round-scorecard {
+    max-width: 350px;
+  }
 }
 .player-round {
   text-align: center;

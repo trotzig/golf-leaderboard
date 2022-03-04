@@ -1,6 +1,7 @@
 import { format, parse } from 'date-fns';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { merge } from 'lodash';
 
 import { useJsonPData } from '../../../../../src/fetchJsonP';
 import LoadingSkeleton from '../../../../../src/LoadingSkeleton';
@@ -32,45 +33,64 @@ function RoundTotal({ score }) {
   );
 }
 
-function Round({ round, colors, now }) {
+function findPar(hole) {
+  if (hole.Par) {
+    return hole.Par;
+  }
+  return Object.values(hole.Tees)[0].Par;
+}
+
+function findLength(hole) {
+  return Object.values(hole.Tees)[0].Length;
+}
+
+function Round({ round, colors, courses, now }) {
   const startTime = parse(round.StartDateTime, DATE_FORMAT, now);
-  console.log(round);
   const courseNameClasses = ['player-round-course'];
   const color = Object.values(colors || {}).find(
     c => c.CourseID === round.CourseRefID,
   );
+  const course = courses[`C${round.CourseRefID}`];
   if (color) {
     courseNameClasses.push(color.CssName);
   }
+  const holes = merge(round.Holes, course.Holes, round.HoleScores);
   return (
     <div className="player-round page-margin">
       <div className="player-round-number">Round {round.Number}</div>
       <div className={courseNameClasses.join(' ')}>{round.CourseName}</div>
       <div className="player-round-scorecard">
         <span>Hole</span>
+        <span>Length</span>
+        <span>Index</span>
         <span>Par</span>
         <span>Result</span>
-        {Object.keys(round.HoleScores || {}).map((holeKey, i) => {
-          const score = round.HoleScores[holeKey];
-          const toParClass = !score
-            ? 'unknown'
-            : score.Result.ToParValue < -1
-            ? 'eagle'
-            : score.Result.ToParValue < 0
-            ? 'birdie'
-            : score.Result.ToParValue > 1
-            ? 'bogey-plus'
-            : score.Result.ToParValue > 0
-            ? 'bogey'
-            : 'on-par';
+        {Object.keys(holes).map((holeKey, i) => {
+          const hole = holes[holeKey];
+          const toParClass =
+            !hole || !hole.Result
+              ? 'unknown'
+              : hole.Result.ToParValue < -1
+              ? 'eagle'
+              : hole.Result.ToParValue < 0
+              ? 'birdie'
+              : hole.Result.ToParValue > 1
+              ? 'bogey-plus'
+              : hole.Result.ToParValue > 0
+              ? 'bogey'
+              : 'on-par';
           return (
-            <>
+            <React.Fragment key={holeKey}>
               <span>{holeKey.replace(/^H-?/, '')}</span>
-              <span>{score.Par}</span>
+              <span>{findLength(hole)}</span>
+              <span>{hole.Index}</span>
+              <span>{findPar(hole)}</span>
               <span className={`round-score ${toParClass}`}>
-                {score ? score.Result.ActualText || score.Result.Actual : '-'}
+                {hole && hole.Result
+                  ? hole.Result.ActualText || hole.Result.Actual
+                  : '-'}
               </span>
-            </>
+            </React.Fragment>
           );
         })}
       </div>
@@ -91,7 +111,6 @@ export default function CompetitionPlayer({ now = new Date() }) {
   const courseName = data && data.CompetitionData.Name;
   const player = data && getPlayer(data, playerId);
   const rounds = player && getRounds(player);
-  console.log(rounds);
   return (
     <div>
       <Menu />
@@ -122,11 +141,14 @@ export default function CompetitionPlayer({ now = new Date() }) {
                 <span>{fixParValue(player.ResultSum.ToParText)}</span>
               </span>
             </div>
-            <h3>{courseName}</h3>
-            <div className="player-profile-rounds">
+            <h2 className="player-profile-course-heading">{courseName}</h2>
+            <div
+              className={`player-profile-rounds ${`rounds-${rounds.length}`}`}
+            >
               {rounds.map(round => {
                 return (
                   <Round
+                    courses={data.Courses}
                     key={round.StartDateTime}
                     colors={data.CourseColours}
                     round={round}
