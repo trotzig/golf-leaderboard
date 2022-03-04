@@ -1,32 +1,21 @@
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-import { cachedFetchJsonP } from '../../../../../src/fetchJsonP';
+import { useJsonPData } from '../../../../../src/fetchJsonP';
 import LoadingSkeleton from '../../../../../src/LoadingSkeleton';
 import Menu from '../../../../../src/Menu';
 
 export default function Course() {
-  const [course, setCourse] = useState();
-  const [venue, setVenue] = useState();
-  const [loading, setLoading] = useState(true);
   const router = useRouter();
   const { competitionId, courseId } = router.query;
 
-  useEffect(() => {
-    if (!competitionId || !courseId) {
-      return;
-    }
-    async function run() {
-      setLoading(true);
-      const data = await cachedFetchJsonP(
-        `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/`,
-      );
-      setCourse(data.Courses[`C${courseId}`]);
-      setVenue(data.CompetitionData.Venue);
-      setLoading(false);
-    }
-    run();
-  }, [competitionId, courseId]);
+  const data = useJsonPData(
+    `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/`,
+  );
+
+  const loading = !data;
+  const course = data && data.Courses[`C${courseId}`];
+  const venue = data && data.CompetitionData.Venue;
   return (
     <div>
       <Menu />

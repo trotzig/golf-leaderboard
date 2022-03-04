@@ -2,9 +2,9 @@ import { parse, format, startOfDay } from 'date-fns';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
-import { cachedFetchJsonP } from '../../../src/fetchJsonP';
+import { useJsonPData } from '../../../src/fetchJsonP';
 import ClockIcon from '../../../src/ClockIcon';
 import Lazy from '../../../src/Lazy';
 import LoadingSkeleton from '../../../src/LoadingSkeleton';
@@ -109,7 +109,6 @@ function getEntries(data, timesData) {
   const entryKeys = Object.keys(entries);
   const result = entryKeys.map(key => entries[key]);
   for (const entry of result) {
-    entry.isFavorite = localStorage.getItem(entry.MemberID);
     const timeEntry = timeEntries[entry.MemberID];
     if (timeEntry) {
       entry.activeRoundNumber = timeEntry.activeRoundNumber;
@@ -202,7 +201,8 @@ function getFirstRoundStart(round, now) {
 function Player({ entry, onFavoriteChange, colors, now, lazy }) {
   const rounds = getRounds(entry);
   const classes = ['player'];
-  if (entry.isFavorite) {
+  const isFavorite = localStorage.getItem(entry.MemberID);
+  if (isFavorite) {
     classes.push('favorite-player');
   }
 
@@ -230,7 +230,7 @@ function Player({ entry, onFavoriteChange, colors, now, lazy }) {
         </span>
         <button
           className="favorite"
-          onClick={() => onFavoriteChange(!entry.isFavorite, entry.MemberID)}
+          onClick={() => onFavoriteChange(!isFavorite, entry.MemberID)}
         >
           <svg height="24px" viewBox="0 0 24 24" width="24px">
             <path d="M0 0h24v24H0z" fill="none" stroke="none" />
@@ -284,16 +284,23 @@ function getHeading(data, finishedQueryParam) {
 export default function CompetitionPage({
   initialData,
   initialTimesData,
-  initialLoading = true,
   now = new Date(),
   lazyItems = true,
 }) {
-  const [data, setData] = useState(initialData);
-  const [loading, setLoading] = useState(initialLoading);
-  const [timesData, setTimesData] = useState(initialTimesData);
+  const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
   const router = useRouter();
   const { competitionId, finished } = router ? router.query : {};
-  console.log(router);
+  const data = useJsonPData(
+    competitionId &&
+      `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/`,
+    initialData,
+  );
+  const timesData = useJsonPData(
+    competitionId &&
+      `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competitionId}/language/2057/`,
+    initialTimesData,
+  );
+  const loading = !data || !timesData;
 
   function handleFavoriteChange(favorite, memberId) {
     if (favorite) {
@@ -301,30 +308,9 @@ export default function CompetitionPage({
     } else {
       localStorage.removeItem(memberId);
     }
-    setData({ ...data });
-    setTimesData({ ...timesData });
+    // Force re-render of entire view
+    setLastFavoriteChanged(new Date());
   }
-
-  useEffect(() => {
-    if (!competitionId) {
-      return;
-    }
-    async function run() {
-      const [compPayload, timesPayload] = await Promise.all([
-        cachedFetchJsonP(
-          `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/`,
-        ),
-        cachedFetchJsonP(
-          `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competitionId}/language/2057/`,
-        ),
-      ]);
-      setData(compPayload);
-      setTimesData(timesPayload);
-      setLoading(false);
-      console.log({ initialTimesData: timesPayload, initialData: compPayload });
-    }
-    run();
-  }, [competitionId]);
 
   const entries = data && timesData ? getEntries(data, timesData) : [];
   const favorites = entries && entries.filter(e => e.isFavorite);
@@ -333,7 +319,7 @@ export default function CompetitionPage({
       <Head>
         <title>
           {getHeading(data, finished)}
-          {data && ` | ${data.CompetitionData.Name}`}
+          {data && data.CompetitionData && ` | ${data.CompetitionData.Name}`}
         </title>
       </Head>
       <Menu />

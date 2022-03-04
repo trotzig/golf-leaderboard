@@ -1,8 +1,9 @@
+import { useEffect, useState } from 'react';
 import md5 from 'crypto-js/md5';
 
 const loadTime = Date.now();
 
-function fetchJsonP(url) {
+export default function fetchJsonP(url) {
   return new Promise(resolve => {
     const rndFunctionName = `cb_${md5(url)}`;
     window[rndFunctionName] = payload => {
@@ -14,15 +15,26 @@ function fetchJsonP(url) {
   });
 }
 
-const cache = {};
+const CACHE = {};
 
-async function cachedFetchJsonP(url) {
-  const promise = cache[url] || fetchJsonP(url);
-  const res = await promise;
-  cache[url] = promise;
-  return res;
+export function useJsonPData(url, defaultData) {
+  const [data, setData] = useState(defaultData);
+  useEffect(() => {
+    if (!url) {
+      return;
+    }
+    const cachedData = CACHE[url];
+    if (cachedData) {
+      console.log('using cached data');
+      setData(data);
+    }
+    async function run() {
+      const data = await fetchJsonP(url);
+      console.log('using fresh data');
+      CACHE[url] = data;
+      setData(data);
+    }
+    run();
+  }, [url]);
+  return data;
 }
-
-export default fetchJsonP;
-
-export { cachedFetchJsonP };

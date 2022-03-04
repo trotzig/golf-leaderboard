@@ -1,11 +1,11 @@
 import { startOfDay, parse, format } from 'date-fns';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
+import { useJsonPData } from '../src/fetchJsonP';
 import LoadingSkeleton from '../src/LoadingSkeleton';
 import Menu from '../src/Menu';
 import competitionDateString from '../src/competitionDateString';
-import fetchJsonP from '../src/fetchJsonP';
 
 const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
 
@@ -24,18 +24,9 @@ function getCompetitions(data, now) {
 }
 
 export default function StartPage() {
-  const [data, setData] = useState();
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    async function run() {
-      setLoading(true);
-      const url = `https://scores.golfbox.dk/Handlers/ScheduleHandler/GetSchedule/CustomerId/1/Season/2022/CompetitionId/0/language/2057/`;
-      const payload = await fetchJsonP(url);
-      setData(payload);
-      setLoading(false);
-    }
-    run();
-  }, []);
+  const data = useJsonPData(`https://scores.golfbox.dk/Handlers/ScheduleHandler/GetSchedule/CustomerId/1/Season/2022/CompetitionId/0/language/2057/`);
+  const loading = !data;
+
   // const now = startOfDay(new Date(Date.now() + 24 * 60 * 60 * 1000));
   const now = startOfDay(new Date());
   const competitions = data ? getCompetitions(data, now) : [];
