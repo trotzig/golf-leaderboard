@@ -1,9 +1,9 @@
 import Head from 'next/head';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
+import { useJsonPData } from '../src/fetchJsonP';
 import LoadingSkeleton from '../src/LoadingSkeleton';
 import Menu from '../src/Menu';
-import fetchJsonP from '../src/fetchJsonP';
 
 const NUM_FORMATTER = Intl.NumberFormat('en-US', {
   notation: 'compact',
@@ -89,15 +89,8 @@ function Player({ entry, onFavorite }) {
 }
 
 export default function OrderOfMeritPage() {
-  const [data, setData] = useState();
-  useEffect(() => {
-    async function run() {
-      const url = `https://scores.golfbox.dk/Handlers/OrderOfMeritsHandler/GetOrderOfMerit/CustomerId/1/language/2057/OrderOfMeritID/157709/`;
-      const payload = await fetchJsonP(url);
-      setData(payload);
-    }
-    run();
-  }, []);
+  const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
+  const data = useJsonPData(`https://scores.golfbox.dk/Handlers/OrderOfMeritsHandler/GetOrderOfMerit/CustomerId/1/language/2057/OrderOfMeritID/157709/`);
 
   function handleFavoriteChange(favorite, memberId) {
     if (favorite) {
@@ -105,7 +98,7 @@ export default function OrderOfMeritPage() {
     } else {
       localStorage.removeItem(memberId);
     }
-    setData({ ...data });
+    setLastFavoriteChanged(new Date());
   }
 
   const entries = data && getEntries(data);

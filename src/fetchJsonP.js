@@ -26,7 +26,7 @@ export function useJsonPData(url, defaultData) {
     const cachedData = CACHE[url];
     if (cachedData) {
       console.log('using cached data');
-      setData(data);
+      setData(cachedData);
     }
     async function run() {
       const data = await fetchJsonP(url);
