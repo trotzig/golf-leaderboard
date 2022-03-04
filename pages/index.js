@@ -86,7 +86,7 @@ export default function StartPage() {
               <>
                 <h3>Past events</h3>
                 <ul>
-                  {pastCompetitions.map(c => (
+                  {pastCompetitions.reverse().map(c => (
                     <CompetitionListItem key={c.ID} competition={c} now={now} />
                   ))}
                 </ul>

@@ -118,7 +118,7 @@ export default function CompetitionPlayer({ now = new Date() }) {
                   player.ResultSum.ToParValue < 0 ? ' under-par' : ''
                 }`}
               >
-                <b>Result</b>
+                <b>Score</b>
                 <span>{fixParValue(player.ResultSum.ToParText)}</span>
               </span>
             </div>
