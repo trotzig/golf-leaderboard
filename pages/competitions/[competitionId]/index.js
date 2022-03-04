@@ -201,8 +201,7 @@ function getFirstRoundStart(round, now) {
 function Player({ entry, onFavoriteChange, colors, now, lazy }) {
   const rounds = getRounds(entry);
   const classes = ['player'];
-  const isFavorite = localStorage.getItem(entry.MemberID);
-  if (isFavorite) {
+  if (entry.isFavorite) {
     classes.push('favorite-player');
   }
 
@@ -230,7 +229,7 @@ function Player({ entry, onFavoriteChange, colors, now, lazy }) {
         </span>
         <button
           className="favorite"
-          onClick={() => onFavoriteChange(!isFavorite, entry.MemberID)}
+          onClick={() => onFavoriteChange(!entry.isFavorite, entry.MemberID)}
         >
           <svg height="24px" viewBox="0 0 24 24" width="24px">
             <path d="M0 0h24v24H0z" fill="none" stroke="none" />
@@ -313,6 +312,11 @@ export default function CompetitionPage({
   }
 
   const entries = data && timesData ? getEntries(data, timesData) : [];
+
+  for (const entry of entries) {
+    entry.isFavorite = localStorage.getItem(entry.MemberID);
+  }
+
   const favorites = entries && entries.filter(e => e.isFavorite);
   return (
     <div className="leaderboard">
