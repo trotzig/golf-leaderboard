@@ -541,3 +541,39 @@ footer {
 .player-profile-topar.under-par span {
   color: var(--primary);
 }
+.player-round-scorecard {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 10px;
+  row-gap: 3px;
+  text-align: center;
+  font-size: 14px;
+  padding: 10px 0;
+}
+.player-round-scorecard > * {
+  opacity: 0.7;
+}
+.player-round-scorecard .round-score {
+  opacity: 1;
+  width: 20px;
+  height: 20px;
+  font-size: inherit;
+  margin: 0 auto;
+}
+.player-profile-rounds {
+  display: flex;
+  flex-wrap: wrap;
+}
+.player-profile-rounds > *  {
+  margin-right: 40px;
+  margin-bottom: 30px;
+}
+.player-profile-rounds > *:last-child  {
+  margin-right: 0;
+}
+.player-round {
+  text-align: center;
+}
+.player-round-course {
+  font-size: 14px;
+}
