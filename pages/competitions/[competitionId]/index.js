@@ -10,6 +10,7 @@ import Lazy from '../../../src/Lazy';
 import LoadingSkeleton from '../../../src/LoadingSkeleton';
 import Menu from '../../../src/Menu';
 import competitionDateString from '../../../src/competitionDateString';
+import fixParValue from '../../../src/fixParValue';
 
 const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
 
@@ -123,13 +124,6 @@ function getRounds(entry) {
   return roundKeys.map(key => entry.Rounds[key]);
 }
 
-function fixParValue(val) {
-  if (val === 'Par') {
-    return 'E';
-  }
-  return val;
-}
-
 function RoundTotal({ score }) {
   const classes = ['round-score', 'round-total'];
   if (score && score.Result.ToPar < 0) {
@@ -198,7 +192,7 @@ function getFirstRoundStart(round, now) {
   return startTime;
 }
 
-function Player({ entry, onFavoriteChange, colors, now, lazy }) {
+function Player({ entry, onFavoriteChange, colors, now, lazy, competitionId }) {
   const rounds = getRounds(entry);
   const classes = ['player'];
   if (entry.isFavorite) {
@@ -216,50 +210,58 @@ function Player({ entry, onFavoriteChange, colors, now, lazy }) {
 
   return (
     <li className={classes.join(' ')}>
-      <span className={positionClassname}>
-        <span>
-          {(entry.Position && entry.Position.Calculated) || (
-            <ClockIcon
-              date={getFirstRoundStart(
-                rounds[entry.activeRoundNumber - 1],
-                now,
+      <Link href={`/competitions/${competitionId}/players/${entry.MemberID}`}>
+        <a>
+          <span className={positionClassname}>
+            <span>
+              {(entry.Position && entry.Position.Calculated) || (
+                <ClockIcon
+                  date={getFirstRoundStart(
+                    rounds[entry.activeRoundNumber - 1],
+                    now,
+                  )}
+                />
               )}
-            />
-          )}
-        </span>
-        <button
-          className="favorite"
-          onClick={() => onFavoriteChange(!entry.isFavorite, entry.MemberID)}
-        >
-          <svg height="24px" viewBox="0 0 24 24" width="24px">
-            <path d="M0 0h24v24H0z" fill="none" stroke="none" />
-            <path d="M0 0h24v24H0z" fill="none" stroke="none" />
-            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-          </svg>
-        </button>
-      </span>
-      <span>
-        {entry.FirstName} {entry.LastName}
-        <br />
-        <span className="club">{entry.ClubName}</span>
-      </span>
-      <span
-        className={`score${entry.ResultSum.ToParValue < 0 ? ' under-par' : ''}`}
-      >
-        {fixParValue(entry.ResultSum.ToParText)}
-      </span>
-      <StatsWrapper className="stats" minHeight={statsHeight}>
-        {rounds.map(round => {
-          return (
-            <Round
-              key={round.StartDateTime}
-              round={round}
-              colors={colors}
-              now={now}
-            />
-          );
-        })}
-      </StatsWrapper>
+            </span>
+            <button
+              className="favorite"
+              onClick={() =>
+                onFavoriteChange(!entry.isFavorite, entry.MemberID)
+              }
+            >
+              <svg height="24px" viewBox="0 0 24 24" width="24px">
+                <path d="M0 0h24v24H0z" fill="none" stroke="none" />
+                <path d="M0 0h24v24H0z" fill="none" stroke="none" />
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg>
+            </button>
+          </span>
+          <span>
+            {entry.FirstName} {entry.LastName}
+            <br />
+            <span className="club">{entry.ClubName}</span>
+          </span>
+          <span
+            className={`score${
+              entry.ResultSum.ToParValue < 0 ? ' under-par' : ''
+            }`}
+          >
+            {fixParValue(entry.ResultSum.ToParText)}
+          </span>
+          <StatsWrapper className="stats" minHeight={statsHeight}>
+            {rounds.map(round => {
+              return (
+                <Round
+                  key={round.StartDateTime}
+                  round={round}
+                  colors={colors}
+                  now={now}
+                />
+              );
+            })}
+          </StatsWrapper>
+        </a>
+      </Link>
     </li>
   );
 }
@@ -370,6 +372,7 @@ export default function CompetitionPage({
                 {favorites.map(entry => {
                   return (
                     <Player
+                      competitionId={competitionId}
                       now={now}
                       colors={data.CourseColours}
                       key={entry.RefID}
@@ -387,6 +390,7 @@ export default function CompetitionPage({
             {entries.map((entry, i) => {
               return (
                 <Player
+                  competitionId={competitionId}
                   now={now}
                   colors={data.CourseColours}
                   key={entry.MemberID}

@@ -82,9 +82,14 @@ a {
 
 .leaderboard,
 .competitions,
+.player-profile,
 nav {
   max-width: 600px;
   margin: 0 auto;
+}
+
+.page-margin {
+  padding: 10px;
 }
 
 .course {
@@ -180,12 +185,14 @@ nav {
 }
 
 .leaderboard ul li {
+  all: unset;
   display: block;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.leaderboard .player {
+.leaderboard .player a {
   all: unset;
+  cursor: pointer;
   display: grid;
   grid-template-columns: 30px auto 80px;
   column-gap: 15px;
@@ -423,7 +430,7 @@ footer {
     font-size: 10px;
     line-height: 12px;
   }
-  .leaderboard .player {
+  .leaderboard .player a {
     column-gap: 5px;
     font-size: 15px;
   }
@@ -502,3 +509,35 @@ footer {
   content: '';
 }
 
+.player-profile-club {
+  margin: 0;
+  opacity: 0.7;
+  font-size: 14px;
+  margin-top: 5px;
+}
+.player-profile-top {
+  display: grid;
+  grid-template-columns: 1fr 80px 80px;
+  column-gap: 10px;
+}
+.player-profile-name {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.player-profile-top b {
+  font-size: 14px;
+  opacity: 0.7;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: normal;
+}
+.player-profile-topar,
+.player-profile-position {
+  text-align: right;
+  font-size: 24px;
+}
+
+.player-profile-topar.under-par span {
+  color: var(--primary);
+}

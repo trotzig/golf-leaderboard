@@ -10,7 +10,7 @@ export default function Course() {
   const { competitionId, courseId } = router.query;
 
   const data = useJsonPData(
-    `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/`,
+    competitionId && `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/`,
   );
 
   const loading = !data;
