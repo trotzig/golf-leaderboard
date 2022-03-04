@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import md5 from 'crypto-js/md5';
 
 const loadTime = Date.now();
@@ -12,4 +13,26 @@ export default function fetchJsonP(url) {
     scriptEl.src = `${url}?callback=${rndFunctionName}&_=${loadTime}`;
     document.body.appendChild(scriptEl);
   });
+}
+
+const CACHE = {};
+
+export function useJsonPData(url, defaultData) {
+  const [data, setData] = useState(defaultData);
+  useEffect(() => {
+    if (!url) {
+      return;
+    }
+    const cachedData = CACHE[url];
+    if (cachedData) {
+      setData(cachedData);
+    }
+    async function run() {
+      const data = await fetchJsonP(url);
+      CACHE[url] = data;
+      setData(data);
+    }
+    run();
+  }, [url]);
+  return data;
 }

@@ -2,14 +2,15 @@ import { parse, format, startOfDay } from 'date-fns';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
+import { useJsonPData } from '../../../src/fetchJsonP';
 import ClockIcon from '../../../src/ClockIcon';
 import Lazy from '../../../src/Lazy';
 import LoadingSkeleton from '../../../src/LoadingSkeleton';
 import Menu from '../../../src/Menu';
 import competitionDateString from '../../../src/competitionDateString';
-import fetchJsonP from '../../../src/fetchJsonP';
+import fixParValue from '../../../src/fixParValue';
 
 const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
 
@@ -109,7 +110,6 @@ function getEntries(data, timesData) {
   const entryKeys = Object.keys(entries);
   const result = entryKeys.map(key => entries[key]);
   for (const entry of result) {
-    entry.isFavorite = localStorage.getItem(entry.MemberID);
     const timeEntry = timeEntries[entry.MemberID];
     if (timeEntry) {
       entry.activeRoundNumber = timeEntry.activeRoundNumber;
@@ -122,13 +122,6 @@ function getEntries(data, timesData) {
 function getRounds(entry) {
   const roundKeys = Object.keys(entry.Rounds);
   return roundKeys.map(key => entry.Rounds[key]);
-}
-
-function fixParValue(val) {
-  if (val === 'Par') {
-    return 'E';
-  }
-  return val;
 }
 
 function RoundTotal({ score }) {
@@ -199,7 +192,7 @@ function getFirstRoundStart(round, now) {
   return startTime;
 }
 
-function Player({ entry, onFavoriteChange, colors, now, lazy }) {
+function Player({ entry, onFavoriteChange, colors, now, lazy, competitionId }) {
   const rounds = getRounds(entry);
   const classes = ['player'];
   if (entry.isFavorite) {
@@ -217,55 +210,63 @@ function Player({ entry, onFavoriteChange, colors, now, lazy }) {
 
   return (
     <li className={classes.join(' ')}>
-      <span className={positionClassname}>
-        <span>
-          {(entry.Position && entry.Position.Calculated) || (
-            <ClockIcon
-              date={getFirstRoundStart(
-                rounds[entry.activeRoundNumber - 1],
-                now,
+      <Link href={`/competitions/${competitionId}/players/${entry.MemberID}`}>
+        <a>
+          <span className={positionClassname}>
+            <span>
+              {(entry.Position && entry.Position.Calculated) || (
+                <ClockIcon
+                  date={getFirstRoundStart(
+                    rounds[entry.activeRoundNumber - 1],
+                    now,
+                  )}
+                />
               )}
-            />
-          )}
-        </span>
-        <button
-          className="favorite"
-          onClick={() => onFavoriteChange(!entry.isFavorite, entry.MemberID)}
-        >
-          <svg height="24px" viewBox="0 0 24 24" width="24px">
-            <path d="M0 0h24v24H0z" fill="none" stroke="none" />
-            <path d="M0 0h24v24H0z" fill="none" stroke="none" />
-            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-          </svg>
-        </button>
-      </span>
-      <span>
-        {entry.FirstName} {entry.LastName}
-        <br />
-        <span className="club">{entry.ClubName}</span>
-      </span>
-      <span
-        className={`score${entry.ResultSum.ToParValue < 0 ? ' under-par' : ''}`}
-      >
-        {fixParValue(entry.ResultSum.ToParText)}
-      </span>
-      <StatsWrapper className="stats" minHeight={statsHeight}>
-        {rounds.map(round => {
-          return (
-            <Round
-              key={round.StartDateTime}
-              round={round}
-              colors={colors}
-              now={now}
-            />
-          );
-        })}
-      </StatsWrapper>
+            </span>
+            <button
+              className="favorite"
+              onClick={() =>
+                onFavoriteChange(!entry.isFavorite, entry.MemberID)
+              }
+            >
+              <svg height="24px" viewBox="0 0 24 24" width="24px">
+                <path d="M0 0h24v24H0z" fill="none" stroke="none" />
+                <path d="M0 0h24v24H0z" fill="none" stroke="none" />
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg>
+            </button>
+          </span>
+          <span>
+            {entry.FirstName} {entry.LastName}
+            <br />
+            <span className="club">{entry.ClubName}</span>
+          </span>
+          <span
+            className={`score${
+              entry.ResultSum.ToParValue < 0 ? ' under-par' : ''
+            }`}
+          >
+            {fixParValue(entry.ResultSum.ToParText)}
+          </span>
+          <StatsWrapper className="stats" minHeight={statsHeight}>
+            {rounds.map(round => {
+              return (
+                <Round
+                  key={round.StartDateTime}
+                  round={round}
+                  colors={colors}
+                  now={now}
+                />
+              );
+            })}
+          </StatsWrapper>
+        </a>
+      </Link>
     </li>
   );
 }
 
-function getHeading(data, finishedQueryParam) {
+function getHeading(data, finishedQueryParam, now) {
   if (!data || !data.CompetitionData) {
     if (finishedQueryParam) {
       return 'Results';
@@ -273,8 +274,8 @@ function getHeading(data, finishedQueryParam) {
     return 'Leaderboard';
   }
 
-  const startOfToday = startOfDay(new Date());
-  const end = parse(data.CompetitionData.EndDate, DATE_FORMAT, new Date());
+  const startOfToday = startOfDay(now);
+  const end = parse(data.CompetitionData.EndDate, DATE_FORMAT, now);
   if (end >= startOfToday) {
     return 'Leaderboard';
   }
@@ -284,15 +285,23 @@ function getHeading(data, finishedQueryParam) {
 export default function CompetitionPage({
   initialData,
   initialTimesData,
-  initialLoading = true,
   now = new Date(),
   lazyItems = true,
 }) {
-  const [data, setData] = useState(initialData);
-  const [loading, setLoading] = useState(initialLoading);
-  const [timesData, setTimesData] = useState(initialTimesData);
+  const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
   const router = useRouter();
   const { competitionId, finished } = router ? router.query : {};
+  const data = useJsonPData(
+    competitionId &&
+      `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/`,
+    initialData,
+  );
+  const timesData = useJsonPData(
+    competitionId &&
+      `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competitionId}/language/2057/`,
+    initialTimesData,
+  );
+  const loading = !data || !timesData;
 
   function handleFavoriteChange(favorite, memberId) {
     if (favorite) {
@@ -300,43 +309,27 @@ export default function CompetitionPage({
     } else {
       localStorage.removeItem(memberId);
     }
-    setData({ ...data });
-    setTimesData({ ...timesData });
+    // Force re-render of entire view
+    setLastFavoriteChanged(new Date());
   }
 
-  useEffect(() => {
-    if (!competitionId) {
-      return;
-    }
-    async function run() {
-      const [compPayload, timesPayload] = await Promise.all([
-        fetchJsonP(
-          `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/`,
-        ),
-        fetchJsonP(
-          `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competitionId}/language/2057/`,
-        ),
-      ]);
-      setData(compPayload);
-      setTimesData(timesPayload);
-      setLoading(false);
-      console.log({ initialTimesData: timesPayload, initialData: compPayload });
-    }
-    run();
-  }, [competitionId]);
-
   const entries = data && timesData ? getEntries(data, timesData) : [];
+
+  for (const entry of entries || []) {
+    entry.isFavorite = localStorage.getItem(entry.MemberID);
+  }
+
   const favorites = entries && entries.filter(e => e.isFavorite);
   return (
     <div className="leaderboard">
       <Head>
         <title>
-          {getHeading(data, finished)}
-          {data && ` | ${data.CompetitionData.Name}`}
+          {getHeading(data, finished, now)}
+          {data && data.CompetitionData && ` | ${data.CompetitionData.Name}`}
         </title>
       </Head>
       <Menu />
-      <h2>{getHeading(data, finished)}</h2>
+      <h2>{getHeading(data, finished, now)}</h2>
       {data && (
         <>
           <p className="leaderboard-subtitle">
@@ -379,6 +372,7 @@ export default function CompetitionPage({
                 {favorites.map(entry => {
                   return (
                     <Player
+                      competitionId={competitionId}
                       now={now}
                       colors={data.CourseColours}
                       key={entry.RefID}
@@ -396,6 +390,7 @@ export default function CompetitionPage({
             {entries.map((entry, i) => {
               return (
                 <Player
+                  competitionId={competitionId}
                   now={now}
                   colors={data.CourseColours}
                   key={entry.MemberID}

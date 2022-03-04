@@ -18,7 +18,7 @@ export default function LeaderboardRedirectPage() {
     run();
   }, []);
   return (
-    <div>
+    <div className="leaderboard">
       <Menu />
       <LoadingSkeleton />
     </div>
