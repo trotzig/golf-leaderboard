@@ -1,4 +1,4 @@
-import { startOfDay, parse, format } from 'date-fns';
+import { startOfDay, format } from 'date-fns';
 import Link from 'next/link';
 import React from 'react';
 
@@ -6,22 +6,7 @@ import { useJsonPData } from '../src/fetchJsonP';
 import LoadingSkeleton from '../src/LoadingSkeleton';
 import Menu from '../src/Menu';
 import competitionDateString from '../src/competitionDateString';
-
-const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
-
-function getCompetitions(data, now) {
-  const result = [];
-  for (const c of Object.values(data.CompetitionData)) {
-    for (const m of Object.values(c.Months)) {
-      result.push(...Object.values(m.Entries));
-    }
-  }
-  for (const entry of result) {
-    entry._start = parse(entry.StartDate, DATE_FORMAT, now);
-    entry._end = parse(entry.EndDate, DATE_FORMAT, now);
-  }
-  return result;
-}
+import getCompetitions from '../src/getCompetitions';
 
 export default function StartPage() {
   const data = useJsonPData(`https://scores.golfbox.dk/Handlers/ScheduleHandler/GetSchedule/CustomerId/1/Season/2022/CompetitionId/0/language/2057/`);

@@ -271,7 +271,7 @@ function Player({ entry, onFavoriteChange, colors, now, lazy, competitionId }) {
 function getHeading(data, finishedQueryParam, now) {
   if (!data || !data.CompetitionData) {
     if (finishedQueryParam) {
-      return 'Results';
+      return 'Final results';
     }
     return 'Leaderboard';
   }
@@ -281,7 +281,7 @@ function getHeading(data, finishedQueryParam, now) {
   if (end >= startOfToday) {
     return 'Leaderboard';
   }
-  return 'Results';
+  return 'Final results';
 }
 
 export default function CompetitionPage({
