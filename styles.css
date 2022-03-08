@@ -355,6 +355,7 @@ footer {
   color: var(--light);
   border: 1px solid var(--primary);
   font-weight: bold;
+  opacity: 1;
 }
 .oom .round-score.top-10 {
   border: 1px solid var(--medium);
