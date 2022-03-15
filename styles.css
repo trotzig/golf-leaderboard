@@ -320,7 +320,7 @@ nav {
 }
 
 .leaderboard .score.under-par {
-  color: var(--primary);
+  color: var(--secondary);
 }
 
 .leaderboard .club {
