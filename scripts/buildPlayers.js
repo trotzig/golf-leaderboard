@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const nodeFetch = require('node-fetch');
+const crypto = require('crypto');
 
 function parseJson(raw) {
   return JSON.parse(raw.replaceAll(':!0', ':false').replaceAll(':!1', ':true'));
@@ -25,6 +26,21 @@ async function fetchCompetitions() {
   return result;
 }
 
+function generateSlug({ firstName, lastName }) {
+  return [firstName, lastName]
+    .join(' ')
+    .toLowerCase()
+    .replaceAll('(a)', '')
+    .replaceAll(/\s+/g, '-')
+    .replaceAll('å', 'a')
+    .replaceAll('ä', 'a')
+    .replaceAll('ö', 'o')
+    .replaceAll('ø', 'o')
+    .replaceAll('æ', 'a')
+    .replaceAll('é', 'e')
+    .replaceAll(/[^a-z-]/g, '');
+}
+
 async function fetchPlayers(competitionId) {
   const res = await nodeFetch(
     `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/`,
@@ -45,11 +61,13 @@ async function fetchPlayers(competitionId) {
     if (clazz.Leaderboard && clazz.Leaderboard.Entries) {
       const entries = Object.values(clazz.Leaderboard.Entries);
       for (const entry of entries) {
-        result.push({
+        const player = {
           firstName: entry.FirstName,
           lastName: entry.LastName,
           memberId: entry.MemberID,
-        });
+        };
+        player.slug = generateSlug(player);
+        result.push(player);
       }
     }
   }
@@ -58,6 +76,7 @@ async function fetchPlayers(competitionId) {
 
 async function fetchAllPlayers(competitions) {
   const allPlayers = {};
+  const allSlugs = {};
   for (const comp of competitions) {
     console.log(`Fetching players for competition ${comp.name}...`);
     const players = await fetchPlayers(comp.id);
@@ -66,7 +85,22 @@ async function fetchAllPlayers(competitions) {
       allPlayers[player.memberId] = player;
     }
   }
-  return Object.values(allPlayers);
+  const result = Object.values(allPlayers);
+  const slugsIndex = {};
+  for (const player of result) {
+    if (slugsIndex[player.slug]) {
+      console.warn(
+        `Found non-unique slug "${player.slug}". Will use random suffix.`,
+      );
+      player.slug = `${player.slug}-${crypto
+        .createHash('md5')
+        .update(player.memberId)
+        .digest('hex')
+        .slice(0, 3)}`;
+    }
+    slugsIndex[player.slug] = player;
+  }
+  return result;
 }
 
 async function main() {
