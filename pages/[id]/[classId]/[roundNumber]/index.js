@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 
 export default function CompetitionPage() {
   const router = useRouter();
-  const { competitionId } = router.query;
+  const { id } = router.query;
   useEffect(() => {
-    router.replace(`/competitions/${competitionId}`);
-  }, [competitionId]);
+    router.replace(`/competitions/${id}`);
+  }, [id]);
   return null;
 }

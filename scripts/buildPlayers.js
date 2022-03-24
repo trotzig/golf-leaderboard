@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const fs = require('fs');
 const nodeFetch = require('node-fetch');
 const crypto = require('crypto');
 
@@ -90,7 +91,11 @@ async function fetchAllPlayers(competitions) {
   for (const player of result) {
     if (slugsIndex[player.slug]) {
       console.warn(
-        `Found non-unique slug "${player.slug}". Will use random suffix.`,
+        `Found non-unique slug "${player.slug}" for id ${
+          player.memberId
+        } belonging to ${
+          slugsIndex[player.slug].memberId
+        }. Will use random suffix.`,
       );
       player.slug = `${player.slug}-${crypto
         .createHash('md5')
@@ -106,7 +111,9 @@ async function fetchAllPlayers(competitions) {
 async function main() {
   const competitions = await fetchCompetitions();
   const players = await fetchAllPlayers(competitions);
-  console.log(players);
+  const fileName = '.staticData.json';
+  console.log(`Writing json results to ${fileName}`);
+  fs.writeFileSync(fileName, JSON.stringify({ players }));
 }
 
 main()
