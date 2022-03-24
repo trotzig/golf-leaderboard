@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
+const crypto = require('crypto');
 const fs = require('fs');
 const nodeFetch = require('node-fetch');
-const crypto = require('crypto');
+
+const generateSlug = require('../src/generateSlug');
 
 function parseJson(raw) {
   return JSON.parse(raw.replaceAll(':!0', ':false').replaceAll(':!1', ':true'));
@@ -25,21 +27,6 @@ async function fetchCompetitions() {
     }
   }
   return result;
-}
-
-function generateSlug({ firstName, lastName }) {
-  return [firstName, lastName]
-    .join(' ')
-    .toLowerCase()
-    .replaceAll('(a)', '')
-    .replaceAll(/\s+/g, '-')
-    .replaceAll('å', 'a')
-    .replaceAll('ä', 'a')
-    .replaceAll('ö', 'o')
-    .replaceAll('ø', 'o')
-    .replaceAll('æ', 'a')
-    .replaceAll('é', 'e')
-    .replaceAll(/[^a-z-]/g, '');
 }
 
 async function fetchPlayers(competitionId) {
@@ -66,6 +53,7 @@ async function fetchPlayers(competitionId) {
           firstName: entry.FirstName,
           lastName: entry.LastName,
           memberId: entry.MemberID,
+          clubName: entry.ClubName,
         };
         player.slug = generateSlug(player);
         result.push(player);

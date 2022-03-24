@@ -1,12 +1,14 @@
-import { format, parse } from 'date-fns';
-import { useRouter } from 'next/router';
-import React from 'react';
 import { merge } from 'lodash';
+import { parse } from 'date-fns';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import React from 'react';
 
 import { useJsonPData } from '../../../../../src/fetchJsonP';
 import LoadingSkeleton from '../../../../../src/LoadingSkeleton';
 import Menu from '../../../../../src/Menu';
 import fixParValue from '../../../../../src/fixParValue';
+import generateSlug from '../../../../../src/generateSlug';
 
 const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
 
@@ -124,9 +126,11 @@ export default function CompetitionPlayer({ now = new Date() }) {
             <div className="player-profile-top page-margin">
               <div>
                 <b>Player</b>
-                <div className="player-profile-name">
-                  {player.FirstName} {player.LastName}
-                </div>
+                <Link href={`/${generateSlug(player)}`}>
+                  <a className="player-profile-name">
+                    {player.FirstName} {player.LastName}
+                  </a>
+                </Link>
                 <span className="player-profile-club">{player.ClubName}</span>
               </div>
 

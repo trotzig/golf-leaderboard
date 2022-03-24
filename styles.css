@@ -82,6 +82,7 @@ a {
 
 .leaderboard,
 .competitions,
+.player-page,
 nav {
   max-width: 600px;
   margin: 0 auto;
@@ -564,6 +565,9 @@ footer {
 .player-profile-name {
   font-size: 24px;
   font-weight: bold;
+  display: block;
+  color: inherit;
+  text-decoration: none;
 }
 
 .player-profile-top b {
@@ -634,4 +638,21 @@ footer {
 }
 .player-round-course {
   font-size: 14px;
+}
+
+.icon-button {
+  all: unset;
+  cursor: pointer;
+  border: 2px solid var(--primary);
+  border-radius: 3px;
+  padding: 5px 10px;
+  display: inline-grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 5px;
+  align-items: center;
+  transition: all .2s;
+}
+.player-profile-club {
+  padding: 0 10px;
+  margin-bottom: 15px;
 }
