@@ -7,7 +7,7 @@ const nodeFetch = require('node-fetch');
 const generateSlug = require('../src/generateSlug');
 
 function parseJson(raw) {
-  return JSON.parse(raw.replaceAll(':!0', ':false').replaceAll(':!1', ':true'));
+  return JSON.parse(raw.replace(/:!0/g, ':false').replace(/:!1/g, ':true'));
 }
 
 async function fetchCompetitions() {
