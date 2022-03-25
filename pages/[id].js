@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
 import { findPlayer } from '../src/staticData';
@@ -39,10 +40,20 @@ export default function PlayerPage() {
       <Menu />
       {player ? (
         <>
-          <h2>
-            {player.firstName} {player.lastName}
-          </h2>
-          <p className="page-margin player-page-club">{player.clubName}</p>
+          <div className="player-page-top">
+            <div>
+              <h2>
+                {player.firstName} {player.lastName}
+              </h2>
+              <p className="player-page-club">{player.clubName}</p>
+            </div>
+            <Link href="/oom">
+              <a className="player-page-oom">
+                <b>{player.oomPosition}</b>
+                Order of merit
+              </a>
+            </Link>
+          </div>
           <div className="page-margin">
             <button
               className="icon-button"

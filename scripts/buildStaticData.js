@@ -6,6 +6,8 @@ const nodeFetch = require('node-fetch');
 
 const generateSlug = require('../src/generateSlug');
 
+const { QUICKRUN } = process.env;
+
 function parseJson(raw) {
   return JSON.parse(raw.replace(/:!0/g, ':false').replace(/:!1/g, ':true'));
 }
@@ -25,6 +27,9 @@ async function fetchCompetitions() {
         ...Object.values(month.Entries).map(e => ({ id: e.ID, name: e.Name })),
       );
     }
+  }
+  if (QUICKRUN) {
+    return result.slice(0, 1);
   }
   return result;
 }
@@ -96,9 +101,28 @@ async function fetchAllPlayers(competitions) {
   return result;
 }
 
+async function fillOOM(players) {
+  const res = await nodeFetch(
+    'https://scores.golfbox.dk/Handlers/OrderOfMeritsHandler/GetOrderOfMerit/CustomerId/1/language/2057/OrderOfMeritID/157709/',
+  );
+  if (!res.ok) {
+    throw new Error('Failed to fetch oom', res.status, await res.text());
+  }
+  const json = parseJson(await res.text());
+  const entries = Object.values(json.Entries);
+  const index = {};
+  for (const entry of entries) {
+    index[entry.MemberID] = entry.Position;
+  }
+  for (const player of players) {
+    player.oomPosition = index[player.memberId] || '-';
+  }
+}
+
 async function main() {
   const competitions = await fetchCompetitions();
   const players = await fetchAllPlayers(competitions);
+  await fillOOM(players);
   const fileName = '.staticData.json';
   console.log(`Writing json results to ${fileName}`);
   fs.writeFileSync(fileName, JSON.stringify({ players }));

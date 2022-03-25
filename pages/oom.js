@@ -90,7 +90,9 @@ function Player({ entry, onFavorite }) {
 
 export default function OrderOfMeritPage() {
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
-  const data = useJsonPData(`https://scores.golfbox.dk/Handlers/OrderOfMeritsHandler/GetOrderOfMerit/CustomerId/1/language/2057/OrderOfMeritID/157709/`);
+  const data = useJsonPData(
+    'https://scores.golfbox.dk/Handlers/OrderOfMeritsHandler/GetOrderOfMerit/CustomerId/1/language/2057/OrderOfMeritID/157709/',
+  );
 
   function handleFavoriteChange(favorite, memberId) {
     if (favorite) {
