@@ -18,6 +18,9 @@ export default function PlayerPage() {
   }, [player]);
 
   useEffect(() => {
+    if (!player) {
+      return;
+    }
     if (isFavorite) {
       localStorage.setItem(player.memberId, '1');
     } else {

@@ -1,4 +1,4 @@
-export default function generateSlug(entry) {
+module.exports = function generateSlug(entry) {
   const firstName = entry.firstName || entry.FirstName;
   const lastName = entry.lastName || entry.LastName;
   return [firstName, lastName]
@@ -13,4 +13,4 @@ export default function generateSlug(entry) {
     .replaceAll('æ', 'a')
     .replaceAll('é', 'e')
     .replaceAll(/[^a-z-]/g, '');
-}
+};
