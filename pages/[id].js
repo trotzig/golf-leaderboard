@@ -42,7 +42,7 @@ export default function PlayerPage() {
           <h2>
             {player.firstName} {player.lastName}
           </h2>
-          <p className="page-margin player-profile-club">{player.clubName}</p>
+          <p className="page-margin player-page-club">{player.clubName}</p>
           <div className="page-margin">
             <button
               className="icon-button"

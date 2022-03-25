@@ -227,9 +227,10 @@ function Player({ entry, onFavoriteChange, colors, now, lazy, competitionId }) {
             </span>
             <button
               className="favorite"
-              onClick={() =>
-                onFavoriteChange(!entry.isFavorite, entry.MemberID)
-              }
+              onClick={e => {
+                onFavoriteChange(!entry.isFavorite, entry.MemberID);
+                e.preventDefault();
+              }}
             >
               <svg height="24px" viewBox="0 0 24 24" width="24px">
                 <path d="M0 0h24v24H0z" fill="none" stroke="none" />
