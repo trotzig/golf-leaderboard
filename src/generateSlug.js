@@ -4,13 +4,10 @@ module.exports = function generateSlug(entry) {
   return [firstName, lastName]
     .join(' ')
     .toLowerCase()
-    .replaceAll('(a)', '')
-    .replaceAll(/\s+/g, '-')
-    .replaceAll('å', 'a')
-    .replaceAll('ä', 'a')
-    .replaceAll('ö', 'o')
-    .replaceAll('ø', 'o')
-    .replaceAll('æ', 'a')
-    .replaceAll('é', 'e')
-    .replaceAll(/[^a-z-]/g, '');
+    .replace(/\(a\)/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/[åäæ]/g, 'a')
+    .replace(/[öø]/g, 'o')
+    .replace(/é/, 'e')
+    .replace(/[^a-z-]/g, '');
 };
