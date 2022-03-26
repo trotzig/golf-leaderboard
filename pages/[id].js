@@ -101,10 +101,18 @@ export default function PlayerPage() {
                   <button
                     className="icon-button"
                     onClick={async () => {
-                      setIsSubscribed(false);
-                      await fetch(`/api/players/${player.memberId}/subscribe`, {
+                      const res = await fetch(`/api/players/${player.memberId}/subscribe`, {
                         method: 'DELETE',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                          email: localStorage.getItem('email'),
+                        }),
                       });
+                      if (res.ok) {
+                        setIsSubscribed(false);
+                      }
                     }}
                   >
                     Unsubscribe
@@ -116,6 +124,7 @@ export default function PlayerPage() {
                   onSubmit={async e => {
                     e.preventDefault();
                     setIsSubmitting(true);
+                    setError(undefined);
                     const email = e.target.querySelector('input').value;
                     const res = await fetch(
                       `/api/players/${player.memberId}/subscribe`,
@@ -127,6 +136,7 @@ export default function PlayerPage() {
                         body: JSON.stringify({ email }),
                       },
                     );
+                    localStorage.setItem('email', email);
                     if (!res.ok) {
                       setError(true);
                     } else {
