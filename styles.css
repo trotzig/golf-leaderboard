@@ -643,7 +643,6 @@ footer {
 .icon-button {
   all: unset;
   cursor: pointer;
-  border: 2px solid var(--primary);
   border-radius: 3px;
   padding: 5px 10px;
   display: inline-grid;
@@ -651,6 +650,12 @@ footer {
   column-gap: 5px;
   align-items: center;
   transition: all .2s;
+  color: var(--primary);
+  border: 2px solid currentColor;
+}
+.icon-button:disabled {
+  filter: grayscale(1);
+  cursor: default;
 }
 .player-page-club {
   padding: 10px 0;
@@ -678,4 +683,27 @@ footer {
   display: block;
   font-size: 24px;
   margin-bottom: 10px;
+}
+
+.sub-form h4 {
+  margin-bottom: 10px;
+}
+.sub-form p {
+  margin: 0 0 15px;
+}
+.sub-form input {
+  display: block;
+  margin-bottom: 10px;
+  max-width: 100%;
+  width: 300px;
+}
+input {
+  all: unset;
+  border: 2px solid var(--medium);
+  border-radius: 3px;
+  padding: 5px 10px;
+  transition: all .1s;
+}
+input:focus {
+  border-color: var(--primary);
 }
