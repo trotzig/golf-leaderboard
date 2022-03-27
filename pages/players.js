@@ -60,8 +60,8 @@ export default function PlayersPage() {
   const router = useRouter();
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
   const [players, setPlayers] = useState([]);
-  const [currentFilter, setCurrentFilter] = useState('');
   const { sortBy = 'lastName', filter = '' } = router.query;
+  const [currentFilter, setCurrentFilter] = useState(filter);
   function handleFavoriteChange(favorite, memberId) {
     if (favorite) {
       localStorage.setItem(memberId, '1');
