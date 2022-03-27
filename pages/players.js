@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import debounce from 'lodash/debounce';
 
 import { getAllPlayers } from '../src/staticData';
 import Menu from '../src/Menu';
@@ -55,7 +56,8 @@ export default function PlayersPage() {
   const router = useRouter();
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
   const [players, setPlayers] = useState(getAllPlayers());
-  const { sortBy = 'lastName' } = router.query;
+  const [currentFilter, setCurrentFilter] = useState('');
+  const { sortBy = 'lastName', filter = '' } = router.query;
   function handleFavoriteChange(favorite, memberId) {
     if (favorite) {
       localStorage.setItem(memberId, '1');
@@ -85,8 +87,35 @@ export default function PlayersPage() {
       }
       return 0;
     });
-    setPlayers(result);
-  }, [lastFavoriteChanged, sortBy]);
+    setPlayers(
+      result.filter(p => {
+        if (!filter) {
+          return true;
+        }
+        const lowerFilter = filter.toLowerCase();
+        return (
+          p.firstName.toLowerCase().includes(lowerFilter) ||
+          p.lastName.toLowerCase().includes(lowerFilter) ||
+          p.clubName.toLowerCase().includes(lowerFilter)
+        );
+      }),
+    );
+  }, [lastFavoriteChanged, sortBy, filter]);
+
+  const debouncedSetFilter = useMemo(
+    () =>
+      debounce(filter => {
+        router.replace(
+          `/players?filter=${encodeURIComponent(filter)}&sortBy=${sortBy}`,
+        );
+      }, 250),
+    [sortBy],
+  );
+
+  function handleSearchChange(e) {
+    setCurrentFilter(e.target.value);
+    debouncedSetFilter(e.target.value);
+  }
 
   const favorites = players.filter(e => e.isFavorite);
   return (
@@ -101,17 +130,29 @@ export default function PlayersPage() {
         are listed here
       </p>
       <div className="page-margin sort-by">
-        Sort by
+        <span>Sort by</span>
         <select
           value={sortBy}
           onChange={e => {
-            router.replace(`/players?sortBy=${e.target.value}`);
+            router.replace(
+              `/players?sortBy=${e.target.value}&filter=${encodeURIComponent(
+                filter,
+              )}`,
+            );
           }}
         >
           <option value="lastName">Last name</option>
           <option value="firstName">First name</option>
           <option value="clubName">Club</option>
         </select>
+
+        <span>Search</span>
+        <input
+          className="search-input"
+          onChange={handleSearchChange}
+          type="text"
+          value={currentFilter}
+        />
       </div>
       {players ? (
         <>
@@ -133,6 +174,12 @@ export default function PlayersPage() {
             </>
           ) : null}
 
+          {filter && players.length === 0 ? (
+            <div className="alert">
+              It doesn't look like we have any matches for "{filter}". Try a
+              different search term.
+            </div>
+          ) : null}
           <ul>
             {players.map(player => {
               return (
