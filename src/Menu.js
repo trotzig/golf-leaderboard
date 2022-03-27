@@ -5,7 +5,7 @@ export default function Menu({ defaultCompetitionId }) {
   return (
     <nav>
       <Link href="/">
-        <a>Start</a>
+        <a>Home</a>
       </Link>
       <Link
         href={
@@ -15,6 +15,9 @@ export default function Menu({ defaultCompetitionId }) {
         }
       >
         <a>Leaderboard</a>
+      </Link>
+      <Link href="/players">
+        <a>Players</a>
       </Link>
       <Link href="/oom">
         <a>Order of merit</a>
