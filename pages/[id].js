@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 
 import { findPlayer } from '../src/staticData';
 import Menu from '../src/Menu';
+import ordinal from '../src/ordinal';
 
 export default function PlayerPage() {
   const router = useRouter();
@@ -64,7 +65,7 @@ export default function PlayerPage() {
             </div>
             <Link href="/oom">
               <a className="player-page-oom">
-                <b>{player.oomPosition}</b>
+                <b>{ordinal(player.oomPosition)}</b>
                 Order of merit
               </a>
             </Link>
@@ -101,15 +102,18 @@ export default function PlayerPage() {
                   <button
                     className="icon-button"
                     onClick={async () => {
-                      const res = await fetch(`/api/players/${player.memberId}/subscribe`, {
-                        method: 'DELETE',
-                        headers: {
-                          'Content-Type': 'application/json',
+                      const res = await fetch(
+                        `/api/players/${player.memberId}/subscribe`,
+                        {
+                          method: 'DELETE',
+                          headers: {
+                            'Content-Type': 'application/json',
+                          },
+                          body: JSON.stringify({
+                            email: localStorage.getItem('email'),
+                          }),
                         },
-                        body: JSON.stringify({
-                          email: localStorage.getItem('email'),
-                        }),
-                      });
+                      );
                       if (res.ok) {
                         setIsSubscribed(false);
                       }

@@ -6,6 +6,7 @@ import debounce from 'lodash/debounce';
 
 import { getAllPlayers } from '../src/staticData';
 import Menu from '../src/Menu';
+import ordinal from '../src/ordinal';
 
 const NUM_FORMATTER = Intl.NumberFormat('en-US', {
   notation: 'compact',
@@ -47,6 +48,9 @@ function Player({ player, onFavorite }) {
           <br />
           <span className="club">{player.clubName}</span>
         </a>
+      </Link>
+      <Link href="/oom">
+        <a className="oom-position">{ordinal(player.oomPosition)}</a>
       </Link>
     </li>
   );
