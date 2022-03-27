@@ -113,6 +113,17 @@ nav {
   column-gap: 20px;
   margin-top: 15px;
 }
+@media (max-width: 600px) {
+  nav {
+    justify-content: space-between;
+    column-gap: 10px;
+  }
+}
+@media (max-width: 350px) {
+  nav {
+    font-size: 14px;
+  }
+}
 
 .competitions ul {
   padding: 10px;
