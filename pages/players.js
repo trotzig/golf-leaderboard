@@ -81,8 +81,14 @@ export default function PlayersPage() {
       });
     }
     result.sort((a, b) => {
-      const av = a[sortBy] || 'zzz';
-      const bv = b[sortBy] || 'zzz';
+      let av = a[sortBy] || 'zzz';
+      let bv = b[sortBy] || 'zzz';
+      if (sortBy === 'oomPosition') {
+        av = parseInt(a.oomPosition.replace(/^T/, ''), 10);
+        bv = parseInt(b.oomPosition.replace(/^T/, ''), 10);
+        if (isNaN(av)) av = 99999999;
+        if (isNaN(bv)) bv = 99999999;
+      }
       if (av < bv) {
         return -1;
       }
@@ -148,6 +154,7 @@ export default function PlayersPage() {
           <option value="lastName">Last name</option>
           <option value="firstName">First name</option>
           <option value="clubName">Club</option>
+          <option value="oomPosition">Ranking</option>
         </select>
 
         <span>Search</span>
