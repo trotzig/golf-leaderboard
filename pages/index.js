@@ -9,7 +9,9 @@ import competitionDateString from '../src/competitionDateString';
 import getCompetitions from '../src/getCompetitions';
 
 export default function StartPage() {
-  const data = useJsonPData(`https://scores.golfbox.dk/Handlers/ScheduleHandler/GetSchedule/CustomerId/1/Season/2022/CompetitionId/0/language/2057/`);
+  const data = useJsonPData(
+    `https://scores.golfbox.dk/Handlers/ScheduleHandler/GetSchedule/CustomerId/1/Season/2022/CompetitionId/0/language/2057/`,
+  );
   const loading = !data;
 
   // const now = startOfDay(new Date(Date.now() + 24 * 60 * 60 * 1000));
@@ -35,8 +37,9 @@ export default function StartPage() {
         <h2>MoreGolf Mastercard Tour</h2>
         <p className="competitions-desc">
           <a href="https://www.nordicgolftour.app">Nordicgolftour.app</a> is the
-          unofficial home of the Nordic professional golf tour for men, also
-          known as MoreGolf Mastercard Tour.
+          unofficial home of the Nordic professional golf tour for men, known as
+          MoreGolf Mastercard Tour. Follow your favorite players and get the
+          latest updates straight in your inbox.
         </p>
         {loading ? (
           <LoadingSkeleton />
@@ -44,7 +47,7 @@ export default function StartPage() {
           <>
             {currentCompetitions.length > 0 && (
               <>
-                <h3>Current</h3>
+                <h3>Current event</h3>
                 <ul>
                   {currentCompetitions.map(c => (
                     <CompetitionListItem
@@ -59,7 +62,7 @@ export default function StartPage() {
             )}
             {upcomingCompetitions.length > 0 && (
               <>
-                <h3>Upcoming</h3>
+                <h3>Upcoming events</h3>
                 <ul>
                   {upcomingCompetitions.map(c => (
                     <CompetitionListItem key={c.ID} competition={c} now={now} />

@@ -59,7 +59,7 @@ function Player({ player, onFavorite }) {
 export default function PlayersPage() {
   const router = useRouter();
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
-  const [players, setPlayers] = useState(getAllPlayers());
+  const [players, setPlayers] = useState([]);
   const [currentFilter, setCurrentFilter] = useState('');
   const { sortBy = 'lastName', filter = '' } = router.query;
   function handleFavoriteChange(favorite, memberId) {
