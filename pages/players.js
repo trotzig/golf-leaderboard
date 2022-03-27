@@ -117,6 +117,8 @@ export default function PlayersPage() {
       debounce(filter => {
         router.replace(
           `/players?filter=${encodeURIComponent(filter)}&sortBy=${sortBy}`,
+          undefined,
+          { scroll: false },
         );
       }, 250),
     [sortBy],
@@ -148,6 +150,8 @@ export default function PlayersPage() {
               `/players?sortBy=${e.target.value}&filter=${encodeURIComponent(
                 filter,
               )}`,
+              undefined,
+              { scroll: false },
             );
           }}
         >
