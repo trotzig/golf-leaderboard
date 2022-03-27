@@ -53,6 +53,7 @@ function Player({ player, onFavorite }) {
 export default function PlayersPage() {
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
   const [players, setPlayers] = useState(getAllPlayers());
+  const [sortBy, setSortBy] = useState('lastName');
   function handleFavoriteChange(favorite, memberId) {
     if (favorite) {
       localStorage.setItem(memberId, '1');
@@ -71,8 +72,19 @@ export default function PlayersPage() {
         isFavorite: localStorage && localStorage.getItem(player.memberId),
       });
     }
+    result.sort((a, b) => {
+      const av = a[sortBy] || 'zzz';
+      const bv = b[sortBy] || 'zzz';
+      if (av < bv) {
+        return -1;
+      }
+      if (av > bv) {
+        return 1;
+      }
+      return 0;
+    });
     setPlayers(result);
-  }, [lastFavoriteChanged]);
+  }, [lastFavoriteChanged, sortBy]);
 
   const favorites = players.filter(e => e.isFavorite);
   return (
@@ -86,6 +98,20 @@ export default function PlayersPage() {
         Players who have participated in at least one event during the season
         are listed here
       </p>
+      <div className="page-margin sort-by">
+        Sort by
+        <select
+          value={sortBy}
+          onChange={e => {
+            console.log(e.target.value);
+            setSortBy(e.target.value);
+          }}
+        >
+          <option value="lastName">Last name</option>
+          <option value="firstName">First name</option>
+          <option value="clubName">Club</option>
+        </select>
+      </div>
       {players ? (
         <>
           {favorites.length > 0 ? (
