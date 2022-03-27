@@ -62,7 +62,7 @@ export default function StartPage() {
             )}
             {upcomingCompetitions.length > 0 && (
               <>
-                <h3>Upcoming events</h3>
+                <h3>Tour schedule</h3>
                 <ul>
                   {upcomingCompetitions.map(c => (
                     <CompetitionListItem key={c.ID} competition={c} now={now} />
