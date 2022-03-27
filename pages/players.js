@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
@@ -51,9 +52,10 @@ function Player({ player, onFavorite }) {
 }
 
 export default function PlayersPage() {
+  const router = useRouter();
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
   const [players, setPlayers] = useState(getAllPlayers());
-  const [sortBy, setSortBy] = useState('lastName');
+  const { sortBy = 'lastName' } = router.query;
   function handleFavoriteChange(favorite, memberId) {
     if (favorite) {
       localStorage.setItem(memberId, '1');
@@ -103,8 +105,7 @@ export default function PlayersPage() {
         <select
           value={sortBy}
           onChange={e => {
-            console.log(e.target.value);
-            setSortBy(e.target.value);
+            router.replace(`/players?sortBy=${e.target.value}`);
           }}
         >
           <option value="lastName">Last name</option>
