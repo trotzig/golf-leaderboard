@@ -23,6 +23,7 @@ model Account {
   authToken           String?   @unique
   sendEmailOnFinished Boolean   @default(false)
   createdAt           DateTime  @default(now())
+  favorites           Favorite[]
 }
 
 model SignInAttempt {
@@ -31,4 +32,12 @@ model SignInAttempt {
   token        String    @unique
   confirmedAt  DateTime?
   createdAt    DateTime  @default(now())
+}
+
+model Favorite {
+  id        String  @default(cuid()) @id
+  playerId  String
+  account   Account @relation(fields: [accountId], references: [id])
+  accountId String
+  @@unique([accountId, playerId])
 }

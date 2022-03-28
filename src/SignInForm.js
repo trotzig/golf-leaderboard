@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import syncFavorites from './syncFavorites';
+
 let interval;
 
 export default function SignInForm() {
@@ -32,6 +34,7 @@ export default function SignInForm() {
           },
         );
         if (res.ok) {
+          await syncFavorites();
           clearInterval(interval);
           setIsWaitingForConfirmation(false);
           setSignInAttemptId();
