@@ -6,26 +6,27 @@ export default async function handler(req, res) {
   if (req.method !== 'GET') {
     return res.status(400).send('This endpoint accepts GET requests');
   }
-  const { confirmToken, checkToken } = req.query;
-  const account = await prisma.account.findUnique({
-    where: { confirmToken },
+  const { token } = req.query;
+  const attempt = await prisma.signInAttempt.findUnique({
+    where: { token },
   });
-  if (!account || account.checkToken !== checkToken) {
+  if (!attempt) {
     return res.redirect('/auth/invalid-token');
   }
-  if (!account.authToken) {
-    const authToken = crypto.randomBytes(10).toString('hex');
-    await prisma.account.update({
-      where: { id: account.id },
-      data: {
-        confirmedAt: new Date(),
-        authToken,
-      },
-    });
-  }
+  const { email } = attempt;
+  const authToken = crypto.randomBytes(10).toString('hex');
+  const account =
+    (await prisma.account.findUnique({ where: { email } })) ||
+    (await prisma.account.create({ data: { email, authToken } }));
+
+  await prisma.signInAttempt.update({
+    where: { id: attempt.id },
+    data: { confirmedAt: new Date() },
+  });
+
   res.setHeader(
     'Set-Cookie',
-    serialize('auth', account.authToken || authToken, {
+    serialize('auth', account.authToken, {
       httpOnly: true,
       maxAge: 2592000,
       path: '/',

@@ -4,7 +4,7 @@ let interval;
 
 export default function SignInForm({ onSuccess }) {
   const [email, setEmail] = useState();
-  const [checkToken, setCheckToken] = useState();
+  const [signInAttemptId, setSignInAttemptId] = useState();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isWaitingForConfirmation, setIsWaitingForConfirmation] =
     useState(false);
@@ -29,19 +29,19 @@ export default function SignInForm({ onSuccess }) {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ checkToken }),
+            body: JSON.stringify({ signInAttemptId }),
           },
         );
         if (res.ok) {
           clearInterval(interval);
           setIsDone(true);
           setIsWaitingForConfirmation(false);
-          setCheckToken();
+          setSignInAttemptId();
         }
       }, 2000);
     }
     return () => clearInterval(interval);
-  }, [isWaitingForConfirmation, checkToken]);
+  }, [isWaitingForConfirmation, signInAttemptId]);
 
   return (
     <div className="sign-in-form">
@@ -53,7 +53,8 @@ export default function SignInForm({ onSuccess }) {
       )}
       {isDone ? (
         <div className="sign-in-done">
-          You are now signed in!
+          <h4>Success</h4>
+          <p>You are now signed in!</p>
           <a href="/profile" className="icon-button">
             Continue
           </a>
@@ -66,6 +67,10 @@ export default function SignInForm({ onSuccess }) {
             your email address.
           </p>
           <p>Status: waiting for confirmation...</p>
+          <a href="#" onClick={(e) => {
+            e.preventDefault();
+            setIsWaitingForConfirmation(false);
+          }}>Cancel</a>
         </div>
       ) : (
         <form
@@ -88,8 +93,8 @@ export default function SignInForm({ onSuccess }) {
               setError(true);
               return;
             }
-            const { checkToken } = await res.json();
-            setCheckToken(checkToken);
+            const { id } = await res.json();
+            setSignInAttemptId(id);
             setIsWaitingForConfirmation(true);
           }}
         >
