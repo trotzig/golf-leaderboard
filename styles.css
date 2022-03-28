@@ -244,6 +244,7 @@ nav {
   transform: translateX(-50%);
 }
 
+
 .favorite-button {
   all: unset;
   cursor: pointer;
@@ -252,6 +253,10 @@ nav {
 }
 .favorite-button.is-favorite {
   color: var(--primary);
+}
+.favorite-button svg {
+  transition: fill 0.2s;
+  fill: currentColor;
 }
 
 .leaderboard .round {
@@ -345,15 +350,6 @@ nav {
 .leaderboard .position-long-text {
   font-size: 12px;
 }
-.favorite-button svg {
-  transition: fill 0.2s;
-  fill: var(--dark);
-}
-
-.favorite-button.is-favorite svg {
-  fill: var(--primary);
-}
-
 .leaderboard .score.under-par {
   color: var(--primary);
 }
