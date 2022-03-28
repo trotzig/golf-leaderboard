@@ -121,10 +121,10 @@ nav {
 @media (max-width: 600px) {
   nav {
     justify-content: space-between;
-    column-gap: 10px;
+    column-gap: 7px;
   }
 }
-@media (max-width: 350px) {
+@media (max-width: 400px) {
   nav {
     font-size: 14px;
   }
