@@ -233,7 +233,7 @@ nav {
   grid-column-end: 4;
 }
 
-.leaderboard .favorite {
+.leaderboard .favorite-button {
   all: unset;
   cursor: pointer;
   position: absolute;
@@ -244,11 +244,14 @@ nav {
   transform: translateX(-50%);
 }
 
-.players .favorite {
+.favorite-button {
   all: unset;
   cursor: pointer;
   padding: 0;
   line-height: 0;
+}
+.favorite-button.is-favorite {
+  color: var(--primary);
 }
 
 .leaderboard .round {
@@ -342,14 +345,12 @@ nav {
 .leaderboard .position-long-text {
   font-size: 12px;
 }
-.players .player svg,
-.leaderboard .player svg {
+.favorite-button svg {
   transition: fill 0.2s;
   fill: var(--dark);
 }
 
-.players .favorite-player svg,
-.leaderboard .favorite-player svg {
+.favorite-button.is-favorite svg {
   fill: var(--primary);
 }
 
@@ -812,7 +813,7 @@ input.ios-switch {
   width: 50px;
   height: 30px;
   background-color: #fff;
-  border: 1px solid #D9DADC;
+  border: 1px solid #d9dadc;
   border-radius: 50px;
   box-shadow: inset -20px 0 0 0 #fff;
   cursor: pointer;
@@ -822,7 +823,7 @@ input.ios-switch:disabled {
 }
 
 input.ios-switch:after {
-  content: "";
+  content: '';
   position: absolute;
   top: 1px;
   left: 1px;
@@ -830,7 +831,7 @@ input.ios-switch:after {
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  box-shadow: 2px 4px 6px rgba(0,0,0,0.2);
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 input.ios-switch:checked {
@@ -840,5 +841,5 @@ input.ios-switch:checked {
 
 input.ios-switch:checked:after {
   left: 20px;
-  box-shadow: -2px 4px 3px rgba(0,0,0,0.05);
+  box-shadow: -2px 4px 3px rgba(0, 0, 0, 0.05);
 }

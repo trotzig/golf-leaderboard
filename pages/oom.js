@@ -2,6 +2,7 @@ import Head from 'next/head';
 import React, { useState } from 'react';
 
 import { useJsonPData } from '../src/fetchJsonP';
+import FavoriteButton from '../src/FavoriteButton';
 import LoadingSkeleton from '../src/LoadingSkeleton';
 import Menu from '../src/Menu';
 
@@ -28,33 +29,11 @@ function getEntries(data) {
 
 function Player({ entry, onFavorite }) {
   const classes = ['player'];
-  if (entry.isFavorite) {
-    classes.push('favorite-player');
-  }
-
   return (
     <li className={classes.join(' ')}>
       <span className="position">
         <span>{entry.Position}</span>
-        <button
-          className="favorite"
-          onClick={() => onFavorite(!entry.isFavorite, entry.MemberID)}
-        >
-          <svg
-            height="24px"
-            viewBox="0 0 24 24"
-            width="24px"
-            fill={
-              entry.isFavorite
-                ? 'rgba(255, 255, 255, 0.7)'
-                : 'rgba(0, 0, 0, 0.2)'
-            }
-          >
-            <path d="M0 0h24v24H0z" fill="none" stroke="none" />
-            <path d="M0 0h24v24H0z" fill="none" stroke="none" />
-            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-          </svg>
-        </button>
+        <FavoriteButton playerId={entry.MemberID} onChange={onFavorite} />
       </span>
       <span>
         {entry.FirstName} {entry.LastName}
@@ -94,12 +73,7 @@ export default function OrderOfMeritPage() {
     'https://scores.golfbox.dk/Handlers/OrderOfMeritsHandler/GetOrderOfMerit/CustomerId/1/language/2057/OrderOfMeritID/157709/',
   );
 
-  function handleFavoriteChange(favorite, memberId) {
-    if (favorite) {
-      localStorage.setItem(memberId, '1');
-    } else {
-      localStorage.removeItem(memberId);
-    }
+  function handleFavoriteChange() {
     setLastFavoriteChanged(new Date());
   }
 

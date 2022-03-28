@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import LoadingSkeleton from '../src/LoadingSkeleton';
 import Menu from '../src/Menu';
 import SignInForm from '../src/SignInForm';
+import syncFavorites from '../src/syncFavorites';
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState();
@@ -30,6 +31,7 @@ export default function ProfilePage() {
       const p = await res.json();
       setProfile(p);
       setSendEmailOnFinished(p.sendEmailOnFinished);
+      await syncFavorites();
     }
     run();
   }, []);

@@ -18,6 +18,6 @@ export default async function syncFavorites() {
 
   const json = await res.json();
   for (const fav of json.favorites) {
-    localStorage.setItem(fav.memberId, '1');
+    localStorage.setItem(fav, '1');
   }
 }

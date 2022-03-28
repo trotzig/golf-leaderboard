@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 
 import { useJsonPData } from '../../../src/fetchJsonP';
 import ClockIcon from '../../../src/ClockIcon';
+import FavoriteButton from '../../../src/FavoriteButton';
 import Lazy from '../../../src/Lazy';
 import LoadingSkeleton from '../../../src/LoadingSkeleton';
 import Menu from '../../../src/Menu';
@@ -225,19 +226,11 @@ function Player({ entry, onFavoriteChange, colors, now, lazy, competitionId }) {
                 />
               )}
             </span>
-            <button
-              className="favorite"
-              onClick={e => {
-                onFavoriteChange(!entry.isFavorite, entry.MemberID);
-                e.preventDefault();
-              }}
-            >
-              <svg height="24px" viewBox="0 0 24 24" width="24px">
-                <path d="M0 0h24v24H0z" fill="none" stroke="none" />
-                <path d="M0 0h24v24H0z" fill="none" stroke="none" />
-                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-              </svg>
-            </button>
+            <FavoriteButton
+              playerId={entry.MemberID}
+              onChange={onFavoriteChange}
+              icon
+            />
           </span>
           <span>
             {entry.FirstName} {entry.LastName}
@@ -306,13 +299,7 @@ export default function CompetitionPage({
   );
   const loading = !data || !timesData;
 
-  function handleFavoriteChange(favorite, memberId) {
-    if (favorite) {
-      localStorage.setItem(memberId, '1');
-    } else {
-      localStorage.removeItem(memberId);
-    }
-    // Force re-render of entire view
+  function handleFavoriteChange() {
     setLastFavoriteChanged(new Date());
   }
 

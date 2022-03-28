@@ -5,6 +5,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import debounce from 'lodash/debounce';
 
 import { getAllPlayers } from '../src/staticData';
+import FavoriteButton from '../src/FavoriteButton';
 import Menu from '../src/Menu';
 import ordinal from '../src/ordinal';
 
@@ -22,25 +23,7 @@ function Player({ player, onFavorite }) {
   return (
     <li className={classes.join(' ')}>
       <span className="favorite-wrapper">
-        <button
-          className="favorite"
-          onClick={() => onFavorite(!player.isFavorite, player.memberId)}
-        >
-          <svg
-            height="24px"
-            viewBox="0 0 24 24"
-            width="24px"
-            fill={
-              player.isFavorite
-                ? 'rgba(255, 255, 255, 0.7)'
-                : 'rgba(0, 0, 0, 0.2)'
-            }
-          >
-            <path d="M0 0h24v24H0z" fill="none" stroke="none" />
-            <path d="M0 0h24v24H0z" fill="none" stroke="none" />
-            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-          </svg>
-        </button>
+        <FavoriteButton onChange={onFavorite} playerId={player.memberId} />
       </span>
       <Link href={`/${player.slug}`}>
         <a>
@@ -63,11 +46,6 @@ export default function PlayersPage() {
   const { sortBy = 'lastName', filter = '' } = router.query;
   const [currentFilter, setCurrentFilter] = useState(filter);
   function handleFavoriteChange(favorite, memberId) {
-    if (favorite) {
-      localStorage.setItem(memberId, '1');
-    } else {
-      localStorage.removeItem(memberId);
-    }
     setLastFavoriteChanged(new Date());
   }
 
