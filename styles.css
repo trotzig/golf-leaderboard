@@ -815,6 +815,10 @@ input.ios-switch {
   border: 1px solid #D9DADC;
   border-radius: 50px;
   box-shadow: inset -20px 0 0 0 #fff;
+  cursor: pointer;
+}
+input.ios-switch:disabled {
+  cursor: inherit;
 }
 
 input.ios-switch:after {
