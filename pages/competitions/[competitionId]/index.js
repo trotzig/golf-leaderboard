@@ -364,7 +364,7 @@ export default function CompetitionPage({
         </>
       )}
       {!loading && (!timesData || !timesData.ActiveRoundNumber) && (
-        <p className="alert">This competition hasn't started yet</p>
+        <p className="alert page-margin">This competition hasn't started yet</p>
       )}
       {entries ? (
         <div>

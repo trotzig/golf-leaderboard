@@ -16,3 +16,13 @@ model Subscription {
   memberId  String
   createdAt DateTime  @default(now())
 }
+
+model Account {
+  id           String    @default(cuid()) @id
+  email        String    @unique
+  confirmedAt  DateTime?
+  confirmToken String?   @unique
+  checkToken   String?   @unique
+  authToken    String?   @unique
+  createdAt    DateTime  @default(now())
+}

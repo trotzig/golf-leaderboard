@@ -78,25 +78,29 @@ a {
   color: var(--primary);
 }
 
+.page-margin {
+  padding: 10px;
+}
 .alert {
-  margin: 10px;
+  margin: 10px 0;
   padding: 10px;
   border-radius: 3px;
   background-color: var(--primary-lightest);
   border: 1px solid var(--primary-light);
+}
+.alert.page-margin {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .leaderboard,
 .competitions,
 .player-page,
 .players,
+.profile,
 nav {
   max-width: 600px;
   margin: 0 auto;
-}
-
-.page-margin {
-  padding: 10px;
 }
 
 .player-profile,
@@ -108,8 +112,9 @@ nav {
 nav {
   padding: 10px;
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: auto auto auto auto auto;
   justify-content: flex-start;
+  align-items: center;
   column-gap: 20px;
   margin-top: 15px;
 }

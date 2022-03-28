@@ -190,7 +190,7 @@ export default function PlayersPage() {
           ) : null}
 
           {filter && players.length === 0 ? (
-            <div className="alert">
+            <div className="alert page-margin">
               It doesn't look like we have any matches for "{filter}". Try a
               different search term.
             </div>

@@ -151,7 +151,7 @@ export default function PlayerPage() {
                 >
                   <h4 style={{ marginTop: 0 }}>Subscribe</h4>
                   {error && (
-                    <p className="alert">
+                    <p className="alert page-margin">
                       Something went wrong. Try again or send an email to
                       henric.trotzig@gmail.com for support!
                     </p>
