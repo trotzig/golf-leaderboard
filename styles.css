@@ -731,7 +731,9 @@ footer {
   max-width: 100%;
   width: 300px;
 }
-input {
+input[type='text'],
+input[type='email'],
+input[type='password'] {
   all: unset;
   border: 2px solid var(--medium);
   border-radius: 3px;
@@ -795,4 +797,44 @@ select {
   margin-bottom: 10px;
   width: 100%;
   max-width: 250px;
+}
+
+.profile-setting {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 20px;
+  align-items: center;
+}
+input.ios-switch {
+  position: relative;
+  -webkit-appearance: none;
+  outline: none;
+  width: 50px;
+  height: 30px;
+  background-color: #fff;
+  border: 1px solid #D9DADC;
+  border-radius: 50px;
+  box-shadow: inset -20px 0 0 0 #fff;
+}
+
+input.ios-switch:after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  background: transparent;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  box-shadow: 2px 4px 6px rgba(0,0,0,0.2);
+}
+
+input.ios-switch:checked {
+  box-shadow: inset 20px 0 0 0 var(--primary);
+  border-color: var(--primary);
+}
+
+input.ios-switch:checked:after {
+  left: 20px;
+  box-shadow: -2px 4px 3px rgba(0,0,0,0.05);
 }

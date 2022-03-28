@@ -10,6 +10,6 @@ export default async function handler(req, res) {
     return res.status(401).send();
   }
 
-  const { email } = account;
-  res.json({ email });
+  const { email, sendEmailOnFinished } = account;
+  res.json({ email, sendEmailOnFinished });
 }

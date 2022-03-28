@@ -8,6 +8,7 @@ import SignInForm from '../src/SignInForm';
 export default function ProfilePage() {
   const [profile, setProfile] = useState();
   const [error, setError] = useState();
+  const [sendEmailOnFinished, setSendEmailOnFinished] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   const router = useRouter();
@@ -26,10 +27,27 @@ export default function ProfilePage() {
         );
         return;
       }
-      setProfile(await res.json());
+      const p = await res.json();
+      setProfile(p);
+      setSendEmailOnFinished(p.sendEmailOnFinished);
     }
     run();
   }, []);
+  useEffect(() => {
+    if (!profile) {
+      return;
+    }
+    async function run() {
+      await fetch('/api/account', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ sendEmailOnFinished }),
+      });
+    }
+    run();
+  }, [sendEmailOnFinished]);
 
   return (
     <div className="profile">
@@ -38,24 +56,39 @@ export default function ProfilePage() {
       {error && <div className="alert page-margin">{error}</div>}
       {isLoading ? (
         <LoadingSkeleton />
-      ) : profile === null ? (
-        <div className="page-margin">
-          <p>
-            To update your settings, you need to sign in first. Enter your email
-            below to start the process.
-          </p>
-          <SignInForm
-            onSuccess={() => {
-              router.reload();
-            }}
-          />
-        </div>
       ) : (
-        <div className="profile-signed-in page-margin">
-        <p>{JSON.stringify(profile)}</p>
-          <a href="/api/auth/logout" className="icon-button">
-            Sign out
-          </a>
+        <div className="page-margin">
+          <div className="profile-settings">
+            <label className="profile-setting">
+              <span>Send emails when my favorite players finish a round</span>
+              <input
+                className="ios-switch"
+                type="checkbox"
+                disabled={!profile}
+                checked={sendEmailOnFinished}
+                onChange={e => setSendEmailOnFinished(e.target.checked)}
+              />
+            </label>
+          </div>
+
+          {profile ? (
+            <div className="profile-signed-in">
+              <p>
+                Signed in as <b>{profile.email}</b>
+              </p>
+              <a href="/api/auth/logout" className="icon-button">
+                Sign out
+              </a>
+            </div>
+          ) : (
+            <div className="profile-signed-out">
+              <p>
+                To control your settings, you need to sign in first. Enter your
+                email below to start the process.
+              </p>
+              <SignInForm />
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 
 let interval;
 
-export default function SignInForm({ onSuccess }) {
+export default function SignInForm() {
   const [email, setEmail] = useState();
   const [signInAttemptId, setSignInAttemptId] = useState();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isWaitingForConfirmation, setIsWaitingForConfirmation] =
     useState(false);
-  const [isDone, setIsDone] = useState(false);
   const [error, setError] = useState();
 
   useEffect(() => {
@@ -34,9 +33,9 @@ export default function SignInForm({ onSuccess }) {
         );
         if (res.ok) {
           clearInterval(interval);
-          setIsDone(true);
           setIsWaitingForConfirmation(false);
           setSignInAttemptId();
+          window.location.reload();
         }
       }, 2000);
     }
@@ -51,15 +50,7 @@ export default function SignInForm({ onSuccess }) {
           henric.trotzig@gmail.com for support!
         </p>
       )}
-      {isDone ? (
-        <div className="sign-in-done">
-          <h4>Success</h4>
-          <p>You are now signed in!</p>
-          <a href="/profile" className="icon-button">
-            Continue
-          </a>
-        </div>
-      ) : isWaitingForConfirmation ? (
+      {isWaitingForConfirmation ? (
         <div className="sign-in-waiting">
           <h4>One more step</h4>
           <p>
