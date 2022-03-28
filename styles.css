@@ -791,3 +791,8 @@ select {
 .sign-in-form h4 {
   margin: 0 0 15px;
 }
+.sign-in-form input {
+  margin-bottom: 10px;
+  width: 100%;
+  max-width: 250px;
+}

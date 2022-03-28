@@ -66,11 +66,18 @@ export default function SignInForm({ onSuccess }) {
             Check your inbox and follow the instructions in the email to verify
             your email address.
           </p>
-          <p><b>Status:</b> <i>waiting for confirmation...</i></p>
-          <a href="#" onClick={(e) => {
-            e.preventDefault();
-            setIsWaitingForConfirmation(false);
-          }}>Cancel</a>
+          <p>
+            <b>Status:</b> <i>waiting for confirmation...</i>
+          </p>
+          <a
+            href="#"
+            onClick={e => {
+              e.preventDefault();
+              setIsWaitingForConfirmation(false);
+            }}
+          >
+            Cancel
+          </a>
         </div>
       ) : (
         <form
@@ -99,15 +106,17 @@ export default function SignInForm({ onSuccess }) {
           }}
         >
           <h4>Sign in</h4>
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            placeholder="Enter your email address"
-            disabled={isSubmitting}
-            required
-          />
+          <div className="input-wrapper">
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              placeholder="Enter your email address"
+              disabled={isSubmitting}
+              required
+            />
+          </div>
           <button type="submit" className="icon-button" disabled={isSubmitting}>
             Continue
           </button>
