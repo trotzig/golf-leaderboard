@@ -1,0 +1,8 @@
+--ignore-dir=is:.next
+--ignore-dir=is:.cron-logs
+--ignore-dir=is:happo-tmp
+--ignore-dir=is:node_modules
+--ignore-dir=is:uploads
+--ignore-file=ext:log
+--ignore-file=is:.staticData.json
+--ignore-dir=is:.out
