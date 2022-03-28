@@ -66,7 +66,7 @@ export default function SignInForm({ onSuccess }) {
             Check your inbox and follow the instructions in the email to verify
             your email address.
           </p>
-          <p>Status: waiting for confirmation...</p>
+          <p><b>Status:</b> <i>waiting for confirmation...</i></p>
           <a href="#" onClick={(e) => {
             e.preventDefault();
             setIsWaitingForConfirmation(false);
@@ -98,6 +98,7 @@ export default function SignInForm({ onSuccess }) {
             setIsWaitingForConfirmation(true);
           }}
         >
+          <h4>Sign in</h4>
           <input
             type="email"
             name="email"
@@ -108,7 +109,7 @@ export default function SignInForm({ onSuccess }) {
             required
           />
           <button type="submit" className="icon-button" disabled={isSubmitting}>
-            {isSubmitting ? 'Submitting...' : 'Submit'}
+            Continue
           </button>
         </form>
       )}

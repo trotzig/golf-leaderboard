@@ -782,3 +782,12 @@ select {
     no-repeat 13px center;
   background-position: right 13px center;
 }
+
+.sign-in-form {
+  border: 1px solid var(--medium);
+  border-radius: 3px;
+  padding: 15px;
+}
+.sign-in-form h4 {
+  margin: 0 0 15px;
+}
