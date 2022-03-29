@@ -743,7 +743,8 @@ input:focus {
 select {
   border: 2px solid var(--medium);
   border-radius: 3px;
-  padding: 2px 5px;
+  background-color: #fff;
+  padding: 5px;
 }
 .players .player {
   display: grid;
