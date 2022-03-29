@@ -799,6 +799,9 @@ select {
   max-width: 250px;
 }
 
+.profile-settings {
+  margin-bottom: 40px;
+}
 .profile-setting {
   display: grid;
   grid-template-columns: 1fr auto;

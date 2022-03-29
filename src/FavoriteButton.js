@@ -20,7 +20,7 @@ export default function FavoriteButton({
     } else {
       localStorage.removeItem(playerId);
     }
-    onChange();
+    onChange(isFavorite);
   }, [isFavorite, playerId]);
 
   const icon = (

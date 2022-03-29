@@ -1,17 +1,40 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { findPlayer } from '../src/staticData';
 import FavoriteButton from '../src/FavoriteButton';
 import Menu from '../src/Menu';
+import SignInForm from '../src/SignInForm';
 import ordinal from '../src/ordinal';
 
 export default function PlayerPage() {
   const router = useRouter();
   const { id } = router.query;
   const player = id ? findPlayer(id) : null;
+
+  const [showSignIn, setShowSignIn] = useState(false);
+  const [profile, setProfile] = useState();
+  const [isFavorite, setIsFavorite] = useState();
+
+  useEffect(() => {
+    async function run() {
+      const res = await fetch('/api/profile');
+      setShowSignIn(res.status === 401);
+      if (res.ok) {
+        setProfile(await res.json());
+      }
+    }
+    run();
+  }, []);
+
+  useEffect(() => {
+    if (!player) {
+      return;
+    }
+    setIsFavorite(localStorage.getItem(player.memberId));
+  }, [player]);
 
   return (
     <div className="player-page">
@@ -40,9 +63,43 @@ export default function PlayerPage() {
             </Link>
           </div>
           <div className="page-margin" style={{ marginBottom: 30 }}>
-            <FavoriteButton playerId={player.memberId} large />
+            <FavoriteButton
+              onChange={setIsFavorite}
+              playerId={player.memberId}
+              large
+            />
           </div>
         </>
+      ) : null}
+
+      {showSignIn ? (
+        <div className="page-margin">
+          <SignInForm
+            title={`Sign in to subscribe to results from ${player.firstName}`}
+          />
+        </div>
+      ) : null}
+
+      {!isFavorite ? null : profile ? (
+        <div className="page-margin">
+          {profile.sendEmailOnFinished ? (
+            <div>
+              You are subscribed to results from {player.firstName}. Go to{' '}
+              <Link href="/profile">
+                <a>your settings</a>
+              </Link>{' '}
+              if you want to change this.
+            </div>
+          ) : (
+            <div>
+              Go to{' '}
+              <Link href="/profile">
+                <a>your settings</a>
+              </Link>{' '}
+              if you want to subscribe to results from {player.firstName}
+            </div>
+          )}
+        </div>
       ) : null}
     </div>
   );

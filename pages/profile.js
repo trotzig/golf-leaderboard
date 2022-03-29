@@ -82,11 +82,7 @@ export default function ProfilePage() {
           </div>
         ) : (
           <div className="profile-signed-out">
-            <p>
-              To control your settings, you need to sign in first. Enter your
-              email below to start the process.
-            </p>
-            <SignInForm />
+            <SignInForm title="Sign in to change settings" />
           </div>
         )}
       </div>

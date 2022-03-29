@@ -55,10 +55,10 @@ async function fetchPlayers(competitionId) {
       const entries = Object.values(clazz.Leaderboard.Entries);
       for (const entry of entries) {
         const player = {
-          firstName: entry.FirstName,
-          lastName: entry.LastName,
-          memberId: entry.MemberID,
-          clubName: entry.ClubName,
+          firstName: entry.FirstName.trim(),
+          lastName: entry.LastName.trim(),
+          memberId: entry.MemberID.trim(),
+          clubName: entry.ClubName.trim(),
         };
         player.slug = generateSlug(player);
         result.push(player);

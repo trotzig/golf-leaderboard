@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 let interval;
 
-export default function SignInForm() {
+export default function SignInForm({ title = 'Sign in' }) {
   const [email, setEmail] = useState();
   const [signInAttemptId, setSignInAttemptId] = useState();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -96,7 +96,7 @@ export default function SignInForm() {
             setIsWaitingForConfirmation(true);
           }}
         >
-          <h4>Sign in</h4>
+          <h4>{title}</h4>
           <div className="input-wrapper">
             <input
               type="email"
