@@ -10,13 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Subscription {
-  id        String    @default(cuid()) @id
-  email     String
-  memberId  String
-  createdAt DateTime  @default(now())
-}
-
 model Account {
   id                  String    @default(cuid()) @id
   email               String    @unique
