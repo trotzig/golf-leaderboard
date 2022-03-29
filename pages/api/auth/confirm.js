@@ -13,6 +13,10 @@ export default async function handler(req, res) {
   if (!attempt) {
     return res.redirect('/auth/invalid-token');
   }
+  const twoHoursAgo = new Date(Date.now() - (2 * 60 * 60 * 1000));
+  if (twoHoursAgo > attempt.createdAt) {
+    return res.redirect('/auth/invalid-token');
+  }
   const { email } = attempt;
   const authToken = crypto.randomBytes(10).toString('hex');
   const account =
