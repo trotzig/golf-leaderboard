@@ -244,7 +244,6 @@ nav {
   transform: translateX(-50%);
 }
 
-
 .favorite-button {
   all: unset;
   cursor: pointer;
@@ -737,14 +736,17 @@ input[type='password'] {
   padding: 5px 10px;
   transition: all 0.1s;
 }
-input:focus {
+input:focus,
+select:focus {
   border-color: var(--primary);
+  outline: none;
 }
 select {
   border: 2px solid var(--medium);
   border-radius: 3px;
   background-color: #fff;
   padding: 5px;
+  margin: 0;
 }
 .players .player {
   display: grid;
