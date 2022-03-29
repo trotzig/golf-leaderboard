@@ -19,12 +19,15 @@ export default async function handler(req, res) {
   });
 
   await sendMail({
+    subject: 'Sign in to nordicgolftour.app',
     text: `
-Click this link to continue the sign-in process at nordicgolftour.app:
+Click the link below to continue the sign-in process:
 
 ${BASE_URL}/api/auth/confirm?token=${token}
+
+-------------------
+This email was sent via nordicgolftour.app. If you didn't initiate a sign-in, it's safe to ignore this message.
     `.trim(),
-    subject: 'Sign in to nordicgolftour.app',
     to: email,
   });
   res.status(200).json({ id: attempt.id });
