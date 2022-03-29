@@ -21,7 +21,7 @@ model Account {
   id                  String    @default(cuid()) @id
   email               String    @unique
   authToken           String?   @unique
-  sendEmailOnFinished Boolean   @default(false)
+  sendEmailOnFinished Boolean   @default(true)
   createdAt           DateTime  @default(now())
   favorites           Favorite[]
 }
