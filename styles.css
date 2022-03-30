@@ -597,13 +597,14 @@ footer {
   grid-template-columns: 1fr 80px 80px;
   column-gap: 10px;
   max-width: 600px;
-  margin: 0 auto;
+  margin: 0 auto 20px;
 }
 .player-profile-course-heading {
   max-width: 600px;
   margin: 0 auto;
   font-size: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  margin-top: 20px;
 }
 .player-profile-name {
   font-size: 24px;

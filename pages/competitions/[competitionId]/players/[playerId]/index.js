@@ -123,6 +123,7 @@ export default function CompetitionPlayer({ now = new Date() }) {
           <LoadingSkeleton />
         ) : (
           <>
+            <h2 className="player-profile-course-heading">{courseName}</h2>
             <div className="player-profile-top page-margin">
               <div>
                 <b>Player</b>
@@ -147,7 +148,6 @@ export default function CompetitionPlayer({ now = new Date() }) {
                 <span>{fixParValue(player.ResultSum.ToParText)}</span>
               </span>
             </div>
-            <h2 className="player-profile-course-heading">{courseName}</h2>
             <div
               className={`player-profile-rounds ${`rounds-${rounds.length}`}`}
             >
