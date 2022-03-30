@@ -117,16 +117,29 @@ nav {
   align-items: center;
   column-gap: 20px;
   margin-top: 15px;
+  font-size: 16px;
+}
+.menu-item-long {
+  display: inline;
+}
+.menu-item-short {
+  display: none;
+}
+
+nav svg {
+  width: 30px;
+  height: 30px;
 }
 @media (max-width: 600px) {
   nav {
     justify-content: space-between;
     column-gap: 7px;
   }
-}
-@media (max-width: 400px) {
-  nav {
-    font-size: 14px;
+  .menu-item-long {
+    display: none;
+  }
+  .menu-item-short {
+    display: inline;
   }
 }
 

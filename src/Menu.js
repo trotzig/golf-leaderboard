@@ -7,9 +7,7 @@ export default function Menu({ defaultCompetitionId }) {
       <Link href="/">
         <a style={{ lineHeight: 0 }}>
           <svg
-            height="24px"
             viewBox="0 0 24 24"
-            width="24px"
             fill="currentColor"
           >
             <path d="M0 0h24v24H0z" fill="none" />
@@ -30,15 +28,16 @@ export default function Menu({ defaultCompetitionId }) {
         <a>Players</a>
       </Link>
       <Link href="/oom">
-        <a>Order of merit</a>
+        <a>
+          <span className="menu-item-long">Order of merit</span>
+          <span className="menu-item-short">OOM</span>
+        </a>
       </Link>
       <Link href="/profile">
         <a style={{ lineHeight: 0 }}>
           <svg
             enableBackground="new 0 0 24 24"
-            height="24px"
             viewBox="0 0 24 24"
-            width="24px"
             fill="currentColor"
           >
             <g>
