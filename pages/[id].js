@@ -8,26 +8,15 @@ import FavoriteButton from '../src/FavoriteButton';
 import Menu from '../src/Menu';
 import SignInForm from '../src/SignInForm';
 import ordinal from '../src/ordinal';
+import useData from '../src/useData';
 
 export default function PlayerPage() {
   const router = useRouter();
   const { id } = router.query;
   const player = id ? findPlayer(id) : null;
 
-  const [showSignIn, setShowSignIn] = useState(false);
-  const [profile, setProfile] = useState();
+  const [profile, isLoadingProfile] = useData('/api/profile');
   const [isFavorite, setIsFavorite] = useState();
-
-  useEffect(() => {
-    async function run() {
-      const res = await fetch('/api/profile');
-      setShowSignIn(res.status === 401);
-      if (res.ok) {
-        setProfile(await res.json());
-      }
-    }
-    run();
-  }, []);
 
   useEffect(() => {
     if (!player) {
@@ -72,7 +61,7 @@ export default function PlayerPage() {
         </>
       ) : null}
 
-      {isFavorite && showSignIn ? (
+      {isFavorite && !profile && !isLoadingProfile ? (
         <div className="page-margin">
           <SignInForm
             title={`Sign in to subscribe to results from ${player.firstName}`}
