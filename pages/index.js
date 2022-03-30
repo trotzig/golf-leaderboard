@@ -38,8 +38,15 @@ export default function StartPage() {
         <p className="competitions-desc">
           <a href="https://www.nordicgolftour.app">Nordicgolftour.app</a> is the
           unofficial home of the Nordic professional golf tour for men, known as
-          MoreGolf Mastercard Tour. Follow your favorite players and get the
-          latest updates straight in your inbox.
+          MoreGolf Mastercard Tour. Follow your{' '}
+          <Link href="/players">
+            <a>favorite players</a>
+          </Link>{' '}
+          and get the latest updates{' '}
+          <Link href="/profile">
+            <a>straight in your inbox</a>
+          </Link>
+          .
         </p>
         {loading ? (
           <LoadingSkeleton />
