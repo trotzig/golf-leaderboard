@@ -4,35 +4,11 @@ const crypto = require('crypto');
 const fs = require('fs');
 const nodeFetch = require('node-fetch');
 
+const fetchCompetitions = require('./utils/fetchCompetitions');
 const generateSlug = require('../src/generateSlug');
+const parseJson = require('./utils/parseJson');
 
 const { QUICKRUN } = process.env;
-
-function parseJson(raw) {
-  return JSON.parse(raw.replace(/:!0/g, ':false').replace(/:!1/g, ':true'));
-}
-
-async function fetchCompetitions() {
-  const res = await nodeFetch(
-    'https://scores.golfbox.dk/Handlers/ScheduleHandler/GetSchedule/CustomerId/1/Season/2022/CompetitionId/0/language/2057/',
-  );
-  if (!res.ok) {
-    throw new Error('Failed to fetch comps', res.status, await res.text());
-  }
-  const json = parseJson(await res.text());
-  const result = [];
-  for (const year of Object.values(json.CompetitionData)) {
-    for (const month of Object.values(year.Months)) {
-      result.push(
-        ...Object.values(month.Entries).map(e => ({ id: e.ID, name: e.Name })),
-      );
-    }
-  }
-  if (QUICKRUN) {
-    return result.slice(0, 1);
-  }
-  return result;
-}
 
 async function fetchPlayers(competitionId) {
   const res = await nodeFetch(
