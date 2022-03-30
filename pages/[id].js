@@ -72,7 +72,7 @@ export default function PlayerPage() {
         </>
       ) : null}
 
-      {showSignIn ? (
+      {isFavorite && showSignIn ? (
         <div className="page-margin">
           <SignInForm
             title={`Sign in to subscribe to results from ${player.firstName}`}
