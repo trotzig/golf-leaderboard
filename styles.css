@@ -862,6 +862,7 @@ input.ios-switch:checked:after {
 
 .results-table {
   width: 100%;
+  border-spacing: 5px;
 }
 .results-table th {
   padding: 10px 0;
