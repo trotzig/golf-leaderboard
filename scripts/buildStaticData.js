@@ -37,6 +37,14 @@ async function fetchPlayers(competitionId) {
           clubName: entry.ClubName.trim(),
         };
         player.slug = generateSlug(player);
+        player.competitions = [{
+          id: json.CompetitionData.Id,
+          name: json.CompetitionData.Name,
+          course: json.CompetitionData.Venue.Name,
+          position: entry.Position.Calculated,
+          scoreText: entry.ScoringToPar.ToParText,
+          score: entry.ScoringToPar.ToParValue,
+        }];
         result.push(player);
       }
     }
@@ -52,7 +60,13 @@ async function fetchAllPlayers(competitions) {
     const players = await fetchPlayers(comp.id);
     console.log(`${players.length} found`);
     for (const player of players) {
-      allPlayers[player.memberId] = player;
+      const entry = allPlayers[player.memberId];
+      if (!entry) {
+        allPlayers[player.memberId] = player;
+      } else {
+        entry.competitions.push(...player.competitions);
+      }
+
     }
   }
   const result = Object.values(allPlayers);

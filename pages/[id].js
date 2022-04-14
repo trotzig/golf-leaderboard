@@ -70,7 +70,7 @@ export default function PlayerPage() {
       ) : null}
 
       {!isFavorite ? null : profile ? (
-        <div className="page-margin">
+        <div className="page-margin" style={{ minHeight: 60 }}>
           {profile.sendEmailOnFinished ? (
             <div>
               You are subscribed to results from {player.firstName}. Go to{' '}
@@ -90,6 +90,43 @@ export default function PlayerPage() {
           )}
         </div>
       ) : null}
+
+      <h2>Results</h2>
+      {player && (
+        <table className="page-margin results-table">
+          <thead>
+            <tr>
+              <th>Competition</th>
+              <th>Position</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {player.competitions.map(comp => {
+              return (
+                <tr key={comp.name}>
+                  <td className="results-table-competition">
+                    <Link href={`/competitions/${comp.id}?finished=1`}>
+                      <a>
+                        {comp.name}
+                        <div>{comp.course}</div>
+                      </a>
+                    </Link>
+                  </td>
+                  <td className="results-table-position">{comp.position}</td>
+                  <td
+                    className={`results-table-score${
+                      comp.score < 0 ? ' under-par' : ''
+                    }`}
+                  >
+                    {comp.scoreText}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }
