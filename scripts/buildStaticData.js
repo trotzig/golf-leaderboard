@@ -64,7 +64,7 @@ async function fetchAllPlayers(competitions) {
       if (!entry) {
         allPlayers[player.memberId] = player;
       } else {
-        entry.competitions.push(...player.competitions);
+        entry.competitions.unshift(...player.competitions);
       }
 
     }
