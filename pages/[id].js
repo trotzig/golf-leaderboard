@@ -7,6 +7,7 @@ import { findPlayer } from '../src/staticData';
 import FavoriteButton from '../src/FavoriteButton';
 import Menu from '../src/Menu';
 import SignInForm from '../src/SignInForm';
+import fixParValue from '../src/fixParValue';
 import ordinal from '../src/ordinal';
 import useData from '../src/useData';
 
@@ -119,7 +120,7 @@ export default function PlayerPage() {
                       comp.score < 0 ? ' under-par' : ''
                     }`}
                   >
-                    {comp.scoreText}
+                    {fixParValue(comp.scoreText)}
                   </td>
                 </tr>
               );
