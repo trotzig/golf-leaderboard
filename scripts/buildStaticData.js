@@ -8,8 +8,6 @@ const fetchCompetitions = require('./utils/fetchCompetitions');
 const generateSlug = require('../src/generateSlug');
 const parseJson = require('./utils/parseJson');
 
-const { QUICKRUN } = process.env;
-
 async function fetchPlayers(competitionId) {
   const res = await nodeFetch(
     `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/`,

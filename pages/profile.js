@@ -44,7 +44,10 @@ export default function ProfilePage() {
               type="checkbox"
               disabled={!profile}
               checked={sendEmailOnFinished}
-              onChange={e => setSendEmailOnFinished(e.target.checked)}
+              onChange={e => {
+                setSendEmailOnFinished(e.target.checked);
+                syncFavorites();
+              }}
             />
           </label>
         </div>
