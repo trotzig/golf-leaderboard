@@ -14,7 +14,7 @@ const NUM_FORMATTER = Intl.NumberFormat('en-US', {
   maximumFractionDigits: 1,
 });
 
-function Player({ player, onFavorite }) {
+function Player({ player, onFavorite, lastFavoriteChanged }) {
   const classes = ['player'];
   if (player.isFavorite) {
     classes.push('favorite-player');
@@ -23,7 +23,11 @@ function Player({ player, onFavorite }) {
   return (
     <li className={classes.join(' ')}>
       <span className="favorite-wrapper">
-        <FavoriteButton onChange={onFavorite} playerId={player.memberId} />
+        <FavoriteButton
+          onChange={onFavorite}
+          playerId={player.memberId}
+          lastFavoriteChanged={lastFavoriteChanged}
+        />
       </span>
       <Link href={`/${player.slug}`}>
         <a>
@@ -159,6 +163,7 @@ export default function PlayersPage() {
                       key={player.memberId}
                       player={player}
                       onFavorite={handleFavoriteChange}
+                      lastFavoriteChanged={lastFavoriteChanged}
                     />
                   );
                 })}
@@ -180,6 +185,7 @@ export default function PlayersPage() {
                   key={player.memberId}
                   player={player}
                   onFavorite={handleFavoriteChange}
+                  lastFavoriteChanged={lastFavoriteChanged}
                 />
               );
             })}

@@ -4,11 +4,12 @@ export default function FavoriteButton({
   onChange = () => {},
   playerId,
   large,
+  lastFavoriteChanged,
 }) {
   const [isFavorite, setFavorite] = useState();
   useEffect(() => {
     setFavorite(localStorage.getItem(playerId));
-  }, []);
+  }, [lastFavoriteChanged]);
 
   useEffect(() => {
     if (typeof isFavorite === 'undefined') {

@@ -29,7 +29,7 @@ function getEntries(data) {
   return result;
 }
 
-function Player({ entry, onFavorite }) {
+function Player({ entry, onFavorite, lastFavoriteChanged }) {
   const classes = ['player'];
   return (
     <li>
@@ -37,7 +37,11 @@ function Player({ entry, onFavorite }) {
         <a className={classes.join(' ')}>
           <span className="position">
             <span>{entry.Position}</span>
-            <FavoriteButton playerId={entry.MemberID} onChange={onFavorite} />
+            <FavoriteButton
+              playerId={entry.MemberID}
+              onChange={onFavorite}
+              lastFavoriteChanged={lastFavoriteChanged}
+            />
           </span>
           <span>
             {entry.FirstName} {entry.LastName}
@@ -104,6 +108,7 @@ export default function OrderOfMeritPage() {
                       key={entry.MemberID}
                       entry={entry}
                       onFavorite={handleFavoriteChange}
+                      lastFavoriteChanged={lastFavoriteChanged}
                     />
                   );
                 })}
@@ -119,6 +124,7 @@ export default function OrderOfMeritPage() {
                   key={entry.MemberID}
                   entry={entry}
                   onFavorite={handleFavoriteChange}
+                  lastFavoriteChanged={lastFavoriteChanged}
                 />
               );
             })}
