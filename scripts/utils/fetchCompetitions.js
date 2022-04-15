@@ -1,10 +1,10 @@
-const nodeFetch = require('node-fetch');
+import nodeFetch from 'node-fetch';
 
-const parseJson = require('./parseJson');
+import parseJson from './parseJson.js';
 
 const { QUICKRUN } = process.env;
 
-module.exports = async function fetchCompetitions() {
+export default async function fetchCompetitions() {
   const res = await nodeFetch(
     'https://scores.golfbox.dk/Handlers/ScheduleHandler/GetSchedule/CustomerId/1/Season/2022/CompetitionId/0/language/2057/',
   );

@@ -1,6 +1,7 @@
 const fs = require('fs');
 
 module.exports = {
+  stripFileExtensions: [],
   declarationKeyword({ pathToCurrentFile }) {
     if (
       pathToCurrentFile.endsWith('-happo.js') ||

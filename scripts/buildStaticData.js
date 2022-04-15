@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-const crypto = require('crypto');
-const fs = require('fs');
-const nodeFetch = require('node-fetch');
+import crypto from 'crypto';
+import fs from 'fs';
+import nodeFetch from 'node-fetch';
 
-const fetchCompetitions = require('./utils/fetchCompetitions');
-const generateSlug = require('../src/generateSlug');
-const parseJson = require('./utils/parseJson');
+import fetchCompetitions from './utils/fetchCompetitions.js';
+import generateSlug from '../src/generateSlug.js';
+import parseJson from './utils/parseJson.js';
 
 async function fetchPlayers(competitionId) {
   const res = await nodeFetch(
