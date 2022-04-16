@@ -96,7 +96,7 @@ ${BASE_URL}/competitions/${competitionId}
 
 -------------------
 This email was sent via nordicgolftour.app. To stop getting these emails,
-unsubscribe using this link: ${BASE_URL}/unsubscribe
+unsubscribe using this link: ${BASE_URL}/api/unsubscribe?token=${account.authToken}
     `.trim();
     console.log(`About to send this in an email to ${account.email}:`);
     console.log(text);

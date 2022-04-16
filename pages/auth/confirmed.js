@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import Menu from '../../src/Menu';
-import fetchJsonP from '../../src/fetchJsonP';
 
 export default function AuthConfirmedPage() {
   return (
