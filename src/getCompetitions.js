@@ -1,4 +1,4 @@
-const { parse } = require('date-fns');
+import { parse } from 'date-fns';
 
 const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
 

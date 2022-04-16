@@ -1,6 +1,6 @@
 import nodeFetch from 'node-fetch';
 
-import parseJson from './parseJson.js';
+import parseJson from './parseJson.mjs';
 
 const { QUICKRUN } = process.env;
 

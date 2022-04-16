@@ -1,4 +1,4 @@
-const data = require('../.staticData.json');
+import data from '../.staticData.json';
 
 export function findPlayer(slug) {
   return data.players.find(p => p.slug === slug);

@@ -4,9 +4,9 @@ import crypto from 'crypto';
 import fs from 'fs';
 import nodeFetch from 'node-fetch';
 
-import fetchCompetitions from './utils/fetchCompetitions.js';
-import generateSlug from '../src/generateSlug.js';
-import parseJson from './utils/parseJson.js';
+import fetchCompetitions from './utils/fetchCompetitions.mjs';
+import generateSlug from '../src/generateSlug.mjs';
+import parseJson from './utils/parseJson.mjs';
 
 async function fetchPlayers(competitionId) {
   const res = await nodeFetch(

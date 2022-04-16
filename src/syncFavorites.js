@@ -1,4 +1,4 @@
-const { getAllPlayers } = require('./staticData');
+import { getAllPlayers } from './staticData';
 
 export default async function syncFavorites() {
   const favorites = getAllPlayers()

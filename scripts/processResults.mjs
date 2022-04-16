@@ -2,10 +2,10 @@
 
 import nodeFetch from 'node-fetch';
 
-import fetchCompetitions from './utils/fetchCompetitions.js';
-import generateSlug from '../src/generateSlug.js';
-import parseJson from './utils/parseJson.js';
-import prisma from '../src/prisma.js';
+import fetchCompetitions from './utils/fetchCompetitions.mjs';
+import generateSlug from '../src/generateSlug.mjs';
+import parseJson from './utils/parseJson.mjs';
+import prisma from '../src/prisma.mjs';
 
 const { BASE_URL } = process.env;
 
