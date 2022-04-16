@@ -2,7 +2,7 @@
   "scripts": {
     "happo": "happo",
     "dev": "next dev",
-    "build": "./scripts/buildStaticData.js && next build",
+    "build": "./scripts/buildStaticData.mjs && next build",
     "start": "next start",
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
