@@ -76,22 +76,36 @@ async function sendResult({
       continue;
     }
 
+    // Save a row in the resultNotifieds table so that we don't notify the user
+    // again.
+    await prisma.resultNotified.create({
+      data: {
+        playerId,
+        accountId: account.id,
+        roundNumber,
+        competitionId,
+      },
+    });
+
     const text = `
 ${firstName} ${lastName} has position ${position} in the field after finishing
 round ${roundNumber} at ${scoreToPar}.
 
-${BASE_URL}/competitions/${competitionId}?finished=1
+See the result from ${firstName} and others in the full leaderboard here:
+${BASE_URL}/competitions/${competitionId}
 
 -------------------
 This email was sent via nordicgolftour.app. To stop getting these emails,
 unsubscribe using this link: ${BASE_URL}/unsubscribe
     `.trim();
-    console.log('About to send this in an email\n\n', text);
+    console.log(`About to send this in an email to ${account.email}:`);
+    console.log(text);
     // await sendMail({
     //   subject: `${firstName} ${lastName} finished round ${roundNumber} at ${scoreToPar}`,
     //   text,
     //   to: account.email,
     // });
+    //
   }
 }
 
