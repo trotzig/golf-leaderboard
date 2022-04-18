@@ -25,6 +25,7 @@ async function fetchResults(competition) {
   const entries = Object.values(leaderboard.Entries);
   const result = [];
   for (const entry of entries) {
+    console.log(entry);
     for (const round of Object.values(entry.Rounds)) {
       if (round.HoleScores['H-TOTAL']) {
         result.push({
@@ -55,37 +56,40 @@ async function sendResult({
   position,
   competitionId,
 }) {
+  const resultNotified = await prisma.resultNotified.findUnique({
+    where: {
+      roundNumber_competitionId_playerId: {
+        playerId,
+        roundNumber,
+        competitionId,
+      },
+    },
+  });
+
+  if (resultNotified) {
+    return;
+  }
+
+  // Save a row in the resultNotifieds table so that we don't notify the user
+  // again.
+  await prisma.resultNotified.create({
+    data: {
+      playerId,
+      roundNumber,
+      competitionId,
+    },
+  });
+
   const subscribers = await prisma.favorite.findMany({ where: { playerId } });
   for (const subscriber of subscribers) {
     const account = await prisma.account.findUnique({
       where: { id: subscriber.accountId },
     });
 
-    const resultNotified = await prisma.resultNotified.findUnique({
-      where: {
-        accountId_roundNumber_competitionId_playerId: {
-          playerId,
-          accountId: account.id,
-          roundNumber,
-          competitionId,
-        },
-      },
-    });
-
-    if (resultNotified) {
+    if (!account.sendEmailOnFinished) {
+      // user is unsubscribed
       continue;
     }
-
-    // Save a row in the resultNotifieds table so that we don't notify the user
-    // again.
-    await prisma.resultNotified.create({
-      data: {
-        playerId,
-        accountId: account.id,
-        roundNumber,
-        competitionId,
-      },
-    });
 
     const text = `
 ${firstName} ${lastName} has position ${position} in the field after finishing
