@@ -1,72 +1,70 @@
-import { startOfDay, format } from 'date-fns';
+import { format, startOfDay } from 'date-fns';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { useJsonPData } from '../src/fetchJsonP';
-import LoadingSkeleton from '../src/LoadingSkeleton';
+import { getAllCompetitions } from '../src/staticData.js';
 import Menu from '../src/Menu';
-import getCompetitions from '../src/getCompetitions';
 
 export default function SchedulePage() {
-  const data = useJsonPData(
-    `https://scores.golfbox.dk/Handlers/ScheduleHandler/GetSchedule/CustomerId/1/Season/2022/CompetitionId/0/language/2057/`,
-  );
-  const loading = !data;
-
+  const [competitions, setCompetitions] = useState([]);
   const now = startOfDay(new Date());
-  const competitions = data ? getCompetitions(data, now) : [];
+  const currentCompetition = competitions.find(
+    c => c.start <= now && c.end >= now,
+  );
+
+  useEffect(() => {
+    setCompetitions(getAllCompetitions());
+  }, []);
 
   return (
     <div className="chrome">
       <Menu
-        defaultCompetitionId={
-          data &&
-          data.DefaultCompetition &&
-          data.DefaultCompetition.CompetitionID
-        }
+        defaultCompetitionId={currentCompetition && currentCompetition.id}
       />
       <div className="schedule">
         <h2>Tour schedule</h2>
-        {loading ? (
-          <LoadingSkeleton />
-        ) : (
-          <table className="results-table page-margin">
-            <thead>
-              <tr>
-                <th>Event</th>
-                <th>Dates</th>
-              </tr>
-            </thead>
-            {competitions.length > 0 && (
-              <tbody>
-                {competitions.map(c => (
-                  <CompetitionItem key={c.ID} competition={c} now={now} />
-                ))}
-              </tbody>
-            )}
-          </table>
-        )}
+        <table className="results-table page-margin">
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th>Dates</th>
+            </tr>
+          </thead>
+          {competitions.length > 0 && (
+            <tbody>
+              {competitions.map(c => (
+                <CompetitionItem key={c.id} competition={c} now={now} />
+              ))}
+            </tbody>
+          )}
+        </table>
       </div>
     </div>
   );
 }
 
 function CompetitionItem({ competition, now, current }) {
-  const queryString = now > competition._end ? '?finished=1' : '';
+  const queryString = now > competition.end ? '?finished=1' : '';
   return (
     <tr
-      key={competition.ID}
+      key={competition.id}
       className={
         current ? 'competition-list-item current' : 'competition-list-item'
       }
     >
       <td>
-        <Link href={`/competitions/${competition.ID}${queryString}`}>
-          <a>{competition.Name}</a>
+        <Link href={`/competitions/${competition.id}${queryString}`}>
+          <a>
+            {competition.name}
+            <br />
+          </a>
         </Link>
+        <span className="schedule-venue">{competition.venue}</span>
       </td>
-      <td>{format(competition._start, 'MMM d')} —{' '}
-      {format(competition._end, 'MMM d')}</td>
+      <td>
+        {format(competition.start, 'MMM d')} —{' '}
+        {format(competition.end, 'MMM d')}
+      </td>
     </tr>
   );
 }

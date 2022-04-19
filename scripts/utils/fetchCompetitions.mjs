@@ -1,8 +1,10 @@
 import nodeFetch from 'node-fetch';
+import { parse } from 'date-fns';
 
 import parseJson from './parseJson.mjs';
 
 const { QUICKRUN } = process.env;
+const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
 
 export default async function fetchCompetitions() {
   const res = await nodeFetch(
@@ -13,10 +15,16 @@ export default async function fetchCompetitions() {
   }
   const json = parseJson(await res.text());
   const result = [];
+  const now = new Date();
   for (const year of Object.values(json.CompetitionData)) {
     for (const month of Object.values(year.Months)) {
       result.push(
-        ...Object.values(month.Entries).map(e => ({ id: e.ID, name: e.Name })),
+        ...Object.values(month.Entries).map(e => ({
+          id: e.ID,
+          name: e.Name,
+          start: parse(e.StartDate, DATE_FORMAT, now),
+          end: parse(e.EndDate, DATE_FORMAT, now),
+        })),
       );
     }
   }

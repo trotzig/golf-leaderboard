@@ -1,29 +1,22 @@
 import { startOfDay, format } from 'date-fns';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { useJsonPData } from '../src/fetchJsonP';
+import { getAllCompetitions } from '../src/staticData.js';
 import LoadingSkeleton from '../src/LoadingSkeleton';
 import Menu from '../src/Menu';
 import competitionDateString from '../src/competitionDateString';
-import getCompetitions from '../src/getCompetitions';
 
 export default function StartPage() {
-  const data = useJsonPData(
-    `https://scores.golfbox.dk/Handlers/ScheduleHandler/GetSchedule/CustomerId/1/Season/2022/CompetitionId/0/language/2057/`,
-  );
-  const loading = !data;
+  const [competitions, setCompetitions] = useState([]);
 
-  // const now = startOfDay(new Date(Date.now() + 24 * 60 * 60 * 1000));
   const now = startOfDay(new Date());
-  const competitions = data ? getCompetitions(data, now) : [];
-
-  const pastCompetitions = competitions.filter(c => c._end < now);
+  const pastCompetitions = competitions.filter(c => c.end < now);
   const currentCompetitions = competitions.filter(
-    c => c._start <= now && c._end >= now,
+    c => c.start <= now && c.end >= now,
   );
 
-  const upcomingCompetitions = competitions.filter(c => now < c._start);
+  const upcomingCompetitions = competitions.filter(c => now < c.start);
   const nextCompetition =
     currentCompetitions.length === 0 ? upcomingCompetitions[0] : undefined;
 
@@ -31,13 +24,15 @@ export default function StartPage() {
     upcomingCompetitions.shift();
   }
 
+  useEffect(() => {
+    setCompetitions(getAllCompetitions());
+  }, []);
+
   return (
     <div className="chrome">
       <Menu
         defaultCompetitionId={
-          data &&
-          data.DefaultCompetition &&
-          data.DefaultCompetition.CompetitionID
+          currentCompetitions.length > 0 ? currentCompetitions[0].id : undefined
         }
       />
       <div className="competitions">
@@ -55,69 +50,60 @@ export default function StartPage() {
           </Link>
           .
         </p>
-        {loading ? (
-          <LoadingSkeleton />
-        ) : (
+        {currentCompetitions.length > 0 && (
           <>
-            {currentCompetitions.length > 0 && (
-              <>
-                <h3>Current event</h3>
-                <ul>
-                  {currentCompetitions.map(c => (
-                    <CompetitionListItem
-                      key={c.ID}
-                      competition={c}
-                      now={now}
-                      current
-                    />
-                  ))}
-                </ul>
-              </>
-            )}
-            {nextCompetition ? (
-              <>
-                <h3>Next event</h3>
-                <ul>
-                  <CompetitionListItem
-                    competition={nextCompetition}
-                    now={now}
-                  />
-                </ul>
-              </>
-            ) : null}
-            {upcomingCompetitions.length > 0 && (
-              <>
-                <h3>Future events</h3>
-                <ul>
-                  {upcomingCompetitions.slice(0, 3).map(c => (
-                    <CompetitionListItem key={c.ID} competition={c} now={now} />
-                  ))}
-                </ul>
-                <Link href="/schedule">
-                  <a className="page-margin competition-view-all">View all events</a>
-                </Link>
-              </>
-            )}
-            {pastCompetitions.length > 0 && (
-              <>
-                <h3>Past events</h3>
-                <ul>
-                  {pastCompetitions
-                    .reverse()
-                    .slice(0, 3)
-                    .map(c => (
-                      <CompetitionListItem
-                        key={c.ID}
-                        competition={c}
-                        now={now}
-                      />
-                    ))}
-                </ul>
-                <Link href="/schedule">
-                  <a className="page-margin competition-view-all">View all events</a>
-                </Link>
-              </>
-            )}
+            <h3>Current event</h3>
+            <ul>
+              {currentCompetitions.map(c => (
+                <CompetitionListItem
+                  key={c.id}
+                  competition={c}
+                  now={now}
+                  current
+                />
+              ))}
+            </ul>
+          </>
+        )}
+        {nextCompetition ? (
+          <>
+            <h3>Next event</h3>
+            <ul>
+              <CompetitionListItem competition={nextCompetition} now={now} />
+            </ul>
+          </>
+        ) : null}
+        {upcomingCompetitions.length > 0 && (
+          <>
+            <h3>Future events</h3>
+            <ul>
+              {upcomingCompetitions.slice(0, 3).map(c => (
+                <CompetitionListItem key={c.id} competition={c} now={now} />
+              ))}
+            </ul>
+            <Link href="/schedule">
+              <a className="page-margin competition-view-all">
+                View all events
+              </a>
+            </Link>
+          </>
+        )}
+        {pastCompetitions.length > 0 && (
+          <>
+            <h3>Past events</h3>
+            <ul>
+              {pastCompetitions
+                .reverse()
+                .slice(0, 3)
+                .map(c => (
+                  <CompetitionListItem key={c.id} competition={c} now={now} />
+                ))}
+            </ul>
+            <Link href="/schedule">
+              <a className="page-margin competition-view-all">
+                View all events
+              </a>
+            </Link>
           </>
         )}
       </div>
@@ -126,25 +112,27 @@ export default function StartPage() {
 }
 
 function CompetitionListItem({ competition, now, current }) {
-  const queryString = now > competition._end ? '?finished=1' : '';
+  const queryString = now > competition.end ? '?finished=1' : '';
   return (
     <li
-      key={competition.ID}
+      key={competition.id}
       className={
         current ? 'competition-list-item current' : 'competition-list-item'
       }
     >
-      <Link href={`/competitions/${competition.ID}${queryString}`}>
+      <Link href={`/competitions/${competition.id}${queryString}`}>
         <a className="competition">
           <div className="calendar-event">
-            <b>{format(competition._start, 'd')}</b>
-            <span>{format(competition._start, 'MMM')}</span>
+            <b>{format(competition.start, 'd')}</b>
+            <span>{format(competition.start, 'MMM')}</span>
           </div>
           <div>
             <h4>
-              <span>{competition.Name}</span>
+              <span>{competition.name}</span>
             </h4>
-            <p>{competitionDateString(competition, now)}</p>
+            <p>
+              {competition.venue} — {competitionDateString(competition, now)}
+            </p>
           </div>
         </a>
       </Link>

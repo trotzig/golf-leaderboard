@@ -8,7 +8,8 @@ import fetchCompetitions from './utils/fetchCompetitions.mjs';
 import generateSlug from '../src/generateSlug.mjs';
 import parseJson from './utils/parseJson.mjs';
 
-async function fetchPlayers(competitionId) {
+async function fetchPlayers(competition) {
+  const competitionId = competition.id;
   const res = await nodeFetch(
     `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/`,
   );
@@ -20,6 +21,10 @@ async function fetchPlayers(competitionId) {
     );
   }
   const json = parseJson(await res.text());
+
+  // Piggy-back on the call to get players and add some data to the competition
+  // object.
+  competition.venue = json.CompetitionData.Venue.Name;
 
   //console.log(json);
   //console.log('classes', json.Classes);
@@ -55,7 +60,7 @@ async function fetchAllPlayers(competitions) {
   const allSlugs = {};
   for (const comp of competitions) {
     console.log(`Fetching players for competition ${comp.name}...`);
-    const players = await fetchPlayers(comp.id);
+    const players = await fetchPlayers(comp);
     console.log(`${players.length} found`);
     for (const player of players) {
       const entry = allPlayers[player.memberId];
@@ -113,7 +118,7 @@ async function main() {
   await fillOOM(players);
   const fileName = '.staticData.json';
   console.log(`Writing json results to ${fileName}`);
-  fs.writeFileSync(fileName, JSON.stringify({ players }));
+  fs.writeFileSync(fileName, JSON.stringify({ competitions, players }));
 }
 
 main()
