@@ -286,11 +286,12 @@ function getHeading(competition, now) {
 export default function CompetitionPage({
   initialData,
   initialTimesData,
+  initialCompetition = {},
   now = new Date(),
   lazyItems = true,
 }) {
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
-  const [competition, setCompetition] = useState({});
+  const [competition, setCompetition] = useState(initialCompetition);
   const router = useRouter();
   const { competitionId, finished } = router ? router.query : {};
   const data = useJsonPData(
