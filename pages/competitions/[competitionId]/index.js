@@ -2,8 +2,9 @@ import { parse, format, startOfDay } from 'date-fns';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
+import { getCompetition } from '../../../src/staticData.js';
 import { useJsonPData } from '../../../src/fetchJsonP';
 import ClockIcon from '../../../src/ClockIcon';
 import FavoriteButton from '../../../src/FavoriteButton';
@@ -271,17 +272,12 @@ function Player({
   );
 }
 
-function getHeading(data, finishedQueryParam, now) {
-  if (!data || !data.CompetitionData) {
-    if (finishedQueryParam) {
-      return 'Final results';
-    }
-    return 'Leaderboard';
-  }
-
+function getHeading(competition, now) {
   const startOfToday = startOfDay(now);
-  const end = parse(data.CompetitionData.EndDate, DATE_FORMAT, now);
-  if (end >= startOfToday) {
+  if (competition.start > startOfToday) {
+    return 'Upcoming event';
+  }
+  if (competition.end >= startOfToday) {
     return 'Leaderboard';
   }
   return 'Final results';
@@ -294,6 +290,7 @@ export default function CompetitionPage({
   lazyItems = true,
 }) {
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
+  const [competition, setCompetition] = useState({});
   const router = useRouter();
   const { competitionId, finished } = router ? router.query : {};
   const data = useJsonPData(
@@ -306,6 +303,12 @@ export default function CompetitionPage({
       `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competitionId}/language/2057/`,
     initialTimesData,
   );
+  useEffect(() => {
+    if (!competitionId) {
+      return;
+    }
+    setCompetition(getCompetition(competitionId));
+  }, [competitionId]);
   const loading = !data || !timesData;
 
   function handleFavoriteChange() {
@@ -323,20 +326,19 @@ export default function CompetitionPage({
     <div className="leaderboard">
       <Head>
         <title>
-          {getHeading(data, finished, now)}
-          {data && data.CompetitionData && ` | ${data.CompetitionData.Name}`}
+          {data && data.CompetitionData && `${data.CompetitionData.Name} | `}
+          {getHeading(competition, now)}
         </title>
       </Head>
       <Menu />
-      <h2>{getHeading(data, finished, now)}</h2>
+      <div className="h-intro">{getHeading(competition, now)}</div>
+      <h2>{competition.name}</h2>
+      <p className="leaderboard-subtitle">
+        {competition.venue} –{' '}
+        {competition.start && competitionDateString(competition, now)}
+      </p>
       {data && (
         <>
-          <p className="leaderboard-subtitle">
-            {data.CompetitionData.Name} – {data.CompetitionData.Venue.Name}
-          </p>
-          <p className="leaderboard-dates">
-            {competitionDateString(data.CompetitionData, now)}
-          </p>
           {Object.values(data.Courses || {}).length > 0 ? (
             <div className="courses">
               {Object.values(data.CourseColours || {}).map(course => {

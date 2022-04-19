@@ -14,3 +14,15 @@ export function getAllCompetitions() {
     end: new Date(c.end),
   }));
 }
+
+export function getCompetition(id) {
+  const comp = data.competitions.find(c => `${c.id}` === `${id}`);
+  if (!comp) {
+    return;
+  }
+  return {
+    ...comp,
+    start: new Date(comp.start),
+    end: new Date(comp.end),
+  };
+}
