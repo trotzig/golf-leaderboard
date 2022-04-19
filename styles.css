@@ -532,6 +532,7 @@ footer {
   column-gap: 10px;
   row-gap: 10px;
   margin-bottom: 20px;
+  overflow: hidden;
 }
 .loading-skeleton-item span {
   background-color: var(--light);
