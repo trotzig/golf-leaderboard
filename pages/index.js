@@ -89,20 +89,33 @@ export default function StartPage() {
               <>
                 <h3>Future events</h3>
                 <ul>
-                  {upcomingCompetitions.map(c => (
+                  {upcomingCompetitions.slice(0, 3).map(c => (
                     <CompetitionListItem key={c.ID} competition={c} now={now} />
                   ))}
                 </ul>
+                <Link href="/schedule">
+                  <a className="page-margin competition-view-all">View all events</a>
+                </Link>
               </>
             )}
             {pastCompetitions.length > 0 && (
               <>
                 <h3>Past events</h3>
                 <ul>
-                  {pastCompetitions.reverse().map(c => (
-                    <CompetitionListItem key={c.ID} competition={c} now={now} />
-                  ))}
+                  {pastCompetitions
+                    .reverse()
+                    .slice(0, 3)
+                    .map(c => (
+                      <CompetitionListItem
+                        key={c.ID}
+                        competition={c}
+                        now={now}
+                      />
+                    ))}
                 </ul>
+                <Link href="/schedule">
+                  <a className="page-margin competition-view-all">View all events</a>
+                </Link>
               </>
             )}
           </>

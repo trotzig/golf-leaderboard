@@ -98,6 +98,7 @@ a {
 .player-page,
 .players,
 .profile,
+.schedule,
 nav {
   max-width: 600px;
   margin: 0 auto;
@@ -145,6 +146,7 @@ nav svg {
 
 .competitions ul {
   padding: 10px;
+  margin-bottom: 10px;
 }
 .competitions ul li {
   margin-bottom: 30px;
@@ -863,6 +865,7 @@ input.ios-switch:checked:after {
 .results-table {
   width: 100%;
   border-spacing: 5px;
+  margin: 0 -5px;
 }
 .results-table th {
   padding: 10px 0;
