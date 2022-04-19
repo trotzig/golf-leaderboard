@@ -22,7 +22,14 @@ export default function StartPage() {
   const currentCompetitions = competitions.filter(
     c => c._start <= now && c._end >= now,
   );
+
   const upcomingCompetitions = competitions.filter(c => now < c._start);
+  const nextCompetition =
+    currentCompetitions.length === 0 ? upcomingCompetitions[0] : undefined;
+
+  if (nextCompetition) {
+    upcomingCompetitions.shift();
+  }
 
   return (
     <div className="chrome">
@@ -67,9 +74,20 @@ export default function StartPage() {
                 </ul>
               </>
             )}
+            {nextCompetition ? (
+              <>
+                <h3>Next event</h3>
+                <ul>
+                  <CompetitionListItem
+                    competition={nextCompetition}
+                    now={now}
+                  />
+                </ul>
+              </>
+            ) : null}
             {upcomingCompetitions.length > 0 && (
               <>
-                <h3>Tour schedule</h3>
+                <h3>Future events</h3>
                 <ul>
                   {upcomingCompetitions.map(c => (
                     <CompetitionListItem key={c.ID} competition={c} now={now} />
