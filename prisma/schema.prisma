@@ -17,7 +17,6 @@ model Account {
   sendEmailOnFinished Boolean   @default(true)
   createdAt           DateTime  @default(now())
   favorites           Favorite[]
-  resultNotifieds     ResultNotified[]
 }
 
 model SignInAttempt {
@@ -42,7 +41,5 @@ model ResultNotified {
   competitionId  Int
   playerId       String
   createdAt      DateTime @default(now())
-  account        Account @relation(fields: [accountId], references: [id])
-  accountId      String
-  @@unique([accountId, roundNumber, competitionId, playerId])
+  @@unique([roundNumber, competitionId, playerId])
 }
