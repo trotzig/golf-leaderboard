@@ -333,7 +333,7 @@ export default function CompetitionPage({
       </Head>
       <Menu />
       <div className="h-intro">{getHeading(competition, now)}</div>
-      <h2>{competition.name}</h2>
+      <h2 className="leaderboard-heading">{competition.name}</h2>
       <p className="leaderboard-subtitle">
         {competition.venue} –{' '}
         {competition.start && competitionDateString(competition, now)}
