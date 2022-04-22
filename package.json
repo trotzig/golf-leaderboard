@@ -2,6 +2,7 @@
   "scripts": {
     "db:push": "prisma db push",
     "db:push:prod": "dotenv -e production.env prisma db push",
+    "notify-subscribers": "dotenv node scripts/processResults.mjs",
     "happo": "happo",
     "dev": "next dev",
     "build": "./scripts/buildStaticData.mjs && next build",
