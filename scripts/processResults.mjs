@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import nodeFetch from 'node-fetch';
+import { startOfDay, format } from 'date-fns';
 
 import fetchCompetitions from './utils/fetchCompetitions.mjs';
 import generateSlug from '../src/generateSlug.mjs';
@@ -115,9 +116,19 @@ unsubscribe using this link: ${BASE_URL}/api/unsubscribe?token=${account.authTok
 
 async function main() {
   const competitions = await fetchCompetitions();
+  const today = startOfDay(new Date());
   for (const competition of competitions) {
+    if (today < competition.start) {
+      console.log(`Competition ${competition.name} hasn't started yet`);
+      continue;
+    }
+    if (today > competition.end) {
+      console.log(`Competition ${competition.name} is already over`);
+      continue;
+    }
     const results = await fetchResults(competition);
     for (const result of results) {
+      console.log(`Processing ${competition.name}...`);
       await sendResult(result);
     }
   }
