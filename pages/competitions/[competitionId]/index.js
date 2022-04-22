@@ -308,7 +308,8 @@ export default function CompetitionPage({
     if (!competitionId) {
       return;
     }
-    setCompetition(getCompetition(competitionId));
+    const comp = getCompetition(competitionId) || { name: '404: Not found'};
+    setCompetition(comp);
   }, [competitionId]);
   const loading = !data || !timesData;
 

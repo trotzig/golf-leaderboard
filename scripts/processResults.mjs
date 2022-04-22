@@ -8,7 +8,7 @@ import generateSlug from '../src/generateSlug.mjs';
 import parseJson from './utils/parseJson.mjs';
 import prisma from '../src/prisma.mjs';
 
-const { BASE_URL } = process.env;
+const { BASE_URL, TEST_COMPETITION_ID } = process.env;
 
 async function fetchResults(competition) {
   const res = await nodeFetch(
@@ -26,10 +26,10 @@ async function fetchResults(competition) {
   const entries = Object.values(leaderboard.Entries);
   const result = [];
   for (const entry of entries) {
-    console.log(entry);
     for (const round of Object.values(entry.Rounds)) {
       if (round.HoleScores['H-TOTAL']) {
         result.push({
+          competitionName: competition.name,
           competitionId: competition.id,
           roundNumber: round.Number,
           playerId: entry.MemberID,
@@ -37,6 +37,7 @@ async function fetchResults(competition) {
           lastName: entry.LastName.trim(),
           score: round.ResultSum.ActualText,
           scoreToPar: round.ResultSum.ToParText,
+          totalScoreToPar: entry.ResultSum.ToParText,
           position: entry.Position.Calculated,
           slug: generateSlug(entry),
         });
@@ -46,6 +47,13 @@ async function fetchResults(competition) {
   return result;
 }
 
+function fixTotalScore(score) {
+  if (score === 'Par') {
+    return 'on even par';
+  }
+  return score;
+}
+
 async function sendResult({
   roundNumber,
   playerId,
@@ -53,9 +61,11 @@ async function sendResult({
   lastName,
   score,
   scoreToPar,
+  totalScoreToPar,
   slug,
   position,
   competitionId,
+  competitionName,
 }) {
   const resultNotified = await prisma.resultNotified.findUnique({
     where: {
@@ -92,21 +102,25 @@ async function sendResult({
       continue;
     }
 
+    const subject = `${firstName} ${lastName} finished round ${roundNumber} at ${scoreToPar}`;
     const text = `
 ${firstName} ${lastName} has position ${position} in the field after finishing
-round ${roundNumber} at ${scoreToPar}.
+round ${roundNumber} at ${scoreToPar} of ${competitionName}.
+${firstName} is ${fixTotalScore(totalScoreToPar)} total.
 
 See the result from ${firstName} and others in the full leaderboard here:
 ${BASE_URL}/competitions/${competitionId}
 
 -------------------
 This email was sent via nordicgolftour.app. To stop getting these emails,
-unsubscribe using this link: ${BASE_URL}/api/unsubscribe?token=${account.authToken}
+unsubscribe using this link: ${BASE_URL}/api/unsubscribe?token=${
+      account.authToken
+    }
     `.trim();
     console.log(`About to send this in an email to ${account.email}:`);
-    console.log(text);
+    console.log({ subject, text });
     // await sendMail({
-    //   subject: `${firstName} ${lastName} finished round ${roundNumber} at ${scoreToPar}`,
+    //   subject,
     //   text,
     //   to: account.email,
     // });
@@ -118,17 +132,23 @@ async function main() {
   const competitions = await fetchCompetitions();
   const today = startOfDay(new Date());
   for (const competition of competitions) {
-    if (today < competition.start) {
-      console.log(`Competition ${competition.name} hasn't started yet`);
-      continue;
+    if (TEST_COMPETITION_ID !== `${competition.id}`) {
+      if (today < competition.start) {
+        console.log(
+          `Competition ${competition.name} (${competition.id}) hasn't started yet`,
+        );
+        continue;
+      }
+      if (today > competition.end) {
+        console.log(
+          `Competition ${competition.name} (${competition.id}) is already over`,
+        );
+        continue;
+      }
     }
-    if (today > competition.end) {
-      console.log(`Competition ${competition.name} is already over`);
-      continue;
-    }
+    console.log(`Processing ${competition.name}...`);
     const results = await fetchResults(competition);
     for (const result of results) {
-      console.log(`Processing ${competition.name}...`);
       await sendResult(result);
     }
   }
