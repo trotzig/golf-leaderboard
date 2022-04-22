@@ -1,5 +1,7 @@
 {
   "scripts": {
+    "db:push": "prisma db push",
+    "db:push:prod": "dotenv -e production.env prisma db push",
     "happo": "happo",
     "dev": "next dev",
     "build": "./scripts/buildStaticData.mjs && next build",
@@ -27,6 +29,7 @@
     "@storybook/react": "^6.4.19",
     "@storybook/testing-library": "^0.0.9",
     "babel-loader": "^8.2.3",
+    "dotenv-cli": "^5.1.0",
     "happo-plugin-storybook": "^2.10.3",
     "happo.io": "^7.0.2",
     "prisma": "^3.11.1"
