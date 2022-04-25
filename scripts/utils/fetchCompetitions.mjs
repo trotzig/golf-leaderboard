@@ -14,6 +14,10 @@ export default async function fetchCompetitions() {
     throw new Error('Failed to fetch comps', res.status, await res.text());
   }
   const json = parseJson(await res.text());
+  if (json.ErrorMessage) {
+    console.log('Got error from API', json);
+    return [];
+  }
   const result = [];
   const now = new Date();
   for (const year of Object.values(json.CompetitionData)) {
