@@ -308,7 +308,7 @@ export default function CompetitionPage({
     if (!competitionId) {
       return;
     }
-    const comp = getCompetition(competitionId) || { name: '404: Not found'};
+    const comp = getCompetition(competitionId) || { name: '404: Not found' };
     setCompetition(comp);
   }, [competitionId]);
   const loading = !data || !timesData;
@@ -328,7 +328,7 @@ export default function CompetitionPage({
     <div className="leaderboard">
       <Head>
         <title>
-          {data && data.CompetitionData && `${data.CompetitionData.Name} | `}
+          {competition && competition.name && `${competition.name} | `}
           {getHeading(competition, now)}
         </title>
       </Head>
