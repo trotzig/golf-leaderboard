@@ -12,8 +12,20 @@ import generateSlug from '../../../../../src/generateSlug';
 
 const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
 
-function getPlayer(data, playerId) {
+function getPlayer(data, timesData, playerId) {
   const clazz = Object.values(data.Classes)[0];
+  if (!clazz.Leaderboard.Entries) {
+    if (timesData) {
+      const rounds = Object.values(timesData.Rounds);
+      if (rounds.length) {
+        if (rounds[0].StartLists) {
+          const entries = Object.values(rounds[0].StartLists)[0].Entries;
+          return Object.values(entries).find(e => e.MemberID === playerId);
+        }
+      }
+    }
+    return {};
+  }
   const p = Object.values(clazz.Leaderboard.Entries).find(
     e => e.MemberID === playerId,
   );
@@ -21,6 +33,9 @@ function getPlayer(data, playerId) {
 }
 
 function getRounds(entry) {
+  if (!entry.Rounds) {
+    return [];
+  }
   const roundKeys = Object.keys(entry.Rounds);
   return roundKeys.map(key => entry.Rounds[key]);
 }
@@ -47,6 +62,9 @@ function findLength(hole) {
 }
 
 function Round({ round, colors, courses, now }) {
+  if (!round.Number) {
+    return null;
+  }
   const startTime = parse(round.StartDateTime, DATE_FORMAT, now);
   const courseNameClasses = ['player-round-course'];
   const color = Object.values(colors || {}).find(
@@ -110,10 +128,14 @@ export default function CompetitionPlayer({ now = new Date() }) {
     competitionId &&
       `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/`,
   );
+  const timesData = useJsonPData(
+    competitionId &&
+      `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competitionId}/language/2057/`,
+  );
 
   const loading = !data;
   const courseName = data && data.CompetitionData.Name;
-  const player = data && getPlayer(data, playerId);
+  const player = data && getPlayer(data, timesData, playerId);
   const rounds = player && getRounds(player);
   return (
     <div>
@@ -135,18 +157,22 @@ export default function CompetitionPlayer({ now = new Date() }) {
                 <span className="player-profile-club">{player.ClubName}</span>
               </div>
 
-              <span className="player-profile-position">
-                <b>Position</b>
-                <span>{player.Position && player.Position.Calculated}</span>
-              </span>
-              <span
-                className={`player-profile-topar${
-                  player.ResultSum.ToParValue < 0 ? ' under-par' : ''
-                }`}
-              >
-                <b>Score</b>
-                <span>{fixParValue(player.ResultSum.ToParText)}</span>
-              </span>
+              {player.ResultSum && (
+                <>
+                  <span className="player-profile-position">
+                    <b>Position</b>
+                    <span>{player.Position && player.Position.Calculated}</span>
+                  </span>
+                  <span
+                    className={`player-profile-topar${
+                      player.ResultSum.ToParValue < 0 ? ' under-par' : ''
+                    }`}
+                  >
+                    <b>Score</b>
+                    <span>{fixParValue(player.ResultSum.ToParText)}</span>
+                  </span>
+                </>
+              )}
             </div>
             <div
               className={`player-profile-rounds ${`rounds-${rounds.length}`}`}
