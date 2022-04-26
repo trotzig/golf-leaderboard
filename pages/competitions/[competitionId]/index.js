@@ -273,6 +273,10 @@ function Player({
 }
 
 function getHeading(competition, now) {
+  if (!competition.start) {
+    // not yet loaded
+    return '';
+  }
   const startOfToday = startOfDay(now);
   if (competition.start > startOfToday) {
     return 'Upcoming event';
@@ -335,10 +339,12 @@ export default function CompetitionPage({
       <Menu />
       <div className="h-intro">{getHeading(competition, now)}</div>
       <h2 className="leaderboard-heading">{competition.name}</h2>
-      <p className="leaderboard-subtitle">
-        {competition.venue} –{' '}
-        {competition.start && competitionDateString(competition, now)}
-      </p>
+      {competition.venue && (
+        <p className="leaderboard-subtitle">
+          {competition.venue} –{' '}
+          {competition.start && competitionDateString(competition, now)}
+        </p>
+      )}
       {data && (
         <>
           {Object.values(data.Courses || {}).length > 0 ? (

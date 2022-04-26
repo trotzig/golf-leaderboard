@@ -32,16 +32,13 @@ export default function LeaderboardRedirectPage() {
   const router = useRouter();
   useEffect(() => {
     async function run() {
-      const url = `https://scores.golfbox.dk/Handlers/ScheduleHandler/GetSchedule/CustomerId/1/Season/2022/CompetitionId/0/language/2057/`;
-      const payload = await fetchJsonP(url);
-      router.replace(`/competitions/${getCurrentCompetitionId(payload)}`);
+      router.replace(`/competitions/${getCurrentCompetitionId()}`);
     }
     run();
   }, []);
   return (
     <div className="leaderboard">
       <Menu />
-      <LoadingSkeleton />
     </div>
   );
 }
