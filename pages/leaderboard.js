@@ -1,35 +1,31 @@
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 
+import { getAllCompetitions } from '../src/staticData.js';
 import LoadingSkeleton from '../src/LoadingSkeleton';
 import Menu from '../src/Menu';
 import fetchJsonP from '../src/fetchJsonP';
-import getCompetitions from '../src/getCompetitions';
 
-function getCurrentCompetitionId(payload) {
-  if (payload.DefaultCompetition) {
-    return payload.DefaultCompetition.CompetitionID;
-  }
+function getCurrentCompetitionId() {
   const now = new Date();
 
-  const competitions = getCompetitions(payload, now);
+  const competitions = getAllCompetitions();
+
   competitions.sort((a, b) => {
-    if (a._end < b._end) {
+    if (a.end < b.end) {
       return 1;
     }
-    if (a._end > b._end) {
+    if (a.end > b.end) {
       return -1;
     }
     return 0;
   });
   for (const c of competitions) {
-    if ((now.getTime() + 48 * 60 * 60 * 1000) > c._start.getTime()) {
-      return c.ID;
-    }
-    if (now > c._end) {
-      return c.ID;
+    if ((now.getTime() + 48 * 60 * 60 * 1000) > c.start.getTime()) {
+      return c.id;
     }
   }
+  return competitions[0].id;
 }
 
 export default function LeaderboardRedirectPage() {
