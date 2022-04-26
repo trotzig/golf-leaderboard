@@ -13,6 +13,9 @@ export default function ProfilePage() {
 
   useEffect(() => {
     setSendEmailOnFinished(profile && profile.sendEmailOnFinished);
+    if (profile) {
+      syncFavorites();
+    }
   }, [profile]);
 
   useEffect(() => {
