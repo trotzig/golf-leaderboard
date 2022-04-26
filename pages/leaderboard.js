@@ -7,9 +7,9 @@ import fetchJsonP from '../src/fetchJsonP';
 import getCompetitions from '../src/getCompetitions';
 
 function getCurrentCompetitionId(payload) {
-    if (payload.DefaultCompetition) {
-      return payload.DefaultCompetition.CompetitionID;
-    }
+  if (payload.DefaultCompetition) {
+    return payload.DefaultCompetition.CompetitionID;
+  }
   const now = new Date();
 
   const competitions = getCompetitions(payload, now);
@@ -23,6 +23,9 @@ function getCurrentCompetitionId(payload) {
     return 0;
   });
   for (const c of competitions) {
+    if ((now.getTime() + 48 * 60 * 60 * 1000) > c._start.getTime()) {
+      return c.ID;
+    }
     if (now > c._end) {
       return c.ID;
     }
@@ -35,9 +38,7 @@ export default function LeaderboardRedirectPage() {
     async function run() {
       const url = `https://scores.golfbox.dk/Handlers/ScheduleHandler/GetSchedule/CustomerId/1/Season/2022/CompetitionId/0/language/2057/`;
       const payload = await fetchJsonP(url);
-      router.replace(
-        `/competitions/${getCurrentCompetitionId(payload)}`,
-      );
+      router.replace(`/competitions/${getCurrentCompetitionId(payload)}`);
     }
     run();
   }, []);
