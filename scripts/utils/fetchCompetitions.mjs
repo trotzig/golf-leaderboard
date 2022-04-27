@@ -26,8 +26,8 @@ export default async function fetchCompetitions() {
         ...Object.values(month.Entries).map(e => ({
           id: e.ID,
           name: e.Name,
-          start: parse(e.StartDate, DATE_FORMAT, now),
-          end: parse(e.EndDate, DATE_FORMAT, now),
+          start: parse(`${e.StartDate}+02`, DATE_FORMAT, now),
+          end: parse(`${e.EndDate}+02`, DATE_FORMAT, now),
         })),
       );
     }
