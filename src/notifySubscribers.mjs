@@ -27,7 +27,7 @@ async function fetchResults(competition) {
   const result = [];
   for (const entry of entries) {
     for (const round of Object.values(entry.Rounds)) {
-      if (round.HoleScores['H-TOTAL']) {
+      if (Object.keys(round.HoleScores).length === 21) {
         result.push({
           competitionName: competition.name,
           competitionId: competition.id,
