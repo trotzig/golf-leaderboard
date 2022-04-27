@@ -4,7 +4,7 @@ import { parse } from 'date-fns';
 import parseJson from './parseJson.mjs';
 
 const { QUICKRUN } = process.env;
-const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
+const DATE_FORMAT = "yyyyMMdd'T'HHmmssX";
 
 export default async function fetchCompetitions() {
   const res = await nodeFetch(
