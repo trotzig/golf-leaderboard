@@ -1,11 +1,13 @@
 import Head from 'next/head';
 import Script from 'next/script';
+import NextNProgress from 'nextjs-progressbar';
 
 import '../styles.css';
 
 function MyApp({ Component, pageProps }) {
   return (
     <div>
+      <NextNProgress color="#e54e37" height={2} />
       <Head>
         <title>Moregolf Mastercard Tour</title>
         <meta
