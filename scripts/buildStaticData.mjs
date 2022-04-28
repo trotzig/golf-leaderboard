@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 import crypto from 'crypto';
-import fs from 'fs';
 import nodeFetch from 'node-fetch';
 
+import prisma from '../src/prisma.mjs';
 import fetchCompetitions from './utils/fetchCompetitions.mjs';
 import generateSlug from '../src/generateSlug.mjs';
 import parseJson from './utils/parseJson.mjs';
@@ -36,18 +36,18 @@ async function fetchPlayers(competition) {
         const player = {
           firstName: entry.FirstName.trim(),
           lastName: entry.LastName.trim(),
-          memberId: entry.MemberID.trim(),
+          id: entry.MemberID.trim(),
           clubName: entry.ClubName.trim(),
         };
         player.slug = generateSlug(player);
-        player.competitions = [{
-          id: json.CompetitionData.Id,
-          name: json.CompetitionData.Name,
-          course: json.CompetitionData.Venue.Name,
-          position: entry.Position.Calculated,
-          scoreText: entry.ScoringToPar.ToParText,
-          score: entry.ScoringToPar.ToParValue,
-        }];
+        player.competitions = [
+          {
+            competitionId: json.CompetitionData.Id,
+            position: entry.Position.Calculated,
+            scoreText: entry.ScoringToPar.ToParText,
+            score: entry.ScoringToPar.ToParValue,
+          },
+        ];
         result.push(player);
       }
     }
@@ -63,13 +63,12 @@ async function fetchAllPlayers(competitions) {
     const players = await fetchPlayers(comp);
     console.log(`${players.length} found`);
     for (const player of players) {
-      const entry = allPlayers[player.memberId];
+      const entry = allPlayers[player.id];
       if (!entry) {
-        allPlayers[player.memberId] = player;
+        allPlayers[player.id] = player;
       } else {
         entry.competitions.unshift(...player.competitions);
       }
-
     }
   }
   const result = Object.values(allPlayers);
@@ -78,14 +77,12 @@ async function fetchAllPlayers(competitions) {
     if (slugsIndex[player.slug]) {
       console.warn(
         `Found non-unique slug "${player.slug}" for id ${
-          player.memberId
-        } belonging to ${
-          slugsIndex[player.slug].memberId
-        }. Will use random suffix.`,
+          player.id
+        } belonging to ${slugsIndex[player.slug].id}. Will use random suffix.`,
       );
       player.slug = `${player.slug}-${crypto
         .createHash('md5')
-        .update(player.memberId)
+        .update(player.id)
         .digest('hex')
         .slice(0, 3)}`;
     }
@@ -108,7 +105,7 @@ async function fillOOM(players) {
     index[entry.MemberID] = entry.Position;
   }
   for (const player of players) {
-    player.oomPosition = index[player.memberId] || '-';
+    player.oomPosition = index[player.id] || '-';
   }
 }
 
@@ -116,9 +113,35 @@ async function main() {
   const competitions = await fetchCompetitions();
   const players = await fetchAllPlayers(competitions);
   await fillOOM(players);
+
   const fileName = '.staticData.json';
-  console.log(`Writing json results to ${fileName}`);
-  fs.writeFileSync(fileName, JSON.stringify({ competitions, players }));
+  const compRes = await prisma.competition.createMany({
+    data: competitions,
+    skipDuplicates: true,
+  });
+  console.log(`Created ${compRes.count} competititons`);
+
+  const playersData = [];
+  const compScores = [];
+  for (const p of players) {
+    const copy = {...p};
+    compScores.push(...p.competitions.map(c => ({ ...c, playerId: p.id })));
+    delete copy.competitions;
+    playersData.push(copy);
+  }
+
+  const playersRes = await prisma.player.createMany({
+    data: playersData,
+    skipDuplicates: true,
+  });
+  console.log(`Created ${playersRes.count} users`);
+
+
+  const scoresRes = await prisma.playerCompetitionScore.createMany({
+    data: compScores,
+    skipDuplicates: true,
+  });
+  console.log(`Created ${scoresRes.count} scores`);
 }
 
 main()
