@@ -60,38 +60,26 @@ async function fetchPlayers(competition) {
 async function fetchAllPlayers(competitions) {
   const allPlayers = {};
   const allSlugs = {};
-  await Promise.all(
+  const all = await Promise.all(
     competitions.map(async comp => {
       console.log(`Fetching players for competition ${comp.name}...`);
       const players = await fetchPlayers(comp);
-      console.log(`${players.length} found`);
-      for (const player of players) {
-        const entry = allPlayers[player.id];
-        if (!entry) {
-          allPlayers[player.id] = player;
-        } else {
-          entry.competitions.unshift(...(player.competitions || []));
-        }
-      }
+      console.log(`${comp.name} has ${players.length} players`);
+      return players;
     }),
   );
-  const result = Object.values(allPlayers);
-  const slugsIndex = {};
-  for (const player of result) {
-    if (slugsIndex[player.slug]) {
-      console.warn(
-        `Found non-unique slug "${player.slug}" for id ${
-          player.id
-        } belonging to ${slugsIndex[player.slug].id}. Will use random suffix.`,
-      );
-      player.slug = `${player.slug}-${crypto
-        .createHash('md5')
-        .update(player.id)
-        .digest('hex')
-        .slice(0, 3)}`;
+
+  for (const players of all) {
+    for (const player of players) {
+      const entry = allPlayers[player.id];
+      if (!entry) {
+        allPlayers[player.id] = player;
+      } else {
+        entry.competitions.unshift(...(player.competitions || []));
+      }
     }
-    slugsIndex[player.slug] = player;
   }
+  const result = Object.values(allPlayers);
   return result;
 }
 
@@ -106,10 +94,47 @@ async function fillOOM(players) {
   const entries = Object.values(json.Entries);
   const index = {};
   for (const entry of entries) {
-    index[entry.MemberID] = entry.Position;
+    index[entry.MemberID] = {
+      position: entry.Position,
+      actualPosition: entry.ActualPosition,
+    };
   }
   for (const player of players) {
-    player.oomPosition = index[player.id] || '-';
+    const pos = index[player.id];
+    if (!pos) {
+      player.oomPosition = '-';
+      player.oomActualPosition = 999999;
+    } else {
+      player.oomPosition = pos.position;
+      player.oomActualPosition = pos.actualPosition;
+    }
+  }
+}
+function dedupeSlugs(players) {
+  // Sort players by oom position. This will make slugs that need randomness
+  // belong to less important player entries.
+  players.sort((a, b) => {
+    const oomDiff = a.oomActualPosition - b.oomActualPosition;
+    if (oomDiff !== 0) {
+      return oomDiff;
+    }
+    return b.id - a.id;
+  });
+  const slugsIndex = {};
+  for (const player of players) {
+    if (slugsIndex[player.slug]) {
+      console.warn(
+        `Found non-unique slug "${player.slug}" for id ${
+          player.id
+        } belonging to ${slugsIndex[player.slug].id}. Will use random suffix.`,
+      );
+      player.slug = `${player.slug}-${crypto
+        .createHash('md5')
+        .update(player.id)
+        .digest('hex')
+        .slice(0, 3)}`;
+    }
+    slugsIndex[player.slug] = player;
   }
 }
 
@@ -117,6 +142,7 @@ export default async function syncData() {
   const competitions = await fetchCompetitions();
   const players = await fetchAllPlayers(competitions);
   await fillOOM(players);
+  dedupeSlugs(players);
 
   const compRes = await prisma.competition.createMany({
     data: competitions,
@@ -132,6 +158,7 @@ export default async function syncData() {
       ...(p.competitions || []).map(c => ({ ...c, playerId: p.id })),
     );
     delete copy.competitions;
+    delete copy.oomActualPosition;
     playersData.push(copy);
   }
 
@@ -158,13 +185,22 @@ export default async function syncData() {
       newPlayer.clubName !== player.clubName ||
       newPlayer.slug !== player.slug
     ) {
+      console.log(
+        `Updating ${newPlayer.firstName} ${newPlayer.lastName} with id ${newPlayer.id}`,
+      );
+      console.log(
+        newPlayer,
+        player,
+        newPlayer.oomPosition !== player.oomPosition,
+        newPlayer.firstName !== player.firstName,
+        newPlayer.lastName !== player.lastName,
+        newPlayer.clubName !== player.clubName,
+        newPlayer.slug !== player.slug,
+      );
       await prisma.player.update({
         where: { id: player.id },
         data: { ...newPlayer, updatedAt: new Date() },
       });
-      console.log(
-        `Updated ${newPlayer.firstName} ${newPlayer.lastName} with id ${newPlayer.id}`,
-      );
     }
   }
 
@@ -178,13 +214,13 @@ export default async function syncData() {
       newCompetition.start.getTime() !== competition.start.getTime() ||
       newCompetition.end.getTime() !== competition.end.getTime()
     ) {
+      console.log(
+        `Updating ${newCompetition.name} with id ${newCompetition.id}`,
+      );
       await prisma.competition.update({
         where: { id: competition.id },
         data: { ...newCompetition, updatedAt: new Date() },
       });
-      console.log(
-        `Updated ${newCompetition.name} with id ${newCompetition.id}`,
-      );
     }
   }
 }
