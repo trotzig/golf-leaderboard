@@ -1,27 +1,15 @@
-import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import { getAllCompetitions } from '../src/staticData.js';
-import LoadingSkeleton from '../src/LoadingSkeleton';
 import Menu from '../src/Menu';
-import fetchJsonP from '../src/fetchJsonP';
+import prisma from '../src/Prisma';
 
-function getCurrentCompetitionId() {
+async function getCurrentCompetitionId() {
   const now = new Date();
-
-  const competitions = getAllCompetitions();
-
-  competitions.sort((a, b) => {
-    if (a.end < b.end) {
-      return 1;
-    }
-    if (a.end > b.end) {
-      return -1;
-    }
-    return 0;
+  const competitions = await prisma.competition.findMany({
+    orderBy: { end: 'desc' },
   });
   for (const c of competitions) {
-    if ((now.getTime() + 48 * 60 * 60 * 1000) > c.start.getTime()) {
+    if (now.getTime() + 48 * 60 * 60 * 1000 > c.start.getTime()) {
       return c.id;
     }
   }
@@ -29,16 +17,18 @@ function getCurrentCompetitionId() {
 }
 
 export default function LeaderboardRedirectPage() {
-  const router = useRouter();
-  useEffect(() => {
-    async function run() {
-      router.replace(`/competitions/${getCurrentCompetitionId()}`);
-    }
-    run();
-  }, []);
   return (
     <div className="leaderboard">
       <Menu />
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  return {
+    redirect: {
+      destination: `/competitions/${await getCurrentCompetitionId()}`,
+      permanent: false,
+    },
+  };
 }
