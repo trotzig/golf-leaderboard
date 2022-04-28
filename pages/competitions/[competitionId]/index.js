@@ -2,9 +2,8 @@ import { parse, format, startOfDay } from 'date-fns';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
-import { getCompetition } from '../../../src/staticData.js';
 import { useJsonPData } from '../../../src/fetchJsonP';
 import ClockIcon from '../../../src/ClockIcon';
 import FavoriteButton from '../../../src/FavoriteButton';
