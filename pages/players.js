@@ -4,10 +4,10 @@ import Link from 'next/link';
 import React, { useEffect, useMemo, useState } from 'react';
 import debounce from 'lodash/debounce';
 
-import { getAllPlayers } from '../src/staticData';
 import FavoriteButton from '../src/FavoriteButton';
 import Menu from '../src/Menu';
 import ordinal from '../src/ordinal';
+import useData from '../src/useData.js';
 
 const NUM_FORMATTER = Intl.NumberFormat('en-US', {
   notation: 'compact',
@@ -53,8 +53,13 @@ export default function PlayersPage() {
     setLastFavoriteChanged(new Date());
   }
 
+  const [rawPlayers] = useData('/api/players');
+
   useEffect(() => {
-    const unchangedPlayers = getAllPlayers();
+    if (!rawPlayers) {
+      return;
+    }
+    const unchangedPlayers = rawPlayers;
     const result = [];
     for (const player of unchangedPlayers) {
       result.push({
