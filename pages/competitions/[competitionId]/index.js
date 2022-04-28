@@ -435,6 +435,9 @@ export async function getServerSideProps({ params }) {
       end: true,
     },
   });
+  if (!competition) {
+    return { notFound: true };
+  }
   competition.start = competition.start.getTime();
   competition.end = competition.end.getTime();
   return {
