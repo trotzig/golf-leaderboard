@@ -114,7 +114,6 @@ export default async function syncData() {
   const players = await fetchAllPlayers(competitions);
   await fillOOM(players);
 
-  const fileName = '.staticData.json';
   const compRes = await prisma.competition.createMany({
     data: competitions,
     skipDuplicates: true,
