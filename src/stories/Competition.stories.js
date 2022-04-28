@@ -16,7 +16,7 @@ function slimEntries(data) {
 slimEntries(ongoing);
 slimEntries(finished);
 
-const initialCompetition = {
+const competition = {
   id: 1,
   name: 'ECCO Tour Spanish Masters - by DAT',
   venue: 'PGA Catalunya Resort, Girona',
@@ -30,14 +30,14 @@ export default {
 };
 
 export const Empty = () => (
-  <CompetitionPage initialCompetition={initialCompetition} />
+  <CompetitionPage competition={competition} />
 );
 export const Ongoing = () => (
   <CompetitionPage
     {...ongoing}
     lazyItems={false}
     now={new Date('2022-02-28T12:00:00')}
-    initialCompetition={initialCompetition}
+    competition={competition}
   />
 );
 export const Finished = () => (
@@ -45,7 +45,7 @@ export const Finished = () => (
     {...finished}
     lazyItems={false}
     now={new Date('2022-03-03T12:00:00')}
-    initialCompetition={initialCompetition}
+    competition={competition}
   />
 );
 export const Upcoming = () => (
@@ -53,6 +53,6 @@ export const Upcoming = () => (
     {...upcoming}
     lazyItems={false}
     now={new Date('2022-02-22T12:00:00')}
-    initialCompetition={initialCompetition}
+    competition={competition}
   />
 );

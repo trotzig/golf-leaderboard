@@ -287,15 +287,24 @@ function getHeading(competition, now) {
   return 'Final results';
 }
 
+function ensureDates(competition) {
+  if (!competition.end instanceof Date) {
+    competition.end = new Date(competition.end);
+  }
+  if (!competition.start instanceof Date) {
+    competition.start = new Date(competition.start);
+  }
+}
+
 export default function CompetitionPage({
   initialData,
   initialTimesData,
-  initialCompetition = {},
+  competition = {},
   now = new Date(),
   lazyItems = true,
 }) {
+  ensureDates(competition);
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
-  const [competition, setCompetition] = useState(initialCompetition);
   const router = useRouter();
   const { competitionId, finished } = router ? router.query : {};
   const data = useJsonPData(
@@ -308,13 +317,6 @@ export default function CompetitionPage({
       `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competitionId}/language/2057/`,
     initialTimesData,
   );
-  useEffect(() => {
-    if (!competitionId) {
-      return;
-    }
-    const comp = getCompetition(competitionId) || { name: '404: Not found' };
-    setCompetition(comp);
-  }, [competitionId]);
   const loading = !data || !timesData;
 
   function handleFavoriteChange() {
@@ -332,8 +334,7 @@ export default function CompetitionPage({
     <div className="leaderboard">
       <Head>
         <title>
-          {competition && competition.name && `${competition.name} | `}
-          {getHeading(competition, now)}
+          {competition.name} | {getHeading(competition, now)}
         </title>
       </Head>
       <Menu />
@@ -421,4 +422,22 @@ export default function CompetitionPage({
       {loading && <LoadingSkeleton />}
     </div>
   );
+}
+
+export async function getServerSideProps({ params }) {
+  const competition = await prisma.competition.findUnique({
+    where: { id: parseInt(params.competitionId, 10) },
+    select: {
+      id: true,
+      name: true,
+      venue: true,
+      start: true,
+      end: true,
+    },
+  });
+  competition.start = competition.start.getTime();
+  competition.end = competition.end.getTime();
+  return {
+    props: { competition },
+  };
 }
