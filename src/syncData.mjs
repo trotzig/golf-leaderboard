@@ -47,6 +47,8 @@ async function fetchPlayers(competition) {
               score: entry.ScoringToPar.ToParValue,
             },
           ];
+        } else {
+          player.competitions = [];
         }
         result.push(player);
       }
