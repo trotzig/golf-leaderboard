@@ -188,15 +188,6 @@ export default async function syncData() {
       console.log(
         `Updating ${newPlayer.firstName} ${newPlayer.lastName} with id ${newPlayer.id}`,
       );
-      console.log(
-        newPlayer,
-        player,
-        newPlayer.oomPosition !== player.oomPosition,
-        newPlayer.firstName !== player.firstName,
-        newPlayer.lastName !== player.lastName,
-        newPlayer.clubName !== player.clubName,
-        newPlayer.slug !== player.slug,
-      );
       await prisma.player.update({
         where: { id: player.id },
         data: { ...newPlayer, updatedAt: new Date() },
