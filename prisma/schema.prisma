@@ -70,9 +70,10 @@ model PlayerCompetitionScore {
 model Competition {
   id               Int     @id
   name             String
-  clubName         String?
   venue            String?
   start            DateTime
   end              DateTime
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @default(now())
   competitionScore PlayerCompetitionScore[]
 }

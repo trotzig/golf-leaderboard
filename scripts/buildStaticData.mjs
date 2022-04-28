@@ -40,14 +40,16 @@ async function fetchPlayers(competition) {
           clubName: entry.ClubName.trim(),
         };
         player.slug = generateSlug(player);
-        player.competitions = [
-          {
-            competitionId: json.CompetitionData.Id,
-            position: entry.Position.Calculated,
-            scoreText: entry.ScoringToPar.ToParText,
-            score: entry.ScoringToPar.ToParValue,
-          },
-        ];
+        if (competition.end.getTime() + 24 * 60 * 60 * 1000 < Date.now()) {
+          player.competitions = [
+            {
+              competitionId: json.CompetitionData.Id,
+              position: entry.Position.Calculated,
+              scoreText: entry.ScoringToPar.ToParText,
+              score: entry.ScoringToPar.ToParValue,
+            },
+          ];
+        }
         result.push(player);
       }
     }
@@ -67,7 +69,7 @@ async function fetchAllPlayers(competitions) {
       if (!entry) {
         allPlayers[player.id] = player;
       } else {
-        entry.competitions.unshift(...player.competitions);
+        entry.competitions.unshift(...(player.competitions || []));
       }
     }
   }
@@ -124,8 +126,10 @@ async function main() {
   const playersData = [];
   const compScores = [];
   for (const p of players) {
-    const copy = {...p};
-    compScores.push(...p.competitions.map(c => ({ ...c, playerId: p.id })));
+    const copy = { ...p };
+    compScores.push(
+      ...(p.competitions || []).map(c => ({ ...c, playerId: p.id })),
+    );
     delete copy.competitions;
     playersData.push(copy);
   }
@@ -136,12 +140,52 @@ async function main() {
   });
   console.log(`Created ${playersRes.count} users`);
 
-
   const scoresRes = await prisma.playerCompetitionScore.createMany({
     data: compScores,
     skipDuplicates: true,
   });
   console.log(`Created ${scoresRes.count} scores`);
+
+  const allPlayers = await prisma.player.findMany();
+  for (const player of allPlayers) {
+    const newPlayer = playersData.find(p => p.id === player.id);
+    if (!newPlayer) continue;
+    if (
+      newPlayer.oomPosition !== player.oomPosition ||
+      newPlayer.firstName !== player.firstName ||
+      newPlayer.lastName !== player.lastName ||
+      newPlayer.clubName !== player.clubName ||
+      newPlayer.slug !== player.slug
+    ) {
+      await prisma.player.update({
+        where: { id: player.id },
+        data: { ...newPlayer, updatedAt: new Date() },
+      });
+      console.log(
+        `Updated ${newPlayer.firstName} ${newPlayer.lastName} with id ${newPlayer.id}`,
+      );
+    }
+  }
+
+  const allCompetitions = await prisma.competition.findMany();
+  for (const competition of allCompetitions) {
+    const newCompetition = competitions.find(c => c.id === competition.id);
+    if (!newCompetition) continue;
+    if (
+      newCompetition.name !== competition.name ||
+      newCompetition.venue !== competition.venue ||
+      newCompetition.start.getTime() !== competition.start.getTime() ||
+      newCompetition.end.getTime() !== competition.end.getTime()
+    ) {
+      await prisma.competition.update({
+        where: { id: competition.id },
+        data: { ...newCompetition, updatedAt: new Date() },
+      });
+      console.log(
+        `Updated ${newCompetition.name} with id ${newCompetition.id}`,
+      );
+    }
+  }
 }
 
 main()
