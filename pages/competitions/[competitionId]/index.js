@@ -13,6 +13,7 @@ import Menu from '../../../src/Menu';
 import competitionDateString from '../../../src/competitionDateString';
 import ensureDates from '../../../src/ensureDates.js';
 import fixParValue from '../../../src/fixParValue';
+import prisma from '../../../src/prisma';
 
 const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
 
