@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 import Menu from '../src/Menu';
 import competitionDateString from '../src/competitionDateString';
 import ensureDates from '../src/ensureDates.js';
-
+import prisma from '../src/prisma';
 
 export default function StartPage({ competitions }) {
   competitions.forEach(ensureDates);
