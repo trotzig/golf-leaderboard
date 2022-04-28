@@ -3,6 +3,7 @@ import React from 'react';
 import Menu from '../src/Menu';
 import prisma from '../src/prisma';
 
+
 async function getCurrentCompetitionId() {
   const now = new Date();
   const competitions = await prisma.competition.findMany({
