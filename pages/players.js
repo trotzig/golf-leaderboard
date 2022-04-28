@@ -25,7 +25,7 @@ function Player({ player, onFavorite, lastFavoriteChanged }) {
       <span className="favorite-wrapper">
         <FavoriteButton
           onChange={onFavorite}
-          playerId={player.memberId}
+          playerId={player.id}
           lastFavoriteChanged={lastFavoriteChanged}
         />
       </span>
@@ -49,7 +49,14 @@ export default function PlayersPage() {
   const [players, setPlayers] = useState([]);
   const { sortBy = 'lastName', filter = '' } = router.query;
   const [currentFilter, setCurrentFilter] = useState(filter);
-  function handleFavoriteChange(favorite, memberId) {
+
+  useEffect(() => {
+    if (filter) {
+      setCurrentFilter(filter);
+    }
+  }, [filter])
+
+  function handleFavoriteChange(favorite, playerId) {
     setLastFavoriteChanged(new Date());
   }
 
@@ -64,7 +71,7 @@ export default function PlayersPage() {
     for (const player of unchangedPlayers) {
       result.push({
         ...player,
-        isFavorite: localStorage && localStorage.getItem(player.memberId),
+        isFavorite: localStorage && localStorage.getItem(player.id),
       });
     }
     result.sort((a, b) => {
@@ -97,7 +104,7 @@ export default function PlayersPage() {
         );
       }),
     );
-  }, [lastFavoriteChanged, sortBy, filter]);
+  }, [lastFavoriteChanged, sortBy, filter, rawPlayers]);
 
   const debouncedSetFilter = useMemo(
     () =>
@@ -165,7 +172,7 @@ export default function PlayersPage() {
                 {favorites.map(player => {
                   return (
                     <Player
-                      key={player.memberId}
+                      key={player.id}
                       player={player}
                       onFavorite={handleFavoriteChange}
                       lastFavoriteChanged={lastFavoriteChanged}
@@ -187,7 +194,7 @@ export default function PlayersPage() {
             {players.map(player => {
               return (
                 <Player
-                  key={player.memberId}
+                  key={player.id}
                   player={player}
                   onFavorite={handleFavoriteChange}
                   lastFavoriteChanged={lastFavoriteChanged}

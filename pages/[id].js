@@ -19,7 +19,7 @@ export default function PlayerPage({ player }) {
   const [isFavorite, setIsFavorite] = useState();
 
   useEffect(() => {
-    setIsFavorite(localStorage.getItem(player.memberId));
+    setIsFavorite(localStorage.getItem(player.id));
   }, [player]);
 
   return (
@@ -47,7 +47,7 @@ export default function PlayerPage({ player }) {
       <div className="page-margin" style={{ marginBottom: 30 }}>
         <FavoriteButton
           onChange={setIsFavorite}
-          playerId={player.memberId}
+          playerId={player.id}
           large
         />
       </div>

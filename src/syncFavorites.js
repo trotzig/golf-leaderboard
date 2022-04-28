@@ -1,9 +1,12 @@
-import { getAllPlayers } from './staticData';
-
 export default async function syncFavorites() {
-  const favorites = getAllPlayers()
-    .filter(p => localStorage.getItem(p.memberId))
-    .map(p => p.memberId);
+  const playersRes = await fetch('/api/players');
+  if (!playersRes.ok) {
+    throw new Error(`${playersRes.status} -- ${await playersRes.text()}`);
+  }
+  const players = await playersRes.json();
+  const favorites = players
+    .filter(p => localStorage.getItem(p.id))
+    .map(p => p.id);
 
   const res = await fetch('/api/favorites/sync', {
     method: 'POST',
