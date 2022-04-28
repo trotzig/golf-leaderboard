@@ -11,6 +11,7 @@ import Lazy from '../../../src/Lazy';
 import LoadingSkeleton from '../../../src/LoadingSkeleton';
 import Menu from '../../../src/Menu';
 import competitionDateString from '../../../src/competitionDateString';
+import ensureDates from '../../../src/ensureDates.js';
 import fixParValue from '../../../src/fixParValue';
 
 const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
@@ -284,15 +285,6 @@ function getHeading(competition, now) {
     return 'Leaderboard';
   }
   return 'Final results';
-}
-
-function ensureDates(competition) {
-  if (!competition.end instanceof Date) {
-    competition.end = new Date(competition.end);
-  }
-  if (!competition.start instanceof Date) {
-    competition.start = new Date(competition.start);
-  }
 }
 
 export default function CompetitionPage({
