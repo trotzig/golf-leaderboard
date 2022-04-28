@@ -58,19 +58,21 @@ async function fetchPlayers(competition) {
 async function fetchAllPlayers(competitions) {
   const allPlayers = {};
   const allSlugs = {};
-  for (const comp of competitions) {
-    console.log(`Fetching players for competition ${comp.name}...`);
-    const players = await fetchPlayers(comp);
-    console.log(`${players.length} found`);
-    for (const player of players) {
-      const entry = allPlayers[player.id];
-      if (!entry) {
-        allPlayers[player.id] = player;
-      } else {
-        entry.competitions.unshift(...(player.competitions || []));
+  await Promise.all(
+    competitions.map(async comp => {
+      console.log(`Fetching players for competition ${comp.name}...`);
+      const players = await fetchPlayers(comp);
+      console.log(`${players.length} found`);
+      for (const player of players) {
+        const entry = allPlayers[player.id];
+        if (!entry) {
+          allPlayers[player.id] = player;
+        } else {
+          entry.competitions.unshift(...(player.competitions || []));
+        }
       }
-    }
-  }
+    }),
+  );
   const result = Object.values(allPlayers);
   const slugsIndex = {};
   for (const player of result) {
@@ -184,4 +186,3 @@ export default async function syncData() {
     }
   }
 }
-
