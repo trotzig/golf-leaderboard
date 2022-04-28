@@ -1,15 +1,14 @@
 import { startOfDay, format } from 'date-fns';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
-import { getAllCompetitions } from '../src/staticData.js';
-import LoadingSkeleton from '../src/LoadingSkeleton';
 import Menu from '../src/Menu';
 import competitionDateString from '../src/competitionDateString';
+import ensureDates from '../src/ensureDates.js';
 
-export default function StartPage() {
-  const [competitions, setCompetitions] = useState([]);
 
+export default function StartPage({ competitions }) {
+  competitions.forEach(ensureDates);
   const now = startOfDay(new Date());
   const pastCompetitions = competitions.filter(c => c.end < now);
   const currentCompetitions = competitions.filter(
@@ -23,10 +22,6 @@ export default function StartPage() {
   if (nextCompetition) {
     upcomingCompetitions.shift();
   }
-
-  useEffect(() => {
-    setCompetitions(getAllCompetitions());
-  }, []);
 
   return (
     <div className="chrome">
@@ -138,4 +133,22 @@ function CompetitionListItem({ competition, now, current }) {
       </Link>
     </li>
   );
+}
+
+export async function getServerSideProps() {
+  const competitions = await prisma.competition.findMany({
+    orderBy: { end: 'desc' },
+    select: {
+      id: true,
+      name: true,
+      venue: true,
+      start: true,
+      end: true,
+    },
+  });
+  for (const c of competitions) {
+    c.start = c.start.getTime();
+    c.end = c.end.getTime();
+  }
+  return { props: { competitions }};
 }

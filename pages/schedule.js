@@ -1,20 +1,17 @@
 import { format, startOfDay } from 'date-fns';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-import { getAllCompetitions } from '../src/staticData.js';
 import Menu from '../src/Menu';
+import ensureDates from '../src/ensureDates.js';
+import prisma from '../src/prisma';
 
-export default function SchedulePage() {
-  const [competitions, setCompetitions] = useState([]);
+export default function SchedulePage({ competitions }) {
+  competitions.forEach(ensureDates);
   const now = startOfDay(new Date());
   const currentCompetition = competitions.find(
     c => c.start <= now && c.end >= now,
   );
-
-  useEffect(() => {
-    setCompetitions(getAllCompetitions());
-  }, []);
 
   return (
     <div className="chrome">
@@ -67,4 +64,22 @@ function CompetitionItem({ competition, now, current }) {
       </td>
     </tr>
   );
+}
+
+export async function getServerSideProps() {
+  const competitions = await prisma.competition.findMany({
+    orderBy: { end: 'desc' },
+    select: {
+      id: true,
+      name: true,
+      venue: true,
+      start: true,
+      end: true,
+    },
+  });
+  for (const c of competitions) {
+    c.start = c.start.getTime();
+    c.end = c.end.getTime();
+  }
+  return { props: { competitions } };
 }

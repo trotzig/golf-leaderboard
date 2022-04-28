@@ -2,9 +2,8 @@ import { parse, format, startOfDay } from 'date-fns';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
-import { getCompetition } from '../../../src/staticData.js';
 import { useJsonPData } from '../../../src/fetchJsonP';
 import ClockIcon from '../../../src/ClockIcon';
 import FavoriteButton from '../../../src/FavoriteButton';
@@ -12,6 +11,7 @@ import Lazy from '../../../src/Lazy';
 import LoadingSkeleton from '../../../src/LoadingSkeleton';
 import Menu from '../../../src/Menu';
 import competitionDateString from '../../../src/competitionDateString';
+import ensureDates from '../../../src/ensureDates.js';
 import fixParValue from '../../../src/fixParValue';
 
 const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
@@ -290,12 +290,12 @@ function getHeading(competition, now) {
 export default function CompetitionPage({
   initialData,
   initialTimesData,
-  initialCompetition = {},
+  competition = {},
   now = new Date(),
   lazyItems = true,
 }) {
+  ensureDates(competition);
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
-  const [competition, setCompetition] = useState(initialCompetition);
   const router = useRouter();
   const { competitionId, finished } = router ? router.query : {};
   const data = useJsonPData(
@@ -308,13 +308,6 @@ export default function CompetitionPage({
       `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competitionId}/language/2057/`,
     initialTimesData,
   );
-  useEffect(() => {
-    if (!competitionId) {
-      return;
-    }
-    const comp = getCompetition(competitionId) || { name: '404: Not found' };
-    setCompetition(comp);
-  }, [competitionId]);
   const loading = !data || !timesData;
 
   function handleFavoriteChange() {
@@ -332,8 +325,7 @@ export default function CompetitionPage({
     <div className="leaderboard">
       <Head>
         <title>
-          {competition && competition.name && `${competition.name} | `}
-          {getHeading(competition, now)}
+          {competition.name} | {getHeading(competition, now)}
         </title>
       </Head>
       <Menu />
@@ -421,4 +413,25 @@ export default function CompetitionPage({
       {loading && <LoadingSkeleton />}
     </div>
   );
+}
+
+export async function getServerSideProps({ params }) {
+  const competition = await prisma.competition.findUnique({
+    where: { id: parseInt(params.competitionId, 10) },
+    select: {
+      id: true,
+      name: true,
+      venue: true,
+      start: true,
+      end: true,
+    },
+  });
+  if (!competition) {
+    return { notFound: true };
+  }
+  competition.start = competition.start.getTime();
+  competition.end = competition.end.getTime();
+  return {
+    props: { competition },
+  };
 }

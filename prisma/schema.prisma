@@ -43,3 +43,37 @@ model ResultNotified {
   createdAt      DateTime @default(now())
   @@unique([roundNumber, competitionId, playerId])
 }
+
+model Player {
+  id          String    @id
+  slug        String    @unique
+  firstName   String
+  lastName    String
+  clubName    String?
+  oomPosition String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now())
+  competitionScore PlayerCompetitionScore[]
+}
+
+model PlayerCompetitionScore {
+  playerId      String
+  competitionId Int
+  position      String
+  scoreText     String
+  score         Int
+  player        Player @relation(fields: [playerId], references: [id])
+  competition   Competition @relation(fields: [competitionId], references: [id])
+  @@id([playerId, competitionId])
+}
+
+model Competition {
+  id               Int     @id
+  name             String
+  venue            String?
+  start            DateTime
+  end              DateTime
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @default(now())
+  competitionScore PlayerCompetitionScore[]
+}

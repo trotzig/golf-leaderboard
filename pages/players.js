@@ -4,10 +4,10 @@ import Link from 'next/link';
 import React, { useEffect, useMemo, useState } from 'react';
 import debounce from 'lodash/debounce';
 
-import { getAllPlayers } from '../src/staticData';
 import FavoriteButton from '../src/FavoriteButton';
 import Menu from '../src/Menu';
 import ordinal from '../src/ordinal';
+import useData from '../src/useData.js';
 
 const NUM_FORMATTER = Intl.NumberFormat('en-US', {
   notation: 'compact',
@@ -25,7 +25,7 @@ function Player({ player, onFavorite, lastFavoriteChanged }) {
       <span className="favorite-wrapper">
         <FavoriteButton
           onChange={onFavorite}
-          playerId={player.memberId}
+          playerId={player.id}
           lastFavoriteChanged={lastFavoriteChanged}
         />
       </span>
@@ -49,17 +49,29 @@ export default function PlayersPage() {
   const [players, setPlayers] = useState([]);
   const { sortBy = 'lastName', filter = '' } = router.query;
   const [currentFilter, setCurrentFilter] = useState(filter);
-  function handleFavoriteChange(favorite, memberId) {
+
+  useEffect(() => {
+    if (filter) {
+      setCurrentFilter(filter);
+    }
+  }, [filter])
+
+  function handleFavoriteChange(favorite, playerId) {
     setLastFavoriteChanged(new Date());
   }
 
+  const [rawPlayers] = useData('/api/players');
+
   useEffect(() => {
-    const unchangedPlayers = getAllPlayers();
+    if (!rawPlayers) {
+      return;
+    }
+    const unchangedPlayers = rawPlayers;
     const result = [];
     for (const player of unchangedPlayers) {
       result.push({
         ...player,
-        isFavorite: localStorage && localStorage.getItem(player.memberId),
+        isFavorite: localStorage && localStorage.getItem(player.id),
       });
     }
     result.sort((a, b) => {
@@ -92,7 +104,7 @@ export default function PlayersPage() {
         );
       }),
     );
-  }, [lastFavoriteChanged, sortBy, filter]);
+  }, [lastFavoriteChanged, sortBy, filter, rawPlayers]);
 
   const debouncedSetFilter = useMemo(
     () =>
@@ -160,7 +172,7 @@ export default function PlayersPage() {
                 {favorites.map(player => {
                   return (
                     <Player
-                      key={player.memberId}
+                      key={player.id}
                       player={player}
                       onFavorite={handleFavoriteChange}
                       lastFavoriteChanged={lastFavoriteChanged}
@@ -182,7 +194,7 @@ export default function PlayersPage() {
             {players.map(player => {
               return (
                 <Player
-                  key={player.memberId}
+                  key={player.id}
                   player={player}
                   onFavorite={handleFavoriteChange}
                   lastFavoriteChanged={lastFavoriteChanged}

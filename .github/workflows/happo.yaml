@@ -15,7 +15,6 @@ jobs:
         with:
           node-version: '16'
       - run: yarn install --frozen-lockfile
-      - run: QUICKRUN=1 node scripts/buildStaticData.mjs
       - run: yarn happo-ci-github-actions
         env:
           HAPPO_API_KEY: ${{ secrets.HAPPO_API_KEY }}
