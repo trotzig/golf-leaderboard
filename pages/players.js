@@ -5,6 +5,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import debounce from 'lodash/debounce';
 
 import FavoriteButton from '../src/FavoriteButton';
+import LoadingSkeleton from '../src/LoadingSkeleton.js';
 import Menu from '../src/Menu';
 import ordinal from '../src/ordinal';
 import useData from '../src/useData.js';
@@ -54,7 +55,7 @@ export default function PlayersPage() {
     if (filter) {
       setCurrentFilter(filter);
     }
-  }, [filter])
+  }, [filter]);
 
   function handleFavoriteChange(favorite, playerId) {
     setLastFavoriteChanged(new Date());
@@ -163,7 +164,7 @@ export default function PlayersPage() {
           value={currentFilter}
         />
       </div>
-      {players ? (
+      {rawPlayers ? (
         <>
           {favorites.length > 0 ? (
             <>
@@ -203,7 +204,9 @@ export default function PlayersPage() {
             })}
           </ul>
         </>
-      ) : null}
+      ) : (
+        <LoadingSkeleton />
+      )}
     </div>
   );
 }
