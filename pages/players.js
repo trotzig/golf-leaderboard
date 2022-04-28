@@ -113,7 +113,7 @@ export default function PlayersPage() {
         router.replace(
           `/players?filter=${encodeURIComponent(filter)}&sortBy=${sortBy}`,
           undefined,
-          { scroll: false },
+          { scroll: false, shallow: true },
         );
       }, 250),
     [sortBy],
@@ -146,7 +146,7 @@ export default function PlayersPage() {
                 filter,
               )}`,
               undefined,
-              { scroll: false },
+              { scroll: false, shallow: true },
             );
           }}
         >

@@ -7,7 +7,7 @@ import '../styles.css';
 function MyApp({ Component, pageProps }) {
   return (
     <div>
-      <NextNProgress color="#e54e37" height={2} />
+      <NextNProgress color="#e54e37" height={2} showOnShallow={false} />
       <Head>
         <title>Moregolf Mastercard Tour</title>
         <meta
