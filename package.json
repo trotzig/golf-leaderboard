@@ -5,14 +5,17 @@
     "db:studio": "prisma studio",
     "db:studio:prod": "dotenv -e production.env prisma studio",
     "notify-subscribers": "dotenv node scripts/processResults.mjs",
+    "notify-subscribers:prod": "dotenv -e production.env node scripts/processResults.mjs",
     "sync-data": "dotenv node scripts/buildStaticData.mjs",
+    "sync-data:prod": "dotenv -e production.env node scripts/buildStaticData.mjs",
     "happo": "happo",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^3.11.1",
