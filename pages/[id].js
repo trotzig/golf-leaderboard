@@ -151,6 +151,9 @@ export async function getServerSideProps({ params }) {
       },
     },
   });
+  if (!player) {
+    return { notFound: true };
+  }
   return {
     props: { player },
   };
