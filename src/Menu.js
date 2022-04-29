@@ -27,6 +27,11 @@ export default function Menu({ defaultCompetitionId }) {
       <Link href="/players">
         <a>Players</a>
       </Link>
+      <Link href="/schedule">
+        <a className="menu-hide-mobile">
+          Schedule
+        </a>
+      </Link>
       <Link href="/oom">
         <a>
           <span className="menu-item-long">Order of merit</span>
