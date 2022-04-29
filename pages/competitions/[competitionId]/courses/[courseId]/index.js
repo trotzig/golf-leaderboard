@@ -18,7 +18,7 @@ export default function Course() {
   const venue = data && data.CompetitionData.Venue;
   return (
     <div>
-      <Menu />
+      <Menu activeHref="/leaderboard" />
       <div className="course">
         {loading ? (
           <LoadingSkeleton />

@@ -15,9 +15,7 @@ export default function SchedulePage({ competitions }) {
 
   return (
     <div className="chrome">
-      <Menu
-        defaultCompetitionId={currentCompetition && currentCompetition.id}
-      />
+      <Menu activeHref="/schedule" />
       <div className="schedule">
         <h2>Tour schedule</h2>
         <table className="results-table page-margin">

@@ -139,7 +139,7 @@ export default function CompetitionPlayer({ now = new Date() }) {
   const rounds = player && getRounds(player);
   return (
     <div>
-      <Menu />
+      <Menu activeHref="/leaderboard" />
       <div className="player-profile">
         {loading ? (
           <LoadingSkeleton />

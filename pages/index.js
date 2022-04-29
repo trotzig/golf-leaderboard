@@ -25,11 +25,7 @@ export default function StartPage({ competitions }) {
 
   return (
     <div className="chrome">
-      <Menu
-        defaultCompetitionId={
-          currentCompetitions.length > 0 ? currentCompetitions[0].id : undefined
-        }
-      />
+      <Menu />
       <div className="competitions">
         <h2>MoreGolf Mastercard Tour</h2>
         <p className="page-desc">
@@ -150,5 +146,5 @@ export async function getServerSideProps() {
     c.start = c.start.getTime();
     c.end = c.end.getTime();
   }
-  return { props: { competitions }};
+  return { props: { competitions } };
 }

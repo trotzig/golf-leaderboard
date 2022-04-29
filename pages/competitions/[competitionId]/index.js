@@ -329,7 +329,7 @@ export default function CompetitionPage({
           {competition.name} | {getHeading(competition, now)}
         </title>
       </Head>
-      <Menu />
+      <Menu activeHref="/leaderboard" />
       <div className="h-intro">{getHeading(competition, now)}</div>
       <h2 className="leaderboard-heading">{competition.name}</h2>
       {competition.venue && (

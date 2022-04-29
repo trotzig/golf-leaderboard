@@ -130,7 +130,7 @@ export default function PlayersPage() {
       <Head>
         <title>Players</title>
       </Head>
-      <Menu />
+      <Menu activeHref="/players" />
       <h2>Players</h2>
       <p className="page-desc" style={{ marginBottom: 15 }}>
         Players who have participated in at least one event during the season

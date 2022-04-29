@@ -29,7 +29,7 @@ export default function PlayerPage({ player }) {
           {player.firstName} {player.lastName}
         </title>
       </Head>
-      <Menu />
+      <Menu activeHref="/players" />
       <div className="player-page-top">
         <div>
           <h2>

@@ -1,39 +1,38 @@
 import React from 'react';
 import Link from 'next/link';
 
-export default function Menu({ defaultCompetitionId }) {
+export default function Menu({ activeHref }) {
   return (
     <nav>
+      {activeHref && (
+        <style>{`
+          nav a[href="${activeHref}"] {
+            color: #fff;
+            background-color: var(--primary);
+          }
+      `}</style>
+      )}
       <Link href="/">
         <a style={{ lineHeight: 0 }}>
-          <svg
-            viewBox="0 0 24 24"
-            fill="currentColor"
-          >
+          <svg viewBox="0 0 24 24" fill="currentColor">
             <path d="M0 0h24v24H0z" fill="none" />
             <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
           </svg>
         </a>
       </Link>
-      <Link
-        href={
-          defaultCompetitionId
-            ? `/competitions/${defaultCompetitionId}`
-            : '/leaderboard'
-        }
-      >
-        <a>Leaderboard</a>
+      <Link href="/leaderboard">
+        <a className="menu-item-can-be-made-active">Leaderboard</a>
       </Link>
       <Link href="/players">
-        <a>Players</a>
+        <a className="menu-item-can-be-made-active">Players</a>
       </Link>
       <Link href="/schedule">
-        <a className="menu-hide-mobile">
+        <a className="menu-item-can-be-made-active menu-hide-mobile">
           Schedule
         </a>
       </Link>
       <Link href="/oom">
-        <a>
+        <a className="menu-item-can-be-made-active">
           <span className="menu-item-long">Order of merit</span>
           <span className="menu-item-short">OOM</span>
         </a>
