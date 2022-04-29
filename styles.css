@@ -169,7 +169,7 @@ nav svg {
   text-decoration: none;
   color: inherit;
   display: grid;
-  grid-template-columns: 50px 1fr;
+  grid-template-columns: 55px 1fr;
   column-gap: 10px;
   align-items: center;
 }
@@ -184,6 +184,7 @@ nav svg {
   padding: 3px;
   font-size: 12px;
   border-top-width: 8px;
+  min-height: 60px;
 }
 .calendar-event b {
   font-size: 16px;
