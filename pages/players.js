@@ -132,9 +132,9 @@ export default function PlayersPage() {
       </Head>
       <Menu />
       <h2>Players</h2>
-      <p className="page-margin" style={{ paddingTop: 0 }}>
+      <p className="page-desc" style={{ marginBottom: 15 }}>
         Players who have participated in at least one event during the season
-        are listed here
+        are listed here.
       </p>
       <div className="page-margin sort-by">
         <span>Sort by</span>

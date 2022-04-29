@@ -96,6 +96,10 @@ export default function OrderOfMeritPage() {
       </Head>
       <Menu />
       <h2>Order of merit</h2>
+      <p className="page-desc">
+        Showing current standings in the Golfbox Road to Europe 2022 order of
+        merit.
+      </p>
       {data ? (
         <>
           {favorites.length > 0 ? (
