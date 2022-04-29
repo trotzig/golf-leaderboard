@@ -133,7 +133,7 @@ function CompetitionListItem({ competition, now, current }) {
 
 export async function getServerSideProps() {
   const competitions = await prisma.competition.findMany({
-    orderBy: { end: 'desc' },
+    orderBy: { end: 'asc' },
     select: {
       id: true,
       name: true,
