@@ -138,7 +138,7 @@ export default async function notifySubscribers() {
         );
         continue;
       }
-      if (today > competition.end) {
+      if (today.getTime() - 24 * 60 * 60 * 1000  > competition.end.getTime()) {
         console.log(
           `Competition ${competition.name} (${competition.id}) is already over`,
         );
