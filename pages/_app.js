@@ -14,6 +14,8 @@ function MyApp({ Component, pageProps }) {
           name="viewport"
           content="initial-scale=1.0, width=device-width, user-scalable=no"
         />
+        <meta name="mobile-wep-app-capable" content="yes" />
+        <meta name="apple-mobile-wep-app-capable" content="yes" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="icon" href="/favicon.png" />
         <link rel="apple-touch-icon" href="/app-icon-192.png" />
