@@ -45,11 +45,7 @@ export default function PlayerPage({ player }) {
         </Link>
       </div>
       <div className="page-margin" style={{ marginBottom: 30 }}>
-        <FavoriteButton
-          onChange={setIsFavorite}
-          playerId={player.id}
-          large
-        />
+        <FavoriteButton onChange={setIsFavorite} playerId={player.id} large />
       </div>
 
       {isFavorite && !profile && !isLoadingProfile ? (
@@ -131,6 +127,11 @@ export async function getServerSideProps({ params }) {
       clubName: true,
       oomPosition: true,
       competitionScore: {
+        orderBy: {
+          competition: {
+            start: 'desc',
+          },
+        },
         select: {
           position: true,
           playerId: true,
