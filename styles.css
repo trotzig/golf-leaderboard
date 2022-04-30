@@ -195,7 +195,7 @@ nav svg {
     background-color: var(--background);
     border-top: 1px solid rgba(var(--text-rgb), 0.2);
     z-index: 1;
-    padding-bottom: 20px;
+    padding-bottom: 40px;
   }
 }
 
