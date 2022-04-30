@@ -1,7 +1,7 @@
 {
   "name": "MoreGolf Mastercard Tour",
   "scope": "/",
-  "display": "fullscreen",
+  "display": "standalone",
   "background_color": "#ffffff",
   "icons": [
     {
