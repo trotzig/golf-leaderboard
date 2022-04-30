@@ -14,7 +14,9 @@ function MyApp({ Component, pageProps }) {
           name="viewport"
           content="initial-scale=1.0, width=device-width, user-scalable=no"
         />
+        <link rel="manifest" href="/manifest.json" />
         <link rel="icon" href="/favicon.png" />
+        <link rel="apple-touch-icon" href="/app-icon-192.png" />
       </Head>
       <Script src="https://hosted.okayanalytics.com/tracker.js?tid=OA-8Z056CCN" />
       <div className="blurry-background" />
