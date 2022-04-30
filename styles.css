@@ -371,7 +371,7 @@ nav svg {
   font-size: 12px;
 }
 .leaderboard .score.under-par {
-  color: var(--primary);
+  color: var(--secondary);
 }
 
 .players .player .club,
