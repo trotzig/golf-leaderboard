@@ -17,6 +17,7 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/favicon.png" />
       </Head>
       <Script src="https://hosted.okayanalytics.com/tracker.js?tid=OA-8Z056CCN" />
+      <div className="blurry-background" />
       <main>
         <Component {...pageProps} />
       </main>
