@@ -48,6 +48,11 @@ body {
   overflow-y: scroll;
   background: var(--background);
 }
+@media (max-width: 600px) {
+  body {
+    padding: 0 5px;
+  }
+}
 body,
 input,
 select,
@@ -196,6 +201,8 @@ nav svg {
     border-top: 1px solid rgba(var(--text-rgb), 0.2);
     z-index: 1;
     padding-bottom: 40px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }
 
