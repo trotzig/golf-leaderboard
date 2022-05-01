@@ -1,10 +1,20 @@
-import Head from 'next/head';
-import Script from 'next/script';
-import NextNProgress from 'nextjs-progressbar';
-
 import '../styles.css';
 
+import Head from 'next/head';
+import NextNProgress from 'nextjs-progressbar';
+import React, { useEffect, useState } from 'react';
+import Script from 'next/script';
+
 function MyApp({ Component, pageProps }) {
+  const [themeColor, setThemeColor] = useState('#ffffff');
+  useEffect(() => {
+    if (
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+    ) {
+      setThemeColor('#222222');
+    }
+  }, []);
   return (
     <div>
       <NextNProgress color="#e54e37" height={2} showOnShallow={false} />
@@ -16,6 +26,7 @@ function MyApp({ Component, pageProps }) {
         />
         <meta name="mobile-wep-app-capable" content="yes" />
         <meta name="apple-mobile-wep-app-capable" content="yes" />
+        <meta name="theme-color" content={themeColor} />
         <link rel="manifest" href="/manifest.json" />
         <link rel="icon" href="/favicon.png" />
         <link rel="apple-touch-icon" href="/app-icon-192.png" />
