@@ -8,8 +8,8 @@ import Menu from '../src/Menu';
 import SignInForm from '../src/SignInForm';
 import fixParValue from '../src/fixParValue';
 import ordinal from '../src/ordinal';
-import useData from '../src/useData';
 import prisma from '../src/prisma';
+import useData from '../src/useData';
 
 export default function PlayerPage({ player }) {
   const router = useRouter();
@@ -80,39 +80,39 @@ export default function PlayerPage({ player }) {
 
       <h2>Results</h2>
       {player.competitionScore.length ? (
-      <table className="page-margin results-table">
-        <thead>
-          <tr>
-            <th>Competition</th>
-            <th>Position</th>
-            <th>Score</th>
-          </tr>
-        </thead>
-        <tbody>
-          {player.competitionScore.map(comp => {
-            return (
-              <tr key={comp.competition.name}>
-                <td className="results-table-competition">
-                  <Link href={`/competitions/${comp.id}?finished=1`}>
-                    <a>
-                      {comp.competition.name}
-                      <div>{comp.competition.course}</div>
-                    </a>
-                  </Link>
-                </td>
-                <td className="results-table-position">{comp.position}</td>
-                <td
-                  className={`results-table-score${
-                    comp.score < 0 ? ' under-par' : ''
-                  }`}
-                >
-                  {fixParValue(comp.scoreText)}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+        <table className="page-margin results-table">
+          <thead>
+            <tr>
+              <th>Competition</th>
+              <th>Position</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {player.competitionScore.map(comp => {
+              return (
+                <tr key={comp.competition.name}>
+                  <td className="results-table-competition">
+                    <Link href={`/competitions/${comp.competition.id}`}>
+                      <a>
+                        {comp.competition.name}
+                        <div>{comp.competition.course}</div>
+                      </a>
+                    </Link>
+                  </td>
+                  <td className="results-table-position">{comp.position}</td>
+                  <td
+                    className={`results-table-score${
+                      comp.score < 0 ? ' under-par' : ''
+                    }`}
+                  >
+                    {fixParValue(comp.scoreText)}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       ) : (
         <p className="page-margin">
           {player.firstName} hasn't played in any events yet.
