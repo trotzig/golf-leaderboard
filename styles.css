@@ -589,7 +589,7 @@ footer {
 }
 .loading-skeleton-item span {
   background-color: var(--background);
-  filter: brightness(75%);
+  filter: brightness(90%);
   display: block;
   min-height: 20px;
 }
