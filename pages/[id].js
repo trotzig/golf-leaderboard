@@ -79,6 +79,7 @@ export default function PlayerPage({ player }) {
       ) : null}
 
       <h2>Results</h2>
+      {player.competitionScore.length ? (
       <table className="page-margin results-table">
         <thead>
           <tr>
@@ -112,6 +113,11 @@ export default function PlayerPage({ player }) {
           })}
         </tbody>
       </table>
+      ) : (
+        <p className="page-margin">
+          {player.firstName} hasn't played in any events yet.
+        </p>
+      )}
     </div>
   );
 }
