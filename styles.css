@@ -317,6 +317,10 @@ nav svg {
   line-height: 0;
   transform: translateX(-50%);
 }
+.leaderboard .player-entry-only .favorite-button {
+  bottom: auto;
+  top: 0;
+}
 
 .favorite-button {
   all: unset;

@@ -11,6 +11,7 @@ import LoadingSkeleton from '../../../src/LoadingSkeleton';
 import Menu from '../../../src/Menu';
 import competitionDateString from '../../../src/competitionDateString';
 import ensureDates from '../../../src/ensureDates.js';
+import generateSlug from '../../../src/generateSlug.mjs';
 import fixParValue from '../../../src/fixParValue';
 import prisma from '../../../src/prisma';
 
@@ -95,7 +96,12 @@ function getEntriesFromTimesData(timesData) {
   return result;
 }
 
-function getEntries(data, timesData) {
+function getEntriesFromPlayersData(playersData) {
+  console.log(playersData);
+  return Object.values(playersData.Classes)[0].Entries;
+}
+
+function getEntries(data, timesData, playersData) {
   if (!data.Classes) {
     return;
   }
@@ -109,6 +115,10 @@ function getEntries(data, timesData) {
     // hasn't started yet, show start times
     entries = Object.values(timeEntries);
   }
+  if (!entries.length) {
+    entries = getEntriesFromPlayersData(playersData);
+  }
+
   const entryKeys = Object.keys(entries);
   const result = entryKeys.map(key => entries[key]);
   for (const entry of result) {
@@ -122,6 +132,9 @@ function getEntries(data, timesData) {
 }
 
 function getRounds(entry) {
+  if (!entry.Rounds) {
+    return [];
+  }
   const roundKeys = Object.keys(entry.Rounds);
   return roundKeys.map(key => entry.Rounds[key]);
 }
@@ -211,6 +224,10 @@ function Player({
     classes.push('favorite-player');
   }
 
+  if (!entry.Position && rounds.length === 0) {
+    classes.push('player-entry-only');
+  }
+
   const positionClassname =
     entry.Position && entry.Position.Calculated.length > 3
       ? 'position position-long-text'
@@ -222,18 +239,26 @@ function Player({
 
   return (
     <li className={classes.join(' ')}>
-      <Link href={`/competitions/${competitionId}/players/${entry.MemberID}`}>
+      <Link
+        href={
+          rounds.length > 0
+            ? `/competitions/${competitionId}/players/${entry.MemberID}`
+            : `/${generateSlug(entry)}`
+        }
+      >
         <a>
           <span className={positionClassname}>
             <span>
-              {(entry.Position && entry.Position.Calculated) || (
+              {entry.Position ? (
+                entry.Position.Calculated
+              ) : rounds.length > 0 ? (
                 <ClockIcon
                   date={getFirstRoundStart(
                     rounds[entry.activeRoundNumber - 1],
                     now,
                   )}
                 />
-              )}
+              ) : null}
             </span>
             <FavoriteButton
               playerId={entry.MemberID}
@@ -247,13 +272,15 @@ function Player({
             <br />
             <span className="club">{entry.ClubName}</span>
           </span>
-          <span
-            className={`score${
-              entry.ResultSum.ToParValue < 0 ? ' under-par' : ''
-            }`}
-          >
-            {fixParValue(entry.ResultSum.ToParText)}
-          </span>
+          {entry.ResultSum ? (
+            <span
+              className={`score${
+                entry.ResultSum.ToParValue < 0 ? ' under-par' : ''
+              }`}
+            >
+              {fixParValue(entry.ResultSum.ToParText)}
+            </span>
+          ) : null}
           <StatsWrapper className="stats" minHeight={statsHeight}>
             {rounds.map(round => {
               return (
@@ -290,6 +317,7 @@ function getHeading(competition, now) {
 export default function CompetitionPage({
   initialData,
   initialTimesData,
+  initialPlayersData,
   competition = {},
   now = new Date(),
   lazyItems = true,
@@ -304,13 +332,20 @@ export default function CompetitionPage({
     `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competition.id}/language/2057/`,
     initialTimesData,
   );
-  const loading = !data || !timesData;
+  const playersData = useJsonPData(
+    `https://scores.golfbox.dk/Handlers/PlayersHandler/GetPlayers/CompetitionId/${competition.id}/language/2057/`,
+    initialPlayersData,
+  );
+  const loading = !data || !timesData || !playersData;
 
   function handleFavoriteChange() {
     setLastFavoriteChanged(new Date());
   }
 
-  const entries = data && timesData ? getEntries(data, timesData) : [];
+  const entries =
+    data && timesData && playersData
+      ? getEntries(data, timesData, playersData)
+      : [];
 
   for (const entry of entries || []) {
     entry.isFavorite = localStorage.getItem(entry.MemberID);
