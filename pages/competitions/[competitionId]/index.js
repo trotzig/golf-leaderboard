@@ -399,7 +399,7 @@ export default function CompetitionPage({
         <p className="alert page-margin">
           {competition.start < new Date()
             ? 'Failed to load leaderboard. This is most likely a temporary issue -- come back here in a while and see if things are back to normal!'
-            : "This competition hasn't started yet. Come back here later to see the leaderboard!"}
+            : "This competition hasn't started yet. Come back here later to see tee times and an updated leaderboard."}
         </p>
       )}
       {entries ? (
