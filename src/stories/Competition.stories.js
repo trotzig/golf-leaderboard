@@ -1,7 +1,10 @@
 import '../../styles.css';
-import CompetitionPage from '../../pages/competitions/[competitionId]';
-import ongoing from './testData/ongoing.json';
+
+import React from 'react';
+
+import CompetitionPage from '../CompetitionPage.js';
 import finished from './testData/finished.json';
+import ongoing from './testData/ongoing.json';
 import upcoming from './testData/upcoming.json';
 
 function slimEntries(data) {
