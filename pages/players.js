@@ -137,32 +137,35 @@ export default function PlayersPage() {
         are listed here.
       </p>
       <div className="page-margin sort-by">
-        <span>Sort by</span>
-        <select
-          value={sortBy}
-          onChange={e => {
-            router.replace(
-              `/players?sortBy=${e.target.value}&filter=${encodeURIComponent(
-                filter,
-              )}`,
-              undefined,
-              { scroll: false, shallow: true },
-            );
-          }}
-        >
-          <option value="lastName">Last name</option>
-          <option value="firstName">First name</option>
-          <option value="clubName">Club</option>
-          <option value="oomPosition">Ranking</option>
-        </select>
-
-        <span>Search</span>
-        <input
-          className="search-input"
-          onChange={handleSearchChange}
-          type="text"
-          value={currentFilter}
-        />
+        <label>
+          <span>Search</span>
+          <input
+            className="search-input"
+            onChange={handleSearchChange}
+            type="text"
+            value={currentFilter}
+          />
+        </label>
+        <label>
+          <span>Sort by</span>
+          <select
+            value={sortBy}
+            onChange={e => {
+              router.replace(
+                `/players?sortBy=${e.target.value}&filter=${encodeURIComponent(
+                  filter,
+                )}`,
+                undefined,
+                { scroll: false, shallow: true },
+              );
+            }}
+          >
+            <option value="lastName">Last name</option>
+            <option value="firstName">First name</option>
+            <option value="clubName">Club</option>
+            <option value="oomPosition">Ranking</option>
+          </select>
+        </label>
       </div>
       {rawPlayers ? (
         <>
