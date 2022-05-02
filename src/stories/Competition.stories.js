@@ -33,7 +33,7 @@ export default {
 };
 
 export const Empty = () => (
-  <CompetitionPage competition={competition} />
+  <CompetitionPage competition={competition} loadingOverride />
 );
 export const Ongoing = () => (
   <CompetitionPage
@@ -41,6 +41,7 @@ export const Ongoing = () => (
     lazyItems={false}
     now={new Date('2022-02-28T12:00:00')}
     competition={competition}
+    initialPlayersData={{}}
   />
 );
 export const Finished = () => (
@@ -49,6 +50,7 @@ export const Finished = () => (
     lazyItems={false}
     now={new Date('2022-03-03T12:00:00')}
     competition={competition}
+    initialPlayersData={{}}
   />
 );
 export const Upcoming = () => (
@@ -57,5 +59,6 @@ export const Upcoming = () => (
     lazyItems={false}
     now={new Date('2022-02-22T12:00:00')}
     competition={competition}
+    initialPlayersData={{}}
   />
 );

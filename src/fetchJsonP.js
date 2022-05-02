@@ -21,6 +21,9 @@ export function useJsonPData(url, defaultData) {
     if (!url) {
       return;
     }
+    if (defaultData) {
+      return;
+    }
     const cachedData = CACHE[url];
     if (cachedData) {
       setData(cachedData);

@@ -320,6 +320,7 @@ export default function CompetitionPage({
   initialData,
   initialTimesData,
   initialPlayersData,
+  loadingOverride,
   competition = {},
   now = new Date(),
   lazyItems = true,
@@ -338,7 +339,7 @@ export default function CompetitionPage({
     `https://scores.golfbox.dk/Handlers/PlayersHandler/GetPlayers/CompetitionId/${competition.id}/language/2057/`,
     initialPlayersData,
   );
-  const loading = !data || !timesData || !playersData;
+  const loading = loadingOverride || !data || !timesData || !playersData;
 
   function handleFavoriteChange() {
     setLastFavoriteChanged(new Date());
