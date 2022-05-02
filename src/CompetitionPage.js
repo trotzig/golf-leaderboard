@@ -238,7 +238,7 @@ function Player({
     <li className={classes.join(' ')}>
       <Link
         href={
-          rounds.length > 0
+          rounds.length > 0 && rounds[0].Holes
             ? `/competitions/${competitionId}/players/${entry.MemberID}`
             : `/${generateSlug(entry)}`
         }
