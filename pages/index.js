@@ -117,8 +117,8 @@ function CompetitionListItem({ competition, now, current }) {
             <b>{format(competition.start, 'd')}</b>
             <span>{format(competition.start, 'MMM')}</span>
           </div>
-          <div>
-            <h4>
+          <div className="competition-details">
+            <h4 className="competition-name">
               <span>{competition.name}</span>
             </h4>
             <p>

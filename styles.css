@@ -239,9 +239,14 @@ nav svg {
   text-decoration: none;
   color: inherit;
   display: grid;
-  grid-template-columns: 55px 1fr;
+  grid-template-columns: 55px minmax(0, 1fr);
   column-gap: 10px;
   align-items: center;
+}
+.competition-list-item .competition-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .calendar-event {
   display: flex;
