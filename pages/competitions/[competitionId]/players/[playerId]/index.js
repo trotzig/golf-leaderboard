@@ -37,7 +37,7 @@ function getRounds(entry) {
     return [];
   }
   const roundKeys = Object.keys(entry.Rounds);
-  return roundKeys.map(key => entry.Rounds[key]);
+  return roundKeys.map(key => entry.Rounds[key]).reverse();
 }
 
 function RoundTotal({ score }) {
