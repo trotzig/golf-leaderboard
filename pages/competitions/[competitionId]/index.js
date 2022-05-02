@@ -410,7 +410,7 @@ export default function CompetitionPage({
                       competitionId={competition.id}
                       now={now}
                       colors={data.CourseColours}
-                      key={entry.RefID}
+                      key={entry.MemberID}
                       entry={entry}
                       onFavoriteChange={handleFavoriteChange}
                       lastFavoriteChanged={lastFavoriteChanged}
