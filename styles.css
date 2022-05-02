@@ -48,6 +48,17 @@ body {
   overflow-y: scroll;
   background: var(--background);
 }
+::-webkit-scrollbar {
+  width: 10px; /* Mostly for vertical scrollbars */
+  height: 10px; /* Mostly for horizontal scrollbars */
+}
+::-webkit-scrollbar-thumb { /* Foreground */
+  background: rgba(var(--text-rgb), 0.1);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-track { /* Background */
+  background: var(--background);
+}
 @media (max-width: 600px) {
   body {
     padding: 0 5px;
@@ -144,7 +155,7 @@ nav {
 
 .player-profile,
 .course {
-  max-width: 800px;
+  max-width: 710px;
   margin: 0 auto;
 }
 
@@ -697,19 +708,24 @@ footer {
 .player-profile-topar.under-par span {
   color: var(--primary);
 }
+.player-round {
+  margin-bottom: 20px;
+}
 .player-round-scorecard {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(22, 1fr);
   column-gap: 10px;
   row-gap: 3px;
-  text-align: center;
   font-size: 12px;
   padding: 10px 0;
-  max-width: 250px;
-  margin: 0 auto;
+  text-align: center;
+  overflow-x: auto;
 }
 .player-round-scorecard > * {
   opacity: 0.7;
+}
+.player-round-scorecard > *:first-child {
+  text-align: left;
 }
 .player-round-scorecard .round-score {
   opacity: 1;
@@ -718,37 +734,19 @@ footer {
   font-size: inherit;
   margin: 0 auto;
 }
-.player-profile-rounds {
+.player-round-number {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  column-gap: 40px;
-  justify-content: center;
-  row-gap: 20px;
-}
-.player-profile-rounds.rounds-2 {
-  grid-template-columns: 1fr 1fr;
-}
-.player-profile-rounds.rounds-1 {
-  grid-template-columns: 1fr !important;
-}
-@media (max-width: 850px) {
-  .player-profile-rounds {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-@media (max-width: 550px) {
-  .player-profile-rounds {
-    grid-template-columns: 1fr !important;
-  }
-  .player-round-scorecard {
-    max-width: 350px;
-  }
-}
-.player-round {
-  text-align: center;
+  grid-template-columns: auto auto;
+  gap: 20px;
+  justify-content: space-between;
 }
 .player-round-course {
   font-size: 14px;
+}
+.player-round-scorecard-label,
+.player-round-scorecard-val {
+  line-height: 20px;
+  margin-bottom: 5px;
 }
 
 .icon-button {

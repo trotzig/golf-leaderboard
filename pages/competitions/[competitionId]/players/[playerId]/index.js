@@ -77,14 +77,19 @@ function Round({ round, colors, courses, now }) {
   const holes = merge(round.Holes, course.Holes, round.HoleScores);
   return (
     <div className="player-round page-margin">
-      <div className="player-round-number">Round {round.Number}</div>
-      <div className={courseNameClasses.join(' ')}>{round.CourseName}</div>
+      <div className="player-round-number">
+        <span>
+          Round {round.Number}
+          {'  '}
+        </span>
+        <span className={courseNameClasses.join(' ')}>{round.CourseName}</span>
+      </div>
       <div className="player-round-scorecard">
-        <span>Hole</span>
-        <span>Length</span>
-        <span>Index</span>
-        <span>Par</span>
-        <span>Result</span>
+        <div>
+          <div className="player-round-scorecard-label">Hole</div>
+          <div className="player-round-scorecard-label">Par</div>
+          <div className="player-round-scorecard-label">Result</div>
+        </div>
         {Object.keys(holes).map((holeKey, i) => {
           const hole = holes[holeKey];
           const toParClass =
@@ -102,17 +107,24 @@ function Round({ round, colors, courses, now }) {
               ? 'bogey'
               : 'on-par';
           return (
-            <React.Fragment key={holeKey}>
-              <span>{holeKey.replace(/^H-?/, '')}</span>
-              <span>{findLength(hole)}</span>
-              <span>{hole.Index}</span>
-              <span>{findPar(hole)}</span>
-              <span className={`round-score ${toParClass}`}>
+            <div
+              key={holeKey}
+              title={
+                hole.Index ? `Index ${hole.Index} - ${findLength(hole)}m` : null
+              }
+            >
+              <div className="player-round-scorecard-val">
+                {holeKey.replace(/^H-?/, '')}
+              </div>
+              <div className="player-round-scorecard-val">{findPar(hole)}</div>
+              <div
+                className={`player-round-scorecard-val round-score ${toParClass}`}
+              >
                 {hole && hole.Result
                   ? hole.Result.ActualText || hole.Result.Actual
                   : '-'}
-              </span>
-            </React.Fragment>
+              </div>
+            </div>
           );
         })}
       </div>
@@ -174,9 +186,7 @@ export default function CompetitionPlayer({ now = new Date() }) {
                 </>
               )}
             </div>
-            <div
-              className={`player-profile-rounds ${`rounds-${rounds.length}`}`}
-            >
+            <div className="player-profile-rounds">
               {rounds.map(round => {
                 return (
                   <Round
