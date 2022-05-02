@@ -140,7 +140,13 @@ async function fillOOM(players) {
   if (!res.ok) {
     throw new Error('Failed to fetch oom', res.status, await res.text());
   }
-  const json = parseJson(await res.text());
+
+  const txt = await res.text();
+  const json = parseJson(txt);
+  if (!json.Entries) {
+    console.warn(`No OOM entries found in response: ${txt}`);
+    return;
+  }
   const entries = Object.values(json.Entries);
   const index = {};
   for (const entry of entries) {
