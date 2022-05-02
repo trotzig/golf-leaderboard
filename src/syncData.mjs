@@ -107,7 +107,7 @@ async function fetchPlayers(competition) {
   return result;
 }
 
-async function fetchAllPlayers(competitions) {
+async function fetchAllPlayers(competitions, { full }) {
   const allPlayers = {};
   const allSlugs = {};
   const all = await Promise.all(
@@ -134,6 +134,7 @@ async function fetchAllPlayers(competitions) {
 }
 
 async function fillOOM(players) {
+  console.log('Filling OOM');
   const res = await nodeFetch(
     'https://scores.golfbox.dk/Handlers/OrderOfMeritsHandler/GetOrderOfMerit/CustomerId/1/language/2057/OrderOfMeritID/157709/',
   );
@@ -194,9 +195,19 @@ function dedupeSlugs(players) {
   }
 }
 
-export default async function syncData() {
-  const competitions = await fetchCompetitions();
-  const players = await fetchAllPlayers(competitions);
+export default async function syncData({ full = true }) {
+  const competitions = (await fetchCompetitions()).filter(comp => {
+    if (!full && comp.end.getTime() + 48 * 60 * 60 * 1000 < Date.now()) {
+      console.log(
+        `Skipping sync for competition ${comp.name} since it's in the past and full = false`,
+      );
+      return false;
+    }
+
+    return true;
+  });
+
+  const players = await fetchAllPlayers(competitions, { full });
   await fillOOM(players);
   dedupeSlugs(players);
 
@@ -244,10 +255,19 @@ export default async function syncData() {
       console.log(
         `Updating ${newPlayer.firstName} ${newPlayer.lastName} with id ${newPlayer.id}`,
       );
-      await prisma.player.update({
-        where: { id: player.id },
-        data: { ...newPlayer, updatedAt: new Date() },
-      });
+      try {
+        await prisma.player.update({
+          where: { id: player.id },
+          data: { ...newPlayer, updatedAt: new Date() },
+        });
+      } catch (e) {
+        if (/failed on.+slug/.test(e.message)) {
+          await prisma.player.update({
+            where: { slug: newPlayer.slug },
+            data: { ...newPlayer, updatedAt: new Date(), id: undefined },
+          });
+        }
+      }
     }
   }
 
@@ -263,6 +283,8 @@ export default async function syncData() {
     ) {
       console.log(
         `Updating ${newCompetition.name} with id ${newCompetition.id}`,
+        competition,
+        newCompetition,
       );
       await prisma.competition.update({
         where: { id: competition.id },
