@@ -6,7 +6,51 @@ import fetchCompetitions from '../scripts/utils/fetchCompetitions.mjs';
 import generateSlug from './generateSlug.mjs';
 import parseJson from '../scripts/utils/parseJson.mjs';
 
+async function fetchPlayersFromEntriesList(competition) {
+  const res = await nodeFetch(
+    `https://scores.golfbox.dk/Handlers/PlayersHandler/GetPlayers/CompetitionId/${competition.id}/language/2057/`,
+  );
+  if (!res.ok) {
+    throw new Error(
+      `Failed to fetch players for comp ${competition.name}. Status ${
+        res.status
+      }. Text: ${await res.text()}`,
+    );
+  }
+  const json = parseJson(await res.text());
+
+  // Piggy-back on the call to get players and add some data to the competition
+  // object.
+  competition.venue = json.CompetitionData.Venue.Name;
+
+  //console.log(json);
+  //console.log('classes', json.Classes);
+  const result = [];
+  for (const clazz of json.Classes ? Object.values(json.Classes) : []) {
+    if (clazz.Entries) {
+      const entries = Object.values(clazz.Entries);
+      for (const entry of entries) {
+        const player = {
+          firstName: entry.FirstName.trim(),
+          lastName: entry.LastName.trim(),
+          id: entry.MemberID.trim(),
+          clubName: entry.ClubName.trim(),
+        };
+        player.slug = generateSlug(player);
+        player.competitions = [];
+        result.push(player);
+      }
+    }
+  }
+  return result;
+}
 async function fetchPlayers(competition) {
+  if (competition.start > new Date()) {
+    console.log(
+      `Fetching entries list for competition ${competition.name} since it hasn't started yet`,
+    );
+    return fetchPlayersFromEntriesList(competition);
+  }
   const competitionId = competition.id;
   const res = await nodeFetch(
     `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/`,
