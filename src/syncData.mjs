@@ -30,22 +30,28 @@ async function fetchPlayersFromEntriesList(competition) {
     if (clazz.Entries) {
       const entries = Object.values(clazz.Entries);
       for (const entry of entries) {
-        const player = {
-          firstName: entry.FirstName.trim(),
-          lastName: entry.LastName.trim(),
-          id: entry.MemberID.trim(),
-          clubName: entry.ClubName.trim(),
-        };
-        player.slug = generateSlug(player);
-        player.competitions = [];
-        result.push(player);
+        if (entry.PlayerStatus === 1) {
+          const player = {
+            firstName: entry.FirstName.trim(),
+            lastName: entry.LastName.trim(),
+            id: entry.MemberID.trim(),
+            clubName: entry.ClubName.trim(),
+          };
+          player.slug = generateSlug(player);
+          player.competitions = [];
+          result.push(player);
+        }
       }
     }
   }
   return result;
 }
 async function fetchPlayers(competition) {
-  if (competition.start > new Date()) {
+  const now = Date.now();
+  if (
+    competition.start.getTime() > now &&
+    competition.start.getTime() < now + 5 * 24 * 60 * 60 * 1000
+  ) {
     console.log(
       `Fetching entries list for competition ${competition.name} since it hasn't started yet`,
     );
