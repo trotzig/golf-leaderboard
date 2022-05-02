@@ -88,11 +88,7 @@ function getEntriesFromTimesData(timesData) {
     }
     return 0;
   });
-  const result = {};
-  for (const entry of entries) {
-    result[entry.MemberID] = entry;
-  }
-  return result;
+  return entries;
 }
 
 function getEntriesFromPlayersData(playersData) {
@@ -121,8 +117,7 @@ function getEntries(data, timesData, playersData) {
     entries = getEntriesFromPlayersData(playersData);
   }
 
-  const entryKeys = Object.keys(entries);
-  const result = entryKeys.map(key => entries[key]);
+  const result = Object.values(entries);
   for (const entry of result) {
     const timeEntry = timeEntries[entry.MemberID];
     if (timeEntry) {
