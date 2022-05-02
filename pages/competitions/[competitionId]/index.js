@@ -97,7 +97,6 @@ function getEntriesFromTimesData(timesData) {
 }
 
 function getEntriesFromPlayersData(playersData) {
-  console.log(playersData);
   return Object.values(playersData.Classes)[0].Entries;
 }
 
@@ -113,9 +112,9 @@ function getEntries(data, timesData, playersData) {
   const timeEntries = getEntriesFromTimesData(timesData);
   if (!entries) {
     // hasn't started yet, show start times
-    entries = Object.values(timeEntries);
+    entries = timeEntries;
   }
-  if (!entries.length) {
+  if (!Object.keys(entries).length) {
     entries = getEntriesFromPlayersData(playersData);
   }
 
