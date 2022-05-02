@@ -1,5 +1,4 @@
 import { parse, format, startOfDay } from 'date-fns';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -297,16 +296,12 @@ export default function CompetitionPage({
 }) {
   ensureDates(competition);
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
-  const router = useRouter();
-  const { competitionId, finished } = router ? router.query : {};
   const data = useJsonPData(
-    competitionId &&
-      `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/`,
+    `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057/`,
     initialData,
   );
   const timesData = useJsonPData(
-    competitionId &&
-      `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competitionId}/language/2057/`,
+    `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competition.id}/language/2057/`,
     initialTimesData,
   );
   const loading = !data || !timesData;
@@ -346,7 +341,7 @@ export default function CompetitionPage({
                 return (
                   <div key={course.CourseID}>
                     <Link
-                      href={`/competitions/${competitionId}/courses/${course.CourseID}`}
+                      href={`/competitions/${competition.id}/courses/${course.CourseID}`}
                     >
                       <a className={course.CssName}>
                         {removeCommonPrefix(
@@ -378,7 +373,7 @@ export default function CompetitionPage({
                 {favorites.map(entry => {
                   return (
                     <Player
-                      competitionId={competitionId}
+                      competitionId={competition.id}
                       now={now}
                       colors={data.CourseColours}
                       key={entry.RefID}
@@ -397,7 +392,7 @@ export default function CompetitionPage({
             {entries.map((entry, i) => {
               return (
                 <Player
-                  competitionId={competitionId}
+                  competitionId={competition.id}
                   now={now}
                   colors={data.CourseColours}
                   key={entry.MemberID}
