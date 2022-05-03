@@ -32,8 +32,17 @@ export default function FavoriteButton({
     </svg>
   );
 
-  const clickHandler = e => {
+  const clickHandler = (confirm, e) => {
     e.preventDefault();
+    if (isFavorite) {
+      if (confirm &&
+        !window.confirm(
+          `This will remove the player from your list of favorites. Proceed?`,
+        )
+      ) {
+        return;
+      }
+    }
     setFavorite(!isFavorite);
     fetch(`/api/favorites/${playerId}`, {
       method: !isFavorite ? 'PUT' : 'DELETE',
@@ -59,7 +68,7 @@ export default function FavoriteButton({
           borderColor: isFavorite ? 'var(--primary)' : 'currentColor',
           minWidth: 170,
         }}
-        onClick={clickHandler}
+        onClick={clickHandler.bind(this, true)}
       >
         {icon}
         {isFavorite ? 'Favorite' : 'Add to favorites'}
@@ -68,7 +77,7 @@ export default function FavoriteButton({
   }
 
   return (
-    <button className={classes.join(' ')} onClick={clickHandler}>
+    <button className={classes.join(' ')} onClick={clickHandler.bind(this, false)}>
       {icon}
     </button>
   );
