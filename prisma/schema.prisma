@@ -29,6 +29,7 @@ model SignInAttempt {
 
 model Favorite {
   id        String  @default(cuid()) @id
+  player    Player  @relation(fields: [playerId], references: [id])
   playerId  String
   account   Account @relation(fields: [accountId], references: [id])
   accountId String
@@ -36,10 +37,11 @@ model Favorite {
 }
 
 model ResultNotified {
-  id             String  @default(cuid()) @id
+  id             String   @default(cuid()) @id
   roundNumber    Int
   competitionId  Int
   playerId       String
+  player         Player   @relation(fields: [playerId], references: [id])
   createdAt      DateTime @default(now())
   @@unique([roundNumber, competitionId, playerId])
 }
@@ -54,6 +56,8 @@ model Player {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @default(now())
   competitionScore PlayerCompetitionScore[]
+  resultNotified ResultNotified[]
+  favorites   Favorite[]
 }
 
 model PlayerCompetitionScore {
