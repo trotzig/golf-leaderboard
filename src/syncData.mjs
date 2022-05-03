@@ -195,7 +195,7 @@ function dedupeSlugs(players) {
   }
 }
 
-export default async function syncData({ full = true }) {
+export default async function syncData({ full = true } = {}) {
   const competitions = (await fetchCompetitions()).filter(comp => {
     if (!full && comp.end.getTime() + 48 * 60 * 60 * 1000 < Date.now()) {
       console.log(
