@@ -37,7 +37,7 @@ export default function SignInForm({ title = 'Sign in' }) {
           clearInterval(interval);
           setIsWaitingForConfirmation(false);
           setSignInAttemptId();
-          syncFavorites();
+          await syncFavorites();
           window.location.reload();
         }
       }, 2000);
