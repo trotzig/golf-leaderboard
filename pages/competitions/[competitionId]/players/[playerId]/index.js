@@ -2,12 +2,14 @@ import { merge } from 'lodash';
 import { parse } from 'date-fns';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Head from 'next/head';
 import React from 'react';
 
 import { useJsonPData } from '../../../../../src/fetchJsonP';
 import LoadingSkeleton from '../../../../../src/LoadingSkeleton';
 import Menu from '../../../../../src/Menu';
 import fixParValue from '../../../../../src/fixParValue';
+import prisma from '../../../../../src/prisma';
 import generateSlug from '../../../../../src/generateSlug';
 
 const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
@@ -132,56 +134,68 @@ function Round({ round, colors, courses, now }) {
   );
 }
 
-export default function CompetitionPlayer({ now = new Date() }) {
-  const router = useRouter();
-  const { competitionId, playerId } = router.query;
-
+export default function CompetitionPlayer({
+  now = new Date(),
+  player,
+  competition,
+}) {
   const data = useJsonPData(
-    competitionId &&
-      `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/`,
+    `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057/`,
   );
   const timesData = useJsonPData(
-    competitionId &&
-      `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competitionId}/language/2057/`,
+    `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competition.id}/language/2057/`,
   );
 
   const loading = !data;
   const courseName = data && data.CompetitionData.Name;
-  const player = data && getPlayer(data, timesData, playerId);
-  const rounds = player && getRounds(player);
+  const roundPlayer = data && getPlayer(data, timesData, player.id);
+  const rounds = roundPlayer && getRounds(roundPlayer);
   return (
     <div>
+      <Head>
+        <title>
+          {player.firstName} {player.lastName}'s scorecard in {competition.name}
+        </title>
+        <meta
+          name="description"
+          content={`Results for ${player.firstName} ${player.lastName} in ${competition.name}`}
+        />
+      </Head>
       <Menu activeHref="/leaderboard" />
       <div className="player-profile">
         {loading ? (
           <LoadingSkeleton />
         ) : (
           <>
-            <h2 className="player-profile-course-heading">{courseName}</h2>
+            <h2 className="player-profile-course-heading">
+              {competition.name}
+            </h2>
             <div className="player-profile-top page-margin">
               <div>
                 <b>Player</b>
-                <Link href={`/${generateSlug(player)}`}>
+                <Link href={`/${player.slug}`}>
                   <a className="player-profile-name">
-                    {player.FirstName} {player.LastName}
+                    {player.firstName} {player.lastName}
                   </a>
                 </Link>
-                <span className="player-profile-club">{player.ClubName}</span>
+                <span className="player-profile-club">{player.clubName}</span>
               </div>
 
-              {player.ResultSum && (
+              {roundPlayer.ResultSum && (
                 <>
                   <span className="player-profile-position">
                     <b>Position</b>
-                    <span>{player.Position && player.Position.Calculated}</span>
+                    <span>
+                      {roundPlayer.Position && roundPlayer.Position.Calculated}
+                    </span>
                   </span>
                   <span
                     className={`player-profile-topar${
-                      player.ResultSum.ToParValue < 0 ? ' under-par' : ''
+                      roundPlayer.ResultSum.ToParValue < 0 ? ' under-par' : ''
                     }`}
                   >
                     <b>Score</b>
-                    <span>{fixParValue(player.ResultSum.ToParText)}</span>
+                    <span>{fixParValue(roundPlayer.ResultSum.ToParText)}</span>
                   </span>
                 </>
               )}
@@ -204,4 +218,40 @@ export default function CompetitionPlayer({ now = new Date() }) {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps({ params }) {
+  const [competition, player] = await Promise.all([
+    prisma.competition.findUnique({
+      where: { id: parseInt(params.competitionId, 10) },
+      select: {
+        id: true,
+        name: true,
+        venue: true,
+        start: true,
+        end: true,
+      },
+    }),
+    prisma.player.findUnique({
+      where: { id: params.playerId },
+      select: {
+        id: true,
+        slug: true,
+        firstName: true,
+        lastName: true,
+        clubName: true,
+      },
+    }),
+  ]);
+  if (!competition) {
+    return { notFound: true };
+  }
+  if (!player) {
+    return { notFound: true };
+  }
+  competition.start = competition.start.getTime();
+  competition.end = competition.end.getTime();
+  return {
+    props: { competition, player },
+  };
 }

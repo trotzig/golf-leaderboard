@@ -356,6 +356,10 @@ export default function CompetitionPage({
         <title>
           {competition.name} | {getHeading(competition, now)}
         </title>
+        <meta
+          name="description"
+          content={`Follow the leaderboard and see tee times for ${competition.name}`}
+        />
       </Head>
       <Menu activeHref="/leaderboard" />
       <div className="h-intro">{getHeading(competition, now)}</div>

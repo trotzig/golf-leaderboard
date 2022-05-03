@@ -93,6 +93,10 @@ export default function OrderOfMeritPage() {
     <div className="leaderboard oom">
       <Head>
         <title>Order of merit</title>
+        <meta
+          name="description"
+          content="See the current standings in the Golfbox Road to Europe 2022 order of merit."
+        />
       </Head>
       <Menu activeHref="/oom" />
       <h2>Order of merit</h2>

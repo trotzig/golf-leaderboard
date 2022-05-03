@@ -129,6 +129,10 @@ export default function PlayersPage() {
     <div className="players">
       <Head>
         <title>Players</title>
+        <meta
+          name="description"
+          content="Find your favorite players in the Nordic Golf Tour for men."
+        />
       </Head>
       <Menu activeHref="/players" />
       <h2>Players</h2>

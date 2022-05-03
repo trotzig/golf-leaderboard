@@ -28,6 +28,10 @@ export default function PlayerPage({ player }) {
         <title>
           {player.firstName} {player.lastName}
         </title>
+        <meta
+          name="description"
+          content={`${player.firstName} ${player.lastName} from ${player.clubName} is competing in the Nordic Golf Tour for men. Subscribe to updates from the player by adding ${player.firstName} as a favorite.`}
+        />
       </Head>
       <Menu activeHref="/players" />
       <div className="player-page-top">

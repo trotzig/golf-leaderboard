@@ -1,5 +1,6 @@
 import { format, startOfDay } from 'date-fns';
 import Link from 'next/link';
+import Head from 'next/head';
 import React from 'react';
 
 import Menu from '../src/Menu';
@@ -15,6 +16,13 @@ export default function SchedulePage({ competitions }) {
 
   return (
     <div className="chrome">
+      <Head>
+        <title>Schedule</title>
+        <meta
+          name="description"
+          content="Full schedule for the 2022 season of MoreGolf Mastercard Tour."
+        />
+      </Head>
       <Menu activeHref="/schedule" />
       <div className="schedule">
         <h2>Tour schedule</h2>

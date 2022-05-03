@@ -1,5 +1,6 @@
 import { startOfDay, format } from 'date-fns';
 import Link from 'next/link';
+import Head from 'next/head';
 import React, { useEffect } from 'react';
 
 import Menu from '../src/Menu';
@@ -25,6 +26,14 @@ export default function StartPage({ competitions }) {
 
   return (
     <div className="chrome">
+      <Head>
+        <meta
+          name="description"
+          content={`
+Nordicgolftour.app is the unofficial home of the Nordic professional golf tour for men, known as MoreGolf Mastercard Tour. Follow your favorite players and get the latest updates straight in your inbox.
+        `.trim()}
+        />
+      </Head>
       <Menu />
       <div className="competitions">
         <h2>MoreGolf Mastercard Tour</h2>
