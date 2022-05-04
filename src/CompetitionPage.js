@@ -246,12 +246,12 @@ function Player({
         <a>
           <span className={positionClassname}>
             <span>
-              {entry.Position ? (
+              {(entry.Position && entry.Position.Calculated) ? (
                 entry.Position.Calculated
-              ) : rounds.length > 0 ? (
+              ) : rounds && rounds.length > 0 ? (
                 <ClockIcon
                   date={getFirstRoundStart(
-                    rounds[entry.activeRoundNumber - 1],
+                    rounds[rounds.length - 1],
                     now,
                   )}
                 />
@@ -351,7 +351,7 @@ export default function CompetitionPage({
 
   const favorites = entries && entries.filter(e => e.isFavorite);
   return (
-    <div className="leaderboard">
+    <div className="leaderboard-page">
       <Head>
         <title>
           {competition.name} | {getHeading(competition, now)}
@@ -363,9 +363,9 @@ export default function CompetitionPage({
       </Head>
       <Menu activeHref="/leaderboard" />
       <div className="h-intro">{getHeading(competition, now)}</div>
-      <h2 className="leaderboard-heading">{competition.name}</h2>
+      <h2 className="leaderboard-page-heading">{competition.name}</h2>
       {competition.venue && (
-        <p className="leaderboard-subtitle">
+        <p className="leaderboard-page-subtitle">
           {competition.venue} –{' '}
           {competition.start && competitionDateString(competition, now)}
         </p>

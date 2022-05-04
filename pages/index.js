@@ -1,8 +1,9 @@
 import { startOfDay, format } from 'date-fns';
-import Link from 'next/link';
 import Head from 'next/head';
-import React, { useEffect } from 'react';
+import Link from 'next/link';
+import React from 'react';
 
+import Leaderboard from '../src/Leaderboard.js';
 import Menu from '../src/Menu';
 import competitionDateString from '../src/competitionDateString';
 import ensureDates from '../src/ensureDates.js';
@@ -51,17 +52,7 @@ Nordicgolftour.app is the unofficial home of the Nordic professional golf tour f
           .
         </p>
         {currentCompetition && (
-          <>
-            <h3>Current event</h3>
-            <ul>
-              <CompetitionListItem
-                key={currentCompetition.id}
-                competition={currentCompetition}
-                now={now}
-                current
-              />
-            </ul>
-          </>
+          <Leaderboard competition={currentCompetition} now={now} />
         )}
         {nextCompetition ? (
           <>
@@ -154,7 +145,9 @@ export async function getServerSideProps() {
   const now = Date.now();
   const h24 = 24 * 60 * 60 * 1000;
 
-  const pastCompetitions = competitions.filter(c => c.end + h24 < now).slice(0, 3);
+  const pastCompetitions = competitions
+    .filter(c => c.end + h24 < now)
+    .slice(0, 3);
   let currentCompetition = competitions.filter(
     c => c.start <= now && c.end + h24 >= now,
   )[0];
@@ -188,6 +181,8 @@ export async function getServerSideProps() {
             positionText: true,
             position: true,
             scoreText: true,
+            score: true,
+            hole: true,
             player: {
               select: {
                 id: true,

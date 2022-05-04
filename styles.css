@@ -115,7 +115,7 @@ button {
   text-decoration: underline;
 }
 
-.leaderboard-subtitle {
+.leaderboard-page-subtitle {
   font-size: 14px;
   font-weight: normal;
   padding: 10px;
@@ -142,7 +142,7 @@ a {
   margin-right: 10px;
 }
 
-.leaderboard,
+.leaderboard-page,
 .competitions,
 .player-page,
 .players,
@@ -299,13 +299,13 @@ nav svg {
   color: var(--light);
 }
 
-.leaderboard ul li {
+.leaderboard-page ul li {
   all: unset;
   display: block;
   border-bottom: 1px solid rgba(var(--text-rgb), 0.2);
 }
 
-.leaderboard .player a,
+.leaderboard-page .player a,
 .oom .player {
   all: unset;
   cursor: pointer;
@@ -317,14 +317,14 @@ nav svg {
   min-height: 50px;
 }
 
-.leaderboard .stats {
+.leaderboard-page .stats {
   transition: all 0.2s;
   overflow: hidden;
   grid-column-start: 2;
   grid-column-end: 4;
 }
 
-.leaderboard .favorite-button {
+.leaderboard-page .favorite-button {
   all: unset;
   cursor: pointer;
   position: absolute;
@@ -334,7 +334,7 @@ nav svg {
   line-height: 0;
   transform: translateX(-50%);
 }
-.leaderboard .player-entry-only .favorite-button {
+.leaderboard-page .player-entry-only .favorite-button {
   bottom: auto;
   top: 0;
 }
@@ -353,7 +353,7 @@ nav svg {
   fill: currentColor;
 }
 
-.leaderboard .round {
+.leaderboard-page .round {
   font-family: monospace;
   font-size: 12px;
   line-height: 1;
@@ -428,28 +428,28 @@ nav svg {
   position: absolute;
 }
 
-.leaderboard .score {
+.leaderboard-page .score {
   text-align: right;
   font-size: 18px;
   line-height: 25px;
 }
 
-.leaderboard .position {
+.leaderboard-page .position {
   position: relative;
   font-size: 18px;
   grid-row-start: 1;
   grid-row-end: 3;
   text-align: center;
 }
-.leaderboard .position-long-text {
+.leaderboard-page .position-long-text {
   font-size: 12px;
 }
-.leaderboard .score.under-par {
+.leaderboard-page .score.under-par {
   color: var(--primary);
 }
 
 .players .player .club,
-.leaderboard .club {
+.leaderboard-page .club {
   display: block;
   opacity: 0.5;
   font-size: 12px;
@@ -575,7 +575,7 @@ footer {
   }
 }
 
-.leaderboard .round-start-time {
+.leaderboard-page .round-start-time {
   opacity: 0.5;
 }
 @media (max-width: 400px) {
@@ -589,14 +589,14 @@ footer {
     line-height: 12px;
   }
   .oom .player,
-  .leaderboard .player a {
+  .leaderboard-page .player a {
     column-gap: 5px;
     font-size: 15px;
   }
-  .leaderboard .position {
+  .leaderboard-page .position {
     font-size: 15px;
   }
-  .leaderboard .score {
+  .leaderboard-page .score {
     font-size: 15px;
     line-height: 20px;
   }
@@ -996,7 +996,75 @@ input.ios-switch:checked:after {
   font-size: 14px;
   opacity: 0.7;
 }
-.leaderboard-heading {
+.leaderboard-page-heading {
   margin-top: 0;
   padding-top: 5px;
+}
+
+.leaderboard .leaderboard-competition-name {
+  padding: 0;
+  margin: 5px 0 10px;
+  font-size: 18px;
+}
+.leaderboard .leaderboard-description {
+  opacity: 0.7;
+  font-size: 14px;
+}
+.leaderboard .leaderboard-legend {
+  opacity: 0.7;
+  font-size: 14px;
+}
+.leaderboard {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  margin: 0 10px;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+.leaderboard table {
+  width: 100%;
+  border-spacing: 0;
+}
+.leaderboard td, .leaderboard th {
+  padding: 5px 10px;
+  text-align: left;
+}
+.leaderboard tr:nth-child(1) td {
+  padding-top: 10px;
+}
+.leaderboard td:nth-child(2) {
+  width: 100%;
+}
+.leaderboard-score.under-par {
+  font-weight: bold;
+  color: var(--primary);
+}
+.leaderboard tr:last-child td {
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(var(--text-rgb), 0.2);
+}
+.leaderboard td:nth-child(3),
+.leaderboard td:nth-child(4),
+.leaderboard th:nth-child(3),
+.leaderboard th:nth-child(4)
+{
+  text-align: center;
+}
+.leaderboard td {
+  vertical-align: baseline;
+}
+.leaderboard thead th {
+  font-weight: bold;
+  border-bottom: 1px solid rgba(var(--text-rgb), 0.2);
+}
+.leaderboard-club {
+  font-size: 12px;
+  opacity: 0.5;
+  margin-top: 3px;
+}
+.leaderboard-view-all {
+  color: var(--primary);
+  margin-top: 20px;
+  text-decoration: underline;
 }

@@ -10,6 +10,32 @@ import prisma from './prisma.mjs';
 
 const { BASE_URL, TEST_COMPETITION_ID } = process.env;
 
+function getHole(entry) {
+  if (!entry.Rounds) {
+    return '-';
+  }
+  const round = Object.values(entry.Rounds).reverse()[0];
+  if (!round) {
+    return '-';
+  }
+  if (!round.HoleScores) {
+    return '-';
+  }
+  const scores = round.HoleScores;
+  delete scores['H-TOTAL'];
+  delete scores['H-OUT'];
+  delete scores['H-IN'];
+  const keys = Object.keys(scores);
+  if (keys.length === 18) {
+    return 'F';
+  }
+  const h = keys.reverse()[0];
+  if (!h) {
+    return '-';
+  }
+  return h.replace('H', '');
+}
+
 async function fetchResults(competition) {
   const res = await nodeFetch(
     `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057/`,
@@ -27,6 +53,7 @@ async function fetchResults(competition) {
   const result = [];
   for (const entry of entries) {
     if (entry.Position.Actual < 10) {
+      const hole = getHole(entry);
       const attrs = {
         playerId: entry.MemberID,
         competitionId: competition.id,
@@ -34,6 +61,7 @@ async function fetchResults(competition) {
         position: entry.Position.Actual,
         scoreText: entry.ScoringToPar.ToParText,
         score: entry.ScoringToPar.ToParValue,
+        hole,
       };
       await prisma.leaderboardEntry.upsert({
         where: {

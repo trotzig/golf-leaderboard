@@ -93,5 +93,6 @@ model LeaderboardEntry {
   position      Int
   scoreText     String
   score         Int
+  hole          String @default("-")
   @@id([competitionId, position])
 }
