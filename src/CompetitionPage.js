@@ -246,14 +246,11 @@ function Player({
         <a>
           <span className={positionClassname}>
             <span>
-              {(entry.Position && entry.Position.Calculated) ? (
+              {entry.Position && entry.Position.Calculated ? (
                 entry.Position.Calculated
               ) : rounds && rounds.length > 0 ? (
                 <ClockIcon
-                  date={getFirstRoundStart(
-                    rounds[rounds.length - 1],
-                    now,
-                  )}
+                  date={getFirstRoundStart(rounds[rounds.length - 1], now)}
                 />
               ) : null}
             </span>
@@ -423,7 +420,9 @@ export default function CompetitionPage({
               </ul>
               <h3 className="leaderboard-section-heading">Everyone</h3>
             </div>
-          ) : null}
+          ) : (
+            <h3 className="leaderboard-section-heading">Players</h3>
+          )}
 
           <ul>
             {entries.map((entry, i) => {
