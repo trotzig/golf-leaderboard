@@ -19,7 +19,7 @@ async function getCurrentCompetitionId() {
 
 export default function LeaderboardRedirectPage() {
   return (
-    <div className="leaderboard">
+    <div className="leaderboard-page">
       <Menu />
     </div>
   );

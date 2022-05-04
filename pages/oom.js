@@ -90,7 +90,7 @@ export default function OrderOfMeritPage() {
   const entries = data && getEntries(data);
   const favorites = entries && entries.filter(e => e.isFavorite);
   return (
-    <div className="leaderboard oom">
+    <div className="leaderboard-page oom">
       <Head>
         <title>Order of merit</title>
         <meta
