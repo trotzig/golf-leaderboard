@@ -21,7 +21,7 @@ function getHole(entry) {
   if (!round.HoleScores) {
     return '-';
   }
-  const scores = round.HoleScores;
+  const scores = { ...round.HoleScores };
   delete scores['H-TOTAL'];
   delete scores['H-OUT'];
   delete scores['H-IN'];
