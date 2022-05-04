@@ -8,6 +8,7 @@ import FavoriteButton from '../src/FavoriteButton';
 import LoadingSkeleton from '../src/LoadingSkeleton.js';
 import Menu from '../src/Menu';
 import ordinal from '../src/ordinal';
+import syncFavorites from '../src/syncFavorites.js';
 import useData from '../src/useData.js';
 
 const NUM_FORMATTER = Intl.NumberFormat('en-US', {
@@ -106,6 +107,14 @@ export default function PlayersPage() {
       }),
     );
   }, [lastFavoriteChanged, sortBy, filter, rawPlayers]);
+
+  useEffect(() => {
+    async function run() {
+      await syncFavorites();
+      setLastFavoriteChanged(new Date());
+    }
+    run();
+  }, []);
 
   const debouncedSetFilter = useMemo(
     () =>

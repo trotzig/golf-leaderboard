@@ -56,6 +56,7 @@ export default function PlayerPage({ player }) {
         <div className="page-margin">
           <SignInForm
             title={`Sign in to subscribe to results from ${player.firstName}`}
+            favoritedPlayerId={player.id}
           />
         </div>
       ) : null}

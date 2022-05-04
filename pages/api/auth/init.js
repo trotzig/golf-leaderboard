@@ -9,12 +9,13 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(400).send('This endpoint accepts POST requests');
   }
-  const { email } = req.body;
+  const { email, favoritedPlayerId } = req.body;
   const token = crypto.randomBytes(10).toString('hex');
   const attempt = await prisma.signInAttempt.create({
     data: {
       email,
       token,
+      favoritedPlayerId,
     },
   });
 

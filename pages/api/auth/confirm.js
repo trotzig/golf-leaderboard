@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   if (!attempt) {
     return res.redirect('/auth/invalid-token');
   }
-  const twoHoursAgo = new Date(Date.now() - (2 * 60 * 60 * 1000));
+  const twoHoursAgo = new Date(Date.now() - 2 * 60 * 60 * 1000);
   if (twoHoursAgo > attempt.createdAt) {
     return res.redirect('/auth/invalid-token');
   }
@@ -27,6 +27,20 @@ export default async function handler(req, res) {
     where: { id: attempt.id },
     data: { confirmedAt: new Date() },
   });
+
+  if (attempt.favoritedPlayerId) {
+    try {
+      await prisma.favorite.create({
+        data: { accountId: account.id, playerId: attempt.favoritedPlayerId },
+      });
+    } catch (e) {
+      if (/Unique constraint/.test(e)) {
+        //ignore
+      } else {
+        throw e;
+      }
+    }
+  }
 
   res.setHeader(
     'Set-Cookie',

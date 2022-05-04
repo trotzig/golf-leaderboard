@@ -16,6 +16,9 @@ export default async function syncFavorites() {
     body: JSON.stringify({ favorites }),
   });
   if (!res.ok) {
+    if (res.status === 401) {
+      return;
+    }
     throw new Error(`${res.status} -- ${await res.text()}`);
   }
 

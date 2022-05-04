@@ -25,6 +25,8 @@ model SignInAttempt {
   token        String    @unique
   confirmedAt  DateTime?
   createdAt    DateTime  @default(now())
+  favoritedPlayerId  String?
+  favoritedPlayer    Player?  @relation(fields: [favoritedPlayerId], references: [id])
 }
 
 model Favorite {
@@ -59,6 +61,7 @@ model Player {
   resultNotified ResultNotified[]
   favorites   Favorite[]
   leaderBoardEntries LeaderboardEntry[]
+  favoritedOnSignIns SignInAttempt[]
 }
 
 model PlayerCompetitionScore {

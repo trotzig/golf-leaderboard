@@ -4,7 +4,7 @@ import syncFavorites from './syncFavorites';
 
 let interval;
 
-export default function SignInForm({ title = 'Sign in' }) {
+export default function SignInForm({ title = 'Sign in', favoritedPlayerId }) {
   const [email, setEmail] = useState();
   const [signInAttemptId, setSignInAttemptId] = useState();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -86,7 +86,7 @@ export default function SignInForm({ title = 'Sign in' }) {
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify({ email }),
+              body: JSON.stringify({ email, favoritedPlayerId }),
             });
             localStorage.setItem('email', email);
             setIsSubmitting(false);
