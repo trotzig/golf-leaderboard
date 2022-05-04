@@ -8,21 +8,21 @@ import competitionDateString from '../src/competitionDateString';
 import ensureDates from '../src/ensureDates.js';
 import prisma from '../src/prisma';
 
-export default function StartPage({ competitions }) {
-  competitions.forEach(ensureDates);
-  const now = startOfDay(new Date());
-  const pastCompetitions = competitions.filter(c => c.end < now);
-  const currentCompetitions = competitions.filter(
-    c => c.start <= now && c.end >= now,
-  );
-
-  const upcomingCompetitions = competitions.filter(c => now < c.start);
-  const nextCompetition =
-    currentCompetitions.length === 0 ? upcomingCompetitions[0] : undefined;
-
+export default function StartPage({
+  pastCompetitions,
+  upcomingCompetitions,
+  nextCompetition,
+  currentCompetition,
+}) {
+  pastCompetitions.forEach(ensureDates);
+  upcomingCompetitions.forEach(ensureDates);
   if (nextCompetition) {
-    upcomingCompetitions.shift();
+    ensureDates(nextCompetition);
   }
+  if (currentCompetition) {
+    ensureDates(currentCompetition);
+  }
+  const now = startOfDay(new Date());
 
   return (
     <div className="chrome">
@@ -50,18 +50,16 @@ Nordicgolftour.app is the unofficial home of the Nordic professional golf tour f
           </Link>
           .
         </p>
-        {currentCompetitions.length > 0 && (
+        {currentCompetition && (
           <>
             <h3>Current event</h3>
             <ul>
-              {currentCompetitions.map(c => (
-                <CompetitionListItem
-                  key={c.id}
-                  competition={c}
-                  now={now}
-                  current
-                />
-              ))}
+              <CompetitionListItem
+                key={currentCompetition.id}
+                competition={currentCompetition}
+                now={now}
+                current
+              />
             </ul>
           </>
         )}
@@ -77,7 +75,7 @@ Nordicgolftour.app is the unofficial home of the Nordic professional golf tour f
           <>
             <h3>Future events</h3>
             <ul>
-              {upcomingCompetitions.slice(0, 3).map(c => (
+              {upcomingCompetitions.map(c => (
                 <CompetitionListItem key={c.id} competition={c} now={now} />
               ))}
             </ul>
@@ -92,12 +90,9 @@ Nordicgolftour.app is the unofficial home of the Nordic professional golf tour f
           <>
             <h3>Past events</h3>
             <ul>
-              {pastCompetitions
-                .reverse()
-                .slice(0, 3)
-                .map(c => (
-                  <CompetitionListItem key={c.id} competition={c} now={now} />
-                ))}
+              {pastCompetitions.map(c => (
+                <CompetitionListItem key={c.id} competition={c} now={now} />
+              ))}
             </ul>
             <Link href="/schedule">
               <a className="page-margin competition-view-all">
@@ -155,5 +150,70 @@ export async function getServerSideProps() {
     c.start = c.start.getTime();
     c.end = c.end.getTime();
   }
-  return { props: { competitions } };
+
+  const now = Date.now();
+  const h24 = 24 * 60 * 60 * 1000;
+
+  const pastCompetitions = competitions.filter(c => c.end + h24 < now).slice(0, 3);
+  let currentCompetition = competitions.filter(
+    c => c.start <= now && c.end + h24 >= now,
+  )[0];
+
+  let upcomingCompetitions = competitions.filter(c => now < c.start);
+  const nextCompetition = currentCompetition
+    ? undefined
+    : upcomingCompetitions[0];
+
+  if (nextCompetition) {
+    upcomingCompetitions.shift();
+  }
+
+  upcomingCompetitions = upcomingCompetitions.slice(0, 3);
+
+  if (currentCompetition) {
+    // re-read current comp, now with all the related info
+    currentCompetition = await prisma.competition.findUnique({
+      where: { id: currentCompetition.id },
+      select: {
+        id: true,
+        name: true,
+        venue: true,
+        start: true,
+        end: true,
+        leaderboardEntries: {
+          orderBy: {
+            position: 'asc',
+          },
+          select: {
+            positionText: true,
+            position: true,
+            scoreText: true,
+            player: {
+              select: {
+                id: true,
+                slug: true,
+                firstName: true,
+                lastName: true,
+                clubName: true,
+              },
+            },
+          },
+        },
+      },
+    });
+    currentCompetition.start = currentCompetition.start.getTime();
+    currentCompetition.end = currentCompetition.end.getTime();
+  }
+
+  const props = {
+    pastCompetitions,
+    upcomingCompetitions,
+  };
+  if (nextCompetition) {
+    props.nextCompetition = nextCompetition;
+  }
+  if (currentCompetition) {
+    props.currentCompetition = currentCompetition;
+  }
+  return { props };
 }
