@@ -26,6 +26,26 @@ async function fetchResults(competition) {
   const entries = Object.values(leaderboard.Entries);
   const result = [];
   for (const entry of entries) {
+    if (entry.Position.Actual < 10) {
+      const attrs = {
+        playerId: entry.MemberID,
+        competitionId: competition.id,
+        positionText: entry.Position.Calculated,
+        position: entry.Position.Actual,
+        scoreText: entry.ScoringToPar.ToParText,
+        score: entry.ScoringToPar.ToParValue,
+      };
+      await prisma.leaderboardEntry.upsert({
+        where: {
+          competitionId_position: {
+            competitionId: competition.id,
+            position: entry.Position.Actual,
+          },
+        },
+        update: attrs,
+        create: attrs,
+      });
+    }
     for (const round of Object.values(entry.Rounds)) {
       if (Object.keys(round.HoleScores).length === 21) {
         result.push({
@@ -138,7 +158,7 @@ export default async function notifySubscribers() {
         );
         continue;
       }
-      if (today.getTime() - 24 * 60 * 60 * 1000  > competition.end.getTime()) {
+      if (today.getTime() - 24 * 60 * 60 * 1000 > competition.end.getTime()) {
         console.log(
           `Competition ${competition.name} (${competition.id}) is already over`,
         );
