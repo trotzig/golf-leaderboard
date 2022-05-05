@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   const { token } = req.query;
   await prisma.account.update({
     where: { authToken: token },
-    data: { sendEmailOnFinished: false },
+    data: { sendEmailOnFinished: false, sendEmailOnStart: false },
   });
   res.redirect('/unsubscribed');
 }

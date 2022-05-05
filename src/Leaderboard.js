@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 
 import competitionDateString from './competitionDateString.js';
-import fixParValue from './fixParValue.js';
+import fixParValue from './fixParValue';
 
 export default function Leaderboard({ competition, now }) {
   return (

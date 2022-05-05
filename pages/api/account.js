@@ -8,10 +8,10 @@ export default async function handler(req, res) {
   if (!authToken) {
     return res.status(401).send();
   }
-  const { sendEmailOnFinished } = req.body;
+  const { sendEmailOnFinished, sendEmailOnStart } = req.body;
   await prisma.account.update({
     where: { authToken },
-    data: { sendEmailOnFinished },
+    data: { sendEmailOnFinished, sendEmailOnStart },
   });
   res.status(204).send();
 }

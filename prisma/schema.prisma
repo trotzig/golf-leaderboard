@@ -15,6 +15,7 @@ model Account {
   email               String    @unique
   authToken           String?   @unique
   sendEmailOnFinished Boolean   @default(true)
+  sendEmailOnStart    Boolean   @default(false)
   createdAt           DateTime  @default(now())
   favorites           Favorite[]
 }
@@ -39,13 +40,14 @@ model Favorite {
 }
 
 model ResultNotified {
-  id             String   @default(cuid()) @id
-  roundNumber    Int
-  competitionId  Int
-  playerId       String
-  player         Player   @relation(fields: [playerId], references: [id])
-  createdAt      DateTime @default(now())
-  @@unique([roundNumber, competitionId, playerId])
+  id               String   @default(cuid()) @id
+  roundNumber      Int
+  notificationType String @default("finished")
+  competitionId    Int
+  playerId         String
+  player           Player   @relation(fields: [playerId], references: [id])
+  createdAt        DateTime @default(now())
+  @@unique([roundNumber, competitionId, playerId, notificationType])
 }
 
 model Player {

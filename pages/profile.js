@@ -9,13 +9,16 @@ import syncFavorites from '../src/syncFavorites';
 export default function ProfilePage() {
   const [profile, isLoading] = useData('/api/profile');
   const [sendEmailOnFinished, setSendEmailOnFinished] = useState(false);
+  const [sendEmailOnStart, setSendEmailOnStart] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    setSendEmailOnFinished(profile && profile.sendEmailOnFinished);
-    if (profile) {
-      syncFavorites();
+    if (!profile) {
+      return;
     }
+    setSendEmailOnFinished(profile.sendEmailOnFinished);
+    setSendEmailOnStart(profile.sendEmailOnStart);
+    syncFavorites();
   }, [profile]);
 
   useEffect(() => {
@@ -28,11 +31,11 @@ export default function ProfilePage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ sendEmailOnFinished }),
+        body: JSON.stringify({ sendEmailOnFinished, sendEmailOnStart }),
       });
     }
     run();
-  }, [sendEmailOnFinished]);
+  }, [sendEmailOnFinished, sendEmailOnStart]);
 
   return (
     <div className="profile">
@@ -41,7 +44,9 @@ export default function ProfilePage() {
       <div className="page-margin">
         <div className="profile-settings">
           <label className="profile-setting">
-            <span>Send emails when my favorite players finish a round</span>
+            <span>
+              Send an email when a favorite player finishes a round
+            </span>
             <input
               className="ios-switch"
               type="checkbox"
@@ -49,6 +54,21 @@ export default function ProfilePage() {
               checked={sendEmailOnFinished}
               onChange={e => {
                 setSendEmailOnFinished(e.target.checked);
+                syncFavorites();
+              }}
+            />
+          </label>
+          <label className="profile-setting">
+            <span>
+              Send an email when a favorite player starts a round
+            </span>
+            <input
+              className="ios-switch"
+              type="checkbox"
+              disabled={!profile}
+              checked={sendEmailOnStart}
+              onChange={e => {
+                setSendEmailOnStart(e.target.checked);
                 syncFavorites();
               }}
             />

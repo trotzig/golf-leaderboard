@@ -4,6 +4,7 @@ import nodeFetch from 'node-fetch';
 
 import { sendMail } from './mailgun.mjs';
 import fetchCompetitions from '../scripts/utils/fetchCompetitions.mjs';
+import fixParValue from './fixParValue.mjs';
 import generateSlug from './generateSlug.mjs';
 import parseJson from '../scripts/utils/parseJson.mjs';
 import prisma from './prisma.mjs';
@@ -50,7 +51,8 @@ async function fetchResults(competition) {
   const json = parseJson(await res.text());
   const leaderboard = Object.values(json.Classes)[0].Leaderboard;
   const entries = Object.values(leaderboard.Entries);
-  const result = [];
+  const finished = [];
+  const started = [];
   for (const entry of entries) {
     if (entry.Position.Actual < 10) {
       const hole = getHole(entry);
@@ -75,24 +77,29 @@ async function fetchResults(competition) {
       });
     }
     for (const round of Object.values(entry.Rounds)) {
-      if (Object.keys(round.HoleScores).length === 21) {
-        result.push({
-          competitionName: competition.name,
-          competitionId: competition.id,
-          roundNumber: round.Number,
-          playerId: entry.MemberID,
-          firstName: entry.FirstName.trim(),
-          lastName: entry.LastName.trim(),
-          score: round.ResultSum.ActualText,
-          scoreToPar: round.ResultSum.ToParText,
-          totalScoreToPar: entry.ResultSum.ToParText,
-          position: entry.Position.Calculated,
-          slug: generateSlug(entry),
-        });
+      const len = Object.keys(round.HoleScores).length;
+      const attrs = {
+        competitionName: competition.name,
+        competitionId: competition.id,
+        roundNumber: round.Number,
+        playerId: entry.MemberID,
+        firstName: entry.FirstName.trim(),
+        lastName: entry.LastName.trim(),
+        score: round.ResultSum.ActualText,
+        scoreToPar: round.ResultSum.ToParText,
+        totalScoreToPar: entry.ResultSum.ToParText,
+        position: entry.Position.Calculated,
+        slug: generateSlug(entry),
+        holesPlayed: len - 3,
+      };
+      if (len === 21) {
+        finished.push(attrs);
+      } else if (len > 5 && len < 8) {
+        started.push(attrs);
       }
     }
   }
-  return result;
+  return { finished, started };
 }
 
 function fixTotalScore(score) {
@@ -102,25 +109,30 @@ function fixTotalScore(score) {
   return score;
 }
 
-async function sendResult({
-  roundNumber,
-  playerId,
-  firstName,
-  lastName,
-  score,
-  scoreToPar,
-  totalScoreToPar,
-  slug,
-  position,
-  competitionId,
-  competitionName,
-}) {
+async function sendEmail(
+  {
+    roundNumber,
+    playerId,
+    firstName,
+    lastName,
+    score,
+    scoreToPar,
+    totalScoreToPar,
+    slug,
+    position,
+    competitionId,
+    competitionName,
+    holesPlayed,
+  },
+  notificationType,
+) {
   const resultNotified = await prisma.resultNotified.findUnique({
     where: {
-      roundNumber_competitionId_playerId: {
+      roundNumber_competitionId_playerId_notificationType: {
         playerId,
         roundNumber,
         competitionId,
+        notificationType,
       },
     },
   });
@@ -136,6 +148,7 @@ async function sendResult({
       playerId,
       roundNumber,
       competitionId,
+      notificationType,
     },
   });
 
@@ -145,25 +158,48 @@ async function sendResult({
       where: { id: subscriber.accountId },
     });
 
-    if (!account.sendEmailOnFinished) {
-      // user is unsubscribed
+    if (notificationType === 'finished' && !account.sendEmailOnFinished) {
+      // user is not subscribed
+      continue;
+    }
+    if (notificationType === 'started' && !account.sendEmailOnStart) {
+      // user is not subscribed
       continue;
     }
 
-    const subject = `${firstName} ${lastName} finished round ${roundNumber} at ${scoreToPar}`;
-    const text = `
-${firstName} ${lastName} has position ${position} in the field after finishing round ${roundNumber} at ${scoreToPar} of ${competitionName}. ${firstName} is ${fixTotalScore(
-      totalScoreToPar,
-    )} total.
-
+    const footer = `
 See the result from ${firstName} and others in the full leaderboard here:
 ${BASE_URL}/competitions/${competitionId}
 
 -------------------
 This email was sent via nordicgolftour.app. To stop getting these emails,
-unsubscribe using this link: ${BASE_URL}/api/unsubscribe?token=${
-      account.authToken
-    }
+unsubscribe using this link: ${BASE_URL}/api/unsubscribe?token=${account.authToken}
+    `.trim();
+
+    const subject =
+      notificationType === 'finished'
+        ? `${firstName} ${lastName} finished round ${roundNumber} at ${fixParValue(
+            scoreToPar,
+          )}`
+        : `${firstName} ${lastName} has started round ${roundNumber} of ${competitionName}`;
+
+    const text =
+      notificationType === 'finished'
+        ? `
+${firstName} ${lastName} has position ${position} in the field after finishing round ${roundNumber} at ${fixParValue(
+            scoreToPar,
+          )} of ${competitionName}. ${firstName} is ${fixTotalScore(
+            totalScoreToPar,
+          )} total.
+
+    ${footer}
+    `.trim()
+        : `
+${firstName} ${lastName} has started playing round ${roundNumber} of ${competitionName}. ${firstName} is ${fixParValue(
+            scoreToPar,
+          )} after ${holesPlayed} holes played.
+
+${footer}
     `.trim();
     // console.log(`About to send this in an email to ${account.email}:`);
     // console.log({ subject, text });
@@ -194,9 +230,12 @@ export default async function notifySubscribers() {
       }
     }
     console.log(`Processing ${competition.name}...`);
-    const results = await fetchResults(competition);
-    for (const result of results) {
-      await sendResult(result);
+    const { finished, started } = await fetchResults(competition);
+    for (const result of started) {
+      await sendEmail(result, 'started');
+    }
+    for (const result of finished) {
+      await sendEmail(result, 'finished');
     }
   }
 }
