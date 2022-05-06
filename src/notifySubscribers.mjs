@@ -212,6 +212,7 @@ ${footer}
 }
 
 export default async function notifySubscribers() {
+  const start = Date.now();
   const competitions = await fetchCompetitions();
   const today = startOfDay(new Date());
   for (const competition of competitions) {
@@ -238,4 +239,7 @@ export default async function notifySubscribers() {
       await sendEmail(result, 'finished');
     }
   }
+  const end = Date.now();
+
+  console.log(`notifySubscribers done. Took ${end - start} ms`);
 }
