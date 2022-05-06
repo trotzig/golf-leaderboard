@@ -76,27 +76,29 @@ async function fetchResults(competition) {
         create: attrs,
       });
     }
-    for (const round of Object.values(entry.Rounds)) {
-      const len = Object.keys(round.HoleScores).length;
-      const attrs = {
-        competitionName: competition.name,
-        competitionId: competition.id,
-        roundNumber: round.Number,
-        playerId: entry.MemberID,
-        firstName: entry.FirstName.trim(),
-        lastName: entry.LastName.trim(),
-        score: round.ResultSum.ActualText,
-        scoreToPar: round.ResultSum.ToParText,
-        totalScoreToPar: entry.ResultSum.ToParText,
-        position: entry.Position.Calculated,
-        slug: generateSlug(entry),
-        holesPlayed: len - 3,
-      };
-      if (len === 21) {
-        finished.push(attrs);
-      } else if (len > 5 && len < 8) {
-        started.push(attrs);
-      }
+    if (!entry.Rounds) {
+      continue;
+    }
+    const round = Object.values(entry.Rounds).reverse()[0];
+    const len = Object.keys(round.HoleScores).length;
+    const attrs = {
+      competitionName: competition.name,
+      competitionId: competition.id,
+      roundNumber: round.Number,
+      playerId: entry.MemberID,
+      firstName: entry.FirstName.trim(),
+      lastName: entry.LastName.trim(),
+      score: round.ResultSum.ActualText,
+      scoreToPar: round.ResultSum.ToParText,
+      totalScoreToPar: entry.ResultSum.ToParText,
+      position: entry.Position.Calculated,
+      slug: generateSlug(entry),
+      holesPlayed: len - 3,
+    };
+    if (len === 21) {
+      finished.push(attrs);
+    } else if (len > 5 && len < 8) {
+      started.push(attrs);
     }
   }
   return { finished, started };
