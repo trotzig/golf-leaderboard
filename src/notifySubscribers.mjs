@@ -152,12 +152,12 @@ async function sendEmail(
     },
   });
 
-  const subscribers = await prisma.favorite.findMany({ where: { playerId } });
+  const subscribers = await prisma.favorite.findMany({
+    where: { playerId },
+    select: { account: true },
+  });
   for (const subscriber of subscribers) {
-    const account = await prisma.account.findUnique({
-      where: { id: subscriber.accountId },
-    });
-
+    const { account } = subscriber;
     if (notificationType === 'finished' && !account.sendEmailOnFinished) {
       // user is not subscribed
       continue;
