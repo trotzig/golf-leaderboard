@@ -12,7 +12,10 @@ export default function CodeInput({ length, ...props }) {
     setCharHeight(rect.height);
   }, []);
   return (
-    <div className="code-input">
+    <div
+      className="code-input"
+      style={{ caretColor: charIndex === 4 ? 'transparent' : undefined }}
+    >
       <input
         autoComplete="off"
         pattern="[a-z0-9]+"
@@ -23,10 +26,6 @@ export default function CodeInput({ length, ...props }) {
         onChange={e => {
           const len = e.target.value.length;
           setCharIndex(len);
-          if (len >= length) {
-            e.target.blur();
-            e.target.closest('form').submit();
-          }
         }}
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
