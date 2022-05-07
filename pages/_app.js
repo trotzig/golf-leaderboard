@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }) {
     <div>
       <NextNProgress color="#e54e37" height={2} showOnShallow={false} />
       <Head>
-        <title>Moregolf Mastercard Tour</title>
+        <title>Nordic Golf Tour</title>
         <meta
           name="viewport"
           content="initial-scale=1.0, width=device-width, user-scalable=no"
