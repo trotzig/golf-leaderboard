@@ -23,7 +23,7 @@ model Account {
 model SignInAttempt {
   id           String    @default(cuid()) @id
   email        String
-  token        String    @unique
+  token        String
   confirmedAt  DateTime?
   createdAt    DateTime  @default(now())
   favoritedPlayerId  String?

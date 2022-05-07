@@ -1,5 +1,3 @@
-import crypto from 'crypto';
-
 import { sendMail } from '../../../src/mailgun';
 import prisma from '../../../src/prisma';
 
@@ -10,21 +8,20 @@ export default async function handler(req, res) {
     return res.status(400).send('This endpoint accepts POST requests');
   }
   const { email, favoritedPlayerId } = req.body;
-  const token = crypto.randomBytes(10).toString('hex');
+  const token = Math.floor(1000 + Math.random() * 9000);
   const attempt = await prisma.signInAttempt.create({
     data: {
       email,
-      token,
+      token: `${token}`,
       favoritedPlayerId,
     },
   });
 
   await sendMail({
-    subject: 'Sign in to nordicgolftour.app',
+    subject: `Enter ${token} to sign in to nordicgolftour.app`,
     text: `
-Click the link below to continue the sign-in process:
-
-${BASE_URL}/api/auth/confirm?token=${token}
+Enter this code to continue signing in to nordicgolftour.app
+${token}
 
 -------------------
 This email was sent via nordicgolftour.app. If you didn't initiate a sign-in, it's safe to ignore this message.
