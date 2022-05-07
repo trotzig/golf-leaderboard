@@ -907,6 +907,7 @@ input.sign-in-form-input {
   grid-template-columns: 1fr auto;
   column-gap: 20px;
   align-items: center;
+  margin-bottom: 20px;
 }
 input.ios-switch {
   position: relative;
