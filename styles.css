@@ -920,7 +920,9 @@ input.ios-switch {
 }
 input.ios-switch:disabled {
   cursor: inherit;
+  opacity: 0.4;
 }
+
 
 input.ios-switch:after {
   content: '';
@@ -943,7 +945,6 @@ input.ios-switch:checked:after {
   left: 20px;
   box-shadow: -2px 4px 3px rgba(0, 0, 0, 0.05);
 }
-
 .results-table {
   width: 100%;
   border-spacing: 5px;
