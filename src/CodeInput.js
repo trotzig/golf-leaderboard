@@ -41,14 +41,14 @@ export default function CodeInput({ length, ...props }) {
               .map((o, i) => (
                 <div
                   key={i}
-                  className="code-input-box"
+                  className={`code-input-box ${
+                    focus && charIndex === i ? 'code-input-box-active' : ''
+                  }`}
                   style={{
                     width: charWidth - 4,
                     height: charHeight + 10,
                     marginRight: 2,
                     marginLeft: 2,
-                    borderColor:
-                      focus && charIndex === i ? 'currentColor' : undefined,
                   }}
                 />
               ))

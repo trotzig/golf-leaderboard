@@ -1103,8 +1103,11 @@ input.ios-switch:checked:after {
 .code-input-box {
   display: inline-block;
   height: 20px;
-  border: 2px solid #666;
-  border-radius: var(--border-radius);
+  border: 2px solid rgba(var(--text-rgb), 0.3);
+  border-radius: 3px;
+}
+.code-input-box-active {
+  border-color: var(--text);
 }
 
 .code-input-ruler {
