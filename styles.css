@@ -52,11 +52,13 @@ body {
   width: 10px; /* Mostly for vertical scrollbars */
   height: 10px; /* Mostly for horizontal scrollbars */
 }
-::-webkit-scrollbar-thumb { /* Foreground */
+::-webkit-scrollbar-thumb {
+  /* Foreground */
   background: rgba(var(--text-rgb), 0.1);
   border-radius: 3px;
 }
-::-webkit-scrollbar-track { /* Background */
+::-webkit-scrollbar-track {
+  /* Background */
   background: var(--background);
 }
 @media (max-width: 600px) {
@@ -891,7 +893,7 @@ select {
 .sign-in-form h4 {
   margin: 0 0 15px;
 }
-.sign-in-form input {
+input.sign-in-form-input {
   margin-bottom: 10px;
   width: 100%;
   max-width: 250px;
@@ -922,7 +924,6 @@ input.ios-switch:disabled {
   cursor: inherit;
   opacity: 0.4;
 }
-
 
 input.ios-switch:after {
   content: '';
@@ -1028,7 +1029,8 @@ input.ios-switch:checked:after {
   width: 100%;
   border-spacing: 0;
 }
-.leaderboard td, .leaderboard th {
+.leaderboard td,
+.leaderboard th {
   padding: 5px 10px;
   text-align: left;
 }
@@ -1049,8 +1051,7 @@ input.ios-switch:checked:after {
 .leaderboard td:nth-child(3),
 .leaderboard td:nth-child(4),
 .leaderboard th:nth-child(3),
-.leaderboard th:nth-child(4)
-{
+.leaderboard th:nth-child(4) {
   text-align: center;
 }
 .leaderboard td {
@@ -1073,4 +1074,43 @@ input.ios-switch:checked:after {
 
 .sign-in-main {
   margin-top: 20px;
+}
+
+.code-input {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.code-input-input {
+  all: unset;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 200%;
+}
+
+.code-input-input,
+.code-input-ruler {
+  font-family: monospace;
+  font-size: 30px;
+  letter-spacing: 30px;
+}
+
+.code-input-boxes {
+  line-height: 0;
+}
+.code-input-box {
+  display: inline-block;
+  height: 20px;
+  border: 2px solid #666;
+  border-radius: var(--border-radius);
+}
+
+.code-input-ruler {
+  position: fixed;
+  left: -100px;
+  top: -100px;
+  display: inline-block;
+  visibility: hidden;
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import CodeInput from './CodeInput.js';
 import syncFavorites from './syncFavorites.js';
 
 let interval;
@@ -59,12 +60,7 @@ export default function SignInForm({ title = 'Sign in', favoritedPlayerId }) {
           <h4>Enter code</h4>
           <p>Check your email for a 4-digit code to enter here</p>
           <div className="input-wrapper">
-            <input
-              type="text"
-              name="token"
-              disabled={isSubmitting}
-              required
-            />
+            <CodeInput name="token" length={4} />
           </div>
           <button type="submit" className="icon-button" disabled={isSubmitting}>
             Sign in
@@ -98,6 +94,7 @@ export default function SignInForm({ title = 'Sign in', favoritedPlayerId }) {
           <h4>{title}</h4>
           <div className="input-wrapper">
             <input
+              className="sign-in-form-input"
               type="email"
               name="email"
               value={email}
