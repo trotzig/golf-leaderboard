@@ -118,7 +118,12 @@ function getEntries(data, timesData, playersData) {
   }
 
   const result = Object.values(entries);
+  let firstCutFound = false;
   for (const entry of result) {
+    if (!firstCutFound && entry.Position && entry.Position.Calculated === 'MC') {
+      entry.isFirstCut = true;
+      firstCutFound = true;
+    }
     const timeEntry = timeEntries[entry.MemberID];
     if (timeEntry) {
       entry.activeRoundNumber = timeEntry.activeRoundNumber;
@@ -223,6 +228,10 @@ function Player({
 
   if (!entry.Position && rounds.length === 0) {
     classes.push('player-entry-only');
+  }
+
+  if (entry.isFirstCut) {
+    classes.push('player-entry-first-cut');
   }
 
   const positionClassname =

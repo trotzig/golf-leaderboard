@@ -341,6 +341,23 @@ nav svg {
   bottom: auto;
   top: 0;
 }
+.leaderboard-page .player-entry-first-cut {
+  border-top: 5px solid var(--primary);
+  padding-top: 10px;
+  margin-top: -1px;
+  position: relative;
+}
+.leaderboard-page .player-entry-first-cut:before {
+  content: 'CUT LINE';
+  line-height: 1;
+  position: absolute;
+  background-color: var(--background);
+  padding: 0 10px;
+  color: var(--primary);
+  top: -2px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 .favorite-button {
   all: unset;
