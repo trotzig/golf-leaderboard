@@ -8,6 +8,7 @@ import FavoriteButton from '../src/FavoriteButton';
 import LoadingSkeleton from '../src/LoadingSkeleton.js';
 import Menu from '../src/Menu';
 import ordinal from '../src/ordinal';
+import profileProps from '../src/profileProps.js';
 import syncFavorites from '../src/syncFavorites.js';
 import useData from '../src/useData.js';
 
@@ -45,7 +46,7 @@ function Player({ player, onFavorite, lastFavoriteChanged }) {
   );
 }
 
-export default function PlayersPage() {
+export default function PlayersPage({ account }) {
   const router = useRouter();
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
   const [players, setPlayers] = useState([]);
@@ -147,7 +148,16 @@ export default function PlayersPage() {
       <h2>Players</h2>
       <p className="page-desc" style={{ marginBottom: 15 }}>
         Players who have participated in at least one event during the season
-        are listed here.
+        are listed here.{' '}
+        {!account ? (
+          <>
+            <Link href="/sign-in">
+              <a>Sign in</a>
+            </Link>{' '}
+            to synchronize your favorites across different devices and opt in to
+            email notifications from them.
+          </>
+        ) : null}
       </p>
       <div className="page-margin sort-by">
         <label>
@@ -225,4 +235,8 @@ export default function PlayersPage() {
       )}
     </div>
   );
+}
+
+export function getServerSideProps({ req }) {
+  return profileProps({ req });
 }

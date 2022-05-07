@@ -148,6 +148,7 @@ a {
 .players,
 .profile,
 .schedule,
+.sign-in,
 nav {
   max-width: 600px;
   margin: 0 auto;
@@ -1067,4 +1068,8 @@ input.ios-switch:checked:after {
   color: var(--primary);
   margin-top: 20px;
   text-decoration: underline;
+}
+
+.sign-in-main {
+  margin-top: 20px;
 }

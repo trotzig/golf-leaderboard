@@ -1,28 +1,20 @@
-import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
-import useData from '../src/useData';
 import Menu from '../src/Menu';
 import SignInForm from '../src/SignInForm';
+import profileProps from '../src/profileProps.js';
 import syncFavorites from '../src/syncFavorites';
 
-export default function ProfilePage() {
-  const [profile, isLoading] = useData('/api/profile');
-  const [sendEmailOnFinished, setSendEmailOnFinished] = useState(false);
-  const [sendEmailOnStart, setSendEmailOnStart] = useState(false);
-  const router = useRouter();
+export default function ProfilePage({ account }) {
+  const [sendEmailOnFinished, setSendEmailOnFinished] = useState(
+    account ? account.sendEmailOnFinished : false,
+  );
+  const [sendEmailOnStart, setSendEmailOnStart] = useState(
+    account ? account.sendEmailOnStart : false,
+  );
 
   useEffect(() => {
-    if (!profile) {
-      return;
-    }
-    setSendEmailOnFinished(profile.sendEmailOnFinished);
-    setSendEmailOnStart(profile.sendEmailOnStart);
-    syncFavorites();
-  }, [profile]);
-
-  useEffect(() => {
-    if (!profile) {
+    if (!account) {
       return;
     }
     async function run() {
@@ -44,13 +36,11 @@ export default function ProfilePage() {
       <div className="page-margin">
         <div className="profile-settings">
           <label className="profile-setting">
-            <span>
-              Send an email when a favorite player finishes a round
-            </span>
+            <span>Send an email when a favorite player finishes a round</span>
             <input
               className="ios-switch"
               type="checkbox"
-              disabled={!profile}
+              disabled={!account}
               checked={sendEmailOnFinished}
               onChange={e => {
                 setSendEmailOnFinished(e.target.checked);
@@ -59,13 +49,11 @@ export default function ProfilePage() {
             />
           </label>
           <label className="profile-setting">
-            <span>
-              Send an email when a favorite player starts a round
-            </span>
+            <span>Send an email when a favorite player starts a round</span>
             <input
               className="ios-switch"
               type="checkbox"
-              disabled={!profile}
+              disabled={!account}
               checked={sendEmailOnStart}
               onChange={e => {
                 setSendEmailOnStart(e.target.checked);
@@ -75,10 +63,10 @@ export default function ProfilePage() {
           </label>
         </div>
 
-        {isLoading ? null : profile ? (
+        {account ? (
           <div className="profile-signed-in">
             <p>
-              Signed in as <b>{profile.email}</b>
+              Signed in as <b>{account.email}</b>
             </p>
             <a href="/api/auth/logout" className="icon-button">
               Sign out
@@ -92,4 +80,8 @@ export default function ProfilePage() {
       </div>
     </div>
   );
+}
+
+export function getServerSideProps({ req }) {
+  return profileProps({ req });
 }
