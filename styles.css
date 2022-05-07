@@ -912,10 +912,10 @@ input.ios-switch {
   outline: none;
   width: 50px;
   height: 30px;
-  background-color: var(--light);
-  border: 1px solid var(--medium);
+  background-color: var(--background);
+  border: 1px solid rgba(var(--text-rgb), 0.3);
   border-radius: 50px;
-  box-shadow: inset -20px 0 0 0 var(--light);
+  box-shadow: inset -20px 0 0 0 var(--background);
   cursor: pointer;
 }
 input.ios-switch:disabled {
@@ -927,7 +927,7 @@ input.ios-switch:after {
   position: absolute;
   top: 1px;
   left: 1px;
-  background: transparent;
+  background: #ffffff;
   width: 26px;
   height: 26px;
   border-radius: 50%;
