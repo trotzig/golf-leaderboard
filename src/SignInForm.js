@@ -5,8 +5,12 @@ import syncFavorites from './syncFavorites.js';
 
 let interval;
 
-export default function SignInForm({ title = 'Sign in', favoritedPlayerId }) {
+export default function SignInForm({
+  title = 'Sign in',
+  favoritedPlayerId,
+}) {
   const [email, setEmail] = useState();
+  const [isSuccess, setIsSuccess] = useState(false);
   const [signInAttemptId, setSignInAttemptId] = useState();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState();
@@ -29,7 +33,12 @@ export default function SignInForm({ title = 'Sign in', favoritedPlayerId }) {
           )}
         </p>
       )}
-      {signInAttemptId ? (
+      {isSuccess ? (
+        <>
+          <h4>Success!</h4>
+          <p>You are now signed in.</p>
+        </>
+      ) : signInAttemptId ? (
         <form
           method="POST"
           onSubmit={async e => {
@@ -53,6 +62,7 @@ export default function SignInForm({ title = 'Sign in', favoritedPlayerId }) {
               setError(true);
               return;
             }
+            setIsSuccess(true);
             await syncFavorites();
             window.location.reload();
           }}
