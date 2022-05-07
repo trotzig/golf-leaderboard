@@ -217,7 +217,7 @@ nav svg {
     padding-bottom: 40px;
     padding-left: 15px;
     padding-right: 15px;
-    max-width: auto;
+    max-width: 100%;
   }
 }
 
