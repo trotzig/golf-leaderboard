@@ -6,10 +6,12 @@ export default function CodeInput({ length, ...props }) {
   const [charHeight, setCharHeight] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [focus, setFocus] = useState(false);
+  const inputRef = useRef();
   useEffect(() => {
     const rect = ruler.current.getBoundingClientRect();
     setCharWidth(rect.width / 4);
     setCharHeight(rect.height);
+    inputRef.current.focus();
   }, []);
   return (
     <div
@@ -32,6 +34,7 @@ export default function CodeInput({ length, ...props }) {
         style={{ textIndent: charWidth * 0.33 }}
         autoCorrect="off"
         autoCapitalize="none"
+        ref={inputRef}
       />
       <div className="code-input-boxes">
         {charWidth
