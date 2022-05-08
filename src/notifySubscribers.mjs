@@ -194,7 +194,7 @@ ${firstName} ${lastName} has position ${position} in the field after finishing r
             totalScoreToPar,
           )} total.
 
-    ${footer}
+${footer}
     `.trim()
         : `
 ${firstName} ${lastName} has started playing round ${roundNumber} of ${competitionName}. ${firstName} is ${fixParValue(
