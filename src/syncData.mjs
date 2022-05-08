@@ -6,6 +6,21 @@ import fetchCompetitions from '../scripts/utils/fetchCompetitions.mjs';
 import generateSlug from './generateSlug.mjs';
 import parseJson from '../scripts/utils/parseJson.mjs';
 
+async function fetchVenue(competition) {
+  const res = await nodeFetch(
+    `https://scores.golfbox.dk/Handlers/CompetitionHandler/GetCompetition/CompetitionId/${competition.id}/language/2057/`,
+  );
+  if (!res.ok) {
+    throw new Error(
+      `Failed to fetch venue for comp ${competition.name}. Status ${
+        res.status
+      }. Text: ${await res.text()}`,
+    );
+  }
+  const json = parseJson(await res.text());
+  return json.CompetitionData.Venue.Name;
+}
+
 async function fetchPlayersFromEntriesList(competition) {
   const res = await nodeFetch(
     `https://scores.golfbox.dk/Handlers/PlayersHandler/GetPlayers/CompetitionId/${competition.id}/language/2057/`,
@@ -112,6 +127,17 @@ async function fetchAllPlayers(competitions, { full }) {
   const allSlugs = {};
   const all = await Promise.all(
     competitions.map(async comp => {
+      if (
+        !full &&
+        (comp.end.getTime() + 48 * 60 * 60 * 1000 < Date.now() ||
+          comp.start.getTime() - 7 * 24 * 60 * 60 * 1000 > Date.now())
+      ) {
+        console.log(
+          `Performing shallow sync for competition ${comp.name} since full = false`,
+        );
+        comp.venue = await fetchVenue(comp);
+        return [];
+      }
       console.log(`Fetching players for competition ${comp.name}...`);
       const players = await fetchPlayers(comp);
       console.log(`${comp.name} has ${players.length} players`);
@@ -196,17 +222,7 @@ function dedupeSlugs(players) {
 }
 
 export default async function syncData({ full = true } = {}) {
-  const competitions = (await fetchCompetitions()).filter(comp => {
-    if (!full && comp.end.getTime() + 48 * 60 * 60 * 1000 < Date.now()) {
-      console.log(
-        `Skipping sync for competition ${comp.name} since it's in the past and full = false`,
-      );
-      return false;
-    }
-
-    return true;
-  });
-
+  const competitions = await fetchCompetitions();
   const players = await fetchAllPlayers(competitions, { full });
   await fillOOM(players);
   dedupeSlugs(players);
