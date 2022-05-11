@@ -28,12 +28,23 @@ export function useJsonPData(url, defaultData) {
     if (cachedData) {
       setData(cachedData);
     }
+
+    let lastCheck;
     async function run() {
+      if (Date.now() - lastCheck < 30000) {
+        console.log(`Less than 30s since last fetch for ${url}`);
+        return;
+      }
+      lastCheck = Date.now();
+      console.log(`Fetching ${url}`);
       const data = await fetchJsonP(url);
       CACHE[url] = data;
       setData(data);
     }
+
     run();
+    window.addEventListener('focus', run);
+    return () => window.removeEventListener('focus', run);
   }, [url]);
   return data;
 }
