@@ -348,7 +348,7 @@ nav svg {
   position: relative;
 }
 .leaderboard-page .player-entry-first-cut:before {
-  content: 'CUT LINE';
+  content: 'PROJECTED CUT LINE';
   line-height: 1;
   position: absolute;
   background-color: var(--background);
@@ -357,6 +357,9 @@ nav svg {
   top: -2px;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+.leaderboard-page .player-entry-first-cut-performed:before {
+  content: 'CUT LINE';
 }
 
 .favorite-button {

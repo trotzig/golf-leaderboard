@@ -118,11 +118,11 @@ function getEntries(data, timesData, playersData) {
   }
 
   const result = Object.values(entries);
-  let firstCutFound = false;
+  const cutPosition = data.Classes[classKey].Cut && data.Classes[classKey].Cut.Position;
   for (const entry of result) {
-    if (!firstCutFound && entry.Position && entry.Position.Calculated === 'MC') {
+    if (entry.Position && entry.Position.Actual - 1 === cutPosition) {
       entry.isFirstCut = true;
-      firstCutFound = true;
+      entry.isFirstCutPerformed = data.Classes[classKey].Cut.IsPerformed
     }
     const timeEntry = timeEntries[entry.MemberID];
     if (timeEntry) {
@@ -232,6 +232,9 @@ function Player({
 
   if (entry.isFirstCut) {
     classes.push('player-entry-first-cut');
+  }
+  if (entry.isFirstCutPerformed) {
+    classes.push('player-entry-first-cut-performed');
   }
 
   const positionClassname =
