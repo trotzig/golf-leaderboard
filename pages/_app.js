@@ -12,9 +12,10 @@ function MyApp({ Component, pageProps }) {
       window.matchMedia &&
       window.matchMedia('(prefers-color-scheme: dark)').matches
     ) {
+      console.log('Setting theme color');
       setThemeColor('#222222');
     }
-  }, []);
+  }, [Component]);
   return (
     <div>
       <NextNProgress color="#e54e37" height={2} showOnShallow={false} />
