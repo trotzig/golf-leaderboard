@@ -1135,3 +1135,7 @@ input.ios-switch:checked:after {
   display: inline-block;
   visibility: hidden;
 }
+#cut {
+  position: absolute;
+  top: -40vh;
+}

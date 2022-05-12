@@ -118,11 +118,12 @@ function getEntries(data, timesData, playersData) {
   }
 
   const result = Object.values(entries);
-  const cutPosition = data.Classes[classKey].Cut && data.Classes[classKey].Cut.Position;
+  const cutPosition =
+    data.Classes[classKey].Cut && data.Classes[classKey].Cut.Position;
   for (const entry of result) {
     if (entry.Position && entry.Position.Actual - 1 === cutPosition) {
       entry.isFirstCut = true;
-      entry.isFirstCutPerformed = data.Classes[classKey].Cut.IsPerformed
+      entry.isFirstCutPerformed = data.Classes[classKey].Cut.IsPerformed;
     }
     const timeEntry = timeEntries[entry.MemberID];
     if (timeEntry) {
@@ -156,9 +157,7 @@ function Round({ round, colors, now }) {
 
   const classes = ['round'];
   const courseColors = Object.values(colors || {});
-  const color = courseColors.find(
-    c => c.CourseID === round.CourseRefID,
-  );
+  const color = courseColors.find(c => c.CourseID === round.CourseRefID);
   if (color && courseColors.length > 1) {
     classes.push(color.CssName);
   }
@@ -249,6 +248,7 @@ function Player({
 
   return (
     <li className={classes.join(' ')}>
+      {entry.isFirstCut ? <span id="cut" /> : null}
       <Link
         href={
           rounds.length > 0 && rounds[0].Holes
@@ -321,6 +321,23 @@ function getHeading(competition, now) {
   return 'Final results';
 }
 
+function CutInfo({ data }) {
+  if (!data) {
+    return null;
+  }
+  const cut = Object.values(data.Classes || {})[0].Cut;
+  if (!cut) {
+    return null;
+  }
+  return (
+    <span>
+      {cut.Position} players{' '}
+      {cut.IsPerformed ? 'made' : 'are projected to make'}{' '}
+      <a href="#cut">the cut</a>.
+    </span>
+  );
+}
+
 export default function CompetitionPage({
   initialData,
   initialTimesData,
@@ -377,7 +394,8 @@ export default function CompetitionPage({
       {competition.venue && (
         <p className="leaderboard-page-subtitle">
           {competition.venue} –{' '}
-          {competition.start && competitionDateString(competition, now)}
+          {competition.start && competitionDateString(competition, now)}.{' '}
+          <CutInfo data={data} />
         </p>
       )}
       {data && (
