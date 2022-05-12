@@ -40,7 +40,7 @@ export default function competitionDateString(
 
   if (start <= now && now <= end) {
     // Currently active
-    suffix = ` — Currently playing round ${
+    suffix = ` — Playing round ${
       differenceInDays(now, start) + 1
     } of ${numberOfDays + 1}`;
   } else {
