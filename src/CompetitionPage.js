@@ -155,10 +155,11 @@ function Round({ round, colors, now }) {
   const startTime = parse(round.StartDateTime, DATE_FORMAT, now);
 
   const classes = ['round'];
-  const color = Object.values(colors || {}).find(
+  const courseColors = Object.values(colors || {});
+  const color = courseColors.find(
     c => c.CourseID === round.CourseRefID,
   );
-  if (color) {
+  if (color && courseColors.length > 1) {
     classes.push(color.CssName);
   }
   return (
@@ -381,7 +382,7 @@ export default function CompetitionPage({
       )}
       {data && (
         <>
-          {Object.values(data.Courses || {}).length > 0 ? (
+          {Object.values(data.Courses || {}).length > 1 ? (
             <div className="courses">
               {Object.values(data.CourseColours || {}).map(course => {
                 return (
