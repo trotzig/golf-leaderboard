@@ -8,12 +8,14 @@ import Script from 'next/script';
 function MyApp({ Component, pageProps }) {
   const [themeColor, setThemeColor] = useState('#ffffff');
   useEffect(() => {
+    console.log('Setting theme color');
     if (
       window.matchMedia &&
       window.matchMedia('(prefers-color-scheme: dark)').matches
     ) {
-      console.log('Setting theme color');
       setThemeColor('#222222');
+    } else {
+      setThemeColor('#ffffff');
     }
   }, [Component]);
   return (
