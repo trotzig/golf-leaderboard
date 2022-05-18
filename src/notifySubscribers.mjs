@@ -128,16 +128,23 @@ async function sendEmail(
   },
   notificationType,
 ) {
-  const resultNotified = await prisma.resultNotified.findUnique({
-    where: {
-      roundNumber_competitionId_playerId_notificationType: {
-        playerId,
-        roundNumber,
-        competitionId,
-        notificationType,
+  const [resultNotified, player] = await Promise.all([
+    prisma.resultNotified.findUnique({
+      where: {
+        roundNumber_competitionId_playerId_notificationType: {
+          playerId,
+          roundNumber,
+          competitionId,
+          notificationType,
+        },
       },
-    },
-  });
+    }),
+    prisma.player.findUnique({ where: { id: playerId } }),
+  ]);
+
+  if (!player) {
+    return;
+  }
 
   if (resultNotified) {
     return;
