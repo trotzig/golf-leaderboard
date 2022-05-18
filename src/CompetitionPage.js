@@ -325,8 +325,12 @@ function CutInfo({ data }) {
   if (!data) {
     return null;
   }
-  const cut = Object.values(data.Classes || {})[0].Cut;
+  const clazz = Object.values(data.Classes || {})[0];
+  const cut = clazz.Cut;
   if (!cut) {
+    return null;
+  }
+  if (clazz.Leaderboard && clazz.Leaderboard.ActiveRoundNumber < cut.AfterRound) {
     return null;
   }
   return (
