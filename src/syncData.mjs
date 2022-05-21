@@ -251,8 +251,12 @@ export default async function syncData({ full = true } = {}) {
   });
   console.log(`Created ${playersRes.count} users`);
 
+  const allPlayerIds = new Set(
+    (await prisma.player.findMany({ select: { id: true } })).map(p => p.id),
+  );
+
   const scoresRes = await prisma.playerCompetitionScore.createMany({
-    data: compScores,
+    data: compScores.filter(cs => allPlayerIds.has(cs.playerId)),
     skipDuplicates: true,
   });
   console.log(`Created ${scoresRes.count} scores`);
