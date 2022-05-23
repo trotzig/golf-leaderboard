@@ -121,7 +121,7 @@ function getEntries(data, timesData, playersData) {
   const cutPosition =
     data.Classes[classKey].Cut && data.Classes[classKey].Cut.Position;
   for (const entry of result) {
-    if (entry.Position && entry.Position.Actual - 1 === cutPosition) {
+    if (cutPosition && entry.Position && entry.Position.Actual - 1 === cutPosition) {
       entry.isFirstCut = true;
       entry.isFirstCutPerformed = data.Classes[classKey].Cut.IsPerformed;
     }
