@@ -330,9 +330,14 @@ function CutInfo({ data }) {
   if (!cut) {
     return null;
   }
+
+  if (!cut.AfterRound) {
+    return null;
+  }
   if (clazz.Leaderboard && clazz.Leaderboard.ActiveRoundNumber < cut.AfterRound) {
     return null;
   }
+
   return (
     <span>
       {cut.Position} players{' '}
