@@ -1139,3 +1139,8 @@ input.ios-switch:checked:after {
   position: absolute;
   top: -40vh;
 }
+
+.competition-view-all {
+  margin-bottom: 30px;
+  display: block;
+}
