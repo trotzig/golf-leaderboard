@@ -100,11 +100,10 @@ function getEntriesFromPlayersData(playersData) {
 }
 
 function getEntries(data, timesData, playersData) {
-  if (!data.Classes) {
-    return;
-  }
-  const classKey = Object.keys(data.Classes)[0];
-  let entries = data.Classes[classKey].Leaderboard.Entries;
+  const classKey = Object.keys(data.Classes || {})[0];
+  let entries = classKey
+    ? data.Classes[classKey].Leaderboard.Entries
+    : undefined;
   if (!entries && !timesData) {
     return;
   }
@@ -119,9 +118,15 @@ function getEntries(data, timesData, playersData) {
 
   const result = Object.values(entries);
   const cutPosition =
-    data.Classes[classKey].Cut && data.Classes[classKey].Cut.Position;
+    data.Classes &&
+    data.Classes[classKey].Cut &&
+    data.Classes[classKey].Cut.Position;
   for (const entry of result) {
-    if (cutPosition && entry.Position && entry.Position.Actual - 1 === cutPosition) {
+    if (
+      cutPosition &&
+      entry.Position &&
+      entry.Position.Actual - 1 === cutPosition
+    ) {
       entry.isFirstCut = true;
       entry.isFirstCutPerformed = data.Classes[classKey].Cut.IsPerformed;
     }
@@ -326,6 +331,9 @@ function CutInfo({ data }) {
     return null;
   }
   const clazz = Object.values(data.Classes || {})[0];
+  if (!clazz) {
+    return null;
+  }
   const cut = clazz.Cut;
   if (!cut) {
     return null;
@@ -334,7 +342,10 @@ function CutInfo({ data }) {
   if (!cut.AfterRound) {
     return null;
   }
-  if (clazz.Leaderboard && clazz.Leaderboard.ActiveRoundNumber < cut.AfterRound) {
+  if (
+    clazz.Leaderboard &&
+    clazz.Leaderboard.ActiveRoundNumber < cut.AfterRound
+  ) {
     return null;
   }
 
@@ -344,6 +355,38 @@ function CutInfo({ data }) {
       {cut.IsPerformed ? 'made' : 'are projected to make'}{' '}
       <a href="#cut">the cut</a>.
     </span>
+  );
+}
+
+function MatchPlay({ entries, now }) {
+  return (
+    <div>
+      <h3 className="leaderboard-section-heading">Matches</h3>
+      <ul>
+        {entries.map(entry => {
+          const startTime = parse(entry.StartTime, DATE_FORMAT, now);
+          return (
+            <li className="match" key={entry.MatchNo}>
+              <span>
+                {entry.Players[0].FirstName} {entry.Players[0].LastName}
+                <br />
+                <span className="club">{entry.Players[0].ClubName}</span>
+              </span>
+
+              <div className="round-start-time">
+                {format(startTime, 'HH:mm')}
+              </div>
+
+              <span>
+                {entry.Players[1].FirstName} {entry.Players[1].LastName}
+                <br />
+                <span className="club">{entry.Players[1].ClubName}</span>
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 }
 
@@ -380,6 +423,8 @@ export default function CompetitionPage({
     data && timesData && playersData
       ? getEntries(data, timesData, playersData)
       : [];
+
+  const isMatchPlay = entries && entries[0] && entries[0].MatchNo;
 
   for (const entry of entries || []) {
     entry.isFavorite = localStorage.getItem(entry.MemberID);
@@ -438,7 +483,9 @@ export default function CompetitionPage({
             : "This competition hasn't started yet. Come back here later to see tee times and an updated leaderboard."}
         </p>
       )}
-      {entries ? (
+      {entries && isMatchPlay ? (
+        <MatchPlay entries={entries} now={now} />
+      ) : entries ? (
         <div>
           {favorites && favorites.length ? (
             <div>

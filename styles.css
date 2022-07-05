@@ -1144,3 +1144,11 @@ input.ios-switch:checked:after {
   margin-bottom: 30px;
   display: block;
 }
+.leaderboard-page ul li.match {
+  display: block;
+  padding: 10px;
+  border-bottom: none;
+  display: grid;
+  grid-template-columns: 1fr 100px 1fr;
+  gap: 10px;
+}
