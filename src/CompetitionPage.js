@@ -424,7 +424,7 @@ export default function CompetitionPage({
       ? getEntries(data, timesData, playersData)
       : [];
 
-  const isMatchPlay = entries && entries[0] && entries[0].MatchNo;
+  const isMatchPlay = entries && entries[0] && entries[0].Players;
 
   for (const entry of entries || []) {
     entry.isFavorite = localStorage.getItem(entry.MemberID);
