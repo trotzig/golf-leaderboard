@@ -92,6 +92,9 @@ function getEntriesFromTimesData(timesData) {
 }
 
 function getEntriesFromPlayersData(playersData) {
+  if (!playersData.Classes) {
+    return [];
+  }
   return Object.values(Object.values(playersData.Classes)[0].Entries).filter(
     p => {
       return p.PlayerStatus === 1;
