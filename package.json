@@ -38,8 +38,8 @@
     "@storybook/testing-library": "^0.0.9",
     "babel-loader": "^8.2.3",
     "dotenv-cli": "^5.1.0",
-    "happo-plugin-storybook": "^2.10.3",
-    "happo.io": "^7.0.2",
+    "happo-plugin-storybook": "^3.1.0",
+    "happo.io": "^8.3.1",
     "prisma": "^3.11.1"
   }
 }
