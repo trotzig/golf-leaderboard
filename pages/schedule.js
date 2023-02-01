@@ -1,4 +1,4 @@
-import { format, startOfDay } from 'date-fns';
+import { format, startOfDay, startOfYear } from 'date-fns';
 import Link from 'next/link';
 import Head from 'next/head';
 import React from 'react';
@@ -75,6 +75,7 @@ function CompetitionItem({ competition, now, current }) {
 export async function getServerSideProps() {
   const competitions = await prisma.competition.findMany({
     orderBy: { end: 'asc' },
+    where: { start: { gte: startOfYear(new Date()) } },
     select: {
       id: true,
       name: true,
