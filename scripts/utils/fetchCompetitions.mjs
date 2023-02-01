@@ -8,7 +8,7 @@ const DATE_FORMAT = "yyyyMMdd'T'HHmmssX";
 
 export default async function fetchCompetitions() {
   const res = await nodeFetch(
-    'https://scores.golfbox.dk/Handlers/ScheduleHandler/GetSchedule/CustomerId/1/Season/2022/CompetitionId/0/language/2057/',
+    'https://scores.golfbox.dk/Handlers/ScheduleHandler/GetSchedule/CustomerId/1/Season/2023/CompetitionId/0/language/2057/',
   );
   if (!res.ok) {
     throw new Error('Failed to fetch comps', res.status, await res.text());
