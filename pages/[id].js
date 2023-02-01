@@ -11,7 +11,19 @@ import ordinal from '../src/ordinal';
 import prisma from '../src/prisma';
 import useData from '../src/useData';
 
-export default function PlayerPage({ player }) {
+function getScoresBySeason(items) {
+  const result = {};
+  result[new Date().getFullYear()] = []; // always show current season
+  for (const item of items) {
+    const season = new Date(item.competition.start).getFullYear();
+    result[season] = result[season] || [];
+    result[season].push(item);
+  }
+  console.log(result);
+  return result;
+}
+
+export default function PlayerPage({ player, season: selectedSeason }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -21,6 +33,11 @@ export default function PlayerPage({ player }) {
   useEffect(() => {
     setIsFavorite(localStorage.getItem(player.id));
   }, [player]);
+
+  const scoresBySeason = getScoresBySeason(player.competitionScore);
+  const season =
+    selectedSeason ||
+    Object.keys(scoresBySeason)[Object.keys(scoresBySeason).length - 1];
 
   return (
     <div className="player-page">
@@ -84,7 +101,25 @@ export default function PlayerPage({ player }) {
       ) : null}
 
       <h2>Results</h2>
-      {player.competitionScore.length ? (
+      <div className="page-margin">
+        <ul className="tabs">
+          {Object.keys(scoresBySeason).map(year => {
+            return (
+              <li
+                key={year}
+                className={
+                  `${season}` === `${year}` ? 'tab-selected' : ''
+                }
+              >
+                <Link href={`/${player.slug}?season=${year}`}>
+                  <a>{year}</a>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+      {(scoresBySeason[season] || []).length ? (
         <table className="page-margin results-table">
           <thead>
             <tr>
@@ -94,7 +129,7 @@ export default function PlayerPage({ player }) {
             </tr>
           </thead>
           <tbody>
-            {player.competitionScore.map(comp => {
+            {scoresBySeason[season].map(comp => {
               return (
                 <tr key={comp.competition.name}>
                   <td className="results-table-competition">
@@ -127,7 +162,7 @@ export default function PlayerPage({ player }) {
   );
 }
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ params, query }) {
   const player = await prisma.player.findUnique({
     where: { slug: params.id },
     select: {
@@ -155,7 +190,7 @@ export async function getServerSideProps({ params }) {
               id: true,
               name: true,
               venue: true,
-              //start: true,
+              start: true,
               //end: true,
             },
           },
@@ -166,7 +201,10 @@ export async function getServerSideProps({ params }) {
   if (!player) {
     return { notFound: true };
   }
+  for (const item of player.competitionScore) {
+    item.competition.start = item.competition.start.toISOString();
+  }
   return {
-    props: { player },
+    props: { player, season: query.season || null },
   };
 }
