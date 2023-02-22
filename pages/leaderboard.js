@@ -3,16 +3,18 @@ import React from 'react';
 import Menu from '../src/Menu';
 import prisma from '../src/prisma';
 
-
 async function getCurrentCompetitionId() {
   const now = new Date();
   const competitions = await prisma.competition.findMany({
     orderBy: { end: 'desc' },
   });
-  for (const c of competitions) {
-    if (now.getTime() + 48 * 60 * 60 * 1000 > c.start.getTime()) {
-      return c.id;
-    }
+  const candidates = competitions.filter(
+    c =>
+      now.getTime() + 48 * 60 * 60 * 1000 > c.start.getTime() &&
+      now.getTime() - 48 * 60 * 60 * 1000 < c.end.getTime(),
+  );
+  if (candidates.length) {
+    return candidates[candidates.length - 1].id;
   }
   return competitions[0].id;
 }
