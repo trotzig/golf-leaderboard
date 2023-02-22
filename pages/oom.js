@@ -80,7 +80,7 @@ function Player({ entry, onFavorite, lastFavoriteChanged }) {
 export default function OrderOfMeritPage() {
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
   const data = useJsonPData(
-    'https://scores.golfbox.dk/Handlers/OrderOfMeritsHandler/GetOrderOfMerit/CustomerId/1/language/2057/OrderOfMeritID/157709/',
+    'https://scores.golfbox.dk/Handlers/OrderOfMeritsHandler/GetOrderOfMerit/CustomerId/1/language/2057/OrderOfMeritID/185241/',
   );
 
   function handleFavoriteChange() {
@@ -95,13 +95,13 @@ export default function OrderOfMeritPage() {
         <title>Order of merit</title>
         <meta
           name="description"
-          content="See the current standings in the Golfbox Road to Europe 2022 order of merit."
+          content="See the current standings in the Golfbox Road to Europe 2023 order of merit."
         />
       </Head>
       <Menu activeHref="/oom" />
       <h2>Order of merit</h2>
       <p className="page-desc">
-        Showing current standings in the Golfbox Road to Europe 2022 order of
+        Showing current standings in the Golfbox Road to Europe 2023 order of
         merit.
       </p>
       {data ? (
