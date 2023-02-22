@@ -192,7 +192,9 @@ unsubscribe using this link: ${BASE_URL}/api/unsubscribe?token=${account.authTok
         ? `${firstName} ${lastName} finished round ${roundNumber} at ${fixParValue(
             scoreToPar,
           )}`
-        : `${firstName} ${lastName} is ${scoreToPar} after ${holesPlayed} holes at round ${roundNumber}`;
+        : `${firstName} ${lastName} is ${fixParValue(
+            scoreToPar,
+          )} after ${holesPlayed} holes at round ${roundNumber}`;
 
     const text =
       notificationType === 'finished'
