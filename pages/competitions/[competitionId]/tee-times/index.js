@@ -22,6 +22,7 @@ function getGames(entries, now, courses) {
       const time = parse(entry.StartTime, DATE_FORMAT, now);
       currentGame = {
         course: removeCommonCoursePrefix(courses, entry.CourseName),
+        courseCssName: courses.find(c => c.Name === entry.CourseName).CssName,
         time,
         startingHole: entry.Hole,
         players: [],
@@ -57,7 +58,7 @@ export default function TeeTimesPage({ competition, now = new Date(), round }) {
           content={`See tee times for ${competition.name}`}
         />
       </Head>
-      <Menu activeHref="/tee-times" />
+      <Menu activeHref="/leaderboard" />
       <div className="h-intro">Tee times</div>
       <h2 className="tee-times-page-heading">{competition.name}</h2>
       {competition.venue && (
@@ -65,6 +66,34 @@ export default function TeeTimesPage({ competition, now = new Date(), round }) {
           {competition.venue} –{' '}
           {competition.start && competitionDateString(competition, now)}.{' '}
         </p>
+      )}
+      <p className="leaderboard-page-subtitle">
+        Switch to{' '}
+        <Link href={`/competitions/${competition.id}`}>
+          <a>leaderboard</a>
+        </Link>
+        .
+      </p>
+
+      {data && (
+        <div className="courses">
+          {Object.values(data.CourseColours || {}).map(course => {
+            return (
+              <div key={course.CourseID}>
+                <Link
+                  href={`/competitions/${competition.id}/courses/${course.CourseID}`}
+                >
+                  <a className={course.CssName}>
+                    {removeCommonCoursePrefix(
+                      Object.values(data.CourseColours),
+                      course.Name,
+                    )}
+                  </a>
+                </Link>
+              </div>
+            );
+          })}
+        </div>
       )}
 
       {data && (
@@ -105,17 +134,22 @@ export default function TeeTimesPage({ competition, now = new Date(), round }) {
                       return (
                         <div className="startlist-game" key={game.number}>
                           <div>
-                            <div className="startlist-game-hole">
-                              Hole {game.startingHole}
-                            </div>
                             <div className="startlist-game-time">
                               {format(game.time, 'HH:mm')}
                             </div>
-                            <div className="startlist-game-course">
-                              {game.course}
-                            </div>
                           </div>
                           <div>
+                            <div className="startlist-game-where">
+                              <span
+                                className={`startlist-game-course ${game.courseCssName}`}
+                              >
+                                {game.course}
+                              </span>
+                              {' '}
+                              <span className="startlist-game-hole">
+                                Hole {game.startingHole}
+                              </span>
+                            </div>
                             <div className="startlist-game-players">
                               {game.players.map(player => {
                                 return (

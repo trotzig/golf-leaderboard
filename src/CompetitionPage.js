@@ -435,6 +435,13 @@ export default function CompetitionPage({
           <CutInfo data={data} />
         </p>
       )}
+      <p className="leaderboard-page-subtitle">
+        Switch to{' '}
+        <Link href={`/competitions/${competition.id}/tee-times`}>
+          <a>tee times</a>
+        </Link>
+        .
+      </p>
       {data && (
         <>
           {Object.values(data.Courses || {}).length > 1 ? (
