@@ -45,10 +45,30 @@ export default function TeeTimesPage({ competition, now = new Date(), round }) {
   const data = useJsonPData(
     `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competition.id}/language/2057/`,
   );
-  console.log(data);
   const loading = !data;
   const usedRound = round || (data && data.ActiveRoundNumber);
-  console.log({ usedRound });
+
+  const allGames = [];
+  if (data) {
+    const startLists = Object.values(data.Rounds[`R${usedRound}`].StartLists);
+    for (const startList of startLists) {
+      const games = getGames(
+        startList.Entries,
+        now,
+        data.CompetitionData.CourseColours,
+      );
+      allGames.push(...games);
+    }
+    allGames.sort((a, b) => {
+      if (a.time < b.time) {
+        return -1;
+      }
+      if (b.time < a.time) {
+        return 1;
+      }
+      return 0;
+    });
+  }
   return (
     <div className="tee-times-page">
       <Head>
@@ -120,56 +140,41 @@ export default function TeeTimesPage({ competition, now = new Date(), round }) {
           </ul>
 
           <div className="startlists">
-            {Object.values(data.Rounds[`R${usedRound}`].StartLists).map(
-              startList => {
-                const course = startList.CourseName;
-
+            <div className="startlist">
+              {allGames.map(game => {
                 return (
-                  <div key={startList.CourseStart_RID} className="startlist">
-                    {getGames(
-                      startList.Entries,
-                      now,
-                      data.CompetitionData.CourseColours,
-                    ).map(game => {
-                      return (
-                        <div className="startlist-game" key={game.number}>
-                          <div>
-                            <div className="startlist-game-time">
-                              {format(game.time, 'HH:mm')}
+                  <div className="startlist-game" key={game.number}>
+                    <div>
+                      <div className="startlist-game-time">
+                        {format(game.time, 'HH:mm')}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="startlist-game-where">
+                        <span
+                          className={`startlist-game-course ${game.courseCssName}`}
+                        >
+                          {game.course}
+                        </span>{' — '}
+                        <span className="startlist-game-hole">
+                          Hole {game.startingHole}
+                        </span>
+                      </div>
+                      <div className="startlist-game-players">
+                        {game.players.map(player => {
+                          return (
+                            <div key={player.memberId}>
+                              {player.firstName} {player.lastName} —{' '}
+                              <span className="club">{player.clubName}</span>
                             </div>
-                          </div>
-                          <div>
-                            <div className="startlist-game-where">
-                              <span
-                                className={`startlist-game-course ${game.courseCssName}`}
-                              >
-                                {game.course}
-                              </span>
-                              {' '}
-                              <span className="startlist-game-hole">
-                                Hole {game.startingHole}
-                              </span>
-                            </div>
-                            <div className="startlist-game-players">
-                              {game.players.map(player => {
-                                return (
-                                  <div key={player.memberId}>
-                                    {player.firstName} {player.lastName} —{' '}
-                                    <span className="club">
-                                      {player.clubName}
-                                    </span>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
                 );
-              },
-            )}
+              })}
+            </div>
           </div>
         </div>
       )}
