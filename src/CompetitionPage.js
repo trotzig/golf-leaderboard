@@ -13,6 +13,7 @@ import competitionDateString from './competitionDateString';
 import ensureDates from './ensureDates.js';
 import fixParValue from './fixParValue';
 import generateSlug from './generateSlug.mjs';
+import removeCommonCoursePrefix from './removeCommonCoursePrefix.js';
 
 const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
 
@@ -28,27 +29,6 @@ function pluralizeRounds(count) {
   return `${count} rounds`;
 }
 
-function removeCommonPrefix(courses, courseName) {
-  if (courses.length === 1) {
-    return courseName;
-  }
-  const names = courses.map(c => c.Name);
-  names.sort((a, b) => a.length - b.length);
-  const lastMatch = (() => {
-    let i;
-    for (i = 0; i < names[0].length; i++) {
-      const refChar = names[0][i];
-      for (const name of names) {
-        if (name[i] !== refChar) {
-          return i;
-        }
-      }
-    }
-    return i;
-  })();
-
-  return courseName.slice(lastMatch);
-}
 function getEntriesFromTimesData(timesData) {
   if (!timesData.ActiveRoundNumber) {
     return {};
@@ -466,7 +446,7 @@ export default function CompetitionPage({
                       href={`/competitions/${competition.id}/courses/${course.CourseID}`}
                     >
                       <a className={course.CssName}>
-                        {removeCommonPrefix(
+                        {removeCommonCoursePrefix(
                           Object.values(data.CourseColours),
                           course.Name,
                         )}
