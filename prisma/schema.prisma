@@ -11,13 +11,14 @@ datasource db {
 }
 
 model Account {
-  id                  String    @default(cuid()) @id
-  email               String    @unique
-  authToken           String?   @unique
-  sendEmailOnFinished Boolean   @default(true)
-  sendEmailOnStart    Boolean   @default(false)
-  createdAt           DateTime  @default(now())
-  favorites           Favorite[]
+  id                      String    @default(cuid()) @id
+  email                   String    @unique
+  authToken               String?   @unique
+  sendEmailOnFinished     Boolean   @default(true)
+  sendEmailOnStart        Boolean   @default(false)
+  sendEmailOnHotStreak    Boolean   @default(true)
+  createdAt               DateTime  @default(now())
+  favorites               Favorite[]
 }
 
 model SignInAttempt {

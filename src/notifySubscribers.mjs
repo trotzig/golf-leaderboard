@@ -37,6 +37,44 @@ function getHole(entry) {
   return h.replace('H', '');
 }
 
+function getLastHoleScore(holeScores) {
+  const scores = { ...holeScores };
+  delete scores['H-TOTAL'];
+  delete scores['H-OUT'];
+  delete scores['H-IN'];
+
+  const holeKeys = Object.keys(scores);
+  if (!holeKeys.length) {
+    return undefined;
+  }
+  const lastKey = holeKeys[holeKeys.length - 1];
+  // {"Par":4,"Result":{"ToParValue":0.0,"ToParText":"Par","ActualValue":4.0,"ActualText":"4"},"Score":{"Text":"4","Value":4},"IsCounting":!0}
+  const {
+    Result: { ToParValue: toParValue, ActualValue: actualValue },
+  } = scores[lastKey];
+
+  const hole = lastKey.replace('H', '');
+  const scoreText =
+    actualValue === 1
+      ? 'a hole-in-one'
+      : toParValue === -3
+      ? 'an albatross'
+      : toParValue === -2
+      ? 'an eagle'
+      : toParValue === -1
+      ? 'a birdie'
+      : toParValue === 0
+      ? 'a par'
+      : toParValue === 1
+      ? 'a bogey'
+      : toParValue === 2
+      ? 'a double bogey'
+      : toParValue === 3
+      ? 'a triple bogey'
+      : 'other';
+  return { toParValue, actualValue, hole, scoreText };
+}
+
 async function fetchResults(competition) {
   const res = await nodeFetch(
     `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057/`,
@@ -53,6 +91,7 @@ async function fetchResults(competition) {
   const entries = Object.values(leaderboard.Entries);
   const finished = [];
   const started = [];
+  const hotStreakers = [];
   const allPlayerIds = new Set(
     (await prisma.player.findMany({ select: { id: true } })).map(p => p.id),
   );
@@ -98,6 +137,7 @@ async function fetchResults(competition) {
       firstName: entry.FirstName.trim(),
       lastName: entry.LastName.trim(),
       score: round.ResultSum.ActualText,
+      scoreLastHole: getLastHoleScore(round.HoleScores),
       scoreToPar: round.ResultSum.ToParText,
       totalScoreToPar: entry.ResultSum.ToParText,
       position: entry.Position.Calculated,
@@ -109,8 +149,11 @@ async function fetchResults(competition) {
     } else if (len > 5 && len < 8) {
       started.push(attrs);
     }
+    if (attrs.scoreLastHole && attrs.scoreLastHole.toParValue < -1) {
+      hotStreakers.push(attrs);
+    }
   }
-  return { finished, started };
+  return { finished, started, hotStreakers };
 }
 
 function fixTotalScore(score) {
@@ -134,6 +177,7 @@ async function sendEmail(
     competitionId,
     competitionName,
     holesPlayed,
+    scoreLastHole,
   },
   notificationType,
 ) {
@@ -177,6 +221,13 @@ async function sendEmail(
       // user is not subscribed
       continue;
     }
+    if (
+      notificationType.startsWith('hot-streak') &&
+      !account.sendEmailOnHotStreak
+    ) {
+      // user is not subscribed
+      continue;
+    }
 
     const footer = `
 See the result from ${firstName} and others in the full leaderboard here:
@@ -192,9 +243,11 @@ unsubscribe using this link: ${BASE_URL}/api/unsubscribe?token=${account.authTok
         ? `${firstName} ${lastName} finished round ${roundNumber} at ${fixParValue(
             scoreToPar,
           )}`
-        : `${firstName} ${lastName} is ${fixParValue(
+        : notificationType === 'started'
+        ? `${firstName} ${lastName} is ${fixParValue(
             scoreToPar,
-          )} after ${holesPlayed} holes at round ${roundNumber}`;
+          )} after ${holesPlayed} holes at round ${roundNumber}`
+        : `${firstName} ${lastName} made ${scoreLastHole.scoreText} on hole ${scoreLastHole.hole} at round ${roundNumber}`;
 
     const text =
       notificationType === 'finished'
@@ -207,8 +260,18 @@ ${firstName} ${lastName} has position ${position} in the field after finishing r
 
 ${footer}
     `.trim()
-        : `
+        : notificationType === 'started'
+        ? `
 ${firstName} ${lastName} has started playing round ${roundNumber} of ${competitionName}. ${firstName} is ${fixParValue(
+            scoreToPar,
+          )} after ${holesPlayed} holes played.
+
+${footer}
+    `.trim()
+        : `
+${firstName} ${lastName} just made ${scoreLastHole.scoreText} on hole ${
+            scoreLastHole.hole
+          } of ${competitionName}. ${firstName} is ${fixParValue(
             scoreToPar,
           )} after ${holesPlayed} holes played.
 
@@ -244,12 +307,15 @@ export default async function notifySubscribers() {
       }
     }
     console.log(`Processing ${competition.name}...`);
-    const { finished, started } = await fetchResults(competition);
+    const { finished, started, hotStreakers } = await fetchResults(competition);
     for (const result of started) {
       await sendEmail(result, 'started');
     }
     for (const result of finished) {
       await sendEmail(result, 'finished');
+    }
+    for (const result of hotStreakers) {
+      await sendEmail(result, `hot-streak-${result.scoreLastHole.hole}`);
     }
   }
   const end = Date.now();

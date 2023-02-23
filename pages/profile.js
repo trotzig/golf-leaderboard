@@ -12,6 +12,9 @@ export default function ProfilePage({ account }) {
   const [sendEmailOnStart, setSendEmailOnStart] = useState(
     account ? account.sendEmailOnStart : false,
   );
+  const [sendEmailOnHotStreak, setSendEmailOnHotStreak] = useState(
+    account ? account.sendEmailOnHotStreak : false,
+  );
 
   useEffect(() => {
     if (!account) {
@@ -23,11 +26,11 @@ export default function ProfilePage({ account }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ sendEmailOnFinished, sendEmailOnStart }),
+        body: JSON.stringify({ sendEmailOnFinished, sendEmailOnStart, sendEmailOnHotStreak }),
       });
     }
     run();
-  }, [sendEmailOnFinished, sendEmailOnStart]);
+  }, [sendEmailOnFinished, sendEmailOnStart, sendEmailOnHotStreak]);
 
   return (
     <div className="profile">
@@ -36,7 +39,7 @@ export default function ProfilePage({ account }) {
       <div className="page-margin">
         <div className="profile-settings">
           <label className="profile-setting">
-            <span>Send an email when a favorite player finishes a round</span>
+            <span><b>Finished round:</b> Send an email when a favorite player finishes a round</span>
             <input
               className="ios-switch"
               type="checkbox"
@@ -49,7 +52,7 @@ export default function ProfilePage({ account }) {
             />
           </label>
           <label className="profile-setting">
-            <span>Send an email when a favorite player starts a round</span>
+            <span><b>Started round:</b> Send an email when a favorite player starts a round</span>
             <input
               className="ios-switch"
               type="checkbox"
@@ -57,6 +60,19 @@ export default function ProfilePage({ account }) {
               checked={sendEmailOnStart}
               onChange={e => {
                 setSendEmailOnStart(e.target.checked);
+                syncFavorites();
+              }}
+            />
+          </label>
+          <label className="profile-setting">
+            <span><b>Hot streak:</b> Send an email when a favorite player is climbing the leaderboard</span>
+            <input
+              className="ios-switch"
+              type="checkbox"
+              disabled={!account}
+              checked={sendEmailOnHotStreak}
+              onChange={e => {
+                setSendEmailOnHotStreak(e.target.checked);
                 syncFavorites();
               }}
             />

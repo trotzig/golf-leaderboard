@@ -7,7 +7,12 @@ export default async function profileProps({ req }) {
   }
   const account = await prisma.account.findUnique({
     where: { authToken },
-    select: { email: true, sendEmailOnStart: true, sendEmailOnFinished: true },
+    select: {
+      email: true,
+      sendEmailOnStart: true,
+      sendEmailOnFinished: true,
+      sendEmailOnHotStreak: true,
+    },
   });
   return { props: { account } };
 }
