@@ -1203,7 +1203,7 @@ input.ios-switch:checked:after {
 }
 @media (max-width: 500px) {
   .startlist-game-players {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 }
 .startlist-game-players .club {
