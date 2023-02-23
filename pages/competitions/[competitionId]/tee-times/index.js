@@ -144,32 +144,32 @@ export default function TeeTimesPage({ competition, now = new Date(), round }) {
               {allGames.map(game => {
                 return (
                   <div className="startlist-game" key={game.number}>
-                    <div>
+                    <div className="startlist-game-intro">
                       <div className="startlist-game-time">
                         {format(game.time, 'HH:mm')}
                       </div>
-                    </div>
-                    <div>
                       <div className="startlist-game-where">
                         <span
                           className={`startlist-game-course ${game.courseCssName}`}
                         >
                           {game.course}
-                        </span>{' — '}
+                        </span>
+                        {' — '}
                         <span className="startlist-game-hole">
                           Hole {game.startingHole}
                         </span>
                       </div>
-                      <div className="startlist-game-players">
-                        {game.players.map(player => {
-                          return (
-                            <div key={player.memberId}>
-                              {player.firstName} {player.lastName} —{' '}
-                              <span className="club">{player.clubName}</span>
-                            </div>
-                          );
-                        })}
-                      </div>
+                    </div>
+                    <div className="startlist-game-players">
+                      {game.players.map(player => {
+                        return (
+                          <div key={player.memberId}>
+                            {player.firstName} {player.lastName}
+                            <br />
+                            <span className="club">{player.clubName}</span>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 );

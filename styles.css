@@ -1025,8 +1025,7 @@ input.ios-switch:checked:after {
   opacity: 0.7;
 }
 .leaderboard-page-heading,
-.tee-times-page-heading
-{
+.tee-times-page-heading {
   margin-top: 0;
   padding-top: 5px;
 }
@@ -1183,11 +1182,10 @@ input.ios-switch:checked:after {
 }
 
 .startlist-game {
-  display: grid;
-  grid-template-columns: 80px 1fr;
-  gap: 20px;
-  padding: 20px 0 10px;
-  align-items: center;
+  padding: 20px 0;
+}
+
+.startlist-game-intro {
 }
 .startlist-game-time {
   font-size: 25px;
@@ -1199,13 +1197,20 @@ input.ios-switch:checked:after {
 }
 .startlist-game-players {
   display: grid;
-  gap: 5px;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  padding: 15px 0;
+}
+@media (max-width: 500px) {
+  .startlist-game-players {
+    grid-template-columns: 1fr;
+  }
 }
 .startlist-game-players .club {
   opacity: 0.5;
+  font-size: 12px;
 }
 .startlist-game-where {
-  margin-bottom: 7px;
   opacity: 0.7;
   font-size: 12px;
 }
