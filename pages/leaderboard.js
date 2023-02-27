@@ -3,7 +3,7 @@ import React from 'react';
 import Menu from '../src/Menu';
 import prisma from '../src/prisma';
 
-async function getCurrentCompetitionId() {
+async function getCurrentCompetitionSlug() {
   const now = new Date();
   const competitions = await prisma.competition.findMany({
     orderBy: { end: 'desc' },
@@ -14,9 +14,9 @@ async function getCurrentCompetitionId() {
       now.getTime() - 48 * 60 * 60 * 1000 < c.end.getTime(),
   );
   if (candidates.length) {
-    return candidates[candidates.length - 1].id;
+    return candidates[candidates.length - 1].slug;
   }
-  return competitions[0].id;
+  return competitions[0].slug;
 }
 
 export default function LeaderboardRedirectPage() {
@@ -30,7 +30,7 @@ export default function LeaderboardRedirectPage() {
 export async function getServerSideProps() {
   return {
     redirect: {
-      destination: `/competitions/${await getCurrentCompetitionId()}`,
+      destination: `/t/${await getCurrentCompetitionSlug()}`,
       permanent: false,
     },
   };

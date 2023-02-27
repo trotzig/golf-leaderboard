@@ -133,7 +133,7 @@ export default function PlayerPage({ player, season: selectedSeason }) {
               return (
                 <tr key={comp.competition.name}>
                   <td className="results-table-competition">
-                    <Link href={`/competitions/${comp.competition.id}`}>
+                    <Link href={`/t/${comp.competition.slug}`}>
                       <a>
                         {comp.competition.name}
                         <div>{comp.competition.course}</div>
@@ -191,7 +191,7 @@ export async function getServerSideProps({ params, query }) {
               name: true,
               venue: true,
               start: true,
-              //end: true,
+              slug: true,
             },
           },
         },

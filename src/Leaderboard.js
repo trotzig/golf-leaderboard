@@ -6,7 +6,7 @@ import fixParValue from './fixParValue';
 
 export default function Leaderboard({ competition, now }) {
   return (
-    <Link href={`/competitions/${competition.id}`}>
+    <Link href={`/t/${competition.slug}`}>
       <a className="leaderboard">
         <div className="leaderboard-legend">Leaderboard</div>
         <h4 className="leaderboard-competition-name">

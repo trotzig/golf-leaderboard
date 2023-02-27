@@ -206,7 +206,7 @@ function Player({
   colors,
   now,
   lazy,
-  competitionId,
+  competition,
 }) {
   const rounds = getRounds(entry);
   const classes = ['player'];
@@ -240,7 +240,7 @@ function Player({
       <Link
         href={
           rounds.length > 0 && rounds[0].Holes
-            ? `/competitions/${competitionId}/players/${entry.MemberID}`
+            ? `/t/${competition.slug}/players/${entry.MemberID}`
             : `/${generateSlug(entry)}`
         }
       >
@@ -437,7 +437,7 @@ export default function CompetitionPage({
       )}
       <p className="leaderboard-page-subtitle">
         Switch to{' '}
-        <Link href={`/competitions/${competition.id}/tee-times`}>
+        <Link href={`/t/${competition.slug}/tee-times`}>
           <a>tee times</a>
         </Link>
         .
@@ -450,7 +450,7 @@ export default function CompetitionPage({
                 return (
                   <div key={course.CourseID}>
                     <Link
-                      href={`/competitions/${competition.id}/courses/${course.CourseID}`}
+                      href={`/t/${competition.slug}/courses/${course.CourseID}`}
                     >
                       <a className={course.CssName}>
                         {removeCommonCoursePrefix(
@@ -484,7 +484,7 @@ export default function CompetitionPage({
                 {favorites.map(entry => {
                   return (
                     <Player
-                      competitionId={competition.id}
+                      competition={competition}
                       now={now}
                       colors={data.CourseColours}
                       key={entry.MemberID}
@@ -505,7 +505,7 @@ export default function CompetitionPage({
             {entries.map((entry, i) => {
               return (
                 <Player
-                  competitionId={competition.id}
+                  competition={competition}
                   now={now}
                   colors={data.CourseColours}
                   key={entry.MemberID}

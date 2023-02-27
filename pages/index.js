@@ -106,7 +106,7 @@ function CompetitionListItem({ competition, now, current }) {
         current ? 'competition-list-item current' : 'competition-list-item'
       }
     >
-      <Link href={`/competitions/${competition.id}${queryString}`}>
+      <Link href={`/t/${competition.slug}${queryString}`}>
         <a className="competition">
           <div className="calendar-event">
             <b>{format(competition.start, 'd')}</b>
@@ -135,6 +135,7 @@ export async function getServerSideProps() {
       venue: true,
       start: true,
       end: true,
+      slug: true,
     },
   });
   for (const c of competitions) {
@@ -145,9 +146,10 @@ export async function getServerSideProps() {
   const now = Date.now();
   const h24 = 24 * 60 * 60 * 1000;
 
-
   const pastCompetitions = competitions
-    .filter(c => c.end + h24 < now).reverse().slice(0, 3);
+    .filter(c => c.end + h24 < now)
+    .reverse()
+    .slice(0, 3);
   let currentCompetition = competitions.filter(
     c => c.start <= now && c.end + h24 >= now,
   )[0];
@@ -173,6 +175,7 @@ export async function getServerSideProps() {
         venue: true,
         start: true,
         end: true,
+        slug: true,
         leaderboardEntries: {
           orderBy: {
             position: 'asc',

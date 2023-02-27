@@ -56,7 +56,7 @@ function CompetitionItem({ competition, now, current }) {
       }
     >
       <td>
-        <Link href={`/competitions/${competition.id}${queryString}`}>
+        <Link href={`/t/${competition.slug}${queryString}`}>
           <a>
             {competition.name}
             <br />
@@ -82,6 +82,7 @@ export async function getServerSideProps() {
       venue: true,
       start: true,
       end: true,
+      slug: true,
     },
   });
   for (const c of competitions) {

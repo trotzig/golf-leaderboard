@@ -133,6 +133,7 @@ async function fetchResults(competition) {
     const attrs = {
       competitionName: competition.name,
       competitionId: competition.id,
+      competitionSlug: competition.slug,
       roundNumber: round.Number,
       playerId: entry.MemberID,
       firstName: entry.FirstName.trim(),
@@ -177,6 +178,7 @@ async function sendEmail(
     position,
     competitionId,
     competitionName,
+    competitionSlug,
     holesPlayed,
     scoreLastHole,
   },
@@ -232,7 +234,7 @@ async function sendEmail(
 
     const footer = `
 See the result from ${firstName} and others in the full leaderboard here:
-${BASE_URL}/competitions/${competitionId}
+${BASE_URL}/t/${competitionSlug}
 
 -------------------
 This email was sent via nordicgolftour.app. To stop getting these emails,

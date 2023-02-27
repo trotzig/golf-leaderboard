@@ -2,7 +2,7 @@ import { getYear } from 'date-fns';
 
 export default function generateCompetitionSlug(comp) {
   const name = comp.name || comp.Name;
-  const year = getYear(comp.start || comp.StartDate);
+  const year = getYear(new Date(comp.start || comp.StartDate));
   const slug = name
     .toLowerCase()
     .replace(/\s+/g, '-')

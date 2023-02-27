@@ -223,13 +223,14 @@ export default function CompetitionPlayer({
 export async function getServerSideProps({ params }) {
   const [competition, player] = await Promise.all([
     prisma.competition.findUnique({
-      where: { id: parseInt(params.competitionId, 10) },
+      where: { slug: params.competitionSlug },
       select: {
         id: true,
         name: true,
         venue: true,
         start: true,
         end: true,
+        slug: true,
       },
     }),
     prisma.player.findUnique({

@@ -65,7 +65,7 @@ export async function getServerSideProps({ res }) {
         .map(competition => {
           return `
             <url>
-              <loc>${BASE_URL}/competitions/${competition.id}</loc>
+              <loc>${BASE_URL}/t/${competition.slug}</loc>
               <lastmod>${(competition.start > new Date()
                 ? competition.updatedAt
                 : competition.start

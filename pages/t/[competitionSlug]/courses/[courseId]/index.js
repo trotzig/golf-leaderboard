@@ -4,13 +4,14 @@ import React from 'react';
 import { useJsonPData } from '../../../../../src/fetchJsonP';
 import LoadingSkeleton from '../../../../../src/LoadingSkeleton';
 import Menu from '../../../../../src/Menu';
+import prisma from '../../../../../src/prisma';
 
-export default function Course() {
+export default function Course({ competition }) {
   const router = useRouter();
-  const { competitionId, courseId } = router.query;
+  const { courseId } = router.query;
 
   const data = useJsonPData(
-    competitionId && `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/`,
+    `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057/`,
   );
 
   const loading = !data;
@@ -51,4 +52,25 @@ export default function Course() {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps({ params }) {
+  const competition = await prisma.competition.findUnique({
+    where: { slug: params.competitionSlug },
+    select: {
+      id: true,
+      name: true,
+      venue: true,
+      start: true,
+      end: true,
+      slug: true,
+    },
+  });
+  if (!competition) {
+    return { notFound: true };
+  }
+  competition.start = competition.start.getTime();
+  competition.end = competition.end.getTime();
+  const props = { competition };
+  return { props };
 }

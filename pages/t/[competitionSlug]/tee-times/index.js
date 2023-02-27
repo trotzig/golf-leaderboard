@@ -89,7 +89,7 @@ export default function TeeTimesPage({ competition, now = new Date(), round }) {
       )}
       <p className="leaderboard-page-subtitle">
         Switch to{' '}
-        <Link href={`/competitions/${competition.id}`}>
+        <Link href={`/t/${competition.slug}`}>
           <a>leaderboard</a>
         </Link>
         .
@@ -101,7 +101,7 @@ export default function TeeTimesPage({ competition, now = new Date(), round }) {
             return (
               <div key={course.CourseID}>
                 <Link
-                  href={`/competitions/${competition.id}/courses/${course.CourseID}`}
+                  href={`/t/${competition.slug}/courses/${course.CourseID}`}
                 >
                   <a className={course.CssName}>
                     {removeCommonCoursePrefix(
@@ -130,7 +130,7 @@ export default function TeeTimesPage({ competition, now = new Date(), round }) {
                   }
                 >
                   <Link
-                    href={`/competitions/${competition.id}/tee-times?round=${round.Number}`}
+                    href={`/t/${competition.slug}/tee-times?round=${round.Number}`}
                   >
                     <a>{round.Name}</a>
                   </Link>
@@ -184,13 +184,14 @@ export default function TeeTimesPage({ competition, now = new Date(), round }) {
 
 export async function getServerSideProps({ params, query }) {
   const competition = await prisma.competition.findUnique({
-    where: { id: parseInt(params.competitionId, 10) },
+    where: { slug: params.competitionSlug },
     select: {
       id: true,
       name: true,
       venue: true,
       start: true,
       end: true,
+      slug: true,
     },
   });
   if (!competition) {
