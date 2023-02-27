@@ -1,10 +1,10 @@
 import crypto from 'crypto';
 import nodeFetch from 'node-fetch';
 
-import prisma from './prisma.mjs';
 import fetchCompetitions from '../scripts/utils/fetchCompetitions.mjs';
 import generateSlug from './generateSlug.mjs';
 import parseJson from '../scripts/utils/parseJson.mjs';
+import prisma from './prisma.mjs';
 
 async function fetchVenue(competition) {
   const res = await nodeFetch(
@@ -232,6 +232,11 @@ export default async function syncData({ full = true } = {}) {
     skipDuplicates: true,
   });
   console.log(`Created ${compRes.count} competititons`);
+
+  for (const comp of competitions) {
+    await prisma.competition.update({ data: comp, where: { id: comp.id } });
+  }
+  console.log(`Updated ${competitions.length} competititons`);
 
   const playersData = [];
   const compScores = [];

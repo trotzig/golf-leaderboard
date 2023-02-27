@@ -81,6 +81,7 @@ model PlayerCompetitionScore {
 model Competition {
   id               Int     @id
   name             String
+  slug             String?
   venue            String?
   start            DateTime
   end              DateTime

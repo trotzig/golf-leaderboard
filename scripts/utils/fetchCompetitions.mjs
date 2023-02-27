@@ -1,6 +1,8 @@
-import nodeFetch from 'node-fetch';
 import { parse } from 'date-fns';
 
+import nodeFetch from 'node-fetch';
+
+import generateCompetitionSlug from '../../src/generateCompetitionSlug.mjs';
 import parseJson from './parseJson.mjs';
 
 const { QUICKRUN } = process.env;
@@ -26,6 +28,7 @@ export default async function fetchCompetitions() {
         ...Object.values(month.Entries).map(e => ({
           id: e.ID,
           name: e.Name,
+          slug: generateCompetitionSlug(e),
           start: parse(`${e.StartDate}+00`, DATE_FORMAT, now),
           end: parse(`${e.EndDate}+00`, DATE_FORMAT, now),
         })),
