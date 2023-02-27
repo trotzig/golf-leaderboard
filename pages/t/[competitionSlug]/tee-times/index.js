@@ -49,7 +49,7 @@ export default function TeeTimesPage({ competition, now = new Date(), round }) {
   const usedRound = round || (data && data.ActiveRoundNumber);
 
   const allGames = [];
-  if (data) {
+  if (data && usedRound) {
     const startLists = Object.values(data.Rounds[`R${usedRound}`].StartLists);
     for (const startList of startLists) {
       const games = getGames(
@@ -116,7 +116,7 @@ export default function TeeTimesPage({ competition, now = new Date(), round }) {
         </div>
       )}
 
-      {data && (
+      {data && data.Rounds ? (
         <div className="page-margin">
           <ul className="tabs">
             {Object.values(data.Rounds).map(round => {
@@ -177,6 +177,10 @@ export default function TeeTimesPage({ competition, now = new Date(), round }) {
             </div>
           </div>
         </div>
+      ) : loading ? null : (
+        <p className="alert page-margin">
+          Tee times are not available at the moment.
+        </p>
       )}
     </div>
   );
