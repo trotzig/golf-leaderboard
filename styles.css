@@ -1182,7 +1182,7 @@ input.ios-switch:checked:after {
 }
 
 .startlist-game {
-  padding: 20px 0;
+  margin-top: 30px;
 }
 
 .startlist-game-intro {
@@ -1201,6 +1201,15 @@ input.ios-switch:checked:after {
   gap: 10px;
   padding: 15px 0;
 }
+
+.startlist-game-player {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 10px;
+  align-items: flex-start;
+  line-height: 24px;
+}
+
 @media (max-width: 500px) {
   .startlist-game-players {
     grid-template-columns: 1fr 1fr;
@@ -1213,4 +1222,8 @@ input.ios-switch:checked:after {
 .startlist-game-where {
   opacity: 0.7;
   font-size: 12px;
+}
+.startlist-section-heading {
+  padding: 40px 0 5px;
+  border-bottom: 1px solid rgba(100, 100, 100, 0.1);
 }

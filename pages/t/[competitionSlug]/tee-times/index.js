@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 
 import { useJsonPData } from '../../../../src/fetchJsonP.js';
+import FavoriteButton from '../../../../src/FavoriteButton.js';
 import Menu from '../../../../src/Menu.js';
 import competitionDateString from '../../../../src/competitionDateString.js';
 import ensureDates from '../../../../src/ensureDates.js';
@@ -35,9 +36,41 @@ function getGames(entries, now, courses) {
       lastName: entry.LastName,
       firstName: entry.FirstName,
       clubName: entry.ClubName,
+      isFavorite: localStorage.getItem(entry.MemberID),
     });
   }
   return result;
+}
+
+function Game({ game }) {
+  return (
+    <div className="startlist-game" key={game.number}>
+      <div className="startlist-game-intro">
+        <div className="startlist-game-time">{format(game.time, 'HH:mm')}</div>
+        <div className="startlist-game-where">
+          <span className={`startlist-game-course ${game.courseCssName}`}>
+            {game.course}
+          </span>
+          {' — '}
+          <span className="startlist-game-hole">Hole {game.startingHole}</span>
+        </div>
+      </div>
+      <div className="startlist-game-players">
+        {game.players.map(player => {
+          return (
+            <div key={player.memberId} className="startlist-game-player">
+              <FavoriteButton playerId={player.memberId} icon />
+              <div>
+                {player.firstName} {player.lastName}
+                <br />
+                <span className="club">{player.clubName}</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 
 export default function TeeTimesPage({ competition, now = new Date(), round }) {
@@ -69,6 +102,11 @@ export default function TeeTimesPage({ competition, now = new Date(), round }) {
       return 0;
     });
   }
+
+  const gamesWithFavorites = allGames.filter(g =>
+    g.players.some(p => p.isFavorite),
+  );
+
   return (
     <div className="tee-times-page">
       <Head>
@@ -141,38 +179,18 @@ export default function TeeTimesPage({ competition, now = new Date(), round }) {
 
           <div className="startlists">
             <div className="startlist">
+              {gamesWithFavorites.length > 0 && (
+                <div>
+                  <h3 className="startlist-section-heading">Favorites</h3>
+                  {gamesWithFavorites.map(game => {
+                    return <Game game={game} key={game.number} />;
+                  })}
+
+                  <h3 className="startlist-section-heading">Everyone</h3>
+                </div>
+              )}
               {allGames.map(game => {
-                return (
-                  <div className="startlist-game" key={game.number}>
-                    <div className="startlist-game-intro">
-                      <div className="startlist-game-time">
-                        {format(game.time, 'HH:mm')}
-                      </div>
-                      <div className="startlist-game-where">
-                        <span
-                          className={`startlist-game-course ${game.courseCssName}`}
-                        >
-                          {game.course}
-                        </span>
-                        {' — '}
-                        <span className="startlist-game-hole">
-                          Hole {game.startingHole}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="startlist-game-players">
-                      {game.players.map(player => {
-                        return (
-                          <div key={player.memberId}>
-                            {player.firstName} {player.lastName}
-                            <br />
-                            <span className="club">{player.clubName}</span>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
+                return <Game game={game} key={game.number} />;
               })}
             </div>
           </div>
