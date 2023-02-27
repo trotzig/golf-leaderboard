@@ -8,6 +8,7 @@
     "notify-subscribers:prod": "dotenv -e production.env node scripts/processResults.mjs",
     "sync-data": "dotenv node scripts/buildStaticData.mjs",
     "sync-data:prod": "dotenv -e production.env node scripts/buildStaticData.mjs",
+    "fill-slugs:prod": "dotenv -e production.env node src/fillSlugs.mjs",
     "happo": "happo",
     "dev": "next dev",
     "build": "next build",
