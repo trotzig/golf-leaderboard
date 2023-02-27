@@ -25,13 +25,15 @@ export default async function fetchCompetitions() {
   for (const year of Object.values(json.CompetitionData)) {
     for (const month of Object.values(year.Months)) {
       result.push(
-        ...Object.values(month.Entries).map(e => ({
-          id: e.ID,
-          name: e.Name,
-          slug: generateCompetitionSlug(e),
-          start: parse(`${e.StartDate}+00`, DATE_FORMAT, now),
-          end: parse(`${e.EndDate}+00`, DATE_FORMAT, now),
-        })),
+        ...Object.values(month.Entries).map(e => {
+          return {
+            id: e.ID,
+            name: e.Name,
+            slug: generateCompetitionSlug(e),
+            start: parse(`${e.StartDate}+01`, DATE_FORMAT, now),
+            end: parse(`${e.EndDate}+01`, DATE_FORMAT, now),
+          };
+        }),
       );
     }
   }
