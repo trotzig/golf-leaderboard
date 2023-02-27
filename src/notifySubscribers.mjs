@@ -112,6 +112,7 @@ async function fetchResults(competition) {
         scoreText: entry.ScoringToPar.ToParText,
         score: entry.ScoringToPar.ToParValue,
         hole,
+        updatedAt: new Date(),
       };
       await prisma.leaderboardEntry.upsert({
         where: {

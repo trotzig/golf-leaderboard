@@ -100,5 +100,6 @@ model LeaderboardEntry {
   scoreText     String
   score         Int
   hole          String @default("-")
+  updatedAt     DateTime  @default(now())
   @@id([competitionId, position])
 }
