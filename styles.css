@@ -1227,3 +1227,40 @@ input.ios-switch:checked:after {
   padding: 40px 0 5px;
   border-bottom: 1px solid rgba(100, 100, 100, 0.1);
 }
+
+.presented-by {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  padding: 20px 0;
+  max-width: 400px;
+}
+
+.presented-by-intro {
+  opacity: 0.7;
+  text-transform: uppercase;
+  font-size: 11px;
+  padding-bottom: 3px;
+}
+
+.presented-by-main {
+  display: grid;
+  grid-template-columns: calc(min(130px, 40vw)) 1fr;
+  gap: 30px;
+  align-items: center;
+}
+.presented-by-products {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 10px;
+  align-items: center;
+}
+.presented-by-main img {
+  width: 100%;
+  height: auto;
+}
+@media (prefers-color-scheme: dark) {
+  .presented-by-main svg {
+    fill: #ffffff;
+  }
+}

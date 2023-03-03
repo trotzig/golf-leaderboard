@@ -5,6 +5,7 @@ import React from 'react';
 
 import Leaderboard from '../src/Leaderboard.js';
 import Menu from '../src/Menu';
+import PresentedBy from '../src/PresentedBy.js';
 import competitionDateString from '../src/competitionDateString';
 import ensureDates from '../src/ensureDates.js';
 import prisma from '../src/prisma';
@@ -51,6 +52,9 @@ Nordicgolftour.app is the unofficial home of the Nordic professional golf tour f
           </Link>
           .
         </p>
+        <div className="page-margin">
+          <PresentedBy />
+        </div>
         {currentCompetition && (
           <Leaderboard competition={currentCompetition} now={now} />
         )}

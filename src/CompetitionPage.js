@@ -9,6 +9,7 @@ import FavoriteButton from './FavoriteButton';
 import Lazy from './Lazy';
 import LoadingSkeleton from './LoadingSkeleton';
 import Menu from './Menu';
+import PresentedBy from './PresentedBy.js';
 import competitionDateString from './competitionDateString';
 import ensureDates from './ensureDates.js';
 import fixParValue from './fixParValue';
@@ -521,7 +522,11 @@ export default function CompetitionPage({
             {entries.map((entry, i) => {
               return (
                 <React.Fragment key={entry.MemberID}>
-                  {i === 10 && false && <GoogleAd />}
+                  {i === 3 && (
+                    <div className="page-margin">
+                      <PresentedBy />
+                    </div>
+                  )}
                   <Player
                     competition={competition}
                     now={now}
