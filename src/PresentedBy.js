@@ -9,9 +9,9 @@ export default function PresentedBy() {
       <div className="presented-by-main">
         <StripeLogoSvg />
         <div className="presented-by-products">
-          <img src="/presented-by/putter-headcover.png" />
-          <img src="/presented-by/golfballs_green.png" />
-          <img src="/presented-by/putter-headcover2.png" />
+          <img src="/presented-by/putter-headcover.png" width="300" height="284"/>
+          <img src="/presented-by/golfballs_green.png" width="300" height="185" />
+          <img src="/presented-by/putter-headcover2.png" width="300" height="253" />
         </div>
       </div>
     </a>
