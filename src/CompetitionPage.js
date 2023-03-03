@@ -521,7 +521,7 @@ export default function CompetitionPage({
             {entries.map((entry, i) => {
               return (
                 <React.Fragment key={entry.MemberID}>
-                  {i === 10 && <GoogleAd />}
+                  {i === 10 && false && <GoogleAd />}
                   <Player
                     competition={competition}
                     now={now}
