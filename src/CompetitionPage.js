@@ -1,7 +1,7 @@
 import { parse, format, startOfDay } from 'date-fns';
 import Head from 'next/head';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useJsonPData } from './fetchJsonP';
 import ClockIcon from './ClockIcon';
@@ -373,6 +373,22 @@ function MatchPlay({ entries, now }) {
   );
 }
 
+function GoogleAd({}) {
+  useEffect(() => {
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
+  }, []);
+  return (
+    <ins
+      className="adsbygoogle"
+      style={{ display: 'block' }}
+      data-ad-client="ca-pub-3939494656554168"
+      data-ad-slot="3926495463"
+      data-ad-format="auto"
+      data-full-width-responsive="true"
+    />
+  );
+}
+
 export default function CompetitionPage({
   initialData,
   initialTimesData,
@@ -504,16 +520,18 @@ export default function CompetitionPage({
           <ul>
             {entries.map((entry, i) => {
               return (
-                <Player
-                  competition={competition}
-                  now={now}
-                  colors={data.CourseColours}
-                  key={entry.MemberID}
-                  entry={entry}
-                  onFavoriteChange={handleFavoriteChange}
-                  lazy={lazyItems && i > 20}
-                  lastFavoriteChanged={lastFavoriteChanged}
-                />
+                <React.Fragment key={entry.MemberID}>
+                  {i === 10 && <GoogleAd />}
+                  <Player
+                    competition={competition}
+                    now={now}
+                    colors={data.CourseColours}
+                    entry={entry}
+                    onFavoriteChange={handleFavoriteChange}
+                    lazy={lazyItems && i > 20}
+                    lastFavoriteChanged={lastFavoriteChanged}
+                  />
+                </React.Fragment>
               );
             })}
           </ul>
