@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla&display=swap');
+
 :root {
   --primary: #e54e37;
   --primary-light: #f4c7c1;
@@ -1229,17 +1231,20 @@ input.ios-switch:checked:after {
 }
 
 .presented-by {
+  font-family: Karla, sans-serif;
   text-decoration: none;
   color: inherit;
   display: block;
   padding: 20px 0;
-  max-width: 400px;
+  max-width: 450px;
+  min-height: 155px;
 }
 
 .presented-by-intro {
   opacity: 0.7;
   text-transform: uppercase;
   font-size: 11px;
+  line-height: 15px;
   padding-bottom: 3px;
 }
 
@@ -1260,6 +1265,13 @@ input.ios-switch:checked:after {
 {
   width: 100%;
   height: auto;
+}
+.presented-by-outro {
+  opacity: 0.7;
+  font-size: 12px;
+  padding-top: 7px;
+  font-weight: normal;
+  line-height: 15px;
 }
 @media (prefers-color-scheme: dark) {
   .presented-by-main svg {
