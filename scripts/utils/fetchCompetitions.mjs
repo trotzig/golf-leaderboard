@@ -8,9 +8,47 @@ import parseJson from './parseJson.mjs';
 const { QUICKRUN } = process.env;
 const DATE_FORMAT = "yyyyMMdd'T'HHmmssX";
 
+function entryToCompetition(e, now) {
+  return {
+    id: e.ID || e.Id,
+    name: e.Name,
+    slug: generateCompetitionSlug(e),
+    start: parse(`${e.StartDate}+01`, DATE_FORMAT, now),
+    end: parse(`${e.EndDate}+01`, DATE_FORMAT, now),
+  };
+}
+
+async function fetchCompetition(competitionId, now) {
+  const resPromise = nodeFetch(
+    `https://scores.golfbox.dk/Handlers/CompetitionHandler/GetCompetition/CompetitionId/${competitionId}/`,
+  );
+
+  const res = await resPromise;
+  if (!res.ok) {
+    throw new Error(
+      `Failed to fetch comp ${competitionId}`,
+      res.status,
+      await res.text(),
+    );
+  }
+  const json = parseJson(await res.text());
+  return entryToCompetition(json.CompetitionData, now);
+}
+
 export default async function fetchCompetitions() {
+  const result = [];
+  const now = new Date();
+  if (process.env.NEXT_PUBLIC_GOLFBOX_COMPETITION_IDS) {
+    for (const competitionId of process.env.NEXT_PUBLIC_GOLFBOX_COMPETITION_IDS.split(
+      ',',
+    )) {
+      result.push(await fetchCompetition(competitionId, now));
+    }
+    return result;
+  }
+
   const res = await nodeFetch(
-    'https://scores.golfbox.dk/Handlers/ScheduleHandler/GetSchedule/CustomerId/1/Season/2023/CompetitionId/0/language/2057/',
+    `https://scores.golfbox.dk/Handlers/ScheduleHandler/GetSchedule/CustomerId/${process.env.NEXT_PUBLIC_GOLFBOX_CUSTOMER_ID}/Season/2023/CompetitionId/0/language/2057/`,
   );
   if (!res.ok) {
     throw new Error('Failed to fetch comps', res.status, await res.text());
@@ -20,19 +58,11 @@ export default async function fetchCompetitions() {
     console.log('Got error from API', json);
     return [];
   }
-  const result = [];
-  const now = new Date();
   for (const year of Object.values(json.CompetitionData)) {
     for (const month of Object.values(year.Months)) {
       result.push(
         ...Object.values(month.Entries).map(e => {
-          return {
-            id: e.ID,
-            name: e.Name,
-            slug: generateCompetitionSlug(e),
-            start: parse(`${e.StartDate}+01`, DATE_FORMAT, now),
-            end: parse(`${e.EndDate}+01`, DATE_FORMAT, now),
-          };
+          return entryToCompetition(e, now);
         }),
       );
     }

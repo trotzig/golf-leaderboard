@@ -162,7 +162,7 @@ async function fetchAllPlayers(competitions, { full }) {
 async function fillOOM(players) {
   console.log('Filling OOM');
   const res = await nodeFetch(
-    'https://scores.golfbox.dk/Handlers/OrderOfMeritsHandler/GetOrderOfMerit/CustomerId/1/language/2057/OrderOfMeritID/185241/',
+    `https://scores.golfbox.dk/Handlers/OrderOfMeritsHandler/GetOrderOfMerit/CustomerId/${process.env.NEXT_PUBLIC_GOLFBOX_CUSTOMER_ID}/language/2057/OrderOfMeritID/${process.env.NEXT_PUBLIC_GOLFBOX_OOM_ID}/`,
   );
   if (!res.ok) {
     throw new Error('Failed to fetch oom', res.status, await res.text());

@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }) {
     <div>
       <NextNProgress color="#e54e37" height={2} showOnShallow={false} />
       <Head>
-        <title>Nordic Golf Tour</title>
+        <title>{process.env.NEXT_PUBLIC_TITLE}</title>
         <meta
           name="viewport"
           content="initial-scale=1.0, width=device-width, user-scalable=no"

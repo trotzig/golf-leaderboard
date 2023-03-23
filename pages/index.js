@@ -32,17 +32,15 @@ export default function StartPage({
         <meta
           name="description"
           content={`
-Nordicgolftour.app is the unofficial home of the Nordic professional golf tour for men, known as MoreGolf Mastercard Tour. Follow your favorite players and get the latest updates straight in your inbox.
+${process.env.NEXT_PUBLIC_INTRO}. Follow your favorite players and get the latest updates straight in your inbox.
         `.trim()}
         />
       </Head>
       <Menu />
       <div className="competitions">
-        <h2>MoreGolf Mastercard Tour</h2>
+        <h2>{process.env.NEXT_PUBLIC_INTRO_TITLE}</h2>
         <p className="page-desc">
-          <a href="https://www.nordicgolftour.app">Nordicgolftour.app</a> is the
-          unofficial home of the Nordic professional golf tour for men, known as
-          MoreGolf Mastercard Tour. Follow your{' '}
+          {process.env.NEXT_PUBLIC_INTRO}. Follow your{' '}
           <Link href="/players">
             <a>favorite players</a>
           </Link>{' '}

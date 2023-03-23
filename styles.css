@@ -707,8 +707,8 @@ footer {
 }
 .player-profile-top {
   display: grid;
-  grid-template-columns: 1fr 80px 80px;
-  column-gap: 10px;
+  grid-template-columns: 1fr auto auto auto;
+  column-gap: 20px;
   max-width: 600px;
   margin: 0 auto 20px;
 }
@@ -735,7 +735,9 @@ footer {
   font-weight: normal;
 }
 .player-profile-topar,
-.player-profile-position {
+.player-profile-position,
+.player-profile-phcp
+{
   text-align: right;
   font-size: 24px;
 }

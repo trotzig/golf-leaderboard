@@ -20,7 +20,7 @@ export default function SchedulePage({ competitions }) {
         <title>Schedule</title>
         <meta
           name="description"
-          content="Full schedule for the 2022 season of MoreGolf Mastercard Tour."
+          content={`Full schedule for the 2023 season of ${process.env.NEXT_PUBLIC_INTRO_TITLE}.`}
         />
       </Head>
       <Menu activeHref="/schedule" />
