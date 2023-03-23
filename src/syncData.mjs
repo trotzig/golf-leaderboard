@@ -87,7 +87,7 @@ async function fetchPlayers(competition) {
 
   // Piggy-back on the call to get players and add some data to the competition
   // object.
-  competition.venue = json.CompetitionData.Venue.Name;
+  competition.venue = json.CompetitionData.Venue && json.CompetitionData.Venue.Name;
 
   //console.log(json);
   //console.log('classes', json.Classes);
