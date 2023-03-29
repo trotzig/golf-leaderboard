@@ -14,5 +14,8 @@ export default async function profileProps({ req }) {
       sendEmailOnHotStreak: true,
     },
   });
+  if (account && account.email === 'henric.trotzig@gmail.com') {
+    account.isAdmin = true;
+  }
   return { props: { account } };
 }

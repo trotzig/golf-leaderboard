@@ -75,7 +75,7 @@ function CompetitionItem({ competition, now, current }) {
 export async function getServerSideProps() {
   const competitions = await prisma.competition.findMany({
     orderBy: { end: 'asc' },
-    where: { start: { gte: startOfYear(new Date()) } },
+    where: { visible: true, start: { gte: startOfYear(new Date()) } },
     select: {
       id: true,
       name: true,

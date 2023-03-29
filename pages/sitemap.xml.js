@@ -9,8 +9,8 @@ const Sitemap = () => {};
 export async function getServerSideProps({ res }) {
   const [players, competitions, leaderboardEntry] = await Promise.all([
     prisma.player.findMany(),
-    prisma.competition.findMany(),
-    prisma.leaderboardEntry.findFirst({ orderBy: { updatedAt: 'desc' }}),
+    prisma.competition.findMany({ where: { visible: true } }),
+    prisma.leaderboardEntry.findFirst({ orderBy: { updatedAt: 'desc' } }),
   ]);
 
   let lastCompUpdatedAt = new Date(0);
@@ -27,7 +27,9 @@ export async function getServerSideProps({ res }) {
     }
   }
 
-  const lastLeaderboardEntry = leaderboardEntry ? leaderboardEntry.updatedAt : new Date(0);
+  const lastLeaderboardEntry = leaderboardEntry
+    ? leaderboardEntry.updatedAt
+    : new Date(0);
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

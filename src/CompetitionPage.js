@@ -398,6 +398,7 @@ export default function CompetitionPage({
   initialTimesData,
   initialPlayersData,
   loadingOverride,
+  account,
   competition = {},
   now = new Date(),
   lazyItems = true,
@@ -546,6 +547,17 @@ export default function CompetitionPage({
         </div>
       ) : null}
       {loading && <LoadingSkeleton />}
+      {account && account.isAdmin ? (
+        <div className="admin-buttons">
+          <h3>Admin buttons</h3>
+          <form
+            method="POST"
+            action={`/api/admin/competitions/${competition.id}/hide`}
+          >
+            <button type="submit">Hide</button>
+          </form>
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -1280,3 +1280,12 @@ input.ios-switch:checked:after {
     fill: #ffffff;
   }
 }
+
+.admin-buttons {
+  margin-top: 50px;
+  padding: 10px 10px 20px;
+  border: 5px dotted var(--primary);
+}
+.admin-buttons h3 {
+  padding-left: 0;
+}
