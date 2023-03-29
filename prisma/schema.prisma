@@ -87,6 +87,7 @@ model Competition {
   end              DateTime
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @default(now())
+  visible          Boolean   @default(true)
   competitionScore PlayerCompetitionScore[]
   leaderboardEntries LeaderboardEntry[]
 }

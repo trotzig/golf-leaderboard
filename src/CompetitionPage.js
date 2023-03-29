@@ -133,12 +133,10 @@ function getRounds(entry) {
 
 function RoundTotal({ score }) {
   const classes = ['round-score', 'round-total'];
-  if (score && score.Result.ToPar < 0) {
+  if (score && score.Score < score.Par) {
     classes.push('under-par');
   }
-  return (
-    <span className={classes.join(' ')}>{score && score.Result.Actual}</span>
-  );
+  return <span className={classes.join(' ')}>{score && score.Score}</span>;
 }
 
 function Round({ round, colors, now }) {
@@ -159,20 +157,20 @@ function Round({ round, colors, now }) {
           const score = round.HoleScores[holeKey];
           const toParClass = !score
             ? 'unknown'
-            : score.Result.ActualValue === 1
+            : score.Score.Value === 1
             ? 'hio'
-            : score.Result.ToParValue < -1
+            : score.Score.Value < score.Par - 1
             ? 'eagle'
-            : score.Result.ToParValue < 0
+            : score.Score.Value < score.Par
             ? 'birdie'
-            : score.Result.ToParValue > 1
+            : score.Score.Value > score.Par + 1
             ? 'bogey-plus'
-            : score.Result.ToParValue > 0
+            : score.Score.Value > score.Par
             ? 'bogey'
             : 'on-par';
           const result = [
             <span key={holeKey} className={`round-score ${toParClass}`}>
-              {score ? score.Result.ActualText : '-'}
+              {score ? score.Score.Value : '-'}
             </span>,
           ];
           if (i === 8) {
@@ -266,7 +264,12 @@ function Player({
           <span>
             {entry.FirstName} {entry.LastName}
             <br />
-            <span className="club">{entry.ClubName}</span>
+            <span className="club">
+              {entry.ClubName}
+              {process.env.NEXT_PUBLIC_SHOW_PHCP
+                ? ` — HCP ${entry.PHCP}`
+                : null}
+            </span>
           </span>
           {entry.ResultSum ? (
             <span
@@ -395,6 +398,7 @@ export default function CompetitionPage({
   initialTimesData,
   initialPlayersData,
   loadingOverride,
+  account,
   competition = {},
   now = new Date(),
   lazyItems = true,
@@ -543,6 +547,17 @@ export default function CompetitionPage({
         </div>
       ) : null}
       {loading && <LoadingSkeleton />}
+      {account && account.isAdmin ? (
+        <div className="admin-buttons">
+          <h3>Admin buttons</h3>
+          <form
+            method="POST"
+            action={`/api/admin/competitions/${competition.id}/hide`}
+          >
+            <button type="submit">Hide</button>
+          </form>
+        </div>
+      ) : null}
     </div>
   );
 }

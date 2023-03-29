@@ -707,8 +707,8 @@ footer {
 }
 .player-profile-top {
   display: grid;
-  grid-template-columns: 1fr 80px 80px;
-  column-gap: 10px;
+  grid-template-columns: 1fr auto auto auto;
+  column-gap: 20px;
   max-width: 600px;
   margin: 0 auto 20px;
 }
@@ -735,7 +735,9 @@ footer {
   font-weight: normal;
 }
 .player-profile-topar,
-.player-profile-position {
+.player-profile-position,
+.player-profile-phcp
+{
   text-align: right;
   font-size: 24px;
 }
@@ -1277,4 +1279,13 @@ input.ios-switch:checked:after {
   .presented-by-main svg {
     fill: #ffffff;
   }
+}
+
+.admin-buttons {
+  margin-top: 50px;
+  padding: 10px 10px 20px;
+  border: 5px dotted var(--primary);
+}
+.admin-buttons h3 {
+  padding-left: 0;
 }

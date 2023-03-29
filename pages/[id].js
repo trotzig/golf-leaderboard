@@ -47,7 +47,7 @@ export default function PlayerPage({ player, season: selectedSeason }) {
         </title>
         <meta
           name="description"
-          content={`${player.firstName} ${player.lastName} from ${player.clubName} is competing in the Nordic Golf Tour for men. Subscribe to updates from the player by adding ${player.firstName} as a favorite.`}
+          content={`${player.firstName} ${player.lastName} from ${player.clubName} is competing in ${process.env.NEXT_PUBLIC_INTRO_TITLE}. Subscribe to updates from the player by adding ${player.firstName} as a favorite.`}
         />
       </Head>
       <Menu activeHref="/players" />

@@ -87,7 +87,7 @@ async function fetchPlayers(competition) {
 
   // Piggy-back on the call to get players and add some data to the competition
   // object.
-  competition.venue = json.CompetitionData.Venue.Name;
+  competition.venue = json.CompetitionData.Venue && json.CompetitionData.Venue.Name;
 
   //console.log(json);
   //console.log('classes', json.Classes);
@@ -162,7 +162,7 @@ async function fetchAllPlayers(competitions, { full }) {
 async function fillOOM(players) {
   console.log('Filling OOM');
   const res = await nodeFetch(
-    'https://scores.golfbox.dk/Handlers/OrderOfMeritsHandler/GetOrderOfMerit/CustomerId/1/language/2057/OrderOfMeritID/185241/',
+    `https://scores.golfbox.dk/Handlers/OrderOfMeritsHandler/GetOrderOfMerit/CustomerId/${process.env.NEXT_PUBLIC_GOLFBOX_CUSTOMER_ID}/language/2057/OrderOfMeritID/${process.env.NEXT_PUBLIC_GOLFBOX_OOM_ID}/`,
   );
   if (!res.ok) {
     throw new Error('Failed to fetch oom', res.status, await res.text());

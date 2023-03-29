@@ -16,6 +16,11 @@ async function getCurrentCompetitionSlug() {
   if (candidates.length) {
     return candidates[candidates.length - 1].slug;
   }
+
+  const previous = competitions.find(c => now.getTime() > c.end.getTime());
+  if (previous) {
+    return previous.slug;
+  }
   return competitions[0].slug;
 }
 

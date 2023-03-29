@@ -20,7 +20,7 @@ export default function SchedulePage({ competitions }) {
         <title>Schedule</title>
         <meta
           name="description"
-          content="Full schedule for the 2022 season of MoreGolf Mastercard Tour."
+          content={`Full schedule for the 2023 season of ${process.env.NEXT_PUBLIC_INTRO_TITLE}.`}
         />
       </Head>
       <Menu activeHref="/schedule" />
@@ -75,7 +75,7 @@ function CompetitionItem({ competition, now, current }) {
 export async function getServerSideProps() {
   const competitions = await prisma.competition.findMany({
     orderBy: { end: 'asc' },
-    where: { start: { gte: startOfYear(new Date()) } },
+    where: { visible: true, start: { gte: startOfYear(new Date()) } },
     select: {
       id: true,
       name: true,

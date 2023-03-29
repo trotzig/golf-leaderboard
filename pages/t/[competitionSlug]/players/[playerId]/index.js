@@ -44,12 +44,10 @@ function getRounds(entry) {
 
 function RoundTotal({ score }) {
   const classes = ['round-score', 'round-total'];
-  if (score && score.Result.ToPar < 0) {
+  if (score && score.Score < score.Par) {
     classes.push('under-par');
   }
-  return (
-    <span className={classes.join(' ')}>{score && score.Result.Actual}</span>
-  );
+  return <span className={classes.join(' ')}>{score && score.Score}</span>;
 }
 
 function findPar(hole) {
@@ -94,20 +92,19 @@ function Round({ round, colors, courses, now }) {
         </div>
         {Object.keys(holes).map((holeKey, i) => {
           const hole = holes[holeKey];
-          const toParClass =
-            !hole || !hole.Result
-              ? 'unknown'
-              : hole.Result.ActualValue === 1
-              ? 'hio'
-              : hole.Result.ToParValue < -1
-              ? 'eagle'
-              : hole.Result.ToParValue < 0
-              ? 'birdie'
-              : hole.Result.ToParValue > 1
-              ? 'bogey-plus'
-              : hole.Result.ToParValue > 0
-              ? 'bogey'
-              : 'on-par';
+          const toParClass = !hole
+            ? 'unknown'
+            : hole.Score.Value === 1
+            ? 'hio'
+            : hole.Score.Value < hole.Par - 1
+            ? 'eagle'
+            : hole.Score.Value < hole.Par
+            ? 'birdie'
+            : hole.Score.Value > hole.Par + 1
+            ? 'bogey-plus'
+            : hole.Score.Value > hole.Par
+            ? 'bogey'
+            : 'on-par';
           return (
             <div
               key={holeKey}
@@ -122,9 +119,7 @@ function Round({ round, colors, courses, now }) {
               <div
                 className={`player-round-scorecard-val round-score ${toParClass}`}
               >
-                {hole && hole.Result
-                  ? hole.Result.ActualText || hole.Result.Actual
-                  : '-'}
+                {hole && hole.Score ? hole.Score.Value || hole.Score : '-'}
               </div>
             </div>
           );
@@ -189,6 +184,14 @@ export default function CompetitionPlayer({
                       {roundPlayer.Position && roundPlayer.Position.Calculated}
                     </span>
                   </span>
+                  {process.env.NEXT_PUBLIC_SHOW_PHCP && (
+                    <span className="player-profile-phcp">
+                      <b>HCP</b>
+                      <span>
+                        {roundPlayer.PHCP}
+                      </span>
+                    </span>
+                  )}
                   <span
                     className={`player-profile-topar${
                       roundPlayer.ResultSum.ToParValue < 0 ? ' under-par' : ''

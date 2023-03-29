@@ -141,7 +141,7 @@ export default function PlayersPage({ account }) {
         <title>Players</title>
         <meta
           name="description"
-          content="Find your favorite players in the Nordic Golf Tour for men."
+          content={`Find your favorite players in ${process.env.NEXT_PUBLIC_INTRO_TITLE}`}
         />
       </Head>
       <Menu activeHref="/players" />
