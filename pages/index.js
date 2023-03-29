@@ -40,7 +40,7 @@ ${process.env.NEXT_PUBLIC_INTRO}. Follow your favorite players and get the lates
       <div className="competitions">
         <h2>{process.env.NEXT_PUBLIC_INTRO_TITLE}</h2>
         <p className="page-desc">
-          {process.env.NEXT_PUBLIC_INTRO}. Follow your{' '}
+          {process.env.NEXT_PUBLIC_INTRO} Follow your{' '}
           <Link href="/players">
             <a>favorite players</a>
           </Link>{' '}
@@ -127,7 +127,6 @@ function CompetitionListItem({ competition, now, current }) {
     </li>
   );
 }
-
 
 export async function getServerSideProps() {
   const competitions = await prisma.competition.findMany({
