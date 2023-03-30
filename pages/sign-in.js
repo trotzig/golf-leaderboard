@@ -9,7 +9,7 @@ export default function SignInPage({ account }) {
   return (
     <div className="sign-in">
       <Menu />
-      <h2>Sign in to nordicgolftour.app</h2>
+      <h2>Sign in</h2>
       <div className="sign-in-main page-margin">
         {account ? (
           <div>

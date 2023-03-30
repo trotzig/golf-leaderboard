@@ -237,7 +237,7 @@ See the result from ${firstName} and others in the full leaderboard here:
 ${BASE_URL}/t/${competitionSlug}
 
 -------------------
-This email was sent via nordicgolftour.app. To stop getting these emails,
+This email was sent via ${MAILGUN_DOMAIN}. To stop getting these emails,
 unsubscribe using this link: ${BASE_URL}/api/unsubscribe?token=${account.authToken}
     `.trim();
 

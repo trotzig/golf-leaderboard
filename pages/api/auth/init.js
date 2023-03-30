@@ -1,7 +1,7 @@
 import { sendMail } from '../../../src/mailgun';
 import prisma from '../../../src/prisma';
 
-const { BASE_URL = 'https://nordicgolftour.app' } = process.env;
+const { BASE_URL = 'https://nordicgolftour.app', MAILGUN_DOMAIN } = process.env;
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -18,13 +18,13 @@ export default async function handler(req, res) {
   });
 
   await sendMail({
-    subject: `Enter ${token} to sign in to nordicgolftour.app`,
+    subject: `Enter ${token} to sign in to ${MAILGUN_DOMAIN}`,
     text: `
-Enter this code to continue signing in to nordicgolftour.app
+Enter this code to continue signing in to ${MAILGUN_DOMAIN}
 ${token}
 
 -------------------
-This email was sent via nordicgolftour.app. If you didn't initiate a sign-in, it's safe to ignore this message.
+This email was sent via ${MAILGUN_DOMAIN}. If you didn't initiate a sign-in, it's safe to ignore this message.
     `.trim(),
     to: email,
   });
