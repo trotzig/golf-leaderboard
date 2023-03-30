@@ -89,7 +89,7 @@ export default function OrderOfMeritPage() {
 
   const description =
     data && data.OrderOfMeritData
-      ? `Current standings in the ${data.OrderOfMeritData.Name} order of merit`
+      ? `Current standings in the ${data.OrderOfMeritData.Name} order of merit.`
       : undefined;
   const entries = data && getEntries(data);
   const favorites = entries && entries.filter(e => e.isFavorite);
