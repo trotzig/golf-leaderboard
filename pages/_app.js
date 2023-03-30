@@ -38,11 +38,6 @@ function MyApp({ Component, pageProps }) {
         ) : null}
       </Head>
       <Script src="https://hosted.okayanalytics.com/tracker.js?tid=OA-8Z056CCN" />
-      <Script
-        async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3939494656554168"
-        crossorigin="anonymous"
-      />
       <div className="blurry-background" />
       <main>
         <Component {...pageProps} />

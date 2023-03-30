@@ -377,22 +377,6 @@ function MatchPlay({ entries, now }) {
   );
 }
 
-function GoogleAd({}) {
-  useEffect(() => {
-    (window.adsbygoogle = window.adsbygoogle || []).push({});
-  }, []);
-  return (
-    <ins
-      className="adsbygoogle"
-      style={{ display: 'block' }}
-      data-ad-client="ca-pub-3939494656554168"
-      data-ad-slot="3926495463"
-      data-ad-format="auto"
-      data-full-width-responsive="true"
-    />
-  );
-}
-
 export default function CompetitionPage({
   initialData,
   initialTimesData,
