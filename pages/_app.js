@@ -37,7 +37,9 @@ function MyApp({ Component, pageProps }) {
           <link rel="stylesheet" href={process.env.NEXT_PUBLIC_EXTRA_CSS} />
         ) : null}
       </Head>
-      <Script src="https://hosted.okayanalytics.com/tracker.js?tid=OA-8Z056CCN" />
+      <Script
+        src={`https://hosted.okayanalytics.com/tracker.js?tid=${process.env.NEXT_PUBLIC_OKAY_ANALYTICS_TRACKER_ID}`}
+      />
       <div className="blurry-background" />
       <main>
         <Component {...pageProps} />
