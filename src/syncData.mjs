@@ -18,6 +18,9 @@ async function fetchVenue(competition) {
     );
   }
   const json = parseJson(await res.text());
+  if (!json.CompetitionData.Venue) {
+    return undefined;
+  }
   return json.CompetitionData.Venue.Name;
 }
 
