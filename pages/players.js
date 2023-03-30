@@ -100,10 +100,15 @@ export default function PlayersPage({ account }) {
           return true;
         }
         const lowerFilter = filter.toLowerCase();
+        const fName = p.firstName.toLowerCase();
+        const lName = p.lastName.toLowerCase();
         return (
-          p.firstName.toLowerCase().includes(lowerFilter) ||
-          p.lastName.toLowerCase().includes(lowerFilter) ||
-          p.clubName.toLowerCase().includes(lowerFilter)
+          fName.includes(lowerFilter) ||
+          lName.includes(lowerFilter) ||
+          p.clubName.toLowerCase().includes(lowerFilter) ||
+          lowerFilter
+            .split(' ')
+            .every(t => fName.includes(t) || lName.includes(t))
         );
       }),
     );
