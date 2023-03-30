@@ -87,23 +87,21 @@ export default function OrderOfMeritPage() {
     setLastFavoriteChanged(new Date());
   }
 
+  const description =
+    data && data.OrderOfMeritData
+      ? `Current standings in the ${data.OrderOfMeritData.Name} order of merit`
+      : undefined;
   const entries = data && getEntries(data);
   const favorites = entries && entries.filter(e => e.isFavorite);
   return (
     <div className="leaderboard-page oom">
       <Head>
         <title>Order of merit</title>
-        <meta
-          name="description"
-          content="See the current standings in the Golfbox Road to Europe 2023 order of merit."
-        />
+        <meta name="description" content={description || 'Order of merit'} />
       </Head>
       <Menu activeHref="/oom" />
       <h2>Order of merit</h2>
-      <p className="page-desc">
-        Showing current standings in the Golfbox Road to Europe 2023 order of
-        merit.
-      </p>
+      <p className="page-desc">{description}</p>
       {data ? (
         <>
           {favorites.length > 0 ? (
