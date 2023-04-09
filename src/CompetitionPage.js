@@ -136,7 +136,11 @@ function RoundTotal({ score }) {
   if (score && score.Score < score.Par) {
     classes.push('under-par');
   }
-  return <span className={classes.join(' ')}>{score && score.Score}</span>;
+  return (
+    <span className={classes.join(' ')}>
+      {score && score.Score > 0 ? score.Score : null}
+    </span>
+  );
 }
 
 function Round({ round, colors, now }) {
