@@ -296,7 +296,8 @@ export default async function notifySubscribers() {
   const today = startOfDay(new Date());
   for (const competition of competitions) {
     if (TEST_COMPETITION_ID !== `${competition.id}`) {
-      if (today < competition.start) {
+      console.log(today, competition.start);
+      if (today.getTime() + 60 * 60 * 1000 < competition.start) {
         console.log(
           `Competition ${competition.name} (${competition.id}) hasn't started yet`,
         );
