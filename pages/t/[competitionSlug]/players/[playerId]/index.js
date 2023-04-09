@@ -42,14 +42,6 @@ function getRounds(entry) {
   return roundKeys.map(key => entry.Rounds[key]).reverse();
 }
 
-function RoundTotal({ score }) {
-  const classes = ['round-score', 'round-total'];
-  if (score && score.Score < score.Par) {
-    classes.push('under-par');
-  }
-  return <span className={classes.join(' ')}>{score && score.Score}</span>;
-}
-
 function findPar(hole) {
   if (hole.Par) {
     return hole.Par;
@@ -92,19 +84,23 @@ function Round({ round, colors, courses, now }) {
         </div>
         {Object.keys(holes).map((holeKey, i) => {
           const hole = holes[holeKey];
-          const toParClass = !hole
-            ? 'unknown'
-            : hole.Score.Value === 1
-            ? 'hio'
-            : hole.Score.Value < hole.Par - 1
-            ? 'eagle'
-            : hole.Score.Value < hole.Par
-            ? 'birdie'
-            : hole.Score.Value > hole.Par + 1
-            ? 'bogey-plus'
-            : hole.Score.Value > hole.Par
-            ? 'bogey'
-            : 'on-par';
+          const toParClass =
+            !hole || !hole.Score
+              ? 'unknown'
+              : hole.Score.Value === 1
+              ? 'hio'
+              : hole.Score.Value < hole.Par - 1
+              ? 'eagle'
+              : hole.Score.Value < hole.Par
+              ? 'birdie'
+              : hole.Score.Value > hole.Par + 1
+              ? 'bogey-plus'
+              : hole.Score.Value > hole.Par
+              ? 'bogey'
+              : 'on-par';
+
+          const value =
+            hole && hole.Score ? hole.Score.Value || hole.Score : '-';
           return (
             <div
               key={holeKey}
@@ -119,7 +115,7 @@ function Round({ round, colors, courses, now }) {
               <div
                 className={`player-round-scorecard-val round-score ${toParClass}`}
               >
-                {hole && hole.Score ? hole.Score.Value || hole.Score : '-'}
+                {value > 0 || typeof value === 'string' ? value : null}
               </div>
             </div>
           );
@@ -187,9 +183,7 @@ export default function CompetitionPlayer({
                   {process.env.NEXT_PUBLIC_SHOW_PHCP && (
                     <span className="player-profile-phcp">
                       <b>HCP</b>
-                      <span>
-                        {roundPlayer.PHCP}
-                      </span>
+                      <span>{roundPlayer.PHCP}</span>
                     </span>
                   )}
                   <span
