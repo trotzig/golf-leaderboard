@@ -297,15 +297,15 @@ export default async function notifySubscribers() {
   for (const competition of competitions) {
     if (TEST_COMPETITION_ID !== `${competition.id}`) {
       if (today.getTime() + 60 * 60 * 1000 < competition.start) {
-        console.log(
-          `Competition ${competition.name} (${competition.id}) hasn't started yet`,
-        );
+        // console.log(
+        //   `Competition ${competition.name} (${competition.id}) hasn't started yet`,
+        // );
         continue;
       }
       if (today.getTime() - 24 * 60 * 60 * 1000 > competition.end.getTime()) {
-        console.log(
-          `Competition ${competition.name} (${competition.id}) is already over`,
-        );
+        // console.log(
+        //   `Competition ${competition.name} (${competition.id}) is already over`,
+        // );
         continue;
       }
     }
