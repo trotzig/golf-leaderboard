@@ -38,7 +38,7 @@ export default function competitionDateString(
 
   let suffix = '';
 
-  if (start <= now && now <= end) {
+  if (start - 60 * 60 * 1000 <= now && now <= end) {
     // Currently active
     suffix = ` — Playing round ${
       differenceInDays(now, start) + 1
