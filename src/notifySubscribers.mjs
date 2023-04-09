@@ -9,7 +9,7 @@ import generateSlug from './generateSlug.mjs';
 import parseJson from '../scripts/utils/parseJson.mjs';
 import prisma from './prisma.mjs';
 
-const { BASE_URL, TEST_COMPETITION_ID } = process.env;
+const { BASE_URL, TEST_COMPETITION_ID, MAILGUN_DOMAIN } = process.env;
 
 function getHole(entry) {
   if (!entry.Rounds) {
