@@ -20,9 +20,9 @@ export default function PlayerScoreEmbedPage({ player, competition }) {
   );
 
   let playerScore = JSON.parse(
-    typeof window !== 'undefined'
-      ? window.localStorage.getItem(`pemb-score-${competition.id}`)
-      : '{}',
+    (typeof window !== 'undefined' &&
+      window.localStorage.getItem(`pemb-score-${competition.id}`)) ||
+      '{}',
   );
   if (data) {
     const entry = Object.values(
