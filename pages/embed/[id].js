@@ -47,7 +47,7 @@ export default function PlayerScoreEmbedPage({ player, competition }) {
         <style>{`
           footer { display: none !important; }
           main { min-height: auto !important; }
-          body { overflow-y: auto !important; background: none !important; }
+          body { padding: 0 !important; overflow-y: auto !important; background: none !important; }
         `}</style>
       </Head>
       <a className="pemb-box" href="/leaderboard" target="_blank">
