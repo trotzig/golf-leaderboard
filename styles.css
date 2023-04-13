@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Karla&display=swap');
 
-:root {
+:root,
+.pemb-page {
   --primary: #e54e37;
   --primary-light: #f4c7c1;
   --primary-lightest: #ffe6e2;
@@ -1302,4 +1303,54 @@ input.ios-switch:checked:after {
 }
 .admin-buttons h3 {
   padding-left: 0;
+}
+
+.pemb-box {
+  margin: 5px;
+  padding: 10px;
+  max-width: 400px;
+  display: block;
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.pemb-intro {
+  font-size: 12px;
+  opacity: 0.7;
+}
+.pemb-box h1 {
+  margin: 8px 0 4px;
+  font-size: 18px;
+}
+.pemb-date {
+  font-size: 12px;
+  opacity: 0.7;
+}
+.pemb-player {
+  display: grid;
+  grid-template-columns: 30px 1fr 40px;
+  gap: 7px;
+  margin-top: 15px;
+}
+
+.pemb-player-club {
+  opacity: 0.5;
+  font-size: 12px;
+  margin: 3px 0 5px;
+}
+.pemb-player-name {
+  font-size: 18px;
+}
+.pemb-player-position {
+  font-size: 18px;
+}
+.pemb-player-score {
+  font-size: 18px;
+  text-align: right;
+}
+.pemb-player-score.under-par {
+  color: var(--primary);
+}
+body .pemb-page {
+  color: var(--text);
 }
