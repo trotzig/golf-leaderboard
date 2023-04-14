@@ -50,9 +50,9 @@ export default function PlayerScoreEmbedPage({ player, competition }) {
       <a className="pemb-box" href="/leaderboard" target="_blank">
         <div className="pemb-intro">
           Live score via{' '}
-          <a href="/leaderboard" target="_blank">
+          <span className="pemb-fake-link">
             {process.env.NEXT_PUBLIC_TITLE}
-          </a>
+          </span>
         </div>
         <h1>{competition.name}</h1>
         <div className="pemb-date">{competitionDateString(competition)}</div>

@@ -1331,6 +1331,10 @@ input.ios-switch:checked:after {
   gap: 7px;
   margin-top: 15px;
 }
+.pemb-fake-link {
+  text-decoration: underline;
+  color: var(--primary);
+}
 
 .pemb-player-club {
   opacity: 0.5;
