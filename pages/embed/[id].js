@@ -19,9 +19,11 @@ export default function PlayerScoreEmbedPage({ player, competition }) {
     `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057/`,
   );
 
+  const cacheKey = `pemb-score-${competition.id}-${player.id}`;
+
   let playerScore = JSON.parse(
     (typeof window !== 'undefined' &&
-      window.localStorage.getItem(`pemb-score-${competition.id}`)) ||
+      window.localStorage.getItem(cacheKey)) ||
       '{}',
   );
   if (data) {
@@ -34,7 +36,7 @@ export default function PlayerScoreEmbedPage({ player, competition }) {
       today: entry.ScoringToPar.HoleText,
     };
     window.localStorage.setItem(
-      `pemb-score-${competition.id}`,
+      cacheKey,
       JSON.stringify(playerScore),
     );
   }
