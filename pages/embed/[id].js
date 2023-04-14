@@ -24,11 +24,15 @@ export default function PlayerScoreEmbedPage({ player, competition }) {
     const entry = Object.values(
       Object.values(data.Classes)[0].Leaderboard.Entries,
     ).find(entry => entry.MemberID === player.id);
-    playerScore = {
-      position: entry.Position.Calculated,
-      score: entry.ResultSum.ToParText,
-      today: entry.ScoringToPar.HoleText,
-    };
+    if (entry) {
+      playerScore = {
+        position: entry.Position.Calculated,
+        score: entry.ResultSum.ToParText,
+        today: entry.ScoringToPar.HoleText,
+      };
+    } else {
+      playerScore = {};
+    }
     window.localStorage.setItem(
       cacheKey,
       JSON.stringify(playerScore),
