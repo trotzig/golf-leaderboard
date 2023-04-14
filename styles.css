@@ -1320,6 +1320,9 @@ input.ios-switch:checked:after {
 .pemb-box h1 {
   margin: 8px 0 4px;
   font-size: 18px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .pemb-date {
   font-size: 12px;
