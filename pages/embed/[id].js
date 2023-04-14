@@ -1,43 +1,13 @@
 import Head from 'next/head';
 import React from 'react';
 
-import { useJsonPData } from '../../src/fetchJsonP.js';
 import competitionDateString from '../../src/competitionDateString.js';
 import ensureDates from '../../src/ensureDates.js';
-import getCurrentCompetition from '../../src/getCurrentCompetition.js';
 import prisma from '../../src/prisma';
 
-export default function PlayerScoreEmbedPage({ player, competition }) {
+export default function PlayerScoreEmbedPage({ player }) {
+  const competition = player.leaderboardEntry.competition;
   ensureDates(competition);
-  const data = useJsonPData(
-    `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057/`,
-  );
-
-  const cacheKey = `pemb-score-${competition.id}-${player.id}`;
-
-  let playerScore = JSON.parse(
-    (typeof window !== 'undefined' &&
-      window.localStorage.getItem(cacheKey)) ||
-      '{}',
-  );
-  if (data) {
-    const entry = Object.values(
-      Object.values(data.Classes)[0].Leaderboard.Entries,
-    ).find(entry => entry.MemberID === player.id);
-    if (entry) {
-      playerScore = {
-        position: entry.Position.Calculated,
-        score: entry.ResultSum.ToParText,
-        today: entry.ScoringToPar.HoleText,
-      };
-    } else {
-      playerScore = {};
-    }
-    window.localStorage.setItem(
-      cacheKey,
-      JSON.stringify(playerScore),
-    );
-  }
 
   return (
     <div className="pemb-page">
@@ -61,7 +31,9 @@ export default function PlayerScoreEmbedPage({ player, competition }) {
         <h1>{competition.name}</h1>
         <div className="pemb-date">{competitionDateString(competition)}</div>
         <div className="pemb-player">
-          <div className="pemb-player-position">{playerScore.position}</div>
+          <div className="pemb-player-position">
+            {player.leaderboardEntry.positionText}
+          </div>
           <div>
             <div className="pemb-player-name">
               {player.firstName} {player.lastName}
@@ -71,12 +43,16 @@ export default function PlayerScoreEmbedPage({ player, competition }) {
           <div className="pemb-player-right">
             <div
               className={`pemb-player-score ${
-                (playerScore.score || '').startsWith('-') ? 'under-par' : ''
+                (player.leaderboardEntry.scoreText || '').startsWith('-')
+                  ? 'under-par'
+                  : ''
               }`}
             >
-              {playerScore.score}
+              {player.leaderboardEntry.scoreText}
             </div>
-            <div className="pemb-player-score-today">{playerScore.today}</div>
+            <div className="pemb-player-score-today">
+              {player.leaderboardEntry.hole}
+            </div>
           </div>
         </div>
       </a>
@@ -94,16 +70,47 @@ export async function getServerSideProps({ params }) {
       lastName: true,
       clubName: true,
       oomPosition: true,
+      leaderBoardEntries: {
+        orderBy: {
+          competition: {
+            start: 'desc',
+          },
+        },
+        take: 1,
+        select: {
+          positionText: true,
+          competitionId: true,
+          scoreText: true,
+          hole: true,
+          competition: {
+            select: {
+              id: true,
+              name: true,
+              venue: true,
+              start: true,
+              end: true,
+              slug: true,
+            },
+          },
+        },
+      },
     },
   });
   if (!player) {
     return { notFound: true };
   }
-  const competition = await getCurrentCompetition();
 
-  competition.start = competition.start.getTime();
-  competition.end = competition.end.getTime();
+  player.leaderboardEntry = player.leaderBoardEntries[0];
+  delete player.leaderBoardEntries;
+
+  if (!player.leaderboardEntry) {
+    return { notFound: true };
+  }
+  player.leaderboardEntry.competition.end =
+    player.leaderboardEntry.competition.end.getTime();
+  player.leaderboardEntry.competition.start =
+    player.leaderboardEntry.competition.start.getTime();
   return {
-    props: { player, competition },
+    props: { player },
   };
 }

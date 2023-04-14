@@ -102,29 +102,27 @@ async function fetchResults(competition) {
       );
       continue;
     }
-    if (entry.Position.Actual < 10) {
-      const hole = getHole(entry);
-      const attrs = {
-        playerId: entry.MemberID,
-        competitionId: competition.id,
-        positionText: entry.Position.Calculated,
-        position: entry.Position.Actual,
-        scoreText: entry.ScoringToPar.ToParText,
-        score: entry.ScoringToPar.ToParValue,
-        hole,
-        updatedAt: new Date(),
-      };
-      await prisma.leaderboardEntry.upsert({
-        where: {
-          competitionId_position: {
-            competitionId: competition.id,
-            position: entry.Position.Actual,
-          },
+    const hole = getHole(entry);
+    const entryAttrs = {
+      playerId: entry.MemberID,
+      competitionId: competition.id,
+      positionText: entry.Position.Calculated,
+      position: entry.Position.Actual,
+      scoreText: entry.ScoringToPar.ToParText,
+      score: entry.ScoringToPar.ToParValue,
+      hole,
+      updatedAt: new Date(),
+    };
+    await prisma.leaderboardEntry.upsert({
+      where: {
+        competitionId_position: {
+          competitionId: competition.id,
+          position: entry.Position.Actual,
         },
-        update: attrs,
-        create: attrs,
-      });
-    }
+      },
+      update: entryAttrs,
+      create: entryAttrs,
+    });
     if (!entry.Rounds) {
       continue;
     }
