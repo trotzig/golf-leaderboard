@@ -56,7 +56,7 @@ export default function PlayerScoreEmbedPage({ player, competition }) {
       <a className="pemb-box" href="/leaderboard" target="_blank">
         <div className="pemb-intro">
           Live score via{' '}
-          <a href="/blank" target="_blank">
+          <a href="/leaderboard" target="_blank">
             {process.env.NEXT_PUBLIC_TITLE}
           </a>
         </div>
