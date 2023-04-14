@@ -1350,6 +1350,12 @@ input.ios-switch:checked:after {
 .pemb-player-score.under-par {
   color: var(--primary);
 }
+.pemb-player-score-today {
+  text-align: right;
+  opacity: 0.5;
+  font-size: 12px;
+  margin: 3px 0 5px;
+}
 body .pemb-page {
   color: var(--text);
 }

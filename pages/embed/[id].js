@@ -31,6 +31,7 @@ export default function PlayerScoreEmbedPage({ player, competition }) {
     playerScore = {
       position: entry.Position.Calculated,
       score: entry.ResultSum.ToParText,
+      today: entry.ScoringToPar.HoleText,
     };
     window.localStorage.setItem(
       `pemb-score-${competition.id}`,
@@ -67,12 +68,15 @@ export default function PlayerScoreEmbedPage({ player, competition }) {
             </div>
             <div className="pemb-player-club">{player.clubName}</div>
           </div>
-          <div
-            className={`pemb-player-score ${
-              (playerScore.score || '').startsWith('-') ? 'under-par' : ''
-            }`}
-          >
-            {playerScore.score}
+          <div className="pemb-player-right">
+            <div
+              className={`pemb-player-score ${
+                (playerScore.score || '').startsWith('-') ? 'under-par' : ''
+              }`}
+            >
+              {playerScore.score}
+            </div>
+            <div className="pemb-player-score-today">{playerScore.today}</div>
           </div>
         </div>
       </a>
