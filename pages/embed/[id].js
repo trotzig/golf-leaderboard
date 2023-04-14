@@ -1,19 +1,13 @@
-import { useRouter } from 'next/router';
 import Head from 'next/head';
-import Link from 'next/link';
 import React from 'react';
 
 import { useJsonPData } from '../../src/fetchJsonP.js';
 import competitionDateString from '../../src/competitionDateString.js';
 import ensureDates from '../../src/ensureDates.js';
 import getCurrentCompetition from '../../src/getCurrentCompetition.js';
-import ordinal from '../../src/ordinal.js';
 import prisma from '../../src/prisma';
 
 export default function PlayerScoreEmbedPage({ player, competition }) {
-  const router = useRouter();
-  const { id } = router.query;
-
   ensureDates(competition);
   const data = useJsonPData(
     `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057/`,
