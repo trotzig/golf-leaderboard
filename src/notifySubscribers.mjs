@@ -92,6 +92,7 @@ async function fetchResults(competition) {
   const finished = [];
   const started = [];
   const hotStreakers = [];
+  const leaderboardEntries = [];
   const allPlayerIds = new Set(
     (await prisma.player.findMany({ select: { id: true } })).map(p => p.id),
   );
@@ -103,7 +104,7 @@ async function fetchResults(competition) {
       continue;
     }
     const hole = getHole(entry);
-    const entryAttrs = {
+    leaderboardEntries.push({
       playerId: entry.MemberID,
       competitionId: competition.id,
       positionText: entry.Position.Calculated,
@@ -112,26 +113,7 @@ async function fetchResults(competition) {
       score: entry.ScoringToPar.ToParValue,
       hole,
       updatedAt: new Date(),
-    };
-    prisma.leaderboardEntry
-      .upsert({
-        where: {
-          competitionId_position: {
-            competitionId: competition.id,
-            position: entry.Position.Actual,
-          },
-        },
-        update: entryAttrs,
-        create: entryAttrs,
-      })
-      .catch(e => {
-        console.error(
-          `Failed to update leaderboard entry for ${JSON.stringify(
-            entryAttrs,
-          )}`,
-        );
-        console.error(e);
-      });
+    });
     if (!entry.Rounds) {
       continue;
     }
@@ -162,7 +144,7 @@ async function fetchResults(competition) {
       hotStreakers.push(attrs);
     }
   }
-  return { finished, started, hotStreakers };
+  return { finished, started, hotStreakers, leaderboardEntries };
 }
 
 function fixTotalScore(score) {
@@ -297,6 +279,15 @@ ${footer}
   }
 }
 
+async function upsertLeaderboard(competitionId, entries) {
+  await prisma.$transaction([
+    prisma.leaderboardEntry.deleteMany({ where: { competitionId } }),
+    prisma.leaderboardEntry.createMany({
+      data: entries,
+    }),
+  ]);
+}
+
 export default async function notifySubscribers() {
   const start = Date.now();
   const competitions = await fetchCompetitions();
@@ -317,7 +308,9 @@ export default async function notifySubscribers() {
       }
     }
     console.log(`Processing ${competition.name}...`);
-    const { finished, started, hotStreakers } = await fetchResults(competition);
+    const { finished, started, hotStreakers, leaderboardEntries } =
+      await fetchResults(competition);
+    await upsertLeaderboard(competition.id, leaderboardEntries);
     for (const result of started) {
       await sendEmail(result, 'started');
     }
