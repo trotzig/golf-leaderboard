@@ -113,16 +113,25 @@ async function fetchResults(competition) {
       hole,
       updatedAt: new Date(),
     };
-    await prisma.leaderboardEntry.upsert({
-      where: {
-        competitionId_position: {
-          competitionId: competition.id,
-          position: entry.Position.Actual,
+    prisma.leaderboardEntry
+      .upsert({
+        where: {
+          competitionId_position: {
+            competitionId: competition.id,
+            position: entry.Position.Actual,
+          },
         },
-      },
-      update: entryAttrs,
-      create: entryAttrs,
-    });
+        update: entryAttrs,
+        create: entryAttrs,
+      })
+      .catch(e => {
+        console.error(
+          `Failed to update leaderboard entry for ${JSON.stringify(
+            entryAttrs,
+          )}`,
+        );
+        console.error(e);
+      });
     if (!entry.Rounds) {
       continue;
     }
