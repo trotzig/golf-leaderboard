@@ -6,6 +6,17 @@ import generateSlug from './generateSlug.mjs';
 import parseJson from '../scripts/utils/parseJson.mjs';
 import prisma from './prisma.mjs';
 
+async function promiseAllInBatches(task, items, batchSize = 10) {
+  let position = 0;
+  let results = [];
+  while (position < items.length) {
+    const itemsForBatch = items.slice(position, position + batchSize);
+    results.push(...(await Promise.all(itemsForBatch.map(item => task(item)))));
+    position += batchSize;
+  }
+  return results;
+}
+
 async function fetchVenue(competition) {
   const res = await nodeFetch(
     `https://scores.golfbox.dk/Handlers/CompetitionHandler/GetCompetition/CompetitionId/${competition.id}/language/2057/`,
@@ -90,7 +101,8 @@ async function fetchPlayers(competition) {
 
   // Piggy-back on the call to get players and add some data to the competition
   // object.
-  competition.venue = json.CompetitionData.Venue && json.CompetitionData.Venue.Name;
+  competition.venue =
+    json.CompetitionData.Venue && json.CompetitionData.Venue.Name;
 
   //console.log(json);
   //console.log('classes', json.Classes);
@@ -270,6 +282,7 @@ export default async function syncData({ full = true } = {}) {
   console.log(`Created ${scoresRes.count} scores`);
 
   const allPlayers = await prisma.player.findMany();
+  const batchItems = [];
   for (const player of allPlayers) {
     const newPlayer = playersData.find(p => p.id === player.id);
     if (!newPlayer) continue;
@@ -280,24 +293,28 @@ export default async function syncData({ full = true } = {}) {
       newPlayer.clubName !== player.clubName ||
       newPlayer.slug !== player.slug
     ) {
-      console.log(
-        `Updating ${newPlayer.firstName} ${newPlayer.lastName} with id ${newPlayer.id}`,
-      );
-      try {
-        await prisma.player.update({
-          where: { id: player.id },
-          data: { ...newPlayer, updatedAt: new Date() },
-        });
-      } catch (e) {
-        if (/failed on.+slug/.test(e.message)) {
-          await prisma.player.update({
-            where: { slug: newPlayer.slug },
-            data: { ...newPlayer, updatedAt: new Date(), id: undefined },
-          });
-        }
-      }
+      batchItems.push(newPlayer);
     }
   }
+
+  await promiseAllInBatches(async newPlayer => {
+    console.log(
+      `Updating ${newPlayer.firstName} ${newPlayer.lastName} with id ${newPlayer.id}`,
+    );
+    try {
+      await prisma.player.update({
+        where: { id: newPlayer.id },
+        data: { ...newPlayer, updatedAt: new Date() },
+      });
+    } catch (e) {
+      if (/failed on.+slug/.test(e.message)) {
+        await prisma.player.update({
+          where: { slug: newPlayer.slug },
+          data: { ...newPlayer, updatedAt: new Date(), id: undefined },
+        });
+      }
+    }
+  }, batchItems);
 
   const allCompetitions = await prisma.competition.findMany();
   for (const competition of allCompetitions) {
