@@ -3,9 +3,9 @@ import { startOfDay } from 'date-fns';
 import nodeFetch from 'node-fetch';
 
 import { sendMail } from './mailgun.mjs';
-import fetchCompetitions from '../scripts/utils/fetchCompetitions.mjs';
 import fixParValue from './fixParValue.mjs';
 import generateSlug from './generateSlug.mjs';
+import getCurrentCompetition from './getCurrentCompetition.mjs';
 import parseJson from '../scripts/utils/parseJson.mjs';
 import prisma from './prisma.mjs';
 
@@ -290,7 +290,7 @@ async function upsertLeaderboard(competitionId, entries) {
 
 export default async function notifySubscribers() {
   const start = Date.now();
-  const competitions = await fetchCompetitions();
+  const competitions = [await getCurrentCompetition()];
   const today = startOfDay(new Date());
   for (const competition of competitions) {
     if (TEST_COMPETITION_ID !== `${competition.id}`) {
@@ -300,7 +300,7 @@ export default async function notifySubscribers() {
         // );
         continue;
       }
-      if (today.getTime() - 24 * 60 * 60 * 1000 > competition.end.getTime()) {
+      if (today.getTime() - 24 * 60 * 60 * 1000 > competition.end) {
         // console.log(
         //   `Competition ${competition.name} (${competition.id}) is already over`,
         // );
