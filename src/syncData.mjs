@@ -249,7 +249,12 @@ export default async function syncData({ full = true } = {}) {
   console.log(`Created ${compRes.count} competititons`);
 
   for (const comp of competitions) {
-    await prisma.competition.update({ data: comp, where: { id: comp.id } });
+    try {
+      await prisma.competition.update({ data: comp, where: { id: comp.id } });
+    } catch (e) {
+      console.warn('Failed to update competition', comp);
+      console.warn(e);
+    }
   }
   console.log(`Updated ${competitions.length} competititons`);
 
