@@ -40,6 +40,11 @@ function MyApp({ Component, pageProps }) {
       <Script
         src={`https://hosted.okayanalytics.com/tracker.js?tid=${process.env.NEXT_PUBLIC_OKAY_ANALYTICS_TRACKER_ID}`}
       />
+      <Script
+        defer
+        data-domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN || 'nordicgolftour.app'}
+        src="https://plausible.io/js/script.js"
+      />
       <div className="blurry-background" />
       <main>
         <Component {...pageProps} />
