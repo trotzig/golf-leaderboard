@@ -403,6 +403,10 @@ function getFinishedResult(data) {
     return;
   }
 
+  if (!cs.StatusText) {
+    return;
+  }
+
   return cs.StatusText;
 }
 
