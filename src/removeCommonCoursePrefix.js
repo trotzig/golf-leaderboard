@@ -17,5 +17,10 @@ export default function removeCommonCoursePrefix(courses, courseName) {
     return i;
   })();
 
+  if (courseName.length - lastMatch < 5) {
+    // solve case "Sand Valley Golf Resort (Par 70)" vs "Sand Valley Golf Resort (Par 71)"
+    return courseName;
+  }
+
   return courseName.slice(lastMatch);
 }
