@@ -381,6 +381,31 @@ function MatchPlay({ entries, now }) {
   );
 }
 
+function getFinishedResult(data) {
+  if (!data) {
+    return;
+  }
+  if (!data.CompetitionData) {
+    return;
+  }
+
+  const lss = data.CompetitionData.LivescoringSettings;
+  if (!lss) {
+    return;
+  }
+
+  const cs = lss.ClassSettings[0];
+  if (!cs) {
+    return;
+  }
+
+  if (cs.StatusType !== 4) {
+    return;
+  }
+
+  return cs.StatusText;
+}
+
 export default function CompetitionPage({
   initialData,
   initialTimesData,
@@ -411,6 +436,7 @@ export default function CompetitionPage({
     setLastFavoriteChanged(new Date());
   }
 
+  const finishedResult = getFinishedResult(data);
   const entries =
     data && timesData && playersData
       ? getEntries(data, timesData, playersData)
@@ -482,6 +508,12 @@ export default function CompetitionPage({
             : "This competition hasn't started yet. Come back here later to see tee times and an updated leaderboard."}
         </p>
       )}
+
+      {finishedResult ? (
+        <div className="page-margin alert">
+          {finishedResult}
+        </div>
+      ) : null}
       {entries && isMatchPlay ? (
         <MatchPlay entries={entries} now={now} />
       ) : entries ? (
