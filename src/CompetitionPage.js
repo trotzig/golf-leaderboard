@@ -5,11 +5,9 @@ import React, { useEffect, useState } from 'react';
 
 import { useJsonPData } from './fetchJsonP';
 import ClockIcon from './ClockIcon';
-import FavoriteButton from './FavoriteButton';
 import Lazy from './Lazy';
 import LoadingSkeleton from './LoadingSkeleton';
 import Menu from './Menu';
-import PresentedBy from './PresentedBy.js';
 import competitionDateString from './competitionDateString';
 import ensureDates from './ensureDates.js';
 import fixParValue from './fixParValue';
@@ -86,7 +84,8 @@ function getEntriesFromPlayersData(playersData) {
 function getEntries(data, timesData, playersData) {
   const classKey = Object.keys(data.Classes || {})[0];
   let entries = classKey
-    ? data.Classes[classKey].Leaderboard.Entries
+    ? data.Classes[classKey].Leaderboard.Entries ||
+      data.Classes[classKey].Leaderboard.Teams
     : undefined;
   if (!entries && !timesData) {
     return;
@@ -152,12 +151,35 @@ function Round({ round, colors, now }) {
   if (color && courseColors.length > 1) {
     classes.push(color.CssName);
   }
+  const allHoles = {
+    H1: null,
+    H2: null,
+    H3: null,
+    H4: null,
+    H5: null,
+    H6: null,
+    H7: null,
+    H8: null,
+    H9: null,
+    H10: null,
+    H11: null,
+    H12: null,
+    H13: null,
+    H14: null,
+    H15: null,
+    H16: null,
+    H17: null,
+    H18: null,
+    'H-IN': null,
+    'H-OUT': null,
+    'H-TOTAL': null,
+  };
   return (
     <div className={classes.join(' ')}>
-      {now < startTime || !round.Holes ? (
+      {now < startTime || !round.HoleScores ? (
         <div className="round-start-time">{format(startTime, 'HH:mm')}</div>
       ) : (
-        Object.keys(round.Holes || {}).map((holeKey, i) => {
+        Object.keys(round.Holes || allHoles).map((holeKey, i) => {
           const score = round.HoleScores[holeKey];
           const toParClass = !score
             ? 'unknown'
@@ -202,6 +224,17 @@ function getFirstRoundStart(round, now) {
   return startTime;
 }
 
+function getTeamName(entry) {
+  return Object.values(entry.Entries || {})
+    .map(e => `${e.FirstName} ${e.LastName}`)
+    .join(' / ');
+}
+function getTeamClub(entry) {
+  return [...new Set(Object.values(entry.Entries || {}).map(e => e.ClubName))]
+    .filter(Boolean)
+    .join(' / ');
+}
+
 function Player({
   entry,
   onFavoriteChange,
@@ -240,64 +273,54 @@ function Player({
   return (
     <li className={classes.join(' ')}>
       {entry.isFirstCut ? <span id="cut" /> : null}
-      <Link
-        href={
-          rounds.length > 0 && rounds[0].Holes
-            ? `/t/${competition.slug}/players/${entry.MemberID}`
-            : `/${generateSlug(entry)}`
-        }
-      >
-        <a>
-          <span className={positionClassname}>
-            <span>
-              {entry.Position && entry.Position.Calculated ? (
-                entry.Position.Calculated
-              ) : rounds && rounds.length > 0 ? (
-                <ClockIcon
-                  date={getFirstRoundStart(rounds[rounds.length - 1], now)}
-                />
-              ) : null}
-            </span>
-            <FavoriteButton
-              playerId={entry.MemberID}
-              onChange={onFavoriteChange}
-              icon
-              lastFavoriteChanged={lastFavoriteChanged}
-            />
-          </span>
+      <div>
+        <span className={positionClassname}>
           <span>
-            {entry.FirstName} {entry.LastName}
-            <br />
-            <span className="club">
-              {entry.ClubName}
-              {process.env.NEXT_PUBLIC_SHOW_PHCP
-                ? ` — HCP ${entry.PHCP}`
-                : null}
-            </span>
+            {entry.Position && entry.Position.Calculated ? (
+              entry.Position.Calculated
+            ) : rounds && rounds.length > 0 ? (
+              <ClockIcon
+                date={getFirstRoundStart(rounds[rounds.length - 1], now)}
+              />
+            ) : null}
           </span>
-          {entry.ResultSum ? (
-            <span
-              className={`score${
-                entry.ResultSum.ToParValue < 0 ? ' under-par' : ''
-              }`}
-            >
-              {fixParValue(entry.ResultSum.ToParText)}
+        </span>
+        <span>
+          {entry.FirstName ? (
+            <span>
+              {entry.FirstName} {entry.LastName}
             </span>
-          ) : null}
-          <StatsWrapper className="stats" minHeight={statsHeight}>
-            {rounds.map(round => {
-              return (
-                <Round
-                  key={round.StartDateTime}
-                  round={round}
-                  colors={colors}
-                  now={now}
-                />
-              );
-            })}
-          </StatsWrapper>
-        </a>
-      </Link>
+          ) : (
+            <span>{getTeamName(entry)}</span>
+          )}
+          <br />
+          <span className="club">
+            {entry.ClubName || getTeamClub(entry)}
+            {process.env.NEXT_PUBLIC_SHOW_PHCP ? ` — HCP ${entry.PHCP}` : null}
+          </span>
+        </span>
+        {entry.ResultSum ? (
+          <span
+            className={`score${
+              entry.ResultSum.ToParValue < 0 ? ' under-par' : ''
+            }`}
+          >
+            {fixParValue(entry.ResultSum.ToParText)}
+          </span>
+        ) : null}
+        <StatsWrapper className="stats" minHeight={statsHeight}>
+          {rounds.map(round => {
+            return (
+              <Round
+                key={round.StartDateTime}
+                round={round}
+                colors={colors}
+                now={now}
+              />
+            );
+          })}
+        </StatsWrapper>
+      </div>
     </li>
   );
 }
@@ -514,9 +537,7 @@ export default function CompetitionPage({
       )}
 
       {finishedResult ? (
-        <div className="page-margin alert">
-          {finishedResult}
-        </div>
+        <div className="page-margin alert">{finishedResult}</div>
       ) : null}
       {entries && isMatchPlay ? (
         <MatchPlay entries={entries} now={now} />
@@ -550,11 +571,6 @@ export default function CompetitionPage({
             {entries.map((entry, i) => {
               return (
                 <React.Fragment key={entry.MemberID}>
-                  {i === 3 && (
-                    <div className="page-margin">
-                      <PresentedBy />
-                    </div>
-                  )}
                   <Player
                     competition={competition}
                     now={now}
