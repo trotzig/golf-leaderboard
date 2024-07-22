@@ -31,64 +31,16 @@ export default function StartPage({
         <meta
           name="description"
           content={`
-${process.env.NEXT_PUBLIC_INTRO}. Follow your favorite players and get the latest updates straight in your inbox.
+${process.env.NEXT_PUBLIC_INTRO}
         `.trim()}
         />
       </Head>
       <Menu />
       <div className="competitions">
         <h2>{process.env.NEXT_PUBLIC_INTRO_TITLE}</h2>
-        <p className="page-desc">
-          {process.env.NEXT_PUBLIC_INTRO} Follow your{' '}
-          <Link href="/players">
-            <a>favorite players</a>
-          </Link>{' '}
-          and get the latest updates{' '}
-          <Link href="/profile">
-            <a>straight in your inbox</a>
-          </Link>
-          .
-        </p>
+        <p className="page-desc">{process.env.NEXT_PUBLIC_INTRO} </p>
         {currentCompetition && (
           <Leaderboard competition={currentCompetition} now={now} />
-        )}
-        {nextCompetition ? (
-          <>
-            <h3>Next event</h3>
-            <ul>
-              <CompetitionListItem competition={nextCompetition} now={now} />
-            </ul>
-          </>
-        ) : null}
-        {upcomingCompetitions.length > 0 && (
-          <>
-            <h3>Future events</h3>
-            <ul>
-              {upcomingCompetitions.map(c => (
-                <CompetitionListItem key={c.id} competition={c} now={now} />
-              ))}
-            </ul>
-            <Link href="/schedule">
-              <a className="page-margin competition-view-all">
-                View all events
-              </a>
-            </Link>
-          </>
-        )}
-        {pastCompetitions.length > 0 && (
-          <>
-            <h3>Past events</h3>
-            <ul>
-              {pastCompetitions.map(c => (
-                <CompetitionListItem key={c.id} competition={c} now={now} />
-              ))}
-            </ul>
-            <Link href="/schedule">
-              <a className="page-margin competition-view-all">
-                View all events
-              </a>
-            </Link>
-          </>
         )}
       </div>
     </div>
