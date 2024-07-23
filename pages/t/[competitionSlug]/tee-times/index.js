@@ -4,7 +4,6 @@ import Link from 'next/link';
 import React from 'react';
 
 import { useJsonPData } from '../../../../src/fetchJsonP.js';
-import FavoriteButton from '../../../../src/FavoriteButton.js';
 import Menu from '../../../../src/Menu.js';
 import competitionDateString from '../../../../src/competitionDateString.js';
 import ensureDates from '../../../../src/ensureDates.js';
@@ -59,7 +58,7 @@ function Game({ game }) {
         {game.players.map(player => {
           return (
             <div key={player.memberId} className="startlist-game-player">
-              <FavoriteButton playerId={player.memberId} icon />
+              <span />
               <div>
                 {player.firstName} {player.lastName}
                 <br />
