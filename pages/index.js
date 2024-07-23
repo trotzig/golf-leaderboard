@@ -42,6 +42,14 @@ ${process.env.NEXT_PUBLIC_INTRO}
         {currentCompetition && (
           <Leaderboard competition={currentCompetition} now={now} />
         )}
+        {nextCompetition ? (
+          <>
+            <h3>Next event</h3>
+            <ul>
+              <CompetitionListItem competition={nextCompetition} now={now} />
+            </ul>
+          </>
+        ) : null}
       </div>
     </div>
   );
