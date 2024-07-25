@@ -48,6 +48,12 @@
 html {
   font-size: 22px;
 }
+
+@media (max-width: 600px) {
+  html {
+    font-size: 16px;
+  }
+}
 body {
   margin: 0;
   padding: 0;
@@ -317,12 +323,12 @@ nav svg {
   border-bottom: 1px solid rgba(var(--text-rgb), 0.2);
 }
 
-.leaderboard-page .player > *,
+.leaderboard-page .player .player-grid,
 .oom .player {
   all: unset;
   display: grid;
-  grid-template-columns: 30px auto 80px;
-  column-gap: 15px;
+  grid-template-columns: 20px auto 50px;
+  column-gap: 10px;
   padding: 10px 10px;
   transition: all 0.2s;
   min-height: 50px;
