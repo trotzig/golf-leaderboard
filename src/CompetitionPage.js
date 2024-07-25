@@ -8,7 +8,6 @@ import { useJsonPData } from './fetchJsonP';
 import ClockIcon from './ClockIcon';
 import Lazy from './Lazy';
 import LoadingSkeleton from './LoadingSkeleton';
-import Menu from './Menu';
 import competitionDateString from './competitionDateString';
 import ensureDates from './ensureDates.js';
 import fixParValue from './fixParValue';
@@ -509,7 +508,6 @@ export default function CompetitionPage({
           />
         )}
       </Head>
-      <Menu activeHref="/leaderboard" />
       <div className="h-intro">{getHeading(competition, now)}</div>
       <h2 className="leaderboard-page-heading">{competition.name}</h2>
       {competition.venue && (
@@ -519,13 +517,6 @@ export default function CompetitionPage({
           <CutInfo data={data} />
         </p>
       )}
-      <p className="leaderboard-page-subtitle">
-        Switch to{' '}
-        <Link href={`/t/${competition.slug}/tee-times`}>
-          <a>tee times</a>
-        </Link>
-        .
-      </p>
       {data && (
         <>
           {Object.values(data.Courses || {}).length > 1 ? (
