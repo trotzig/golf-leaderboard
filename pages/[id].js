@@ -11,6 +11,7 @@ import ordinal from '../src/ordinal';
 import prisma from '../src/prisma';
 import useData from '../src/useData';
 
+
 function getScoresBySeason(items) {
   const result = {};
   result[new Date().getFullYear()] = []; // always show current season
