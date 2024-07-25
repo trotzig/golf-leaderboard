@@ -274,7 +274,7 @@ function Player({
   return (
     <li className={classes.join(' ')}>
       {entry.isFirstCut ? <span id="cut" /> : null}
-      <div>
+      <div className="player-grid">
         <span className={positionClassname}>
           <span>
             {entry.Position && entry.Position.Calculated ? (
