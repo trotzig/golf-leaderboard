@@ -327,7 +327,7 @@ nav svg {
 .oom .player {
   all: unset;
   display: grid;
-  grid-template-columns: 20px auto 50px;
+  grid-template-columns: 30px auto 50px;
   column-gap: 10px;
   padding: 10px 10px;
   transition: all 0.2s;
