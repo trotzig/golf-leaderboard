@@ -13,8 +13,8 @@ function entryToCompetition(e, now) {
     id: e.ID || e.Id,
     name: e.Name,
     slug: generateCompetitionSlug(e),
-    start: parse(`${e.StartDate}+02`, DATE_FORMAT, now),
-    end: parse(`${e.EndDate}+02`, DATE_FORMAT, now),
+    start: parse(`${e.StartDate}+00`, DATE_FORMAT, now),
+    end: parse(`${e.EndDate}+00`, DATE_FORMAT, now),
   };
 }
 
