@@ -5,7 +5,6 @@ import React from 'react';
 
 import Leaderboard from '../src/Leaderboard.js';
 import Menu from '../src/Menu';
-import PresentedBy from '../src/PresentedBy.js';
 import competitionDateString from '../src/competitionDateString';
 import ensureDates from '../src/ensureDates.js';
 import prisma from '../src/prisma';
@@ -50,9 +49,6 @@ ${process.env.NEXT_PUBLIC_INTRO}. Follow your favorite players and get the lates
           </Link>
           .
         </p>
-        <div className="page-margin">
-          <PresentedBy />
-        </div>
         {currentCompetition && (
           <Leaderboard competition={currentCompetition} now={now} />
         )}

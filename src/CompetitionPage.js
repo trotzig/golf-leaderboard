@@ -9,7 +9,6 @@ import FavoriteButton from './FavoriteButton';
 import Lazy from './Lazy';
 import LoadingSkeleton from './LoadingSkeleton';
 import Menu from './Menu';
-import PresentedBy from './PresentedBy.js';
 import competitionDateString from './competitionDateString';
 import ensureDates from './ensureDates.js';
 import fixParValue from './fixParValue';
@@ -514,9 +513,7 @@ export default function CompetitionPage({
       )}
 
       {finishedResult ? (
-        <div className="page-margin alert">
-          {finishedResult}
-        </div>
+        <div className="page-margin alert">{finishedResult}</div>
       ) : null}
       {entries && isMatchPlay ? (
         <MatchPlay entries={entries} now={now} />
@@ -549,22 +546,16 @@ export default function CompetitionPage({
           <ul>
             {entries.map((entry, i) => {
               return (
-                <React.Fragment key={entry.MemberID}>
-                  {i === 3 && (
-                    <div className="page-margin">
-                      <PresentedBy />
-                    </div>
-                  )}
-                  <Player
-                    competition={competition}
-                    now={now}
-                    colors={data.CourseColours}
-                    entry={entry}
-                    onFavoriteChange={handleFavoriteChange}
-                    lazy={lazyItems && i > 20}
-                    lastFavoriteChanged={lastFavoriteChanged}
-                  />
-                </React.Fragment>
+                <Player
+                  key={entry.MemberID}
+                  competition={competition}
+                  now={now}
+                  colors={data.CourseColours}
+                  entry={entry}
+                  onFavoriteChange={handleFavoriteChange}
+                  lazy={lazyItems && i > 20}
+                  lastFavoriteChanged={lastFavoriteChanged}
+                />
               );
             })}
           </ul>
