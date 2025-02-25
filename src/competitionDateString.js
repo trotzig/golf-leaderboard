@@ -1,11 +1,14 @@
 import {
-  differenceInDays,
   formatDistance,
   format,
   getDate,
   parse,
   startOfDay,
 } from 'date-fns';
+
+function differenceInDays(after, before) {
+  return new Date(after).getDate() - new Date(before).getDate();
+}
 
 const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
 
