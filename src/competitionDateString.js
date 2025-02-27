@@ -1,13 +1,10 @@
-import {
-  formatDistance,
-  format,
-  getDate,
-  parse,
-  startOfDay,
-} from 'date-fns';
+import { formatDistance, format, getDate, parse, startOfDay } from 'date-fns';
 
 function differenceInDays(after, before) {
-  return new Date(after).getDate() - new Date(before).getDate();
+  return Math.ceil(
+    (new Date(after).getTime() - new Date(before).getTime()) /
+      (24 * 60 * 60 * 1000),
+  );
 }
 
 const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
@@ -43,9 +40,9 @@ export default function competitionDateString(
 
   if (start - 60 * 60 * 1000 <= now && now <= end) {
     // Currently active
-    suffix = ` — Playing round ${
-      differenceInDays(now, start) + 1
-    } of ${numberOfDays + 1}`;
+    suffix = ` — Playing round ${differenceInDays(now, start) + 1} of ${
+      numberOfDays + 1
+    }`;
   } else {
     if (now > end) {
       return `Finished ${formatDistance(end, now)} ago`;
