@@ -250,10 +250,27 @@ export default async function syncData({ full = true } = {}) {
 
   for (const comp of competitions) {
     try {
-      await prisma.competition.update({ data: comp, where: { id: comp.id } });
+      await prisma.competition.update({
+        data: comp,
+        where: { id: comp.id },
+      });
     } catch (e) {
-      console.warn('Failed to update competition', comp);
-      console.warn(e);
+      console.warn(
+        `Failed to update competition with id=${comp.id}. Will try slug instead.`,
+      );
+
+      try {
+        await prisma.competition.update({
+          data: comp,
+          where: { slug: comp.slug },
+        });
+      } catch (e) {
+        console.warn(
+          `Failed to update competition with slug=${comp.slug}.`,
+          comp,
+        );
+        console.warn(e);
+      }
     }
   }
   console.log(`Updated ${competitions.length} competititons`);
