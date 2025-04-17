@@ -1,4 +1,4 @@
-import { startOfDay, format } from 'date-fns';
+import { format } from 'date-fns';
 import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
@@ -23,7 +23,7 @@ export default function StartPage({
   if (currentCompetition) {
     ensureDates(currentCompetition);
   }
-  const now = startOfDay(new Date());
+  const now = new Date();
 
   return (
     <div className="chrome">

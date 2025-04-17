@@ -1,4 +1,4 @@
-import { formatDistance, format, getDate, parse, startOfDay } from 'date-fns';
+import { formatDistance, format, getDate, parse } from 'date-fns';
 
 function differenceInDays(after, before) {
   return Math.ceil(
@@ -13,15 +13,21 @@ export default function competitionDateString(
   competition,
   initialNow = new Date(),
 ) {
-  const now = startOfDay(initialNow);
+  const utcMidnight = new Date(
+    Date.UTC(
+      initialNow.getUTCFullYear(),
+      initialNow.getUTCMonth(),
+      initialNow.getUTCDate(),
+    ),
+  );
   const start =
     competition._start ||
     competition.start ||
-    parse(competition.StartDate, DATE_FORMAT, now);
+    parse(competition.StartDate, DATE_FORMAT, utcMidnight);
   const end =
     competition._end ||
     competition.end ||
-    parse(competition.EndDate, DATE_FORMAT, now);
+    parse(competition.EndDate, DATE_FORMAT, utcMidnight);
   const numberOfDays = differenceInDays(end, start);
   const startDay = getDate(start);
   const endDay = getDate(end);
@@ -38,21 +44,21 @@ export default function competitionDateString(
 
   let suffix = '';
 
-  if (start - 60 * 60 * 1000 <= now && now <= end) {
+  if (start - 60 * 60 * 1000 <= utcMidnight && utcMidnight <= end) {
     // Currently active
-    suffix = ` — Playing round ${differenceInDays(now, start) + 1} of ${
+    suffix = ` — Playing round ${differenceInDays(utcMidnight, start) + 1} of ${
       numberOfDays + 1
     }`;
   } else {
-    if (now > end) {
-      return `Finished ${formatDistance(end, now)} ago`;
+    if (utcMidnight > end) {
+      return `Finished ${formatDistance(end, utcMidnight)} ago`;
     }
-    const daysUntilStart = differenceInDays(start, now);
+    const daysUntilStart = differenceInDays(start, utcMidnight);
     if (daysUntilStart === 1) {
       return 'Starts tomorrow';
     }
     if (daysUntilStart < 8) {
-      suffix = ` — Starts in ${formatDistance(now, start)}`;
+      suffix = ` — Starts in ${formatDistance(utcMidnight, start)}`;
     }
   }
   if (endDay < startDay) {
