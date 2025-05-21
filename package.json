@@ -11,7 +11,7 @@
     "fill-slugs:prod": "dotenv -e production.env node src/fillSlugs.mjs",
     "happo": "happo",
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
@@ -19,7 +19,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@prisma/client": "^3.11.1",
+    "@prisma/client": "^6.8.2",
     "crypto-js": "^4.1.1",
     "date-fns": "^2.28.0",
     "lodash": "^4.17.21",
@@ -41,6 +41,6 @@
     "dotenv-cli": "^5.1.0",
     "happo-plugin-storybook": "^3.1.0",
     "happo.io": "^8.3.1",
-    "prisma": "^3.11.1"
+    "prisma": "^6.8.2"
   }
 }
