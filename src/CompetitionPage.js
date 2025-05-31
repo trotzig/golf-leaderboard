@@ -2,6 +2,7 @@ import { parse, format, startOfDay } from 'date-fns';
 import Head from 'next/head';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import DOMPurify from 'dompurify';
 
 import { useJsonPData } from './fetchJsonP';
 import ClockIcon from './ClockIcon';
@@ -14,6 +15,7 @@ import ensureDates from './ensureDates.js';
 import fixParValue from './fixParValue';
 import generateSlug from './generateSlug.mjs';
 import removeCommonCoursePrefix from './removeCommonCoursePrefix.js';
+import YouTubeEmbed from './YouTubeEmbed';
 
 const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
 
@@ -406,7 +408,20 @@ function getFinishedResult(data) {
     return;
   }
 
-  return cs.StatusText;
+  // Check if the status text contains a YouTube URL
+  const youtubeUrlMatch = cs.StatusText.match(
+    /(https?:\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)[^&\n?"#]+)/,
+  );
+  if (youtubeUrlMatch) {
+    return {
+      text: cs.StatusText,
+      youtubeUrl: youtubeUrlMatch[0],
+    };
+  }
+
+  return {
+    text: cs.StatusText,
+  };
 }
 
 export default function CompetitionPage({
@@ -513,7 +528,16 @@ export default function CompetitionPage({
       )}
 
       {finishedResult ? (
-        <div className="page-margin alert">{finishedResult}</div>
+        <div className="page-margin alert">
+          <div
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(finishedResult.text),
+            }}
+          />
+          {finishedResult.youtubeUrl && (
+            <YouTubeEmbed url={finishedResult.youtubeUrl} />
+          )}
+        </div>
       ) : null}
       {entries && isMatchPlay ? (
         <MatchPlay entries={entries} now={now} />
