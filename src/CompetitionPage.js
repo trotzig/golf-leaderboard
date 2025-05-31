@@ -410,12 +410,13 @@ function getFinishedResult(data) {
 
   // Check if the status text contains a YouTube URL
   const youtubeUrlMatch = cs.StatusText.match(
-    /(https?:\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)[^&\n?"#]+)/,
+    /(https?:\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?"#]+))/,
   );
   if (youtubeUrlMatch) {
     return {
       text: cs.StatusText,
       youtubeUrl: youtubeUrlMatch[0],
+      youtubeId: youtubeUrlMatch[2],
     };
   }
 
@@ -477,6 +478,12 @@ export default function CompetitionPage({
           name="description"
           content={`Follow the leaderboard and see tee times for ${competition.name}`}
         />
+        {finishedResult?.youtubeId && (
+          <meta
+            property="og:image"
+            content={`https://img.youtube.com/vi/${finishedResult.youtubeId}/maxresdefault.jpg`}
+          />
+        )}
       </Head>
       <Menu activeHref="/leaderboard" />
       <div className="h-intro">{getHeading(competition, now)}</div>
@@ -535,7 +542,7 @@ export default function CompetitionPage({
             }}
           />
           {finishedResult.youtubeUrl && (
-            <YouTubeEmbed url={finishedResult.youtubeUrl} />
+            <YouTubeEmbed videoId={finishedResult.youtubeId} />
           )}
         </div>
       ) : null}

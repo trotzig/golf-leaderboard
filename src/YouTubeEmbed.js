@@ -1,23 +1,4 @@
-import React from 'react';
-
-function extractYouTubeId(url) {
-  // Match YouTube URL patterns
-  const patterns = [
-    /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/, // Standard YouTube URLs
-    /youtube\.com\/embed\/([^&\n?#]+)/, // Embed URLs
-  ];
-
-  for (const pattern of patterns) {
-    const match = url.match(pattern);
-    if (match && match[1]) {
-      return match[1];
-    }
-  }
-  return null;
-}
-
-export default function YouTubeEmbed({ url }) {
-  const videoId = extractYouTubeId(url);
+export default function YouTubeEmbed({ videoId }) {
   if (!videoId) {
     return null;
   }
