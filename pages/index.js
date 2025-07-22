@@ -86,10 +86,9 @@ function CompetitionListItem({ competition, now, current }) {
 
 export async function getServerSideProps() {
   return {
-      redirect: {
-        destination: '/t/kevinge-foursome--fourball-stockholms-golfklubb-2024',
-        permanent: false,
-      },
-    }
-  ;
+    redirect: {
+      destination: '/t/kevinge-foursome--fourball-stockholms-golfklubb-2025',
+      permanent: false,
+    },
+  };
 }
