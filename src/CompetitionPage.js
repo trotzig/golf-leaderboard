@@ -515,15 +515,28 @@ export default function CompetitionPage({
           />
         )}
       </Head>
-      <div className="h-intro">{getHeading(competition, now)}</div>
-      <h2 className="leaderboard-page-heading">{competition.name}</h2>
-      {competition.venue && (
-        <p className="leaderboard-page-subtitle">
-          {competition.venue} –{' '}
-          {competition.start && competitionDateString(competition, now)}.{' '}
-          <CutInfo data={data} />
-        </p>
-      )}
+      <div className="leaderboard-page-header">
+        <div className="leaderboard-page-header-left">
+          <img
+            style={{ width: 200, height: 'auto' }}
+            width="600"
+            height="602"
+            src="/kff-logo.png"
+            alt="KFF logo"
+          />
+        </div>
+        <div className="leaderboard-page-header-right">
+          <div className="h-intro">{getHeading(competition, now)}</div>
+          <h2 className="leaderboard-page-heading">{competition.name}</h2>
+          {competition.venue && (
+            <p className="leaderboard-page-subtitle">
+              {competition.venue} –{' '}
+              {competition.start && competitionDateString(competition, now)}.{' '}
+              <CutInfo data={data} />
+            </p>
+          )}
+        </div>
+      </div>
       {data && (
         <>
           {Object.values(data.Courses || {}).length > 1 ? (

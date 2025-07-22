@@ -1062,6 +1062,22 @@ input.ios-switch:checked:after {
   padding-top: 5px;
 }
 
+.leaderboard-page-header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 15px;
+  margin-top: 15px;
+}
+@media (max-width: 500px) {
+  .leaderboard-page-header {
+    grid-template-columns: 1fr;
+
+    .h-intro {
+      margin-top: 0px;
+    }
+  }
+}
+
 .leaderboard .leaderboard-competition-name {
   padding: 0;
   margin: 5px 0 10px;
