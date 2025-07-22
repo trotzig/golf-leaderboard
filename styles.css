@@ -620,6 +620,11 @@ footer {
 .leaderboard-page .round-start-time {
   opacity: 0.5;
 }
+
+.leaderboard-page .round-hole {
+  font-family: Futura, Gill Sans, sans-serif;
+}
+
 @media (max-width: 400px) {
   .round-score {
     opacity: 0.6;

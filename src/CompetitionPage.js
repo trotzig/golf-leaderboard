@@ -143,7 +143,7 @@ function RoundTotal({ score }) {
   );
 }
 
-function Round({ round, colors, now }) {
+function Round({ round, colors, now, hole }) {
   const startTime = parse(round.StartDateTime, DATE_FORMAT, now);
 
   const classes = ['round'];
@@ -178,7 +178,10 @@ function Round({ round, colors, now }) {
   return (
     <div className={classes.join(' ')}>
       {now < startTime || !round.HoleScores ? (
-        <div className="round-start-time">{format(startTime, 'HH:mm')}</div>
+        <div className="round-start-time">
+          {format(startTime, 'HH:mm')}
+          <span className="round-hole">{hole ? ` | Hole ${hole}` : null}</span>
+        </div>
       ) : (
         Object.keys(round.Holes || allHoles).map((holeKey, i) => {
           const score = round.HoleScores[holeKey];
@@ -296,6 +299,7 @@ function Player({
           )}
           <br />
           <span className="club">
+            {entry.Team ? `${entry.Team} — ` : ''}{' '}
             {entry.ClubName || getTeamClub(entry)}
             {process.env.NEXT_PUBLIC_SHOW_PHCP ? ` — HCP ${entry.PHCP}` : null}
           </span>
@@ -309,18 +313,21 @@ function Player({
             {fixParValue(entry.ResultSum.ToParText)}
           </span>
         ) : null}
-        <StatsWrapper className="stats" minHeight={statsHeight}>
-          {rounds.map(round => {
-            return (
-              <Round
-                key={round.StartDateTime}
-                round={round}
-                colors={colors}
-                now={now}
-              />
-            );
-          })}
-        </StatsWrapper>
+        <span>
+          <StatsWrapper className="stats" minHeight={statsHeight}>
+            {rounds.map(round => {
+              return (
+                <Round
+                  key={round.StartDateTime}
+                  round={round}
+                  hole={entry.Hole}
+                  colors={colors}
+                  now={now}
+                />
+              );
+            })}
+          </StatsWrapper>
+        </span>
       </div>
     </li>
   );
