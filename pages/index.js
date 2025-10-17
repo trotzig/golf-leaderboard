@@ -9,6 +9,27 @@ import competitionDateString from '../src/competitionDateString';
 import ensureDates from '../src/ensureDates.js';
 import prisma from '../src/prisma';
 
+const youtubers = [
+  {
+    name: 'Stefan Idstam',
+    url: 'https://www.youtube.com/@stefanidstamgolf',
+    avatar: {
+      url: 'https://yt3.googleusercontent.com/5qBdv_1t7oHY1rD7rQzH7tq0NMb4OO9OwsOLL99QOMt3cr9M2nZ7-NDOUhuUPPT3MPxKtNecjg=s320-c-k-c0x00ffffff-no-rj',
+      width: 320,
+      height: 320,
+    },
+  },
+  {
+    name: 'Adam Andersson',
+    url: 'https://adamanderssongolf.com/',
+    avatar: {
+      url: 'https://adamanderssongolf.com/wp-content/uploads/sb-instagram-feed-images/517973384_18507897097053711_8842400633805056808_nfull.webp',
+      width: 640,
+      height: 843,
+    },
+  },
+];
+
 export default function StartPage({
   pastCompetitions,
   upcomingCompetitions,
@@ -75,6 +96,33 @@ ${process.env.NEXT_PUBLIC_INTRO}. Follow your favorite players and get the lates
             </Link>
           </>
         )}
+
+        <h3 style={{ marginBottom: 0 }}>More from the players</h3>
+        <p className="page-desc">
+          Support players by following them on their social media accounts,
+          subscribing to their channels and watching their videos.
+        </p>
+        <ul className="youtubers">
+          {youtubers.map(y => (
+            <li key={y.name} className="youtuber">
+              <a
+                href={y.url}
+                className="youtuber-link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src={y.avatar.url}
+                  alt={y.name}
+                  width={y.avatar.width}
+                  height={y.avatar.height}
+                />
+                {y.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+
         {pastCompetitions.length > 0 && (
           <>
             <h3>Past events</h3>
