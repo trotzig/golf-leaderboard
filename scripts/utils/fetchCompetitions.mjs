@@ -48,7 +48,7 @@ export default async function fetchCompetitions() {
   }
 
   const res = await nodeFetch(
-    `https://scores.golfbox.dk/Handlers/ScheduleHandler/GetSchedule/CustomerId/${process.env.NEXT_PUBLIC_GOLFBOX_CUSTOMER_ID}/Season/2025/CompetitionId/0/language/2057/`,
+    `https://scores.golfbox.dk/Handlers/ScheduleHandler/GetSchedule/CustomerId/${process.env.NEXT_PUBLIC_GOLFBOX_CUSTOMER_ID}/Season/2026/CompetitionId/0/language/2057/`,
   );
   if (!res.ok) {
     throw new Error('Failed to fetch comps', res.status, await res.text());
