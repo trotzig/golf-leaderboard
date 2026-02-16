@@ -371,7 +371,7 @@ nav svg {
   position: relative;
 }
 .leaderboard-page .player-entry-first-cut:before {
-  content: 'PROJECTED CUT LINE';
+  content: 'CURRENT CUT LINE';
   line-height: 1;
   position: absolute;
   background-color: var(--background);
