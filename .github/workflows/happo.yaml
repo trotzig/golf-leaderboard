@@ -14,8 +14,11 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '22'
-      - run: yarn install --frozen-lockfile
-      - run: yarn happo-ci-github-actions
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm happo-ci-github-actions
         env:
           HAPPO_API_KEY: ${{ secrets.HAPPO_API_KEY }}
           HAPPO_API_SECRET: ${{ secrets.HAPPO_API_SECRET }}
