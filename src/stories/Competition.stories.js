@@ -19,6 +19,31 @@ function slimEntries(data) {
 slimEntries(ongoing);
 slimEntries(finished);
 
+function deepClone(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
+// Create round 1 data with projected cut line
+const round1WithCut = deepClone(ongoing);
+{
+  const classKey = Object.keys(round1WithCut.initialData.Classes)[0];
+  const clazz = round1WithCut.initialData.Classes[classKey];
+  // Simulate round 1
+  clazz.Leaderboard.ActiveRoundNumber = 1;
+  // Remove the performed cut (hasn't happened yet in round 1)
+  clazz.Cut = { IsPerformed: false, AfterRound: 2 };
+  // Set cut config with Limit of 10 (within our 15 slimmed entries)
+  round1WithCut.initialData.CompetitionData.Classes[0].Cut = {
+    Enabled: true,
+    Limit: 10,
+    LimitType: 'Players',
+    LimitMethod: 1,
+    AfterRound: 2,
+    ExcludeAmateurs: false,
+    IncludeScore: 0,
+  };
+}
+
 const competition = {
   id: 1,
   name: 'ECCO Tour Spanish Masters - by DAT',
@@ -51,6 +76,7 @@ export const Finished = () => (
     now={new Date('2022-03-03T12:00:00')}
     competition={competition}
     initialPlayersData={{}}
+    initialCompetitionData={{ DefaultAction: 'finalresults' }}
   />
 );
 export const Upcoming = () => (
@@ -60,5 +86,24 @@ export const Upcoming = () => (
     now={new Date('2022-02-22T12:00:00')}
     competition={competition}
     initialPlayersData={{}}
+  />
+);
+export const ProjectedCutLine = () => (
+  <CompetitionPage
+    {...round1WithCut}
+    lazyItems={false}
+    now={new Date('2022-02-27T12:00:00')}
+    competition={competition}
+    initialPlayersData={{}}
+  />
+);
+export const FinishedWithCut = () => (
+  <CompetitionPage
+    {...finished}
+    lazyItems={false}
+    now={new Date('2022-03-03T12:00:00')}
+    competition={competition}
+    initialPlayersData={{}}
+    initialCompetitionData={{ DefaultAction: 'finalresults' }}
   />
 );
