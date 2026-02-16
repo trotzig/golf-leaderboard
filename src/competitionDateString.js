@@ -12,6 +12,7 @@ const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
 export default function competitionDateString(
   competition,
   initialNow = new Date(),
+  { finished } = {},
 ) {
   const utcMidnight = new Date(
     Date.UTC(
@@ -44,7 +45,9 @@ export default function competitionDateString(
 
   let suffix = '';
 
-  if (start - 60 * 60 * 1000 <= utcMidnight && utcMidnight <= end) {
+  if (finished) {
+    suffix = ` — Played ${numberOfDays + 1} rounds`;
+  } else if (start - 60 * 60 * 1000 <= utcMidnight && utcMidnight <= end) {
     // Currently active
     suffix = ` — Playing round ${differenceInDays(utcMidnight, start) + 1} of ${
       numberOfDays + 1

@@ -150,6 +150,22 @@ a {
   margin-right: 10px;
 }
 
+.winner {
+  margin: 10px 0;
+  border: 2px solid var(--primary);
+  border-radius: 3px;
+}
+
+.winner-heading {
+  margin: 0;
+  padding: 8px 10px;
+  background-color: var(--primary);
+  color: var(--background);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+
 .leaderboard-page,
 .tee-times-page,
 .competitions,

@@ -310,10 +310,13 @@ function Player({
   );
 }
 
-function getHeading(competition, now) {
+function getHeading(competition, now, finished) {
   if (!competition.start) {
     // not yet loaded
     return '';
+  }
+  if (finished) {
+    return 'Final results';
   }
   const startOfToday = startOfDay(now);
   if (competition.start > startOfToday) {
@@ -388,6 +391,19 @@ function MatchPlay({ entries }) {
   );
 }
 
+function isCompetitionFinished(competitionData) {
+  return competitionData && competitionData.DefaultAction === 'finalresults';
+}
+
+function getWinner(entries) {
+  if (!entries || !entries.length) {
+    return;
+  }
+  return entries.find(
+    e => e.Position && (e.Position.Calculated === '1' || e.Position.Actual === 1),
+  );
+}
+
 function getFinishedResult(data) {
   if (!data) {
     return;
@@ -455,6 +471,9 @@ export default function CompetitionPage({
     `https://scores.golfbox.dk/Handlers/PlayersHandler/GetPlayers/CompetitionId/${competition.id}/language/2057/`,
     initialPlayersData,
   );
+  const competitionData = useJsonPData(
+    `https://scores.golfbox.dk/Handlers/CompetitionHandler/GetCompetition/CompetitionId/${competition.id}/language/2057/`,
+  );
   const loading = loadingOverride || !data || !timesData || !playersData;
 
   function handleFavoriteChange() {
@@ -468,6 +487,8 @@ export default function CompetitionPage({
       : [];
 
   const isMatchPlay = entries && entries[0] && entries[0].Players;
+  const finished = isCompetitionFinished(competitionData);
+  const winner = finished ? getWinner(entries) : undefined;
 
   for (const entry of entries || []) {
     entry.isFavorite = localStorage.getItem(entry.MemberID);
@@ -478,7 +499,7 @@ export default function CompetitionPage({
     <div className="leaderboard-page">
       <Head>
         <title>
-          {competition.name} | {getHeading(competition, now)}
+          {competition.name} | {getHeading(competition, now, finished)}
         </title>
         <meta
           name="description"
@@ -492,12 +513,12 @@ export default function CompetitionPage({
         )}
       </Head>
       <Menu activeHref="/leaderboard" />
-      <div className="h-intro">{getHeading(competition, now)}</div>
+      <div className="h-intro">{getHeading(competition, now, finished)}</div>
       <h2 className="leaderboard-page-heading">{competition.name}</h2>
       {competition.venue && (
         <p className="leaderboard-page-subtitle">
           {competition.venue} –{' '}
-          {competition.start && competitionDateString(competition, now)}.{' '}
+          {competition.start && competitionDateString(competition, now, { finished })}.{' '}
           <CutInfo data={data} />
         </p>
       )}
@@ -552,6 +573,21 @@ export default function CompetitionPage({
           )}
         </div>
       ) : null}
+      {winner && (
+        <div className="winner">
+          <h3 className="winner-heading">Winner</h3>
+          <ul>
+            <Player
+              competition={competition}
+              now={now}
+              colors={data.CourseColours}
+              entry={winner}
+              onFavoriteChange={handleFavoriteChange}
+              lastFavoriteChanged={lastFavoriteChanged}
+            />
+          </ul>
+        </div>
+      )}
       {entries && isMatchPlay ? (
         <MatchPlay entries={entries} />
       ) : entries ? (
