@@ -5,19 +5,15 @@ import competitionDateString from './competitionDateString.js';
 import fixParValue from './fixParValue';
 
 export default function Leaderboard({ competition, now }) {
-  const finished = competition.finished;
   return (
     <Link href={`/t/${competition.slug}`}>
       <a className="leaderboard">
-        <div className="leaderboard-legend">
-          {finished ? 'Final results' : 'Leaderboard'}
-        </div>
+        <div className="leaderboard-legend">Leaderboard</div>
         <h4 className="leaderboard-competition-name">
           <span>{competition.name}</span>
         </h4>
         <p className="leaderboard-description">
-          {competition.venue} —{' '}
-          {competitionDateString(competition, now, { finished })}
+          {competition.venue} — {competitionDateString(competition, now)}
         </p>
         <table>
           <thead>
@@ -25,7 +21,7 @@ export default function Leaderboard({ competition, now }) {
               <th>Pos</th>
               <th>Player</th>
               <th>Total</th>
-              {!finished && <th>Thru</th>}
+              <th>Thru</th>
             </tr>
           </thead>
           <tbody>
@@ -47,7 +43,7 @@ export default function Leaderboard({ competition, now }) {
                   <td className={scoreClasses.join(' ')}>
                     {fixParValue(entry.scoreText)}
                   </td>
-                  {!finished && <td>{entry.hole}</td>}
+                  <td>{entry.hole}</td>
                 </tr>
               );
             })}

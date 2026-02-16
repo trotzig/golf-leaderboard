@@ -75,17 +75,6 @@ function getLastHoleScore(holeScores) {
   return { toParValue, actualValue, hole, scoreText };
 }
 
-async function fetchIsFinished(competition) {
-  const res = await nodeFetch(
-    `https://scores.golfbox.dk/Handlers/CompetitionHandler/GetCompetition/CompetitionId/${competition.id}/language/2057/`,
-  );
-  if (!res.ok) {
-    return false;
-  }
-  const json = parseJson(await res.text());
-  return json.DefaultAction === 'finalresults';
-}
-
 async function fetchResults(competition) {
   const res = await nodeFetch(
     `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057/`,
@@ -322,13 +311,6 @@ export default async function notifySubscribers() {
     const { finished, started, hotStreakers, leaderboardEntries } =
       await fetchResults(competition);
     await upsertLeaderboard(competition.id, leaderboardEntries);
-    const isFinished = await fetchIsFinished(competition);
-    if (isFinished) {
-      await prisma.competition.update({
-        where: { id: competition.id },
-        data: { finished: true },
-      });
-    }
     for (const result of started) {
       await sendEmail(result, 'started');
     }
