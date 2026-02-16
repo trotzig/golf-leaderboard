@@ -1,4 +1,4 @@
-import { parse, format, startOfDay } from 'date-fns';
+import { format, startOfDay } from 'date-fns';
 import Head from 'next/head';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
@@ -14,14 +14,22 @@ import competitionDateString from './competitionDateString';
 import ensureDates from './ensureDates.js';
 import fixParValue from './fixParValue';
 import generateSlug from './generateSlug.mjs';
+import parseCET from './parseCET';
 import removeCommonCoursePrefix from './removeCommonCoursePrefix.js';
 import YouTubeEmbed from './YouTubeEmbed';
 
-const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
-
 function parseAndFormatDate(dateStr) {
-  const d = parse(dateStr, DATE_FORMAT, new Date());
+  const d = parseCET(dateStr);
   return format(d, 'MMMM d');
+}
+
+/**
+ * Extract the HH:mm start time directly from a CET datetime string.
+ * This avoids timezone conversion so the displayed time is always CET.
+ */
+function formatCETTime(dateStr) {
+  if (!dateStr || dateStr.length < 13) return '';
+  return `${dateStr.slice(9, 11)}:${dateStr.slice(11, 13)}`;
 }
 
 function pluralizeRounds(count) {
@@ -145,7 +153,7 @@ function RoundTotal({ score }) {
 }
 
 function Round({ round, colors, now }) {
-  const startTime = parse(round.StartDateTime, DATE_FORMAT, now);
+  const startTime = parseCET(round.StartDateTime);
 
   const classes = ['round'];
   const courseColors = Object.values(colors || {});
@@ -156,7 +164,7 @@ function Round({ round, colors, now }) {
   return (
     <div className={classes.join(' ')}>
       {now < startTime || !round.Holes ? (
-        <div className="round-start-time">{format(startTime, 'HH:mm')}</div>
+        <div className="round-start-time">{formatCETTime(round.StartDateTime)}</div>
       ) : (
         Object.keys(round.Holes || {}).map((holeKey, i) => {
           const score = round.HoleScores[holeKey];
@@ -198,9 +206,8 @@ function Round({ round, colors, now }) {
   );
 }
 
-function getFirstRoundStart(round, now) {
-  const startTime = parse(round.StartDateTime, DATE_FORMAT, now);
-  return startTime;
+function getFirstRoundStart(round) {
+  return parseCET(round.StartDateTime);
 }
 
 function Player({
@@ -255,7 +262,7 @@ function Player({
                 entry.Position.Calculated
               ) : rounds && rounds.length > 0 ? (
                 <ClockIcon
-                  date={getFirstRoundStart(rounds[rounds.length - 1], now)}
+                  date={getFirstRoundStart(rounds[rounds.length - 1])}
                 />
               ) : null}
             </span>
@@ -350,13 +357,12 @@ function CutInfo({ data }) {
   );
 }
 
-function MatchPlay({ entries, now }) {
+function MatchPlay({ entries }) {
   return (
     <div>
       <h3 className="leaderboard-section-heading">Matches</h3>
       <ul>
         {entries.map(entry => {
-          const startTime = parse(entry.StartTime, DATE_FORMAT, now);
           return (
             <li className="match" key={entry.MatchNo}>
               <span>
@@ -366,7 +372,7 @@ function MatchPlay({ entries, now }) {
               </span>
 
               <div className="round-start-time">
-                {format(startTime, 'HH:mm')}
+                {formatCETTime(entry.StartTime)}
               </div>
 
               <span>
@@ -547,7 +553,7 @@ export default function CompetitionPage({
         </div>
       ) : null}
       {entries && isMatchPlay ? (
-        <MatchPlay entries={entries} now={now} />
+        <MatchPlay entries={entries} />
       ) : entries ? (
         <div>
           {favorites && favorites.length ? (
