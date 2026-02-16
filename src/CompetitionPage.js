@@ -328,7 +328,46 @@ function getHeading(competition, now, finished) {
   return 'Final results';
 }
 
-function CutInfo({ data }) {
+function formatProjectedScore(value) {
+  const rounded = Math.round(value);
+  if (rounded === 0) return 'E';
+  if (rounded > 0) return `+${rounded}`;
+  return `${rounded}`;
+}
+
+function getCutConfig(data) {
+  const classes = data.CompetitionData && data.CompetitionData.Classes;
+  if (!classes || !classes.length) {
+    return null;
+  }
+  return classes[0].Cut;
+}
+
+function getProjectedCutScore(cutConfig, cut, entries) {
+  if (!cutConfig || !cutConfig.Enabled || !cutConfig.Limit || !entries) {
+    return null;
+  }
+  const afterRound = cut.AfterRound || cutConfig.AfterRound;
+  if (!afterRound) {
+    return null;
+  }
+  const cutEntry = entries.find(
+    e => e.Position && e.Position.Actual === cutConfig.Limit,
+  );
+  if (!cutEntry || !cutEntry.ScoringToPar) {
+    return null;
+  }
+  const holesCompleted = cutEntry.ScoringToPar.HoleValue;
+  if (!holesCompleted) {
+    return null;
+  }
+  const currentScore = cutEntry.ScoringToPar.ToParValue / 10000;
+  const totalHoles = afterRound * 18;
+  const projected = currentScore * (totalHoles / holesCompleted);
+  return formatProjectedScore(projected);
+}
+
+function CutInfo({ data, entries }) {
   if (!data) {
     return null;
   }
@@ -344,18 +383,30 @@ function CutInfo({ data }) {
   if (!cut.AfterRound) {
     return null;
   }
+
   if (
     clazz.Leaderboard &&
-    clazz.Leaderboard.ActiveRoundNumber < cut.AfterRound
+    clazz.Leaderboard.ActiveRoundNumber >= cut.AfterRound
   ) {
+    return (
+      <span>
+        {cut.Position} players{' '}
+        {cut.IsPerformed ? 'made' : 'are projected to make'}{' '}
+        <a href="#cut">the cut</a> after round {cut.AfterRound}.
+      </span>
+    );
+  }
+
+  const cutConfig = getCutConfig(data);
+  const projectedScore = getProjectedCutScore(cutConfig, cut, entries);
+  if (!projectedScore) {
     return null;
   }
 
   return (
     <span>
-      {cut.Position} players{' '}
-      {cut.IsPerformed ? 'made' : 'are projected to make'}{' '}
-      <a href="#cut">the cut</a>.
+      Cut after round {cut.AfterRound}: top {cutConfig.Limit} and ties —
+      projected at {projectedScore}.
     </span>
   );
 }
@@ -451,6 +502,7 @@ export default function CompetitionPage({
   initialData,
   initialTimesData,
   initialPlayersData,
+  initialCompetitionData,
   loadingOverride,
   account,
   competition = {},
@@ -473,6 +525,7 @@ export default function CompetitionPage({
   );
   const competitionData = useJsonPData(
     `https://scores.golfbox.dk/Handlers/CompetitionHandler/GetCompetition/CompetitionId/${competition.id}/language/2057/`,
+    initialCompetitionData,
   );
   const loading = loadingOverride || !data || !timesData || !playersData;
 
@@ -519,7 +572,7 @@ export default function CompetitionPage({
         <p className="leaderboard-page-subtitle">
           {competition.venue} –{' '}
           {competition.start && competitionDateString(competition, now, { finished })}.{' '}
-          <CutInfo data={data} />
+          <CutInfo data={data} entries={entries} />
         </p>
       )}
       <p className="leaderboard-page-subtitle">
