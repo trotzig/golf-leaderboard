@@ -223,6 +223,7 @@ export async function getServerSideProps() {
         start: true,
         end: true,
         slug: true,
+        finished: true,
         leaderboardEntries: {
           orderBy: {
             position: 'asc',
