@@ -1,9 +1,8 @@
-import formData from 'form-data';
 import Mailgun from 'mailgun.js';
 
 const { MAILGUN_API_KEY, MAILGUN_DOMAIN, NEXT_PUBLIC_TITLE } = process.env;
 
-const mailgun = new Mailgun(formData);
+const mailgun = new Mailgun(FormData);
 const client = mailgun.client({
   username: 'api',
   key: MAILGUN_API_KEY,
