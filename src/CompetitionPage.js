@@ -255,7 +255,6 @@ function Player({
             : `/${generateSlug(entry)}`
         }
       >
-        <a>
           <span className={positionClassname}>
             <span>
               {entry.Position && entry.Position.Calculated ? (
@@ -304,7 +303,6 @@ function Player({
               );
             })}
           </StatsWrapper>
-        </a>
       </Link>
     </li>
   );
@@ -513,10 +511,11 @@ export default function CompetitionPage({
   loadingOverride,
   account,
   competition = {},
-  now = new Date(),
+  now: nowMs = Date.now(),
   lazyItems = true,
 }) {
   ensureDates(competition);
+  const now = new Date(nowMs);
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
   const data = useJsonPData(
     `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057/`,
@@ -584,9 +583,7 @@ export default function CompetitionPage({
       )}
       <p className="leaderboard-page-subtitle">
         Switch to{' '}
-        <Link href={`/t/${competition.slug}/tee-times`}>
-          <a>tee times</a>
-        </Link>
+        <Link href={`/t/${competition.slug}/tee-times`}>tee times</Link>
         .
       </p>
       {data && (
@@ -598,13 +595,12 @@ export default function CompetitionPage({
                   <div key={course.CourseID}>
                     <Link
                       href={`/t/${competition.slug}/courses/${course.CourseID}`}
+                      className={course.CssName}
                     >
-                      <a className={course.CssName}>
-                        {removeCommonCoursePrefix(
-                          Object.values(data.CourseColours),
-                          course.Name,
-                        )}
-                      </a>
+                      {removeCommonCoursePrefix(
+                        Object.values(data.CourseColours),
+                        course.Name,
+                      )}
                     </Link>
                   </div>
                 );

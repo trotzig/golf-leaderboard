@@ -35,6 +35,7 @@ export default function StartPage({
   upcomingCompetitions,
   nextCompetition,
   currentCompetition,
+  now: nowMs,
 }) {
   pastCompetitions.forEach(ensureDates);
   upcomingCompetitions.forEach(ensureDates);
@@ -44,7 +45,7 @@ export default function StartPage({
   if (currentCompetition) {
     ensureDates(currentCompetition);
   }
-  const now = new Date();
+  const now = new Date(nowMs);
 
   return (
     <div className="chrome">
@@ -61,13 +62,9 @@ ${process.env.NEXT_PUBLIC_INTRO}. Follow your favorite players and get the lates
         <h2>{process.env.NEXT_PUBLIC_INTRO_TITLE}</h2>
         <p className="page-desc">
           {process.env.NEXT_PUBLIC_INTRO} Follow your{' '}
-          <Link href="/players">
-            <a>favorite players</a>
-          </Link>{' '}
+          <Link href="/players">favorite players</Link>{' '}
           and get the latest updates{' '}
-          <Link href="/profile">
-            <a>straight in your inbox</a>
-          </Link>
+          <Link href="/profile">straight in your inbox</Link>
           .
         </p>
         {currentCompetition && (
@@ -89,10 +86,8 @@ ${process.env.NEXT_PUBLIC_INTRO}. Follow your favorite players and get the lates
                 <CompetitionListItem key={c.id} competition={c} now={now} />
               ))}
             </ul>
-            <Link href="/schedule">
-              <a className="page-margin competition-view-all">
-                View all events
-              </a>
+            <Link href="/schedule" className="page-margin competition-view-all">
+              View all events
             </Link>
           </>
         )}
@@ -131,10 +126,8 @@ ${process.env.NEXT_PUBLIC_INTRO}. Follow your favorite players and get the lates
                 <CompetitionListItem key={c.id} competition={c} now={now} />
               ))}
             </ul>
-            <Link href="/schedule">
-              <a className="page-margin competition-view-all">
-                View all events
-              </a>
+            <Link href="/schedule" className="page-margin competition-view-all">
+              View all events
             </Link>
           </>
         )}
@@ -152,21 +145,19 @@ function CompetitionListItem({ competition, now, current }) {
         current ? 'competition-list-item current' : 'competition-list-item'
       }
     >
-      <Link href={`/t/${competition.slug}${queryString}`}>
-        <a className="competition">
-          <div className="calendar-event">
-            <b>{format(competition.start, 'd')}</b>
-            <span>{format(competition.start, 'MMM')}</span>
-          </div>
-          <div className="competition-details">
-            <h4 className="competition-name">
-              <span>{competition.name}</span>
-            </h4>
-            <p>
-              {competition.venue} — {competitionDateString(competition, now)}
-            </p>
-          </div>
-        </a>
+      <Link href={`/t/${competition.slug}${queryString}`} className="competition">
+        <div className="calendar-event">
+          <b>{format(competition.start, 'd')}</b>
+          <span>{format(competition.start, 'MMM')}</span>
+        </div>
+        <div className="competition-details">
+          <h4 className="competition-name">
+            <span>{competition.name}</span>
+          </h4>
+          <p>
+            {competition.venue} — {competitionDateString(competition, now)}
+          </p>
+        </div>
       </Link>
     </li>
   );
@@ -254,6 +245,7 @@ export async function getServerSideProps() {
   const props = {
     pastCompetitions,
     upcomingCompetitions,
+    now,
   };
   if (nextCompetition) {
     props.nextCompetition = nextCompetition;

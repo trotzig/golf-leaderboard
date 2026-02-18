@@ -33,15 +33,11 @@ function Player({ player, onFavorite, lastFavoriteChanged }) {
         />
       </span>
       <Link href={`/${player.slug}`}>
-        <a>
-          {player.firstName} {player.lastName}
-          <br />
-          <span className="club">{player.clubName}</span>
-        </a>
+        {player.firstName} {player.lastName}
+        <br />
+        <span className="club">{player.clubName}</span>
       </Link>
-      <Link href="/oom">
-        <a className="oom-position">{ordinal(player.oomPosition)}</a>
-      </Link>
+      <Link href="/oom" className="oom-position">{ordinal(player.oomPosition)}</Link>
     </li>
   );
 }
@@ -156,9 +152,7 @@ export default function PlayersPage({ account }) {
         are listed here.{' '}
         {!account ? (
           <>
-            <Link href="/sign-in">
-              <a>Sign in</a>
-            </Link>{' '}
+            <Link href="/sign-in">Sign in</Link>{' '}
             to synchronize your favorites across different devices and opt in to
             email notifications from them.
           </>

@@ -24,8 +24,8 @@
     "dompurify": "^3.2.6",
     "lodash": "^4.17.21",
     "mailgun.js": "^8.0.6",
-    "next": "^12.1.5",
-    "nextjs-progressbar": "^0.0.14",
+    "next": "^16.1.6",
+    "next-nprogress-bar": "^2.4.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

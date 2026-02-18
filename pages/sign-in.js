@@ -15,9 +15,7 @@ export default function SignInPage({ account }) {
           <div>
             <p>
               You are signed in as {account.email}.{' '}
-              <Link href="/players">
-                <a>Continue to your favorite players</a>
-              </Link>
+              <Link href="/players">Continue to your favorite players</Link>
               .
             </p>
             <a href="/api/auth/logout" className="icon-button">

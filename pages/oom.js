@@ -33,45 +33,43 @@ function Player({ entry, onFavorite, lastFavoriteChanged }) {
   const classes = ['player'];
   return (
     <li>
-      <Link href={`/${generateSlug(entry)}`}>
-        <a className={classes.join(' ')}>
-          <span className="position">
-            <span>{entry.Position}</span>
-            <FavoriteButton
-              playerId={entry.MemberID}
-              onChange={onFavorite}
-              lastFavoriteChanged={lastFavoriteChanged}
-            />
-          </span>
-          <span>
-            {entry.FirstName} {entry.LastName}
-            <br />
-            <span className="club">{entry.ClubName}</span>
-          </span>
-          <span className="score">
-            {NUM_FORMATTER.format(Math.round(entry.CalculatedResult))}
-          </span>
-          <span className="stats">
-            <div className="round">
-              {Object.values(entry.Results).map(result => {
-                return (
-                  <div
-                    key={result.CompetitionID}
-                    className={`round-score ${
-                      isFirst(result.Position)
-                        ? 'first'
-                        : isTop10(result.Position)
-                        ? 'top-10'
-                        : ''
-                    }`}
-                  >
-                    {result.Result > 0 ? result.Position : '—'}
-                  </div>
-                );
-              })}
-            </div>
-          </span>
-        </a>
+      <Link href={`/${generateSlug(entry)}`} className={classes.join(' ')}>
+        <span className="position">
+          <span>{entry.Position}</span>
+          <FavoriteButton
+            playerId={entry.MemberID}
+            onChange={onFavorite}
+            lastFavoriteChanged={lastFavoriteChanged}
+          />
+        </span>
+        <span>
+          {entry.FirstName} {entry.LastName}
+          <br />
+          <span className="club">{entry.ClubName}</span>
+        </span>
+        <span className="score">
+          {NUM_FORMATTER.format(Math.round(entry.CalculatedResult))}
+        </span>
+        <span className="stats">
+          <div className="round">
+            {Object.values(entry.Results).map(result => {
+              return (
+                <div
+                  key={result.CompetitionID}
+                  className={`round-score ${
+                    isFirst(result.Position)
+                      ? 'first'
+                      : isTop10(result.Position)
+                      ? 'top-10'
+                      : ''
+                  }`}
+                >
+                  {result.Result > 0 ? result.Position : '—'}
+                </div>
+              );
+            })}
+          </div>
+        </span>
       </Link>
     </li>
   );

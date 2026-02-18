@@ -7,8 +7,7 @@ import fixParValue from './fixParValue';
 export default function Leaderboard({ competition, now }) {
   const finished = competition.finished;
   return (
-    <Link href={`/t/${competition.slug}`}>
-      <a className="leaderboard">
+    <Link href={`/t/${competition.slug}`} className="leaderboard">
         <div className="leaderboard-legend">
           {finished ? 'Final results' : 'Leaderboard'}
         </div>
@@ -54,7 +53,6 @@ export default function Leaderboard({ competition, now }) {
           </tbody>
         </table>
         <div className="leaderboard-view-all">View full leaderboard</div>
-      </a>
     </Link>
   );
 }

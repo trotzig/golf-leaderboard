@@ -73,8 +73,9 @@ function Game({ game }) {
   );
 }
 
-export default function TeeTimesPage({ competition, now = new Date(), round }) {
+export default function TeeTimesPage({ competition, now: nowMs, round }) {
   ensureDates(competition);
+  const now = new Date(nowMs);
   const data = useJsonPData(
     `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competition.id}/language/2057/`,
   );
@@ -127,9 +128,7 @@ export default function TeeTimesPage({ competition, now = new Date(), round }) {
       )}
       <p className="leaderboard-page-subtitle">
         Switch to{' '}
-        <Link href={`/t/${competition.slug}`}>
-          <a>leaderboard</a>
-        </Link>
+        <Link href={`/t/${competition.slug}`}>leaderboard</Link>
         .
       </p>
 
@@ -140,13 +139,12 @@ export default function TeeTimesPage({ competition, now = new Date(), round }) {
               <div key={course.CourseID}>
                 <Link
                   href={`/t/${competition.slug}/courses/${course.CourseID}`}
+                  className={course.CssName}
                 >
-                  <a className={course.CssName}>
-                    {removeCommonCoursePrefix(
-                      Object.values(data.CourseColours),
-                      course.Name,
-                    )}
-                  </a>
+                  {removeCommonCoursePrefix(
+                    Object.values(data.CourseColours),
+                    course.Name,
+                  )}
                 </Link>
               </div>
             );
@@ -170,7 +168,7 @@ export default function TeeTimesPage({ competition, now = new Date(), round }) {
                   <Link
                     href={`/t/${competition.slug}/tee-times?round=${round.Number}`}
                   >
-                    <a>{round.Name}</a>
+                    {round.Name}
                   </Link>
                 </li>
               );
@@ -221,7 +219,7 @@ export async function getServerSideProps({ params, query }) {
   }
   competition.start = competition.start.getTime();
   competition.end = competition.end.getTime();
-  const props = { competition };
+  const props = { competition, now: Date.now() };
   if (query.round) {
     props.round = query.round;
   }

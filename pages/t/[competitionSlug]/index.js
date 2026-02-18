@@ -28,6 +28,6 @@ export async function getServerSideProps({ req, params }) {
     props: { account },
   } = proProps;
   return {
-    props: { competition, account: account || null },
+    props: { competition, account: account || null, now: Date.now() },
   };
 }
