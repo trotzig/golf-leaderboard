@@ -9,12 +9,13 @@
     "sync-data": "dotenv node scripts/buildStaticData.mjs",
     "sync-data:prod": "dotenv -e production.env node scripts/buildStaticData.mjs",
     "fill-slugs:prod": "dotenv -e production.env node src/fillSlugs.mjs",
+    "happo": "happo",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
     "postinstall": "prisma generate"
   },
   "dependencies": {
@@ -30,15 +31,17 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.29.0",
-    "@babel/preset-react": "^7.0.0",
-    "@storybook/addon-webpack5-compiler-babel": "^4.0.0",
-    "@storybook/react-webpack5": "^10.2.10",
+    "@babel/core": "^7.17.5",
+    "@storybook/addon-actions": "^6.4.19",
+    "@storybook/addon-essentials": "^6.4.19",
+    "@storybook/addon-interactions": "^6.4.19",
+    "@storybook/addon-links": "^6.4.19",
+    "@storybook/react": "^6.4.19",
+    "@storybook/testing-library": "^0.0.9",
     "babel-loader": "^8.2.3",
     "dotenv-cli": "^5.1.0",
-    "happo": "latest",
-    "import": "^0.0.6",
-    "prisma": "^6.8.2",
-    "storybook": "^10.0.0"
+    "happo-plugin-storybook": "^3.1.0",
+    "happo.io": "^8.3.1",
+    "prisma": "^6.8.2"
   }
 }
