@@ -314,10 +314,10 @@ function getHeading(competition, now, finished) {
   if (finished) {
     return 'Final results';
   }
-  const startOfToday = startOfDay(now);
-  if (competition.start > startOfToday) {
+  if (competition.start > now) {
     return 'Upcoming event';
   }
+  const startOfToday = startOfDay(now);
   if (competition.end >= startOfToday) {
     return 'Leaderboard';
   }
