@@ -23,14 +23,14 @@ function deepClone(obj) {
   return JSON.parse(JSON.stringify(obj));
 }
 
-// Create round 1 data with projected cut line
+// Create round 2 data with projected cut line (cut is after round 2, still being played)
 const round1WithCut = deepClone(ongoing);
 {
   const classKey = Object.keys(round1WithCut.initialData.Classes)[0];
   const clazz = round1WithCut.initialData.Classes[classKey];
-  // Simulate round 1
-  clazz.Leaderboard.ActiveRoundNumber = 1;
-  // Remove the performed cut (hasn't happened yet in round 1)
+  // Simulate round 2 (the cut round) still in progress
+  clazz.Leaderboard.ActiveRoundNumber = 2;
+  // Cut hasn't been performed yet
   clazz.Cut = { IsPerformed: false, AfterRound: 2 };
   // Set cut config with Limit of 10 (within our 15 slimmed entries)
   round1WithCut.initialData.CompetitionData.Classes[0].Cut = {
