@@ -1,7 +1,5 @@
 import { parse } from 'date-fns';
 
-import nodeFetch from 'node-fetch';
-
 import generateCompetitionSlug from '../../src/generateCompetitionSlug.mjs';
 import parseJson from './parseJson.mjs';
 
@@ -19,7 +17,7 @@ function entryToCompetition(e, now) {
 }
 
 async function fetchCompetition(competitionId, now) {
-  const resPromise = nodeFetch(
+  const resPromise = fetch(
     `https://scores.golfbox.dk/Handlers/CompetitionHandler/GetCompetition/CompetitionId/${competitionId}/`,
   );
 
@@ -47,7 +45,7 @@ export default async function fetchCompetitions() {
     return result;
   }
 
-  const res = await nodeFetch(
+  const res = await fetch(
     `https://scores.golfbox.dk/Handlers/ScheduleHandler/GetSchedule/CustomerId/${process.env.NEXT_PUBLIC_GOLFBOX_CUSTOMER_ID}/Season/${new Date().getFullYear()}/CompetitionId/0/language/2057/`,
   );
   if (!res.ok) {
