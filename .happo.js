@@ -8,6 +8,10 @@ module.exports = {
   apiSecret: process.env.HAPPO_API_SECRET,
   targets: {
     chrome: new RemoteBrowserTarget('chrome', { viewport: '1024x768' }),
+    'chrome-dark': new RemoteBrowserTarget('chrome', {
+      viewport: '1024x768',
+      colorScheme: 'dark',
+    }),
     firefox: new RemoteBrowserTarget('firefox', { viewport: '1024x768' }),
     safari: new RemoteBrowserTarget('safari', { viewport: '1024x768' }),
     iphone: new RemoteBrowserTarget('ios-safari', { viewport: '1024x768' }),
