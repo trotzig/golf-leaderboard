@@ -130,6 +130,38 @@ button {
   opacity: 0.7;
 }
 
+.cut-info {
+  margin: 10px 10px 20px;
+  border-left: 5px solid var(--primary);
+  padding-left: 10px;
+}
+
+.cut-info-heading {
+  padding: 0;
+  margin-bottom: 3px;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--primary);
+}
+
+.cut-info-body {
+  margin: 0;
+  line-height: 1.5;
+  opacity: 0.7;
+  margin: 0;
+  font-size: 14px;
+  font-weight: normal;
+  padding-bottom: 3px;
+}
+
+.cut-info-body a {
+  color: inherit;
+  text-decoration: underline;
+  font-size: inherit;
+}
+
 a {
   color: var(--primary);
 }

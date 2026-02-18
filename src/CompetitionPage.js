@@ -164,7 +164,9 @@ function Round({ round, colors, now }) {
   return (
     <div className={classes.join(' ')}>
       {now < startTime || !round.Holes ? (
-        <div className="round-start-time">{formatCETTime(round.StartDateTime)}</div>
+        <div className="round-start-time">
+          {formatCETTime(round.StartDateTime)}
+        </div>
       ) : (
         Object.keys(round.Holes || {}).map((holeKey, i) => {
           const score = round.HoleScores[holeKey];
@@ -255,54 +257,50 @@ function Player({
             : `/${generateSlug(entry)}`
         }
       >
-          <span className={positionClassname}>
-            <span>
-              {entry.Position && entry.Position.Calculated ? (
-                entry.Position.Calculated
-              ) : rounds && rounds.length > 0 ? (
-                <ClockIcon
-                  date={getFirstRoundStart(rounds[rounds.length - 1])}
-                />
-              ) : null}
-            </span>
-            <FavoriteButton
-              playerId={entry.MemberID}
-              onChange={onFavoriteChange}
-              icon
-              lastFavoriteChanged={lastFavoriteChanged}
-            />
-          </span>
+        <span className={positionClassname}>
           <span>
-            {entry.FirstName} {entry.LastName}
-            <br />
-            <span className="club">
-              {entry.ClubName}
-              {process.env.NEXT_PUBLIC_SHOW_PHCP
-                ? ` — HCP ${entry.PHCP}`
-                : null}
-            </span>
+            {entry.Position && entry.Position.Calculated ? (
+              entry.Position.Calculated
+            ) : rounds && rounds.length > 0 ? (
+              <ClockIcon date={getFirstRoundStart(rounds[rounds.length - 1])} />
+            ) : null}
           </span>
-          {entry.ResultSum ? (
-            <span
-              className={`score${
-                entry.ResultSum.ToParValue < 0 ? ' under-par' : ''
-              }`}
-            >
-              {fixParValue(entry.ResultSum.ToParText)}
-            </span>
-          ) : null}
-          <StatsWrapper className="stats" minHeight={statsHeight}>
-            {rounds.map(round => {
-              return (
-                <Round
-                  key={round.StartDateTime}
-                  round={round}
-                  colors={colors}
-                  now={now}
-                />
-              );
-            })}
-          </StatsWrapper>
+          <FavoriteButton
+            playerId={entry.MemberID}
+            onChange={onFavoriteChange}
+            icon
+            lastFavoriteChanged={lastFavoriteChanged}
+          />
+        </span>
+        <span>
+          {entry.FirstName} {entry.LastName}
+          <br />
+          <span className="club">
+            {entry.ClubName}
+            {process.env.NEXT_PUBLIC_SHOW_PHCP ? ` — HCP ${entry.PHCP}` : null}
+          </span>
+        </span>
+        {entry.ResultSum ? (
+          <span
+            className={`score${
+              entry.ResultSum.ToParValue < 0 ? ' under-par' : ''
+            }`}
+          >
+            {fixParValue(entry.ResultSum.ToParText)}
+          </span>
+        ) : null}
+        <StatsWrapper className="stats" minHeight={statsHeight}>
+          {rounds.map(round => {
+            return (
+              <Round
+                key={round.StartDateTime}
+                round={round}
+                colors={colors}
+                now={now}
+              />
+            );
+          })}
+        </StatsWrapper>
       </Link>
     </li>
   );
@@ -365,6 +363,20 @@ function getProjectedCutScore(cutConfig, cut, entries) {
   return formatProjectedScore(projected);
 }
 
+function getActualCutScore(entries, cutPosition) {
+  if (!cutPosition || !entries) {
+    return null;
+  }
+  // The last player who made the cut
+  const cutEntry = entries.find(
+    e => e.Position && e.Position.Actual === cutPosition,
+  );
+  if (!cutEntry || !cutEntry.ResultSum) {
+    return null;
+  }
+  return fixParValue(cutEntry.ResultSum.ToParText);
+}
+
 function CutInfo({ data, entries }) {
   if (!data) {
     return null;
@@ -374,45 +386,77 @@ function CutInfo({ data, entries }) {
     return null;
   }
   const cut = clazz.Cut;
-  if (!cut) {
-    return null;
-  }
-
-  if (!cut.AfterRound) {
-    return null;
-  }
-
-  if (
-    clazz.Leaderboard &&
-    (clazz.Leaderboard.ActiveRoundNumber > cut.AfterRound || cut.IsPerformed)
-  ) {
-    return (
-      <span>
-        {cut.Position} players{' '}
-        {cut.IsPerformed ? 'made' : 'are projected to make'}{' '}
-        <a href="#cut">the cut</a> after round {cut.AfterRound}.
-      </span>
-    );
-  }
-
-  if (
-    !clazz.Leaderboard ||
-    clazz.Leaderboard.ActiveRoundNumber < cut.AfterRound
-  ) {
+  if (!cut || !cut.AfterRound) {
     return null;
   }
 
   const cutConfig = getCutConfig(data);
-  const projectedScore = getProjectedCutScore(cutConfig, cut, entries);
-  if (!projectedScore) {
+  if (!cutConfig || !cutConfig.Enabled) {
     return null;
   }
 
+  const activeRound = clazz.Leaderboard && clazz.Leaderboard.ActiveRoundNumber;
+
+  // Don't show before competition has started
+  if (!activeRound) {
+    return null;
+  }
+
+  const cutDone = cut.IsPerformed || activeRound > cut.AfterRound;
+  const cutInProgress = activeRound === cut.AfterRound && !cut.IsPerformed;
+
+  const playersInsideCut = cutDone
+    ? cut.Position
+    : entries
+    ? entries.filter(e => e.Position && e.Position.Actual <= cutConfig.Limit)
+        .length
+    : null;
+
+  let cutScore = null;
+  if (cutDone) {
+    cutScore = getActualCutScore(entries, cut.Position);
+  } else {
+    cutScore = getProjectedCutScore(cutConfig, cut, entries);
+  }
+
   return (
-    <span>
-      Cut after round {cut.AfterRound}: top {cutConfig.Limit} and ties —
-      projected at {projectedScore}.
-    </span>
+    <div className="cut-info">
+      <h3 className="cut-info-heading">Cut info</h3>
+      <p className="cut-info-body">
+        {cutDone ? (
+          <>
+            {playersInsideCut != null && (
+              <>
+                <strong>
+                  <a href="#cut">{playersInsideCut} players</a>
+                </strong>{' '}
+                made the cut after round {cut.AfterRound}.{' '}
+              </>
+            )}
+            {cutScore != null && (
+              <>The score required to make the cut was {cutScore}.</>
+            )}
+          </>
+        ) : (
+          <>
+            {playersInsideCut != null && (
+              <>
+                <strong>
+                  <a href="#cut">{playersInsideCut} players</a>
+                </strong>{' '}
+                are currently inside the cut line
+                {cutScore != null ? (
+                  <> which is projected to be at {cutScore}</>
+                ) : null}
+                .{' '}
+              </>
+            )}
+            Top {cutConfig.Limit} players and ties make the cut after round{' '}
+            {cut.AfterRound}.
+          </>
+        )}
+      </p>
+    </div>
   );
 }
 
@@ -456,7 +500,8 @@ function getWinner(entries) {
     return;
   }
   return entries.find(
-    e => e.Position && (e.Position.Calculated === '1' || e.Position.Actual === 1),
+    e =>
+      e.Position && (e.Position.Calculated === '1' || e.Position.Actual === 1),
   );
 }
 
@@ -577,14 +622,15 @@ export default function CompetitionPage({
       {competition.venue && (
         <p className="leaderboard-page-subtitle">
           {competition.venue} –{' '}
-          {competition.start && competitionDateString(competition, now, { finished })}.{' '}
-          <CutInfo data={data} entries={entries} />
+          {competition.start &&
+            competitionDateString(competition, now, { finished })}
+          .
         </p>
       )}
+      <CutInfo data={data} entries={entries} />
       <p className="leaderboard-page-subtitle">
         Switch to{' '}
-        <Link href={`/t/${competition.slug}/tee-times`}>tee times</Link>
-        .
+        <Link href={`/t/${competition.slug}/tee-times`}>tee times</Link>.
       </p>
       {data && (
         <>
