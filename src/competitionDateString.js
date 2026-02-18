@@ -49,7 +49,7 @@ export default function competitionDateString(
     suffix = ` — Played ${numberOfDays + 1} rounds`;
   } else if (start - 60 * 60 * 1000 <= utcMidnight && utcMidnight <= end) {
     // Currently active
-    suffix = ` — Playing round ${differenceInDays(utcMidnight, start) + 1} of ${
+    suffix = ` — Round ${differenceInDays(utcMidnight, start) + 1} of ${
       numberOfDays + 1
     }`;
   } else {
