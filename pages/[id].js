@@ -58,11 +58,9 @@ export default function PlayerPage({ player, season: selectedSeason }) {
           </h2>
           <p className="player-page-club">{player.clubName}</p>
         </div>
-        <Link href="/oom">
-          <a className="player-page-oom">
-            <b>{ordinal(player.oomPosition)}</b>
-            Order of merit
-          </a>
+        <Link href="/oom" className="player-page-oom">
+          <b>{ordinal(player.oomPosition)}</b>
+          Order of merit
         </Link>
       </div>
       <div className="page-margin" style={{ marginBottom: 30 }}>
@@ -83,17 +81,13 @@ export default function PlayerPage({ player, season: selectedSeason }) {
           {profile.sendEmailOnFinished ? (
             <div>
               You are subscribed to results from {player.firstName}. Go to{' '}
-              <Link href="/profile">
-                <a>your settings</a>
-              </Link>{' '}
+              <Link href="/profile">your settings</Link>{' '}
               if you want to change this.
             </div>
           ) : (
             <div>
               Go to{' '}
-              <Link href="/profile">
-                <a>your settings</a>
-              </Link>{' '}
+              <Link href="/profile">your settings</Link>{' '}
               if you want to subscribe to results from {player.firstName}
             </div>
           )}
@@ -111,9 +105,7 @@ export default function PlayerPage({ player, season: selectedSeason }) {
                   `${season}` === `${year}` ? 'tab-selected' : ''
                 }
               >
-                <Link href={`/${player.slug}?season=${year}`}>
-                  <a>{year}</a>
-                </Link>
+                <Link href={`/${player.slug}?season=${year}`}>{year}</Link>
               </li>
             );
           })}
@@ -134,10 +126,8 @@ export default function PlayerPage({ player, season: selectedSeason }) {
                 <tr key={comp.competition.name}>
                   <td className="results-table-competition">
                     <Link href={`/t/${comp.competition.slug}`}>
-                      <a>
-                        {comp.competition.name}
-                        <div>{comp.competition.course}</div>
-                      </a>
+                      {comp.competition.name}
+                      <div>{comp.competition.course}</div>
                     </Link>
                   </td>
                   <td className="results-table-position">{comp.position}</td>

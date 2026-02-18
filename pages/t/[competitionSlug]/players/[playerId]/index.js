@@ -126,10 +126,11 @@ function Round({ round, colors, courses, now }) {
 }
 
 export default function CompetitionPlayer({
-  now = new Date(),
+  now: nowMs,
   player,
   competition,
 }) {
+  const now = new Date(nowMs);
   const data = useJsonPData(
     `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057/`,
   );
@@ -164,10 +165,8 @@ export default function CompetitionPlayer({
             <div className="player-profile-top page-margin">
               <div>
                 <b>Player</b>
-                <Link href={`/${player.slug}`}>
-                  <a className="player-profile-name">
-                    {player.firstName} {player.lastName}
-                  </a>
+                <Link href={`/${player.slug}`} className="player-profile-name">
+                  {player.firstName} {player.lastName}
                 </Link>
                 <span className="player-profile-club">{player.clubName}</span>
               </div>
@@ -250,6 +249,6 @@ export async function getServerSideProps({ params }) {
   competition.start = competition.start.getTime();
   competition.end = competition.end.getTime();
   return {
-    props: { competition, player },
+    props: { competition, player, now: Date.now() },
   };
 }

@@ -1,7 +1,7 @@
 import '../styles.css';
 
 import Head from 'next/head';
-import NextNProgress from 'nextjs-progressbar';
+import { PagesProgressBar as NextNProgress } from 'next-nprogress-bar';
 import React, { useEffect, useState } from 'react';
 import Script from 'next/script';
 

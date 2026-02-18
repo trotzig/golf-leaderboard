@@ -1,6 +1,4 @@
 import crypto from 'crypto';
-import nodeFetch from 'node-fetch';
-
 import fetchCompetitions from '../scripts/utils/fetchCompetitions.mjs';
 import generateSlug from './generateSlug.mjs';
 import parseJson from '../scripts/utils/parseJson.mjs';
@@ -18,7 +16,7 @@ async function promiseAllInBatches(task, items, batchSize = 10) {
 }
 
 async function fetchVenue(competition) {
-  const res = await nodeFetch(
+  const res = await fetch(
     `https://scores.golfbox.dk/Handlers/CompetitionHandler/GetCompetition/CompetitionId/${competition.id}/language/2057/`,
   );
   if (!res.ok) {
@@ -36,7 +34,7 @@ async function fetchVenue(competition) {
 }
 
 async function fetchPlayersFromEntriesList(competition) {
-  const res = await nodeFetch(
+  const res = await fetch(
     `https://scores.golfbox.dk/Handlers/PlayersHandler/GetPlayers/CompetitionId/${competition.id}/language/2057/`,
   );
   if (!res.ok) {
@@ -87,7 +85,7 @@ async function fetchPlayers(competition) {
     return fetchPlayersFromEntriesList(competition);
   }
   const competitionId = competition.id;
-  const res = await nodeFetch(
+  const res = await fetch(
     `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competitionId}/language/2057/`,
   );
   if (!res.ok) {
@@ -176,7 +174,7 @@ async function fetchAllPlayers(competitions, { full }) {
 
 async function fillOOM(players) {
   console.log('Filling OOM');
-  const res = await nodeFetch(
+  const res = await fetch(
     `https://scores.golfbox.dk/Handlers/OrderOfMeritsHandler/GetOrderOfMerit/CustomerId/${process.env.NEXT_PUBLIC_GOLFBOX_CUSTOMER_ID}/language/2057/OrderOfMeritID/${process.env.NEXT_PUBLIC_GOLFBOX_OOM_ID}/`,
   );
   if (!res.ok) {

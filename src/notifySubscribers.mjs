@@ -1,7 +1,5 @@
 import { startOfDay } from 'date-fns';
 
-import nodeFetch from 'node-fetch';
-
 import { sendMail } from './mailgun.mjs';
 import fixParValue from './fixParValue.mjs';
 import generateSlug from './generateSlug.mjs';
@@ -76,7 +74,7 @@ function getLastHoleScore(holeScores) {
 }
 
 async function fetchIsFinished(competition) {
-  const res = await nodeFetch(
+  const res = await fetch(
     `https://scores.golfbox.dk/Handlers/CompetitionHandler/GetCompetition/CompetitionId/${competition.id}/language/2057/`,
   );
   if (!res.ok) {
@@ -87,7 +85,7 @@ async function fetchIsFinished(competition) {
 }
 
 async function fetchResults(competition) {
-  const res = await nodeFetch(
+  const res = await fetch(
     `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057/`,
   );
   if (!res.ok) {

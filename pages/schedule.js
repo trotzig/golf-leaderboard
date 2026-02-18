@@ -7,9 +7,9 @@ import Menu from '../src/Menu';
 import ensureDates from '../src/ensureDates.js';
 import prisma from '../src/prisma';
 
-export default function SchedulePage({ competitions }) {
+export default function SchedulePage({ competitions, now: nowMs }) {
   competitions.forEach(ensureDates);
-  const now = startOfDay(new Date());
+  const now = startOfDay(new Date(nowMs));
   const currentCompetition = competitions.find(
     c => c.start <= now && c.end >= now,
   );
@@ -57,10 +57,8 @@ function CompetitionItem({ competition, now, current }) {
     >
       <td>
         <Link href={`/t/${competition.slug}${queryString}`}>
-          <a>
-            {competition.name}
-            <br />
-          </a>
+          {competition.name}
+          <br />
         </Link>
         <span className="schedule-venue">{competition.venue}</span>
       </td>
@@ -73,9 +71,10 @@ function CompetitionItem({ competition, now, current }) {
 }
 
 export async function getServerSideProps() {
+  const now = Date.now();
   const competitions = await prisma.competition.findMany({
     orderBy: { end: 'asc' },
-    where: { visible: true, start: { gte: startOfYear(new Date()) } },
+    where: { visible: true, start: { gte: startOfYear(new Date(now)) } },
     select: {
       id: true,
       name: true,
@@ -89,5 +88,5 @@ export async function getServerSideProps() {
     c.start = c.start.getTime();
     c.end = c.end.getTime();
   }
-  return { props: { competitions } };
+  return { props: { competitions, now } };
 }
