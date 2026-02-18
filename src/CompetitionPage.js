@@ -386,7 +386,7 @@ function CutInfo({ data, entries }) {
 
   if (
     clazz.Leaderboard &&
-    clazz.Leaderboard.ActiveRoundNumber >= cut.AfterRound
+    (clazz.Leaderboard.ActiveRoundNumber > cut.AfterRound || cut.IsPerformed)
   ) {
     return (
       <span>
@@ -395,6 +395,13 @@ function CutInfo({ data, entries }) {
         <a href="#cut">the cut</a> after round {cut.AfterRound}.
       </span>
     );
+  }
+
+  if (
+    !clazz.Leaderboard ||
+    clazz.Leaderboard.ActiveRoundNumber < cut.AfterRound
+  ) {
+    return null;
   }
 
   const cutConfig = getCutConfig(data);
