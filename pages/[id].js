@@ -52,19 +52,25 @@ export default function PlayerPage({ player, season: selectedSeason }) {
       </Head>
       <Menu activeHref="/players" />
       <div className="player-page-top">
+        <div className="player-page-photo-wrap">
+          <div
+            className="player-page-photo"
+            role="img"
+            aria-label={`${player.firstName} ${player.lastName}`}
+            style={{ backgroundImage: `url(/players/${player.id}.jpg), url(/players/${player.id}.png)` }}
+          />
+        </div>
         <div>
           <h2>
             {player.firstName} {player.lastName}
           </h2>
           <p className="player-page-club">{player.clubName}</p>
+          <FavoriteButton onChange={setIsFavorite} playerId={player.id} large />
         </div>
         <Link href="/oom" className="player-page-oom">
           <b>{ordinal(player.oomPosition)}</b>
           Order of merit
         </Link>
-      </div>
-      <div className="page-margin" style={{ marginBottom: 30 }}>
-        <FavoriteButton onChange={setIsFavorite} playerId={player.id} large />
       </div>
 
       {isFavorite && !profile && !isLoadingProfile ? (

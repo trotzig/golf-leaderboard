@@ -36,6 +36,7 @@
     "@storybook/addon-webpack5-compiler-babel": "^4.0.0",
     "@storybook/react-webpack5": "^10.2.10",
     "babel-loader": "^8.2.3",
+    "cheerio": "^1.2.0",
     "dotenv-cli": "^5.1.0",
     "happo": "latest",
     "import": "^0.0.6",
