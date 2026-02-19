@@ -39,7 +39,7 @@ function pluralizeRounds(count) {
   return `${count} rounds`;
 }
 
-function getEntriesFromTimesData(timesData) {
+function getIndexedEntriesFromTimesData(timesData) {
   if (!timesData.ActiveRoundNumber) {
     return {};
   }
@@ -78,18 +78,27 @@ function getEntriesFromTimesData(timesData) {
     }
     return 0;
   });
-  return entries;
+
+  const result = {};
+  for (const entry of entries) {
+    result[entry.MemberID] = entry;
+  }
+  return result;
 }
 
-function getEntriesFromPlayersData(playersData) {
+function getIndexedEntriesFromPlayersData(playersData) {
   if (!playersData.Classes) {
-    return [];
+    return {};
   }
-  return Object.values(Object.values(playersData.Classes)[0].Entries).filter(
-    p => {
-      return p.PlayerStatus === 1;
-    },
-  );
+  const result = {};
+  for (const entry of Object.values(
+    Object.values(playersData.Classes)[0].Entries,
+  ).filter(p => {
+    return p.PlayerStatus === 1;
+  })) {
+    result[entry.MemberID] = entry;
+  }
+  return result;
 }
 
 function getEntries(data, timesData, playersData) {
@@ -100,13 +109,13 @@ function getEntries(data, timesData, playersData) {
   if (!entries && !timesData) {
     return;
   }
-  const timeEntries = getEntriesFromTimesData(timesData);
+  const indexedTimeEntries = getIndexedEntriesFromTimesData(timesData);
   if (!entries) {
     // hasn't started yet, show start times
-    entries = timeEntries;
+    entries = indexedTimeEntries;
   }
   if (!Object.keys(entries).length) {
-    entries = getEntriesFromPlayersData(playersData);
+    entries = getIndexedEntriesFromPlayersData(playersData);
   }
 
   const result = Object.values(entries);
@@ -123,7 +132,7 @@ function getEntries(data, timesData, playersData) {
       entry.isFirstCut = true;
       entry.isFirstCutPerformed = data.Classes[classKey].Cut.IsPerformed;
     }
-    const timeEntry = timeEntries[entry.MemberID];
+    const timeEntry = indexedTimeEntries[entry.MemberID];
     if (timeEntry) {
       entry.activeRoundNumber = timeEntry.activeRoundNumber;
       entry.Rounds = { ...timeEntry.Rounds, ...entry.Rounds };
