@@ -15,7 +15,8 @@
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "find-oom-id": "dotenv node scripts/find-oom-id.mjs"
   },
   "dependencies": {
     "@prisma/client": "^6.8.2",
