@@ -73,7 +73,7 @@ function getLastHoleScore(holeScores) {
   return { toParValue, actualValue, hole, scoreText };
 }
 
-async function fetchIsFinished(competition) {
+async function fetchIsFinished(competition, activeRoundNumber, totalRounds) {
   const res = await fetch(
     `https://scores.golfbox.dk/Handlers/CompetitionHandler/GetCompetition/CompetitionId/${competition.id}/language/2057/`,
   );
@@ -81,7 +81,13 @@ async function fetchIsFinished(competition) {
     return false;
   }
   const json = parseJson(await res.text());
-  return json.DefaultAction === 'finalresults';
+  if (json.DefaultAction !== 'finalresults') {
+    return false;
+  }
+  if (activeRoundNumber && totalRounds && activeRoundNumber < totalRounds) {
+    return false;
+  }
+  return true;
 }
 
 async function fetchResults(competition) {
@@ -97,6 +103,8 @@ async function fetchResults(competition) {
   }
   const json = parseJson(await res.text());
   const leaderboard = Object.values(json.Classes)[0].Leaderboard;
+  const activeRoundNumber = leaderboard.ActiveRoundNumber;
+  const totalRounds = leaderboard.RoundNames && leaderboard.RoundNames.length;
   const entries = Object.values(leaderboard.Entries);
   const finished = [];
   const started = [];
@@ -153,7 +161,14 @@ async function fetchResults(competition) {
       hotStreakers.push(attrs);
     }
   }
-  return { finished, started, hotStreakers, leaderboardEntries };
+  return {
+    finished,
+    started,
+    hotStreakers,
+    leaderboardEntries,
+    activeRoundNumber,
+    totalRounds,
+  };
 }
 
 function fixTotalScore(score) {
@@ -317,16 +332,24 @@ export default async function notifySubscribers() {
       }
     }
     console.log(`Processing ${competition.name}...`);
-    const { finished, started, hotStreakers, leaderboardEntries } =
-      await fetchResults(competition);
+    const {
+      finished,
+      started,
+      hotStreakers,
+      leaderboardEntries,
+      activeRoundNumber,
+      totalRounds,
+    } = await fetchResults(competition);
     await upsertLeaderboard(competition.id, leaderboardEntries);
-    const isFinished = await fetchIsFinished(competition);
-    if (isFinished) {
-      await prisma.competition.update({
-        where: { id: competition.id },
-        data: { finished: true },
-      });
-    }
+    const isFinished = await fetchIsFinished(
+      competition,
+      activeRoundNumber,
+      totalRounds,
+    );
+    await prisma.competition.update({
+      where: { id: competition.id },
+      data: { finished: isFinished },
+    });
     for (const result of started) {
       await sendEmail(result, 'started');
     }
