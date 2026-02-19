@@ -542,8 +542,21 @@ function MatchPlay({ entries }) {
   );
 }
 
-function isCompetitionFinished(competitionData) {
-  return competitionData && competitionData.DefaultAction === 'finalresults';
+function isCompetitionFinished(competitionData, data, timesData) {
+  if (!competitionData || competitionData.DefaultAction !== 'finalresults') {
+    return false;
+  }
+  if (data && timesData) {
+    const classKey = Object.keys(data.Classes || {})[0];
+    const leaderboardRound =
+      classKey && data.Classes[classKey].Leaderboard.ActiveRoundNumber;
+    const totalRounds =
+      timesData.Rounds && Object.keys(timesData.Rounds).length;
+    if (leaderboardRound && totalRounds && leaderboardRound < totalRounds) {
+      return false;
+    }
+  }
+  return true;
 }
 
 function getWinner(entries) {
@@ -642,7 +655,7 @@ export default function CompetitionPage({
       : [];
 
   const isMatchPlay = entries && entries[0] && entries[0].Players;
-  const finished = isCompetitionFinished(competitionData);
+  const finished = isCompetitionFinished(competitionData, data, timesData);
   const winner = finished ? getWinner(entries) : undefined;
 
   for (const entry of entries || []) {
