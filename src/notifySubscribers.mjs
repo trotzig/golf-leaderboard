@@ -73,17 +73,24 @@ function getLastHoleScore(holeScores) {
   return { toParValue, actualValue, hole, scoreText };
 }
 
-async function fetchIsFinished(competition, activeRoundNumber, totalRounds) {
-  const res = await fetch(
-    `https://scores.golfbox.dk/Handlers/CompetitionHandler/GetCompetition/CompetitionId/${competition.id}/language/2057/`,
-  );
-  if (!res.ok) {
+async function fetchIsFinished(competition, activeRoundNumber) {
+  const [competitionRes, timesRes] = await Promise.all([
+    fetch(
+      `https://scores.golfbox.dk/Handlers/CompetitionHandler/GetCompetition/CompetitionId/${competition.id}/language/2057/`,
+    ),
+    fetch(
+      `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competition.id}/language/2057/`,
+    ),
+  ]);
+  if (!competitionRes.ok || !timesRes.ok) {
     return false;
   }
-  const json = parseJson(await res.text());
-  if (json.DefaultAction !== 'finalresults') {
+  const competitionJson = parseJson(await competitionRes.text());
+  if (competitionJson.DefaultAction !== 'finalresults') {
     return false;
   }
+  const timesJson = parseJson(await timesRes.text());
+  const totalRounds = timesJson.Rounds && Object.keys(timesJson.Rounds).length;
   if (activeRoundNumber && totalRounds && activeRoundNumber < totalRounds) {
     return false;
   }
@@ -104,7 +111,6 @@ async function fetchResults(competition) {
   const json = parseJson(await res.text());
   const leaderboard = Object.values(json.Classes)[0].Leaderboard;
   const activeRoundNumber = leaderboard.ActiveRoundNumber;
-  const totalRounds = leaderboard.RoundNames && leaderboard.RoundNames.length;
   const entries = Object.values(leaderboard.Entries);
   const finished = [];
   const started = [];
@@ -167,7 +173,6 @@ async function fetchResults(competition) {
     hotStreakers,
     leaderboardEntries,
     activeRoundNumber,
-    totalRounds,
   };
 }
 
@@ -338,14 +343,9 @@ export default async function notifySubscribers() {
       hotStreakers,
       leaderboardEntries,
       activeRoundNumber,
-      totalRounds,
     } = await fetchResults(competition);
     await upsertLeaderboard(competition.id, leaderboardEntries);
-    const isFinished = await fetchIsFinished(
-      competition,
-      activeRoundNumber,
-      totalRounds,
-    );
+    const isFinished = await fetchIsFinished(competition, activeRoundNumber);
     await prisma.competition.update({
       where: { id: competition.id },
       data: { finished: isFinished },
