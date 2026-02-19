@@ -177,15 +177,24 @@ async function processPlayerUpdate(player) {
 
   const imageUrl = await scrapeImageUrl(json.owgrUrl);
 
-  if (!imageUrl) {
+  const regex = /\.(jpg|png)/;
+  if (!imageUrl || !regex.test(imageUrl)) {
     console.log(
       `  [nophoto] ${player.firstName} ${player.lastName} — photo removed on OWGR`,
     );
     writeJson(player.id, { ...json, hasImage: false });
+    // Remove any existing local image file
+    for (const ext of ['jpg', 'png']) {
+      const filePath = path.join(OUTPUT_DIR, `${player.id}.${ext}`);
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+        console.log(`  [removed] ${filePath}`);
+      }
+    }
     return 'no_photo';
   }
 
-  const ext = imageUrl.match(/\.(jpg|png)/)[1];
+  const ext = imageUrl.match(regex)[1];
   const destPath = path.join(OUTPUT_DIR, `${player.id}.${ext}`);
   const ok = await downloadImage(imageUrl, destPath);
   if (ok) {

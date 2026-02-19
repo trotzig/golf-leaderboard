@@ -8,6 +8,7 @@ import React from 'react';
 import { useJsonPData } from '../../../../../src/fetchJsonP';
 import LoadingSkeleton from '../../../../../src/LoadingSkeleton';
 import Menu from '../../../../../src/Menu';
+import PlayerPhoto from '../../../../../src/PlayerPhoto';
 import fixParValue from '../../../../../src/fixParValue';
 import prisma from '../../../../../src/prisma';
 import generateSlug from '../../../../../src/generateSlug';
@@ -163,6 +164,7 @@ export default function CompetitionPlayer({
               {competition.name}
             </h2>
             <div className="player-profile-top page-margin">
+              <PlayerPhoto player={player} />
               <div>
                 <b>Player</b>
                 <Link href={`/${player.slug}`} className="player-profile-name">

@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 
 import FavoriteButton from '../src/FavoriteButton';
 import Menu from '../src/Menu';
+import PlayerPhoto from '../src/PlayerPhoto';
 import SignInForm from '../src/SignInForm';
 import fixParValue from '../src/fixParValue';
 import ordinal from '../src/ordinal';
@@ -52,14 +53,7 @@ export default function PlayerPage({ player, season: selectedSeason }) {
       </Head>
       <Menu activeHref="/players" />
       <div className="player-page-top">
-        <div className="player-page-photo-wrap">
-          <div
-            className="player-page-photo"
-            role="img"
-            aria-label={`${player.firstName} ${player.lastName}`}
-            style={{ backgroundImage: `url(/players/${player.id}.jpg), url(/players/${player.id}.png)` }}
-          />
-        </div>
+        <PlayerPhoto player={player} />
         <div>
           <h2>
             {player.firstName} {player.lastName}
