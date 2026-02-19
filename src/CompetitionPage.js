@@ -380,7 +380,7 @@ function getCutConfig(data) {
   return classes[0].Cut;
 }
 
-function getProjectedCutScore(cutConfig, cut, entries) {
+function getProjectedCutScore(cutConfig, cut, entries, activeRound) {
   if (!cutConfig || !cutConfig.Enabled || !cutConfig.Limit || !entries) {
     return null;
   }
@@ -394,14 +394,24 @@ function getProjectedCutScore(cutConfig, cut, entries) {
   if (!cutEntry || !cutEntry.ScoringToPar) {
     return null;
   }
-  const holesCompleted = cutEntry.ScoringToPar.HoleValue;
-  if (!holesCompleted) {
+  const currentScore = cutEntry.ScoringToPar.ToParValue / 10000;
+  // Compute field completion percentage: total holes played by all entries
+  // divided by total holes the full field is expected to play before the cut.
+  const totalFieldHoles = entries.length * afterRound * 18;
+  let holesPlayedByField = entries.reduce((sum, e) => {
+    return sum + Math.max((e.ScoringToPar && e.ScoringToPar.HoleValue) || 0, 0);
+  }, 0);
+  if (!holesPlayedByField || !totalFieldHoles) {
     return null;
   }
-  const currentScore = cutEntry.ScoringToPar.ToParValue / 10000;
-  const totalHoles = afterRound * 18;
-  const projected = currentScore * (totalHoles / holesCompleted);
-  return formatProjectedScore(projected);
+  holesPlayedByField += (activeRound - 1) * 18 * entries.length;
+  const fieldCompletionRatio = holesPlayedByField / totalFieldHoles;
+  const projected = currentScore + currentScore * fieldCompletionRatio;
+
+  const cleanedProjected =
+    projected > 0 ? Math.floor(projected) : Math.ceil(projected);
+
+  return formatProjectedScore(cleanedProjected);
 }
 
 function getActualCutScore(entries, cutPosition) {
@@ -457,7 +467,7 @@ function CutInfo({ data, entries }) {
   if (cutDone) {
     cutScore = getActualCutScore(entries, cut.Position);
   } else {
-    cutScore = getProjectedCutScore(cutConfig, cut, entries);
+    cutScore = getProjectedCutScore(cutConfig, cut, entries, activeRound);
   }
 
   return (
