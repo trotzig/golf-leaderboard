@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import DOMPurify from 'dompurify';
-
+import PlayerPhoto from './PlayerPhoto';
 import { useJsonPData } from './fetchJsonP';
 import ClockIcon from './ClockIcon';
 import FavoriteButton from './FavoriteButton';
@@ -222,6 +222,7 @@ function getFirstRoundStart(round) {
 }
 
 function Player({
+  big,
   entry,
   onFavoriteChange,
   lastFavoriteChanged,
@@ -246,6 +247,9 @@ function Player({
   if (entry.isFirstCutPerformed) {
     classes.push('player-entry-first-cut-performed');
   }
+  if (big) {
+    classes.push('player-entry-big');
+  }
 
   const positionClassname =
     entry.Position && entry.Position.Calculated.length > 3
@@ -259,37 +263,65 @@ function Player({
   return (
     <li className={classes.join(' ')}>
       {entry.isFirstCut ? <span id="cut" /> : null}
+      {big ? (
+        <Link href={`/${generateSlug(entry)}`} className="player-big-position">
+          <PlayerPhoto player={entry} />
+          <div>
+            <h2 className="player-big-name">
+              {entry.FirstName} {entry.LastName}
+            </h2>
+            <div className="player-big-club">
+              {entry.ClubName}
+              {process.env.NEXT_PUBLIC_SHOW_PHCP
+                ? ` — HCP ${entry.PHCP}`
+                : null}
+            </div>
+          </div>
+          <span className="player-big-score">
+            {fixParValue(entry.ResultSum.ToParText)}
+          </span>
+        </Link>
+      ) : null}
       <Link
         href={
           rounds.length > 0 && rounds[0].Holes
             ? `/t/${competition.slug}/players/${entry.MemberID}`
             : `/${generateSlug(entry)}`
         }
+        className="player-link"
       >
-        <span className={positionClassname}>
+        {!big ? (
+          <span className={positionClassname}>
+            <span>
+              {entry.Position && entry.Position.Calculated ? (
+                entry.Position.Calculated
+              ) : rounds && rounds.length > 0 ? (
+                <ClockIcon
+                  date={getFirstRoundStart(rounds[rounds.length - 1])}
+                />
+              ) : null}
+            </span>
+            <FavoriteButton
+              playerId={entry.MemberID}
+              onChange={onFavoriteChange}
+              icon
+              lastFavoriteChanged={lastFavoriteChanged}
+            />
+          </span>
+        ) : null}
+        {!big ? (
           <span>
-            {entry.Position && entry.Position.Calculated ? (
-              entry.Position.Calculated
-            ) : rounds && rounds.length > 0 ? (
-              <ClockIcon date={getFirstRoundStart(rounds[rounds.length - 1])} />
-            ) : null}
+            {entry.FirstName} {entry.LastName}
+            <br />
+            <span className="club">
+              {entry.ClubName}
+              {process.env.NEXT_PUBLIC_SHOW_PHCP
+                ? ` — HCP ${entry.PHCP}`
+                : null}
+            </span>
           </span>
-          <FavoriteButton
-            playerId={entry.MemberID}
-            onChange={onFavoriteChange}
-            icon
-            lastFavoriteChanged={lastFavoriteChanged}
-          />
-        </span>
-        <span>
-          {entry.FirstName} {entry.LastName}
-          <br />
-          <span className="club">
-            {entry.ClubName}
-            {process.env.NEXT_PUBLIC_SHOW_PHCP ? ` — HCP ${entry.PHCP}` : null}
-          </span>
-        </span>
-        {entry.ResultSum ? (
+        ) : null}
+        {entry.ResultSum && !big ? (
           <span
             className={`score${
               entry.ResultSum.ToParValue < 0 ? ' under-par' : ''
@@ -689,6 +721,7 @@ export default function CompetitionPage({
           <h3 className="winner-heading">Winner</h3>
           <ul>
             <Player
+              big={true}
               competition={competition}
               now={now}
               colors={data.CourseColours}

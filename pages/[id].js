@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 
 import FavoriteButton from '../src/FavoriteButton';
 import Menu from '../src/Menu';
+import PlayerPhoto from '../src/PlayerPhoto';
 import SignInForm from '../src/SignInForm';
 import fixParValue from '../src/fixParValue';
 import ordinal from '../src/ordinal';
@@ -52,19 +53,18 @@ export default function PlayerPage({ player, season: selectedSeason }) {
       </Head>
       <Menu activeHref="/players" />
       <div className="player-page-top">
+        <PlayerPhoto player={player} />
         <div>
           <h2>
             {player.firstName} {player.lastName}
           </h2>
           <p className="player-page-club">{player.clubName}</p>
+          <FavoriteButton onChange={setIsFavorite} playerId={player.id} large />
         </div>
         <Link href="/oom" className="player-page-oom">
           <b>{ordinal(player.oomPosition)}</b>
           Order of merit
         </Link>
-      </div>
-      <div className="page-margin" style={{ marginBottom: 30 }}>
-        <FavoriteButton onChange={setIsFavorite} playerId={player.id} large />
       </div>
 
       {isFavorite && !profile && !isLoadingProfile ? (
