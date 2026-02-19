@@ -73,15 +73,28 @@ function getLastHoleScore(holeScores) {
   return { toParValue, actualValue, hole, scoreText };
 }
 
-async function fetchIsFinished(competition) {
-  const res = await fetch(
-    `https://scores.golfbox.dk/Handlers/CompetitionHandler/GetCompetition/CompetitionId/${competition.id}/language/2057/`,
-  );
-  if (!res.ok) {
+async function fetchIsFinished(competition, activeRoundNumber) {
+  const [competitionRes, timesRes] = await Promise.all([
+    fetch(
+      `https://scores.golfbox.dk/Handlers/CompetitionHandler/GetCompetition/CompetitionId/${competition.id}/language/2057/`,
+    ),
+    fetch(
+      `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competition.id}/language/2057/`,
+    ),
+  ]);
+  if (!competitionRes.ok || !timesRes.ok) {
     return false;
   }
-  const json = parseJson(await res.text());
-  return json.DefaultAction === 'finalresults';
+  const competitionJson = parseJson(await competitionRes.text());
+  if (competitionJson.DefaultAction !== 'finalresults') {
+    return false;
+  }
+  const timesJson = parseJson(await timesRes.text());
+  const totalRounds = timesJson.Rounds && Object.keys(timesJson.Rounds).length;
+  if (activeRoundNumber && totalRounds && activeRoundNumber < totalRounds) {
+    return false;
+  }
+  return true;
 }
 
 async function fetchResults(competition) {
@@ -97,6 +110,7 @@ async function fetchResults(competition) {
   }
   const json = parseJson(await res.text());
   const leaderboard = Object.values(json.Classes)[0].Leaderboard;
+  const activeRoundNumber = leaderboard.ActiveRoundNumber;
   const entries = Object.values(leaderboard.Entries);
   const finished = [];
   const started = [];
@@ -153,7 +167,13 @@ async function fetchResults(competition) {
       hotStreakers.push(attrs);
     }
   }
-  return { finished, started, hotStreakers, leaderboardEntries };
+  return {
+    finished,
+    started,
+    hotStreakers,
+    leaderboardEntries,
+    activeRoundNumber,
+  };
 }
 
 function fixTotalScore(score) {
@@ -317,16 +337,19 @@ export default async function notifySubscribers() {
       }
     }
     console.log(`Processing ${competition.name}...`);
-    const { finished, started, hotStreakers, leaderboardEntries } =
-      await fetchResults(competition);
+    const {
+      finished,
+      started,
+      hotStreakers,
+      leaderboardEntries,
+      activeRoundNumber,
+    } = await fetchResults(competition);
     await upsertLeaderboard(competition.id, leaderboardEntries);
-    const isFinished = await fetchIsFinished(competition);
-    if (isFinished) {
-      await prisma.competition.update({
-        where: { id: competition.id },
-        data: { finished: true },
-      });
-    }
+    const isFinished = await fetchIsFinished(competition, activeRoundNumber);
+    await prisma.competition.update({
+      where: { id: competition.id },
+      data: { finished: isFinished },
+    });
     for (const result of started) {
       await sendEmail(result, 'started');
     }
