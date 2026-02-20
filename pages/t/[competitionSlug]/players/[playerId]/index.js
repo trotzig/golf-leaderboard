@@ -126,11 +126,7 @@ function Round({ round, colors, courses, now }) {
   );
 }
 
-export default function CompetitionPlayer({
-  now: nowMs,
-  player,
-  competition,
-}) {
+export default function CompetitionPlayer({ now: nowMs, player, competition }) {
   const now = new Date(nowMs);
   const data = useJsonPData(
     `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057/`,
@@ -170,7 +166,12 @@ export default function CompetitionPlayer({
                 <Link href={`/${player.slug}`} className="player-profile-name">
                   {player.firstName} {player.lastName}
                 </Link>
-                <span className="player-profile-club">{player.clubName}</span>
+                <div className="player-profile-club">{player.clubName}</div>
+                <div className="player-profile-actions">
+                  <Link href={`/${player.slug}`} className="icon-button">
+                    View player profile
+                  </Link>
+                </div>
               </div>
 
               {roundPlayer.ResultSum && (
