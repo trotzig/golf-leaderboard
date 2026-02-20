@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 
 import { useJsonPData } from '../../../../src/fetchJsonP.js';
+import CutInfo from '../../../../src/CutInfo.js';
 import FavoriteButton from '../../../../src/FavoriteButton.js';
 import Menu from '../../../../src/Menu.js';
 import competitionDateString from '../../../../src/competitionDateString.js';
@@ -76,6 +77,15 @@ function Game({ game }) {
 export default function TeeTimesPage({ competition, now: nowMs, round }) {
   ensureDates(competition);
   const now = new Date(nowMs);
+  const leaderboardData = useJsonPData(
+    `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057/`,
+  );
+  const leaderboardEntries = leaderboardData
+    ? Object.values(
+        Object.values(leaderboardData.Classes || {})[0]?.Leaderboard?.Entries ||
+          {},
+      )
+    : null;
   const data = useJsonPData(
     `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competition.id}/language/2057/`,
   );
@@ -126,11 +136,13 @@ export default function TeeTimesPage({ competition, now: nowMs, round }) {
           {competition.start && competitionDateString(competition, now)}.{' '}
         </p>
       )}
-      <p className="leaderboard-page-subtitle">
-        Switch to{' '}
-        <Link href={`/t/${competition.slug}`}>leaderboard</Link>
-        .
-      </p>
+      <div className="page-tabs">
+        <Link className="page-tab" href={`/t/${competition.slug}`}>
+          Leaderboard
+        </Link>
+        <span className="page-tab page-tab--active">Tee times</span>
+      </div>
+      <CutInfo data={leaderboardData} entries={leaderboardEntries} />
 
       {data && (
         <div className="courses">
