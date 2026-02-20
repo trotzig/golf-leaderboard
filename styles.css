@@ -819,6 +819,10 @@ footer {
   text-decoration: none;
 }
 
+.player-profile-actions {
+  margin-top: 10px;
+}
+
 .player-profile-top b {
   font-size: 14px;
   opacity: 0.7;
