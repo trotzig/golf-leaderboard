@@ -1,6 +1,5 @@
 import React from 'react';
 
-import fixParValue from './fixParValue';
 
 function formatProjectedScore(value) {
   const rounded = Math.round(value);
@@ -51,19 +50,6 @@ function getProjectedCutScore(cutConfig, cut, entries, activeRound) {
   return formatProjectedScore(cleanedProjected);
 }
 
-function getActualCutScore(entries, cutPosition) {
-  if (!cutPosition || !entries) {
-    return null;
-  }
-  // The last player who made the cut
-  const cutEntry = entries.find(
-    e => e.Position && e.Position.Actual === cutPosition,
-  );
-  if (!cutEntry || !cutEntry.ResultSum) {
-    return null;
-  }
-  return fixParValue(cutEntry.ResultSum.ToParText);
-}
 
 export default function CutInfo({ data, entries }) {
   if (!data) {
@@ -99,12 +85,9 @@ export default function CutInfo({ data, entries }) {
         .length
     : null;
 
-  let cutScore = null;
-  if (cutDone) {
-    cutScore = getActualCutScore(entries, cut.Position);
-  } else {
-    cutScore = getProjectedCutScore(cutConfig, cut, entries, activeRound);
-  }
+  const cutScore = cutDone
+    ? null
+    : getProjectedCutScore(cutConfig, cut, entries, activeRound);
 
   return (
     <div className="cut-info">
@@ -117,11 +100,8 @@ export default function CutInfo({ data, entries }) {
                 <strong>
                   <a href="#cut">{playersInsideCut} players</a>
                 </strong>{' '}
-                made the cut after round {cut.AfterRound}.{' '}
+                made the cut after round {cut.AfterRound}.
               </>
-            )}
-            {cutScore != null && (
-              <>The score required to make the cut was {cutScore}.</>
             )}
           </>
         ) : (
