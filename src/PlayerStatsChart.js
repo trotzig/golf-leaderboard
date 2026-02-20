@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React from 'react';
 
 /**
  * Parse a position string into a numeric value.
@@ -220,7 +222,10 @@ function LineChart({ data, metricKey, lower, formatValue }) {
 }
 
 export default function PlayerStatsChart({ competitionScores }) {
-  const [activeMetric, setActiveMetric] = useState(METRICS[0].key);
+  const router = useRouter();
+  const statParam = router.query.stat;
+  const activeMetric =
+    METRICS.find(m => m.key === statParam)?.key ?? METRICS[0].key;
   const yearlyStats = computeYearlyStats(competitionScores);
 
   if (yearlyStats.length === 0) return null;
@@ -234,7 +239,7 @@ export default function PlayerStatsChart({ competitionScores }) {
         <ul className="tabs stats-tabs">
           {METRICS.map(m => (
             <li key={m.key} className={activeMetric === m.key ? 'tab-selected' : ''}>
-              <button onClick={() => setActiveMetric(m.key)}>{m.label}</button>
+              <Link href={{ query: { ...router.query, stat: m.key } }} scroll={false} shallow>{m.label}</Link>
             </li>
           ))}
         </ul>
