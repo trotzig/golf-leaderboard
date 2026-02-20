@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import FavoriteButton from '../src/FavoriteButton';
 import Menu from '../src/Menu';
 import PlayerPhoto from '../src/PlayerPhoto';
+import PlayerStatsChart from '../src/PlayerStatsChart';
 import SignInForm from '../src/SignInForm';
 import fixParValue from '../src/fixParValue';
 import ordinal from '../src/ordinal';
@@ -93,6 +94,8 @@ export default function PlayerPage({ player, season: selectedSeason }) {
           )}
         </div>
       ) : null}
+
+      <PlayerStatsChart competitionScores={player.competitionScore} />
 
       <h2>Results</h2>
       <div className="page-margin">

@@ -1142,6 +1142,43 @@ input.ios-switch:checked:after {
   color: var(--primary);
 }
 
+.player-stats h2 {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.stats-tabs li button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  padding: 8px 12px;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -3px;
+}
+
+.stats-tabs li.tab-selected button {
+  border-color: var(--primary);
+}
+
+.stats-chart-container {
+  margin-top: 12px;
+  overflow-x: auto;
+}
+
+.stats-chart-svg {
+  width: 100%;
+  display: block;
+  color: var(--dark);
+}
+
+.stats-no-data {
+  color: rgba(128, 128, 128, 0.7);
+  font-size: 14px;
+  padding: 20px 0;
+}
+
 .schedule-venue {
   display: block;
   opacity: 0.7;
