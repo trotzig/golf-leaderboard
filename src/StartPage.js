@@ -13,7 +13,7 @@ const youtubers = [
     name: 'Stefan Idstam',
     url: 'https://www.youtube.com/@stefanidstamgolf',
     avatar: {
-      url: 'https://yt3.googleusercontent.com/5qBdv_1t7oHY1rD7rQzH7tq0NMb4OO9OwsOLL99QOMt3cr9M2nZ7-NDOUhuUPPT3MPxKtNecjg=s320-c-k-c0x00ffffff-no-rj',
+      url: '/avatar-stefan-idstam.jpg',
       width: 320,
       height: 320,
     },
