@@ -339,7 +339,18 @@ export default async function syncData({ full = true } = {}) {
   const allCompetitions = await prisma.competition.findMany();
   for (const competition of allCompetitions) {
     const newCompetition = competitions.find(c => c.id === competition.id);
-    if (!newCompetition) continue;
+    if (!newCompetition) {
+      if (competition.visible) {
+        console.log(
+          `Hiding competition "${competition.name}" (id=${competition.id}) as it's no longer in the fetched list`,
+        );
+        await prisma.competition.update({
+          where: { id: competition.id },
+          data: { visible: false },
+        });
+      }
+      continue;
+    }
     if (
       newCompetition.name !== competition.name ||
       newCompetition.venue !== competition.venue ||
