@@ -303,9 +303,15 @@ export default async function syncData({ full = true } = {}) {
 
   const allPlayers = await prisma.player.findMany();
   const batchItems = [];
+  const clearOomItems = [];
   for (const player of allPlayers) {
     const newPlayer = playersData.find(p => p.id === player.id);
-    if (!newPlayer) continue;
+    if (!newPlayer) {
+      if (player.oomPosition !== null) {
+        clearOomItems.push(player);
+      }
+      continue;
+    }
     if (
       newPlayer.oomPosition !== player.oomPosition ||
       newPlayer.firstName !== player.firstName ||
@@ -335,6 +341,16 @@ export default async function syncData({ full = true } = {}) {
       }
     }
   }, batchItems);
+
+  await promiseAllInBatches(async player => {
+    console.log(
+      `Clearing OOM position for ${player.firstName} ${player.lastName} with id ${player.id}`,
+    );
+    await prisma.player.update({
+      where: { id: player.id },
+      data: { oomPosition: null, updatedAt: new Date() },
+    });
+  }, clearOomItems);
 
   const allCompetitions = await prisma.competition.findMany();
   for (const competition of allCompetitions) {
