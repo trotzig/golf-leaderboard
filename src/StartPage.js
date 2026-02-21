@@ -70,12 +70,9 @@ ${process.env.NEXT_PUBLIC_INTRO}. Follow your favorite players and get the lates
           <Leaderboard competition={currentCompetition} now={now} />
         )}
         {nextCompetition ? (
-          <>
-            <h3>Next event</h3>
-            <ul>
-              <CompetitionListItem competition={nextCompetition} now={now} />
-            </ul>
-          </>
+          <ul>
+            <CompetitionListItem competition={nextCompetition} now={now} next />
+          </ul>
         ) : null}
         {upcomingCompetitions.length > 0 && (
           <>
@@ -135,14 +132,15 @@ ${process.env.NEXT_PUBLIC_INTRO}. Follow your favorite players and get the lates
   );
 }
 
-function CompetitionListItem({ competition, now, current }) {
+function CompetitionListItem({ competition, now, current, next }) {
   const queryString = now > competition.end ? '?finished=1' : '';
+  const classNames = ['competition-list-item'];
+  if (current) classNames.push('current');
+  if (next) classNames.push('next');
   return (
     <li
       key={competition.id}
-      className={
-        current ? 'competition-list-item current' : 'competition-list-item'
-      }
+      className={classNames.join(' ')}
     >
       <Link href={`/t/${competition.slug}${queryString}`} className="competition">
         <div className="calendar-event">
