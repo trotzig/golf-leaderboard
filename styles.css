@@ -1220,6 +1220,117 @@ input.ios-switch:checked:after {
   opacity: 0.7;
 }
 
+.tour-map-wrapper {
+  max-width: 600px;
+  margin: 0 auto 24px;
+}
+
+.tour-map {
+  height: 380px;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--medium);
+}
+
+/* Override Leaflet chrome to match site font */
+.tour-map .leaflet-container {
+  font-family: Futura, Gill Sans, sans-serif;
+  background: var(--light);
+}
+
+.tour-map .leaflet-popup-content-wrapper {
+  border-radius: 6px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  background: var(--background);
+  color: var(--text);
+}
+
+.tour-map .leaflet-popup-tip {
+  background: var(--background);
+}
+
+.tour-map .leaflet-control-zoom a {
+  color: var(--text);
+}
+
+.tour-map .leaflet-control-attribution a {
+  color: var(--primary);
+}
+
+/* Custom map pins — use brand color for upcoming, grey for past */
+.tour-map-pin {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+.tour-map-pin--current {
+  width: 16px;
+  height: 16px;
+  background: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light), 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+
+.tour-map-pin--past {
+  background: var(--medium);
+  border-color: var(--background);
+}
+
+/* Popup content */
+.tour-map-popup {
+  font-family: Futura, Gill Sans, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.tour-map-popup strong {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.5;
+  margin-bottom: 6px;
+}
+
+.tour-map .leaflet-popup-content a,
+.tour-map-popup a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.tour-map .leaflet-popup-content a:hover,
+.tour-map-popup a:hover {
+  text-decoration: underline;
+}
+
+.tour-map-popup hr {
+  border: none;
+  border-top: 1px solid var(--medium);
+  margin: 8px 0;
+}
+
+.tour-map-date {
+  opacity: 0.55;
+  font-size: 12px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .tour-map {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  .tour-map-pin {
+    border-color: #333;
+  }
+  .tour-map-pin--past {
+    border-color: #333;
+  }
+}
+
 .h-intro {
   margin-top: 30px;
   margin-bottom: 0;

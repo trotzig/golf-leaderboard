@@ -23,6 +23,9 @@ importers:
       dompurify:
         specifier: ^3.2.6
         version: 3.3.1
+      leaflet:
+        specifier: ^1.9.4
+        version: 1.9.4
       lodash:
         specifier: ^4.17.21
         version: 4.17.23
@@ -2103,6 +2106,9 @@ packages:
 
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
+
+  leaflet@1.9.4:
+    resolution: {integrity: sha512-nxS1ynzJOmOlHp+iL3FyWqK89GtNL8U8rvlMOsQdTTssxZwCXh8N2NB3GDQOL+YR3XnWyZAxwQixURb+FA74PA==}
 
   limit-concur@4.0.0:
     resolution: {integrity: sha512-BXUCP52gLz8JA8/cRKkXswOV6FnA2gl8hL8DbgQuo8XA9NKcwU3Oq/Cg1JyAZ+gyNmFEZXI+ZYLes0BrZkl+7g==}
@@ -5130,6 +5136,8 @@ snapshots:
   keyv@4.5.4:
     dependencies:
       json-buffer: 3.0.1
+
+  leaflet@1.9.4: {}
 
   limit-concur@4.0.0: {}
 

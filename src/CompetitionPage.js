@@ -88,7 +88,7 @@ function getIndexedEntriesFromTimesData(timesData) {
 }
 
 function getIndexedEntriesFromPlayersData(playersData) {
-  if (!playersData.Classes) {
+  if (!playersData.Classes || !Object.keys(playersData.Classes).length) {
     return {};
   }
   const result = {};
@@ -365,7 +365,6 @@ function getHeading(competition, now, finished) {
   }
   return 'Final results';
 }
-
 
 function MatchPlay({ entries }) {
   return (

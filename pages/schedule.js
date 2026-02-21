@@ -1,11 +1,12 @@
 import { format, startOfDay, startOfYear } from 'date-fns';
 import Link from 'next/link';
 import Head from 'next/head';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Menu from '../src/Menu';
 import ensureDates from '../src/ensureDates.js';
 import prisma from '../src/prisma';
+import locations from '../src/locations.json';
 
 export default function SchedulePage({ competitions, now: nowMs }) {
   competitions.forEach(ensureDates);
@@ -13,6 +14,10 @@ export default function SchedulePage({ competitions, now: nowMs }) {
   const currentCompetition = competitions.find(
     c => c.start <= now && c.end >= now,
   );
+  const [TourMap, setTourMap] = useState(null);
+  useEffect(() => {
+    import('../src/TourMap').then(m => setTourMap(() => m.default));
+  }, []);
 
   return (
     <div className="chrome">
@@ -26,6 +31,11 @@ export default function SchedulePage({ competitions, now: nowMs }) {
       <Menu activeHref="/schedule" />
       <div className="schedule">
         <h2>Tour schedule</h2>
+        <div className="tour-map-wrapper">
+          {TourMap && (
+            <TourMap competitions={competitions} locations={locations} now={now} />
+          )}
+        </div>
         <table className="results-table page-margin">
           <thead>
             <tr>
@@ -36,7 +46,12 @@ export default function SchedulePage({ competitions, now: nowMs }) {
           {competitions.length > 0 && (
             <tbody>
               {competitions.map(c => (
-                <CompetitionItem key={c.id} competition={c} now={now} />
+                <CompetitionItem
+                  key={c.id}
+                  competition={c}
+                  now={now}
+                  current={currentCompetition && currentCompetition.id === c.id}
+                />
               ))}
             </tbody>
           )}
