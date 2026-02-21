@@ -77,8 +77,8 @@ export default function PlayersPage({ account }) {
       let av = a[sortBy] || 'zzz';
       let bv = b[sortBy] || 'zzz';
       if (sortBy === 'oomPosition') {
-        av = parseInt(a.oomPosition.replace(/^T/, ''), 10);
-        bv = parseInt(b.oomPosition.replace(/^T/, ''), 10);
+        av = parseInt(a.oomPosition?.replace(/^T/, ''), 10);
+        bv = parseInt(b.oomPosition?.replace(/^T/, ''), 10);
         if (isNaN(av)) av = 99999999;
         if (isNaN(bv)) bv = 99999999;
       }
