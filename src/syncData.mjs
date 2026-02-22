@@ -205,6 +205,7 @@ async function fillOOM(players) {
       player.oomActualPosition = pos.actualPosition;
     }
   }
+  return index;
 }
 function dedupeSlugs(players) {
   // Sort players by oom position. This will make slugs that need randomness
@@ -237,7 +238,7 @@ function dedupeSlugs(players) {
 export default async function syncData({ full = true } = {}) {
   const competitions = await fetchCompetitions();
   const players = await fetchAllPlayers(competitions, { full });
-  await fillOOM(players);
+  const oomIndex = await fillOOM(players);
   dedupeSlugs(players);
 
   const compRes = await prisma.competition.createMany({
@@ -307,7 +308,21 @@ export default async function syncData({ full = true } = {}) {
   for (const player of allPlayers) {
     const newPlayer = playersData.find(p => p.id === player.id);
     if (!newPlayer) {
-      if (player.oomPosition !== null) {
+      const oomEntry = oomIndex && oomIndex[player.id];
+      if (oomEntry) {
+        // Player is in the OOM but not in the current competition sync.
+        // Update their OOM position instead of clearing it.
+        if (player.oomPosition !== oomEntry.position) {
+          batchItems.push({
+            id: player.id,
+            firstName: player.firstName,
+            lastName: player.lastName,
+            clubName: player.clubName,
+            slug: player.slug,
+            oomPosition: oomEntry.position,
+          });
+        }
+      } else if (player.oomPosition !== null) {
         clearOomItems.push(player);
       }
       continue;
