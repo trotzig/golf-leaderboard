@@ -76,6 +76,15 @@ export default function CutInfo({ data, entries }) {
     return null;
   }
 
+  // In round 1, golfbox sets ActiveRoundNumber=1 before any scoring begins.
+  // Only show once at least one player has actually played a hole.
+  if (activeRound === 1 && entries) {
+    const anyHolesPlayed = entries.some(
+      e => e.ScoringToPar && e.ScoringToPar.HoleValue > 0,
+    );
+    if (!anyHolesPlayed) return null;
+  }
+
   const cutDone = cut.IsPerformed || activeRound > cut.AfterRound;
 
   const playersInsideCut = cutDone
