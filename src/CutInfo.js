@@ -40,6 +40,11 @@ function getProjectedCutScore(cutConfig, cut, entries, activeRound) {
   if (!holesPlayedByField || !totalFieldHoles) {
     return null;
   }
+  // Only show projected cut once at least one round is 75% done.
+  // holesPlayedByField at this point is holes played in the current round only.
+  if (activeRound === 1 && holesPlayedByField < entries.length * 18 * 0.75) {
+    return null;
+  }
   holesPlayedByField += (activeRound - 1) * 18 * entries.length;
   const fieldCompletionRatio = holesPlayedByField / totalFieldHoles;
   const projected = currentScore + currentScore * fieldCompletionRatio;
