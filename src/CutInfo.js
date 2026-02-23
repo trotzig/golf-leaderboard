@@ -16,6 +16,31 @@ function getCutConfig(data) {
   return classes[0].Cut;
 }
 
+// Count total holes played by a single entry, using Rounds data when available.
+// HoleValue from ScoringToPar can be a negative tee-time timestamp between rounds,
+// so we prefer counting from the per-round IsCompleted flag and HoleScores.
+function countHolesPlayedForEntry(entry, activeRound) {
+  if (entry.Rounds) {
+    let total = 0;
+    for (const round of Object.values(entry.Rounds)) {
+      if (round.IsCompleted) {
+        total += 18;
+      } else if (round.HoleScores) {
+        // Count individual hole scores, excluding summary keys (H-OUT, H-IN, H-TOTAL)
+        total += Object.keys(round.HoleScores).filter(k => !k.startsWith('H-')).length;
+      }
+    }
+    return total;
+  }
+  // Fallback when Rounds data isn't available: clamp HoleValue to 0 in case it
+  // is a negative tee-time timestamp, then add holes from completed rounds.
+  const currentRoundHoles = Math.max(
+    (entry.ScoringToPar && entry.ScoringToPar.HoleValue) || 0,
+    0,
+  );
+  return currentRoundHoles + (activeRound - 1) * 18;
+}
+
 function getProjectedCutScore(cutConfig, cut, entries, activeRound) {
   if (!cutConfig || !cutConfig.Enabled || !cutConfig.Limit || !entries) {
     return null;
@@ -34,13 +59,12 @@ function getProjectedCutScore(cutConfig, cut, entries, activeRound) {
   // Compute field completion percentage: total holes played by all entries
   // divided by total holes the full field is expected to play before the cut.
   const totalFieldHoles = entries.length * afterRound * 18;
-  let holesPlayedByField = entries.reduce((sum, e) => {
-    return sum + Math.max((e.ScoringToPar && e.ScoringToPar.HoleValue) || 0, 0);
+  const holesPlayedByField = entries.reduce((sum, e) => {
+    return sum + countHolesPlayedForEntry(e, activeRound);
   }, 0);
   if (!holesPlayedByField || !totalFieldHoles) {
     return null;
   }
-  holesPlayedByField += (activeRound - 1) * 18 * entries.length;
   const fieldCompletionRatio = holesPlayedByField / totalFieldHoles;
   const projected = currentScore + currentScore * fieldCompletionRatio;
 
