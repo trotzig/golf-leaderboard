@@ -6,9 +6,10 @@ const Manifest = () => {};
 export async function getServerSideProps({ res }) {
   const manifest = {
     name: process.env.NEXT_PUBLIC_TITLE,
+    short_name: 'Golf Tour',
     scope: '/',
     display: 'standalone',
-    background_color: '#ffffff',
+    background_color: '#e54e37',
     theme_color: '#e54e37',
     icons: [
       {
