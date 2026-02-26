@@ -2,35 +2,24 @@
    xmlns="http://www.w3.org/2000/svg"
    width="512"
    height="512"
-   viewBox="0 0 150 150">
-  <g transform="translate(-29.048742,-65.541899)">
-    <circle
-       style="fill:none;fill-opacity:0;stroke:#e54e37;stroke-width:8;stroke-dasharray:none;stroke-opacity:1"
-       id="path229"
-       r="35.282341"
-       cy="116.80106"
-       cx="103.34426" />
-    <path
-       style="fill:#e54e37;fill-opacity:1;stroke:#e54e37;stroke-width:3.59972;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
-       d="m 89.201525,158.1098 c 12.788655,3.1552 17.937755,3.25562 30.963155,-0.9411 -22.380936,11.70744 -9.34895,34.26082 -15.32701,42.60633 -6.733819,-8.59651 5.72783,-30.69855 -15.636145,-41.66523 z"
-       id="path1485" />
-    <circle
-       style="fill:#e54e37;fill-opacity:1;stroke:none;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:0.435233"
-       id="path4770"
-       cx="109.12709"
-       cy="138.38141"
-       r="4.4347997" />
-    <circle
-       style="fill:#e54e37;fill-opacity:1;stroke:none;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:0.435233"
-       id="path4770-1"
-       cx="119.5372"
-       cy="129.74522"
-       r="4.4347997" />
-    <circle
-       style="fill:#e54e37;fill-opacity:1;stroke:none;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:0.435233"
-       id="path4770-18"
-       cx="124.70356"
-       cy="117.45217"
-       r="4.4347997" />
-  </g>
+   viewBox="0 0 512 512">
+  <!-- Brand red background -->
+  <rect width="512" height="512" fill="#e54e37"/>
+
+  <!-- Golf ball: centred (256,256), r=185 -->
+  <circle
+     cx="256"
+     cy="256"
+     r="185"
+     fill="none"
+     stroke="white"
+     stroke-width="28"/>
+
+  <!-- Dimples: scaled proportionally (r_ball=118→185, r_dimple=82→129, dot=16→25) -->
+  <circle cx="381" cy="223" r="25" fill="white"/>
+  <circle cx="377" cy="300" r="25" fill="white"/>
+  <circle cx="330" cy="362" r="25" fill="white"/>
+
+  <!-- Fairway -->
+  <rect x="0" y="468" width="512" height="44" fill="white"/>
 </svg>

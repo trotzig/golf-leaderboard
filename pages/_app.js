@@ -27,19 +27,27 @@ function MyApp({ Component, pageProps }) {
           name="viewport"
           content="initial-scale=1.0, width=device-width, user-scalable=no"
         />
-        <meta name="mobile-wep-app-capable" content="yes" />
-        <meta name="apple-mobile-wep-app-capable" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-title" content="Nordic Golf Tour" />
         <meta name="theme-color" content={themeColor} />
         <link rel="manifest" href="/manifest.json" />
-        <link rel="icon" href="/favicon.png" />
-        <link rel="apple-touch-icon" href="/app-icon-192.png" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
         {process.env.NEXT_PUBLIC_EXTRA_CSS ? (
           <link rel="stylesheet" href={process.env.NEXT_PUBLIC_EXTRA_CSS} />
         ) : null}
       </Head>
       <Script
         defer
-        data-domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN || 'nordicgolftour.app'}
+        data-domain={
+          process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN || 'nordicgolftour.app'
+        }
         src="https://plausible.io/js/script.js"
       />
       <div className="blurry-background" />
