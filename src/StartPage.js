@@ -77,7 +77,7 @@ ${process.env.NEXT_PUBLIC_INTRO}. Follow your favorite players and get the lates
           </ul>
         ) : null}
         {reports && reports.length > 0 && (
-          <ReportBlurbs reports={reports} />
+          <ReportBlurbs reports={reports} showViewAll />
         )}
         {upcomingCompetitions.length > 0 && (
           <>
