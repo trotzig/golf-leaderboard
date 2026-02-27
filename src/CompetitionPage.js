@@ -521,19 +521,41 @@ export default function CompetitionPage({
   return (
     <div className="leaderboard-page">
       <Head>
-        <title>
-          {competition.name} | {getHeading(competition, now, finished)}
-        </title>
+        <title>{`${competition.name} | ${getHeading(competition, now, finished)}`}</title>
         <meta
           name="description"
-          content={`Follow the leaderboard and see tee times for ${competition.name}`}
+          content={`Follow the leaderboard and see tee times for ${competition.name}${competition.venue ? ` at ${competition.venue}` : ''}.`}
         />
+        <meta
+          property="og:title"
+          content={`${competition.name} | ${getHeading(competition, now, finished)}`}
+        />
+        <meta
+          property="og:description"
+          content={`Follow the leaderboard and see tee times for ${competition.name}${competition.venue ? ` at ${competition.venue}` : ''}.`}
+        />
+        <meta property="og:type" content="website" />
         {finishedResult?.youtubeId && (
-          <meta
-            property="og:image"
-            content={`https://img.youtube.com/vi/${finishedResult.youtubeId}/maxresdefault.jpg`}
-          />
+          <>
+            <meta
+              property="og:image"
+              content={`https://img.youtube.com/vi/${finishedResult.youtubeId}/maxresdefault.jpg`}
+            />
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta
+              name="twitter:image"
+              content={`https://img.youtube.com/vi/${finishedResult.youtubeId}/maxresdefault.jpg`}
+            />
+          </>
         )}
+        <meta
+          name="twitter:title"
+          content={`${competition.name} | ${getHeading(competition, now, finished)}`}
+        />
+        <meta
+          name="twitter:description"
+          content={`Follow the leaderboard and see tee times for ${competition.name}${competition.venue ? ` at ${competition.venue}` : ''}.`}
+        />
       </Head>
       <Menu activeHref="/leaderboard" />
       <div className="h-intro">{getHeading(competition, now, finished)}</div>

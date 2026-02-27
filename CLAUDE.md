@@ -1,6 +1,6 @@
 # nordicgolftour.app
 
-Unofficial website for the MoreGolf Mastercard Tour, the Nordic professional golf tour for men. Live at [nordicgolftour.app](https://nordicgolftour.app).
+Unofficial website for the Cutter & Buck Tour, the Nordic professional golf tour for men. Live at [nordicgolftour.app](https://nordicgolftour.app).
 
 ## Tech Stack
 

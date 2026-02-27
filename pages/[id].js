@@ -25,7 +25,7 @@ function getScoresBySeason(items) {
   return result;
 }
 
-export default function PlayerPage({ player, season: selectedSeason }) {
+export default function PlayerPage({ player, season: selectedSeason, baseUrl }) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -44,13 +44,29 @@ export default function PlayerPage({ player, season: selectedSeason }) {
   return (
     <div className="player-page">
       <Head>
-        <title>
-          {player.firstName} {player.lastName}
-        </title>
+        <title>{`${player.firstName} ${player.lastName} | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`}</title>
         <meta
           name="description"
-          content={`${player.firstName} ${player.lastName} from ${player.clubName} is competing in ${process.env.NEXT_PUBLIC_INTRO_TITLE}. Subscribe to updates from the player by adding ${player.firstName} as a favorite.`}
+          content={`${player.firstName} ${player.lastName} from ${player.clubName} is competing in ${process.env.NEXT_PUBLIC_INTRO_TITLE}. Follow their results and subscribe to updates.`}
         />
+        <meta property="og:title" content={`${player.firstName} ${player.lastName} | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
+        <meta
+          property="og:description"
+          content={`${player.firstName} ${player.lastName} from ${player.clubName} is competing in ${process.env.NEXT_PUBLIC_INTRO_TITLE}. Follow their results and subscribe to updates.`}
+        />
+        <meta property="og:type" content="profile" />
+        {baseUrl && (
+          <meta property="og:image" content={`${baseUrl}/players/${player.id}.jpg`} />
+        )}
+        <meta name="twitter:card" content={baseUrl ? 'summary_large_image' : 'summary'} />
+        <meta name="twitter:title" content={`${player.firstName} ${player.lastName} | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
+        <meta
+          name="twitter:description"
+          content={`${player.firstName} ${player.lastName} from ${player.clubName} is competing in ${process.env.NEXT_PUBLIC_INTRO_TITLE}. Follow their results and subscribe to updates.`}
+        />
+        {baseUrl && (
+          <meta name="twitter:image" content={`${baseUrl}/players/${player.id}.jpg`} />
+        )}
       </Head>
       <Menu activeHref="/players" />
       <div className="player-page-top">
@@ -155,7 +171,7 @@ export default function PlayerPage({ player, season: selectedSeason }) {
   );
 }
 
-export async function getServerSideProps({ params, query }) {
+export async function getServerSideProps({ params, query, req }) {
   const player = await prisma.player.findUnique({
     where: { slug: params.id },
     select: {
@@ -197,7 +213,9 @@ export async function getServerSideProps({ params, query }) {
   for (const item of player.competitionScore) {
     item.competition.start = item.competition.start.toISOString();
   }
+  const protocol = req.headers['x-forwarded-proto'] || 'https';
+  const baseUrl = `${protocol}://${req.headers.host}`;
   return {
-    props: { player, season: query.season || null },
+    props: { player, season: query.season || null, baseUrl },
   };
 }
