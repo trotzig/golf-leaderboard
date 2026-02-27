@@ -1983,3 +1983,9 @@ h2.player-big-name {
   color: inherit;
   text-decoration: underline;
 }
+
+.report-ai-note {
+  margin-top: 8px;
+  font-size: 12px;
+  opacity: 0.5;
+}
