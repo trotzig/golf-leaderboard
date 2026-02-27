@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 import PlayerPhoto from './PlayerPhoto';
 
-export default function ReportBlurbs({ reports }) {
+export default function ReportBlurbs({ reports, showViewAll }) {
   if (!reports || reports.length === 0) return null;
 
   return (
@@ -32,12 +32,16 @@ export default function ReportBlurbs({ reports }) {
                 </p>
                 <h4 className="report-blurb-headline">{report.headline}</h4>
                 <p className="report-blurb-text">{report.blurb}</p>
-                <span className="report-blurb-read-more">Read report</span>
               </div>
             </Link>
           </li>
         ))}
       </ul>
+      {showViewAll && (
+        <Link href="/reports" className="page-margin competition-view-all">
+          View all reports
+        </Link>
+      )}
     </section>
   );
 }

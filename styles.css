@@ -1777,6 +1777,9 @@ h2.player-big-name {
   gap: 1px;
   padding: 0 !important;
 }
+.competitions ul li.report-blurb {
+  margin-bottom: 0;
+}
 
 .report-blurb-link {
   display: flex;
@@ -1828,10 +1831,10 @@ h2.player-big-name {
   line-height: 1.4;
 }
 
-.report-blurb-read-more {
-  font-size: 13px;
-  color: var(--primary);
-  text-decoration: underline;
+.reports-index-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 10px 40px;
 }
 
 /* ── Article full page ── */
