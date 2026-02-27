@@ -4,7 +4,7 @@
  * Scores are fetched live from the GolfBox API so this script works without a
  * fully-synced local database. Existing reports are overwritten if re-selected.
  *
- * Reports are stored as JSON in the reports/ folder.
+ * Reports are stored as JSON in the src/reports/ folder.
  *
  * Requires: ANTHROPIC_API_KEY env variable, DATABASE_URL (via .env / dotenv)
  */
@@ -19,7 +19,7 @@ import parseJson from './utils/parseJson.mjs';
 
 const { PrismaClient } = prismaClient;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const REPORTS_DIR = path.join(__dirname, '..', 'reports');
+const REPORTS_DIR = path.join(__dirname, '..', 'src', 'reports');
 const PLAYERS_DIR = path.join(__dirname, '..', 'public', 'players');
 
 // Positions that mean the player missed the cut or didn't finish

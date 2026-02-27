@@ -85,8 +85,8 @@ export async function getServerSideProps() {
     currentCompetition.end = currentCompetition.end.getTime();
   }
 
-  // Load reports from the reports/ directory
-  const reportsDir = path.join(process.cwd(), 'reports');
+  // Load reports from the src/reports/ directory
+  const reportsDir = path.join(process.cwd(), 'src', 'reports');
   let reports = [];
   if (fs.existsSync(reportsDir)) {
     reports = fs

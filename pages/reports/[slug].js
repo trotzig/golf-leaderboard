@@ -129,7 +129,7 @@ export default function ReportPage({ report }) {
 }
 
 export async function getServerSideProps({ params }) {
-  const reportsDir = path.join(process.cwd(), 'reports');
+  const reportsDir = path.join(process.cwd(), 'src', 'reports');
   const filePath = path.join(reportsDir, `${params.slug}.json`);
 
   if (!fs.existsSync(filePath)) {
