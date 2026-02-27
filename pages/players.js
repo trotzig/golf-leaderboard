@@ -139,10 +139,21 @@ export default function PlayersPage({ account }) {
   return (
     <div className="players">
       <Head>
-        <title>Players</title>
+        <title>{`Players | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`}</title>
         <meta
           name="description"
-          content={`Find your favorite players in ${process.env.NEXT_PUBLIC_INTRO_TITLE}`}
+          content={`Browse all players competing in ${process.env.NEXT_PUBLIC_INTRO_TITLE}. Follow your favorites and subscribe to email updates.`}
+        />
+        <meta property="og:title" content={`Players | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
+        <meta
+          property="og:description"
+          content={`Browse all players competing in ${process.env.NEXT_PUBLIC_INTRO_TITLE}. Follow your favorites and subscribe to email updates.`}
+        />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:title" content={`Players | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
+        <meta
+          name="twitter:description"
+          content={`Browse all players competing in ${process.env.NEXT_PUBLIC_INTRO_TITLE}. Follow your favorites and subscribe to email updates.`}
         />
       </Head>
       <Menu activeHref="/players" />

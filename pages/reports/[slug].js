@@ -8,7 +8,7 @@ import { format } from 'date-fns';
 import Menu from '../../src/Menu';
 import PlayerPhoto from '../../src/PlayerPhoto';
 
-export default function ReportPage({ report }) {
+export default function ReportPage({ report, baseUrl }) {
   const paragraphs = report.body
     .split(/\n\n+/)
     .map(p => p.trim())
@@ -19,8 +19,20 @@ export default function ReportPage({ report }) {
   return (
     <div className="chrome">
       <Head>
-        <title>{report.headline}</title>
+        <title>{`${report.headline} | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`}</title>
         <meta name="description" content={report.blurb} />
+        <meta property="og:title" content={`${report.headline} | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
+        <meta property="og:description" content={report.blurb} />
+        <meta property="og:type" content="article" />
+        {report.winnerPlayerId && baseUrl && (
+          <meta property="og:image" content={`${baseUrl}/players/${report.winnerPlayerId}.jpg`} />
+        )}
+        <meta name="twitter:card" content={report.winnerPlayerId && baseUrl ? 'summary_large_image' : 'summary'} />
+        <meta name="twitter:title" content={`${report.headline} | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
+        <meta name="twitter:description" content={report.blurb} />
+        {report.winnerPlayerId && baseUrl && (
+          <meta name="twitter:image" content={`${baseUrl}/players/${report.winnerPlayerId}.jpg`} />
+        )}
       </Head>
       <Menu />
       <article className="report-page">
@@ -135,7 +147,7 @@ export default function ReportPage({ report }) {
   );
 }
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ params, req }) {
   const reportsDir = path.join(process.cwd(), 'src', 'reports');
   const filePath = path.join(reportsDir, `${params.slug}.json`);
 
@@ -144,5 +156,7 @@ export async function getServerSideProps({ params }) {
   }
 
   const report = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-  return { props: { report } };
+  const protocol = req.headers['x-forwarded-proto'] || 'https';
+  const baseUrl = `${protocol}://${req.headers.host}`;
+  return { props: { report, baseUrl } };
 }

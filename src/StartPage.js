@@ -51,11 +51,21 @@ export default function StartPage({
   return (
     <div className="chrome">
       <Head>
+        <title>{process.env.NEXT_PUBLIC_INTRO_TITLE}</title>
         <meta
           name="description"
-          content={`
-${process.env.NEXT_PUBLIC_INTRO}. Follow your favorite players and get the latest updates straight in your inbox.
-        `.trim()}
+          content={`${process.env.NEXT_PUBLIC_INTRO_TITLE} — ${process.env.NEXT_PUBLIC_INTRO} Follow your favorite players and get the latest updates straight in your inbox.`}
+        />
+        <meta property="og:title" content={process.env.NEXT_PUBLIC_INTRO_TITLE} />
+        <meta
+          property="og:description"
+          content={`${process.env.NEXT_PUBLIC_INTRO_TITLE} — ${process.env.NEXT_PUBLIC_INTRO} Follow your favorite players and get the latest updates straight in your inbox.`}
+        />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:title" content={process.env.NEXT_PUBLIC_INTRO_TITLE} />
+        <meta
+          name="twitter:description"
+          content={`${process.env.NEXT_PUBLIC_INTRO_TITLE} — ${process.env.NEXT_PUBLIC_INTRO} Follow your favorite players and get the latest updates straight in your inbox.`}
         />
       </Head>
       <Menu />

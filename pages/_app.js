@@ -32,6 +32,8 @@ function MyApp({ Component, pageProps }) {
         <meta name="apple-mobile-web-app-title" content="Nordic Golf Tour" />
         <meta name="theme-color" content={themeColor} />
         <link rel="manifest" href="/manifest.json" />
+        <meta property="og:site_name" content={process.env.NEXT_PUBLIC_INTRO_TITLE} />
+        <meta name="twitter:card" content="summary" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" type="image/png" href="/favicon.png" />
         <link

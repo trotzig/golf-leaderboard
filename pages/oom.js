@@ -94,8 +94,13 @@ export default function OrderOfMeritPage() {
   return (
     <div className="leaderboard-page oom">
       <Head>
-        <title>Order of merit</title>
-        <meta name="description" content={description || 'Order of merit'} />
+        <title>{`Order of Merit | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`}</title>
+        <meta name="description" content={description || `Order of merit standings for ${process.env.NEXT_PUBLIC_INTRO_TITLE}.`} />
+        <meta property="og:title" content={`Order of Merit | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
+        <meta property="og:description" content={description || `Order of merit standings for ${process.env.NEXT_PUBLIC_INTRO_TITLE}.`} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:title" content={`Order of Merit | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
+        <meta name="twitter:description" content={description || `Order of merit standings for ${process.env.NEXT_PUBLIC_INTRO_TITLE}.`} />
       </Head>
       <Menu activeHref="/oom" />
       <h2>Order of merit</h2>

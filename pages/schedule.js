@@ -22,9 +22,20 @@ export default function SchedulePage({ competitions, now: nowMs }) {
   return (
     <div className="chrome">
       <Head>
-        <title>Schedule</title>
+        <title>{`Schedule | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`}</title>
         <meta
           name="description"
+          content={`Full schedule for the ${new Date().getFullYear()} season of ${process.env.NEXT_PUBLIC_INTRO_TITLE}.`}
+        />
+        <meta property="og:title" content={`Schedule | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
+        <meta
+          property="og:description"
+          content={`Full schedule for the ${new Date().getFullYear()} season of ${process.env.NEXT_PUBLIC_INTRO_TITLE}.`}
+        />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:title" content={`Schedule | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
+        <meta
+          name="twitter:description"
           content={`Full schedule for the ${new Date().getFullYear()} season of ${process.env.NEXT_PUBLIC_INTRO_TITLE}.`}
         />
       </Head>

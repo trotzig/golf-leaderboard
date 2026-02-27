@@ -11,8 +11,13 @@ export default function ReportsIndexPage({ reports }) {
   return (
     <div className="chrome">
       <Head>
-        <title>Tournament reports</title>
-        <meta name="description" content="Reports from Nordic golf tour tournaments" />
+        <title>{`Tournament Reports | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`}</title>
+        <meta name="description" content={`Tournament reports and results from ${process.env.NEXT_PUBLIC_INTRO_TITLE}.`} />
+        <meta property="og:title" content={`Tournament Reports | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
+        <meta property="og:description" content={`Tournament reports and results from ${process.env.NEXT_PUBLIC_INTRO_TITLE}.`} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:title" content={`Tournament Reports | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
+        <meta name="twitter:description" content={`Tournament reports and results from ${process.env.NEXT_PUBLIC_INTRO_TITLE}.`} />
       </Head>
       <Menu />
       <div className="reports-index-page">
