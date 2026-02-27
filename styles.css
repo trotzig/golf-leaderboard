@@ -1219,6 +1219,7 @@ input.ios-switch:checked:after {
   opacity: 0.7;
 }
 
+
 .competition-list-item.past {
   opacity: 0.5;
 }
@@ -1226,6 +1227,15 @@ input.ios-switch:checked:after {
 .competition-list-item.past a {
   text-decoration: line-through;
   text-decoration-color: currentColor;
+}
+
+.competition-list-item.previous-year {
+  opacity: 1;
+}
+
+.competition-list-item.previous-year a {
+  color: inherit;
+  text-decoration: none;
 }
 
 .tour-map-wrapper {

@@ -367,11 +367,19 @@ export default async function syncData({ full = true } = {}) {
     });
   }, clearOomItems);
 
+  const fetchedYear =
+    competitions.length > 0
+      ? competitions[0].start.getFullYear()
+      : new Date().getFullYear();
+
   const allCompetitions = await prisma.competition.findMany();
   for (const competition of allCompetitions) {
     const newCompetition = competitions.find(c => c.id === competition.id);
     if (!newCompetition) {
-      if (competition.visible) {
+      if (
+        competition.visible &&
+        competition.start.getFullYear() === fetchedYear
+      ) {
         console.log(
           `Hiding competition "${competition.name}" (id=${competition.id}) as it's no longer in the fetched list`,
         );
