@@ -1,0 +1,74 @@
+{
+  "competitionId": 5299728,
+  "competitionSlug": "golfstar-winter-series-dunes-2026",
+  "competitionName": "GolfStar Winter Series Dunes",
+  "venue": "Empordá Golf Club",
+  "startDate": "2026-02-14T00:00:00.000Z",
+  "endDate": "2026-02-16T00:00:00.000Z",
+  "slug": "golfstar-winter-series-dunes-2026",
+  "headline": "Tidén Storms to Four-Shot Triumph at Empordá",
+  "blurb": "Sweden's Albin Tidén delivered a commanding wire-to-wire performance at the GolfStar Winter Series Dunes, finishing at 15 under par to claim a comfortable victory in Spain.",
+  "body": "Albin Tidén produced a stunning display at Empordá Golf Club to win the GolfStar Winter Series Dunes by four clear shots, carding a three-round total of 15 under par. The Romeleåsens Golfklubb member was in imperious form throughout the week, pulling away from a packed chasing group to seal a thoroughly deserved title on the Cutter & Buck tour.\n\nFredrik Lindblom and David Lundgren of Vasatorps Golfklubb shared second place at 11 under par, four strokes adrift of the champion. Dutchman Thom Hoetmer finished alone in fourth at 10 under, while Charlie Lindh of Araslöv Golf & Resort rounded out the top five on nine under. Despite solid performances from the runners-up, none could mount a serious late challenge as Tidén held firm throughout the final round.\n\nThe cut fell at one under par, trimming a 137-strong field down to 51 players for the weekend rounds. The demanding dunes layout at Empordá clearly rewarded precision and course management, with fewer than 40 percent of the field surviving to play all three rounds.\n\nFor Tidén, the four-shot margin of victory underlines his growing confidence on the Nordic tour circuit. With the winter swing in full flow across southern Europe, this result marks him out as a player to watch as the 2026 season develops.",
+  "winnerName": "Albin Tidén",
+  "winnerPlayerId": "981005-006",
+  "winnerPlayerSlug": "albin-tiden",
+  "winnerImage": "/players/981005-006.jpg",
+  "stats": {
+    "winningScore": -15,
+    "winningScoreText": "-15",
+    "totalPlayers": 137,
+    "playersMadeCut": 51,
+    "playersMissedCut": 83,
+    "cutScore": -1,
+    "cutScoreText": "-1",
+    "marginOfVictory": 4,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "Albin Tidén",
+        "club": "Romeleåsens Golfklubb",
+        "score": -15,
+        "scoreText": "-15",
+        "playerId": "981005-006",
+        "playerSlug": "albin-tiden"
+      },
+      {
+        "position": "T2",
+        "name": "fredrik lindblom",
+        "club": "",
+        "score": -11,
+        "scoreText": "-11",
+        "playerId": "251941",
+        "playerSlug": "fredrik-lindblom"
+      },
+      {
+        "position": "T2",
+        "name": "David Lundgren",
+        "club": "Vasatorps Golfklubb",
+        "score": -11,
+        "scoreText": "-11",
+        "playerId": "010515-018",
+        "playerSlug": "david-lundgren"
+      },
+      {
+        "position": "4",
+        "name": "Thom Hoetmer",
+        "club": "",
+        "score": -10,
+        "scoreText": "-10",
+        "playerId": "233162",
+        "playerSlug": "thom-hoetmer"
+      },
+      {
+        "position": "T5",
+        "name": "Charlie Lindh",
+        "club": "Araslöv Golf & Resort",
+        "score": -9,
+        "scoreText": "-9",
+        "playerId": "970801-017",
+        "playerSlug": "charlie-lindh"
+      }
+    ]
+  },
+  "createdAt": "2026-02-26T21:04:04.481Z"
+}

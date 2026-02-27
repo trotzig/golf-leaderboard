@@ -1,0 +1,74 @@
+{
+  "competitionId": 5299753,
+  "competitionSlug": "golfstar-winter-series-forest-2026",
+  "competitionName": "GolfStar Winter Series Forest",
+  "venue": "Empordá Golf Club",
+  "startDate": "2026-02-18T00:00:00.000Z",
+  "endDate": "2026-02-20T00:00:00.000Z",
+  "slug": "golfstar-winter-series-forest-2026",
+  "headline": "Eriksson Seizes Four-Shot Win at Empordá Forest Event",
+  "blurb": "Martin Eriksson delivered a commanding performance at Empordá Golf Club, finishing at 16 under par to claim the GolfStar Winter Series Forest title by four strokes.",
+  "body": "Martin Eriksson of Kårsta Golfklubb produced a masterful three-day display at Empordá Golf Club, posting a 16-under-par total to capture the GolfStar Winter Series Forest title with daylight between himself and the chasing pack. The Swede's four-shot margin of victory underlined just how in control he was from start to finish across the scenic Spanish layout.\n\nDavid Lundgren (Kristianstads Golfklubb) and Oliver Gillberg (Askersunds Golfklubb) shared second place at 12 under par, both putting together solid weeks but ultimately unable to mount a serious challenge to Eriksson's relentless scoring. Charlie Lindh of Araslöv Golf & Resort and Upsala Golfklubb's David Nyfjäll rounded out the top five at 11 under, further evidence of the quality on show in the upper reaches of the leaderboard.\n\nThe cut fell at one under par, trimming a 138-player field down to 51 competitors for the final round. That demanding threshold meant more than 60 percent of the field headed home early, highlighting the competitive depth on the Cutter & Buck tour's winter swing.\n\nEriksson's emphatic victory marks him as a player to watch as the Nordic tour's 2026 season gathers momentum. With performances of this calibre on challenging European venues, the Kårsta man will carry serious confidence into the coming months.",
+  "winnerName": "Martin Eriksson",
+  "winnerPlayerId": "920313-022",
+  "winnerPlayerSlug": "martin-eriksson",
+  "winnerImage": "/players/920313-022.jpg",
+  "stats": {
+    "winningScore": -16,
+    "winningScoreText": "-16",
+    "totalPlayers": 138,
+    "playersMadeCut": 51,
+    "playersMissedCut": 84,
+    "cutScore": -1,
+    "cutScoreText": "-1",
+    "marginOfVictory": 4,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "Martin Eriksson",
+        "club": "Kårsta Golfklubb",
+        "score": -16,
+        "scoreText": "-16",
+        "playerId": "920313-022",
+        "playerSlug": "martin-eriksson"
+      },
+      {
+        "position": "T2",
+        "name": "David Lundgren",
+        "club": "Kristianstads Golfklubb",
+        "score": -12,
+        "scoreText": "-12",
+        "playerId": "010515-018",
+        "playerSlug": "david-lundgren"
+      },
+      {
+        "position": "T2",
+        "name": "Oliver Gillberg",
+        "club": "Askersunds Golfklubb",
+        "score": -12,
+        "scoreText": "-12",
+        "playerId": "961018-009",
+        "playerSlug": "oliver-gillberg"
+      },
+      {
+        "position": "T4",
+        "name": "Charlie Lindh",
+        "club": "Araslöv Golf & Resort",
+        "score": -11,
+        "scoreText": "-11",
+        "playerId": "970801-017",
+        "playerSlug": "charlie-lindh"
+      },
+      {
+        "position": "T4",
+        "name": "David Nyfjäll",
+        "club": "Upsala Golfklubb",
+        "score": -11,
+        "scoreText": "-11",
+        "playerId": "990126-001",
+        "playerSlug": "david-nyfjall"
+      }
+    ]
+  },
+  "createdAt": "2026-02-26T21:05:31.413Z"
+}
