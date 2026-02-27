@@ -63,6 +63,18 @@ async function fetchLeaderboard(competitionId) {
         // GolfBox stores ToParValue multiplied by 10000 (e.g. -23 → -230000)
         const rawScore = entry.ScoringToPar.ToParValue;
         const score = Math.round(rawScore / 10000);
+        const rounds = [];
+        if (entry.Rounds) {
+          for (const [roundKey, round] of Object.entries(entry.Rounds)) {
+            const total = round.HoleScores && round.HoleScores['H-TOTAL'];
+            if (total && total.Score > 0) {
+              rounds.push({
+                roundNumber: roundKey.replace('R', ''),
+                grossScore: total.Score,
+              });
+            }
+          }
+        }
         entries.push({
           memberId: entry.MemberID,
           firstName: entry.FirstName.trim(),
@@ -72,6 +84,7 @@ async function fetchLeaderboard(competitionId) {
           positionActual: entry.Position.Actual, // numeric
           score,
           scoreText: entry.ScoringToPar.ToParText,
+          rounds,
         });
       }
     }
@@ -138,6 +151,16 @@ async function callAnthropicAPI(tournamentData) {
           .join('\n')}`
       : '';
 
+  const extraordinaryRoundsText =
+    tournamentData.extraordinaryRounds?.length > 0
+      ? `\nExtraordinary rounds (gross score ≤ 63) — could be mentioned in the article:\n${tournamentData.extraordinaryRounds
+          .map(
+            r =>
+              `  - ${r.playerName} shot a ${r.grossScore} in round ${r.roundNumber}`,
+          )
+          .join('\n')}`
+      : '';
+
   const headlinesWarning =
     tournamentData.existingHeadlines?.length > 0
       ? `\nIMPORTANT – avoid reusing these headline words/phrases from other reports:\n${tournamentData.existingHeadlines
@@ -154,8 +177,8 @@ Write a short article about this tournament. Return ONLY a valid JSON object (no
     priorResultsText
       ? ' If the winner has notable prior results, briefly reference them.'
       : ''
-  }
-${headlinesWarning}
+  }${extraordinaryRoundsText ? ' Any extraordinary rounds listed below could be mentioned in the article.' : ''}
+${extraordinaryRoundsText}${headlinesWarning}
 Tournament: ${tournamentData.name}
 Venue: ${tournamentData.venue || 'Nordic Golf Tour'}
 Dates: ${tournamentData.startDate} – ${tournamentData.endDate}
@@ -297,6 +320,8 @@ async function main() {
   const entries = await fetchLeaderboard(competition.id);
   console.log(`  Got ${entries.length} entries`);
 
+  const EXTRAORDINARY_ROUND_THRESHOLD = 63;
+
   // GolfBox uses sentinel values like 40000 / 50000 for DNF/withdrawn players.
   // Filter those out along with the standard missed-cut position codes.
   const isValidScore = e => Math.abs(e.score) < 1000;
@@ -364,6 +389,27 @@ async function main() {
       ? `+${cutScore}`
       : `${cutScore}`;
 
+  // Find extraordinary rounds (gross score ≤ 63)
+  const extraordinaryRounds = entries
+    .flatMap(e =>
+      (e.rounds || [])
+        .filter(r => r.grossScore <= EXTRAORDINARY_ROUND_THRESHOLD)
+        .map(r => ({
+          playerName: `${e.firstName} ${e.lastName}`,
+          roundNumber: r.roundNumber,
+          grossScore: r.grossScore,
+        })),
+    )
+    .sort((a, b) => a.grossScore - b.grossScore);
+
+  if (extraordinaryRounds.length > 0) {
+    console.log(
+      `  Extraordinary rounds (≤${EXTRAORDINARY_ROUND_THRESHOLD}): ${extraordinaryRounds
+        .map(r => `${r.playerName} R${r.roundNumber}: ${r.grossScore}`)
+        .join(', ')}`,
+    );
+  }
+
   // Check for winner image
   const winnerImage = winner ? findWinnerImage(winner.playerId) : null;
 
@@ -384,6 +430,7 @@ async function main() {
     marginOfVictory,
     winnerPriorResults,
     existingHeadlines,
+    extraordinaryRounds,
   };
 
   console.log('\nTournament data:');
