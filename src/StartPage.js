@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
 
+import ReportBlurbs from './ReportBlurbs.js';
 import Leaderboard from './Leaderboard.js';
 import Menu from './Menu';
 import competitionDateString from './competitionDateString';
@@ -34,6 +35,7 @@ export default function StartPage({
   upcomingCompetitions,
   nextCompetition,
   currentCompetition,
+  reports,
   now: nowMs,
 }) {
   pastCompetitions.forEach(ensureDates);
@@ -74,6 +76,9 @@ ${process.env.NEXT_PUBLIC_INTRO}. Follow your favorite players and get the lates
             <CompetitionListItem competition={nextCompetition} now={now} next />
           </ul>
         ) : null}
+        {reports && reports.length > 0 && (
+          <ReportBlurbs reports={reports} />
+        )}
         {upcomingCompetitions.length > 0 && (
           <>
             <h3>Future events</h3>

@@ -1,0 +1,74 @@
+{
+  "competitionId": 5416024,
+  "competitionSlug": "infinitum-ecco-masters---golfbox-tournament-no-1000000",
+  "competitionName": "INFINITUM ECCO Masters - GolfBox Tournament no. 1,000,000",
+  "venue": "Infinitum Golf, Spain",
+  "startDate": "2026-02-23T00:00:00.000Z",
+  "endDate": "2026-02-25T00:00:00.000Z",
+  "slug": "infinitum-ecco-masters---golfbox-tournament-no-1000000",
+  "headline": "Simonsen Cruises to Dominant Victory at INFINITUM ECCO Masters",
+  "blurb": "Denmark's Martin Leth Simonsen delivered a masterclass in Spain, finishing at 23 under par to claim a convincing four-shot victory at the milestone INFINITUM ECCO Masters.",
+  "body": "Martin Leth Simonsen produced a stunning wire-to-wire display at Infinitum Golf in Spain, romping to a commanding four-stroke victory at the INFINITUM ECCO Masters — notably the one-millionth tournament registered on GolfBox. The Aalborg Golf Klub member posted a remarkable 23-under-par total across three rounds, leaving the rest of the field trailing in his wake.\n\nFinland's Matias Honkala of Nevas Golf finished as the clear runner-up at 19 under par, himself well clear of the chasing pack but never truly threatening Simonsen's relentless march. The Dane's consistency throughout the week was extraordinary, and the four-shot margin of victory hardly tells the full story of his dominance.\n\nA three-way tie for third place at 13 under par saw Sweden's Marcus Svensson of Halmstad Golfklubb joined by Jerry Ji and Norway's Kasper Nyland. While all three posted respectable totals, the ten-shot gap between the podium finishers and the champion underlined just how far ahead Simonsen was operating.\n\nFrom a field of 153 players, only 56 survived the cut, which fell at two under par — a testament to the demanding conditions at the Spanish venue. The tight cut line ensured that nearly two-thirds of the field headed home early, but for Simonsen, this week belonged entirely to him as he etched his name into Nordic Tour history at a landmark event.",
+  "winnerName": "Martin Leth Simonsen",
+  "winnerPlayerId": "2-3476",
+  "winnerPlayerSlug": "martin-leth-simonsen",
+  "winnerImage": "/players/2-3476.jpg",
+  "stats": {
+    "winningScore": -23,
+    "winningScoreText": "-23",
+    "totalPlayers": 153,
+    "playersMadeCut": 56,
+    "playersMissedCut": 96,
+    "cutScore": -2,
+    "cutScoreText": "-2",
+    "marginOfVictory": 4,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "Martin Leth Simonsen",
+        "club": "Aalborg Golf Klub",
+        "score": -23,
+        "scoreText": "-23",
+        "playerId": "2-3476",
+        "playerSlug": "martin-leth-simonsen"
+      },
+      {
+        "position": "2",
+        "name": "Matias Honkala",
+        "club": "Nevas Golf",
+        "score": -19,
+        "scoreText": "-19",
+        "playerId": "46-11214",
+        "playerSlug": "matias-honkala"
+      },
+      {
+        "position": "T3",
+        "name": "Marcus Svensson",
+        "club": "Halmstad Golfklubb",
+        "score": -13,
+        "scoreText": "-13",
+        "playerId": "980425-004",
+        "playerSlug": "marcus-svensson"
+      },
+      {
+        "position": "T3",
+        "name": "Jerry Ji",
+        "club": "",
+        "score": -13,
+        "scoreText": "-13",
+        "playerId": "235307",
+        "playerSlug": "jerry-ji"
+      },
+      {
+        "position": "T3",
+        "name": "Kasper Nyland",
+        "club": "",
+        "score": -13,
+        "scoreText": "-13",
+        "playerId": "237729",
+        "playerSlug": null
+      }
+    ]
+  },
+  "createdAt": "2026-02-27T10:17:09.194Z"
+}

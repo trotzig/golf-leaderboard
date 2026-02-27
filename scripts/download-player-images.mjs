@@ -179,18 +179,20 @@ async function processPlayerUpdate(player) {
 
   const regex = /\.(jpg|png)/;
   if (!imageUrl || !regex.test(imageUrl)) {
+    // Check if a local image exists (may have been added manually)
+    const localFile = ['jpg', 'png']
+      .map(ext => path.join(OUTPUT_DIR, `${player.id}.${ext}`))
+      .find(p => fs.existsSync(p));
+    if (localFile) {
+      console.log(
+        `  [kept] ${player.firstName} ${player.lastName} — photo removed on OWGR but keeping local file`,
+      );
+      return 'no_photo';
+    }
     console.log(
       `  [nophoto] ${player.firstName} ${player.lastName} — photo removed on OWGR`,
     );
     writeJson(player.id, { ...json, hasImage: false });
-    // Remove any existing local image file
-    for (const ext of ['jpg', 'png']) {
-      const filePath = path.join(OUTPUT_DIR, `${player.id}.${ext}`);
-      if (fs.existsSync(filePath)) {
-        fs.unlinkSync(filePath);
-        console.log(`  [removed] ${filePath}`);
-      }
-    }
     return 'no_photo';
   }
 

@@ -1763,3 +1763,223 @@ h2.player-big-name {
   grid-column-start: 1;
   grid-column-end: 4;
 }
+
+/* ── Article blurbs on home page ── */
+.report-blurbs-section h3 {
+  margin-top: 20px;
+  border-bottom: 1px solid rgba(var(--text-rgb), 0.2);
+  margin-bottom: 10px;
+}
+
+.report-blurbs {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 0 !important;
+}
+
+.report-blurb-link {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 12px 10px;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+
+.report-blurb-link:hover {
+  background: rgba(var(--text-rgb), 0.05);
+}
+
+.report-blurb-image-wrap {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+}
+
+.report-blurb-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.report-blurb-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.report-blurb-meta {
+  margin: 0 0 3px;
+  font-size: 12px;
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.report-blurb-headline {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 1.3;
+}
+
+.report-blurb-text {
+  margin: 0 0 6px;
+  font-size: 13px;
+  opacity: 0.75;
+  line-height: 1.4;
+}
+
+.report-blurb-read-more {
+  font-size: 12px;
+  color: var(--primary);
+  font-weight: bold;
+}
+
+/* ── Article full page ── */
+.report-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 10px 40px;
+}
+
+.report-header {
+  margin-bottom: 32px;
+}
+
+.report-meta {
+  margin: 10px 0 10px;
+  font-size: 13px;
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.report-meta a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.report-headline {
+  font-size: 24px;
+  line-height: 1.25;
+  margin: 20px 0;
+  padding: 0;
+}
+
+.report-lead {
+  font-size: 16px;
+  opacity: 0.8;
+  line-height: 1.5;
+  margin: 0;
+  font-style: italic;
+}
+
+.report-winner-image-wrap {
+  margin: 24px 0;
+}
+
+/* PlayerPhoto overrides for home-page blurb thumbnail */
+.report-blurb-image-wrap .player-photo-wrap {
+  width: 100%;
+  height: 100%;
+}
+
+.report-winner-caption {
+  margin: 8px 0 0;
+  font-size: 13px;
+  opacity: 0.6;
+}
+
+.report-body p {
+  line-height: 1.65;
+  margin: 0 0 16px;
+  font-size: 15px;
+}
+
+.report-results {
+  margin: 24px 0;
+  border: 1px solid rgba(var(--text-rgb), 0.15);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.report-results-heading {
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 8px 12px;
+  margin: 0;
+  background: rgba(var(--text-rgb), 0.05);
+  border-bottom: 1px solid rgba(var(--text-rgb), 0.1);
+}
+
+.report-results-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.report-results-table th {
+  text-align: left;
+  padding: 6px 12px;
+  font-size: 12px;
+  opacity: 0.6;
+  font-weight: normal;
+  border-bottom: 1px solid rgba(var(--text-rgb), 0.1);
+}
+
+.report-results-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(var(--text-rgb), 0.06);
+}
+
+.report-results-table tr:last-child td {
+  border-bottom: none;
+}
+
+.report-results-club {
+  font-size: 12px;
+  opacity: 0.6;
+  margin-top: 1px;
+}
+
+.report-results-score {
+  font-family: monospace;
+  font-weight: bold;
+}
+
+.report-results-score.under-par {
+  color: var(--primary);
+}
+
+.report-results-stats {
+  padding: 8px 12px;
+  font-size: 12px;
+  opacity: 0.6;
+  border-top: 1px solid rgba(var(--text-rgb), 0.1);
+}
+
+.report-results-all {
+  color: inherit;
+  text-decoration: none;
+}
+
+.report-results-all:hover {
+  text-decoration: underline;
+}
+
+.report-footer {
+  margin-top: 32px;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.report-footer a {
+  color: inherit;
+  text-decoration: underline;
+}

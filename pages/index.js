@@ -1,3 +1,6 @@
+import fs from 'fs';
+import path from 'path';
+
 import prisma from '../src/prisma';
 import StartPage from '../src/StartPage.js';
 
@@ -82,9 +85,39 @@ export async function getServerSideProps() {
     currentCompetition.end = currentCompetition.end.getTime();
   }
 
+  // Load reports from the reports/ directory
+  const reportsDir = path.join(process.cwd(), 'reports');
+  let reports = [];
+  if (fs.existsSync(reportsDir)) {
+    reports = fs
+      .readdirSync(reportsDir)
+      .filter(f => f.endsWith('.json'))
+      .map(f => {
+        try {
+          return JSON.parse(fs.readFileSync(path.join(reportsDir, f), 'utf8'));
+        } catch {
+          return null;
+        }
+      })
+      .filter(Boolean)
+      .sort((a, b) => new Date(b.endDate) - new Date(a.endDate))
+      .slice(0, 3)
+      .map(a => ({
+        slug: a.slug,
+        competitionName: a.competitionName,
+        endDate: a.endDate,
+        headline: a.headline,
+        blurb: a.blurb,
+        winnerName: a.winnerName || null,
+        winnerPlayerId: a.winnerPlayerId || null,
+        winnerImage: a.winnerImage || null,
+      }));
+  }
+
   const props = {
     pastCompetitions,
     upcomingCompetitions,
+    reports,
     now,
   };
   if (nextCompetition) {
