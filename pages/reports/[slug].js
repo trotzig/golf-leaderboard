@@ -120,6 +120,13 @@ export default function ReportPage({ report }) {
           </aside>
         )}
 
+        <p className="report-ai-note">
+          This report was written with the help of an{' '}
+          <a href="https://anthropic.com" target="_blank" rel="noopener noreferrer">
+            Anthropic
+          </a>{' '}
+          LLM.
+        </p>
         <p className="report-footer">
           <Link href="/">← Back to home</Link>
         </p>
