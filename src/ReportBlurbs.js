@@ -32,7 +32,7 @@ export default function ReportBlurbs({ reports }) {
                 </p>
                 <h4 className="report-blurb-headline">{report.headline}</h4>
                 <p className="report-blurb-text">{report.blurb}</p>
-                <span className="report-blurb-read-more">Read report →</span>
+                <span className="report-blurb-read-more">Read report</span>
               </div>
             </Link>
           </li>
