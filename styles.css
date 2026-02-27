@@ -1219,6 +1219,15 @@ input.ios-switch:checked:after {
   opacity: 0.7;
 }
 
+.competition-list-item.past {
+  opacity: 0.5;
+}
+
+.competition-list-item.past a {
+  text-decoration: line-through;
+  text-decoration-color: currentColor;
+}
+
 .tour-map-wrapper {
   max-width: 600px;
   margin: 0 auto 24px;

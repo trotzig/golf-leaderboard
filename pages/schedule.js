@@ -63,12 +63,17 @@ export default function SchedulePage({ competitions, now: nowMs }) {
 
 function CompetitionItem({ competition, now, current }) {
   const queryString = now > competition.end ? '?finished=1' : '';
+  const past = !current && now > competition.end;
   return (
     <tr
       key={competition.id}
-      className={
-        current ? 'competition-list-item current' : 'competition-list-item'
-      }
+      className={[
+        'competition-list-item',
+        current ? 'current' : '',
+        past ? 'past' : '',
+      ]
+        .filter(Boolean)
+        .join(' ')}
     >
       <td>
         <Link href={`/t/${competition.slug}${queryString}`}>
