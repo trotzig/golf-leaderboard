@@ -1,4 +1,4 @@
-import { format, startOfDay, startOfYear } from 'date-fns';
+import { format, startOfDay } from 'date-fns';
 import Link from 'next/link';
 import Head from 'next/head';
 import React, { useState, useEffect } from 'react';
@@ -8,7 +8,12 @@ import ensureDates from '../src/ensureDates.js';
 import prisma from '../src/prisma';
 import locations from '../src/locations.json';
 
-export default function SchedulePage({ competitions, now: nowMs }) {
+export default function SchedulePage({
+  competitions,
+  years,
+  selectedYear,
+  now: nowMs,
+}) {
   competitions.forEach(ensureDates);
   const now = startOfDay(new Date(nowMs));
   const currentCompetition = competitions.find(
@@ -25,7 +30,9 @@ export default function SchedulePage({ competitions, now: nowMs }) {
         <title>{`Schedule | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`}</title>
         <meta
           name="description"
-          content={`Full schedule for the ${new Date().getFullYear()} season of ${process.env.NEXT_PUBLIC_INTRO_TITLE}.`}
+          content={`Full schedule for the ${new Date().getFullYear()} season of ${
+            process.env.NEXT_PUBLIC_INTRO_TITLE
+          }.`}
         />
         <meta property="og:title" content={`Schedule | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
         <meta
@@ -44,9 +51,27 @@ export default function SchedulePage({ competitions, now: nowMs }) {
         <h2>Tour schedule</h2>
         <div className="tour-map-wrapper">
           {TourMap && (
-            <TourMap competitions={competitions} locations={locations} now={now} />
+            <TourMap
+              competitions={competitions}
+              locations={locations}
+              now={now}
+            />
           )}
         </div>
+        {years.length > 1 && (
+          <div className="page-margin">
+            <ul className="tabs">
+              {years.map(year => (
+                <li
+                  key={year}
+                  className={selectedYear === year ? 'tab-selected' : ''}
+                >
+                  <Link href={`/schedule?year=${year}`}>{year}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         <table className="results-table page-margin">
           <thead>
             <tr>
@@ -62,6 +87,7 @@ export default function SchedulePage({ competitions, now: nowMs }) {
                   competition={c}
                   now={now}
                   current={currentCompetition && currentCompetition.id === c.id}
+                  previousYear={selectedYear < new Date(nowMs).getFullYear()}
                 />
               ))}
             </tbody>
@@ -72,7 +98,7 @@ export default function SchedulePage({ competitions, now: nowMs }) {
   );
 }
 
-function CompetitionItem({ competition, now, current }) {
+function CompetitionItem({ competition, now, current, previousYear }) {
   const queryString = now > competition.end ? '?finished=1' : '';
   const past = !current && now > competition.end;
   return (
@@ -82,6 +108,7 @@ function CompetitionItem({ competition, now, current }) {
         'competition-list-item',
         current ? 'current' : '',
         past ? 'past' : '',
+        previousYear ? 'previous-year' : '',
       ]
         .filter(Boolean)
         .join(' ')}
@@ -101,11 +128,29 @@ function CompetitionItem({ competition, now, current }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ query }) {
   const now = Date.now();
+  const currentYear = new Date(now).getFullYear();
+  const selectedYear = query.year ? parseInt(query.year, 10) : currentYear;
+
+  const allCompetitions = await prisma.competition.findMany({
+    select: { start: true },
+    orderBy: { start: 'asc' },
+  });
+  const yearsSet = new Set(
+    allCompetitions.map(c => new Date(c.start).getFullYear()),
+  );
+  const years = [...yearsSet].sort((a, b) => a - b);
+
+  const yearStart = new Date(selectedYear, 0, 1);
+  const yearEnd = new Date(selectedYear + 1, 0, 1);
+
   const competitions = await prisma.competition.findMany({
     orderBy: { end: 'asc' },
-    where: { visible: true, start: { gte: startOfYear(new Date(now)) } },
+    where: {
+      visible: true,
+      start: { gte: yearStart, lt: yearEnd },
+    },
     select: {
       id: true,
       name: true,
@@ -119,5 +164,5 @@ export async function getServerSideProps() {
     c.start = c.start.getTime();
     c.end = c.end.getTime();
   }
-  return { props: { competitions, now } };
+  return { props: { competitions, years, selectedYear, now } };
 }
