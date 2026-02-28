@@ -56,6 +56,27 @@ async function fetchLeaderboard(competitionId) {
   }
   const json = parseJson(await res.text());
 
+  // Extract status text from ClassSettings — this is where GolfBox describes
+  // play-offs, weather cancellations, etc.
+  let statusText = null;
+  const classSettings = json.CompetitionData?.ClassSettings;
+  if (Array.isArray(classSettings)) {
+    for (const cs of classSettings) {
+      if (cs.StatusText) {
+        // Strip HTML tags and decode &nbsp; / <br /> into plain text
+        const plain = cs.StatusText.replace(/<br\s*\/?>/gi, ' ')
+          .replace(/&nbsp;/gi, ' ')
+          .replace(/<[^>]+>/g, '')
+          .replace(/\s+/g, ' ')
+          .trim();
+        if (plain) {
+          statusText = plain;
+          break;
+        }
+      }
+    }
+  }
+
   const entries = [];
   for (const clazz of json.Classes ? Object.values(json.Classes) : []) {
     if (clazz.Leaderboard && clazz.Leaderboard.Entries) {
@@ -89,7 +110,7 @@ async function fetchLeaderboard(competitionId) {
       }
     }
   }
-  return entries;
+  return { entries, statusText };
 }
 
 function readApiKey() {
@@ -168,6 +189,17 @@ async function callAnthropicAPI(tournamentData) {
           .join('\n')}\nUse fresh vocabulary and a different structure.`
       : '';
 
+  const playOffNote = tournamentData.playOffText
+    ? `\nPLAY-OFF NOTE (must be mentioned in the article): ${tournamentData.playOffText}`
+    : '';
+
+  // Include the raw status text unless it's already being surfaced as the play-off note
+  // (playOffText === statusText when the play-off was detected via StatusText itself).
+  const statusNote =
+    tournamentData.statusText && tournamentData.statusText !== tournamentData.playOffText
+      ? `\nOfficial tournament note: ${tournamentData.statusText}`
+      : '';
+
   const prompt = `You are a sports journalist writing a brief article about a professional golf tournament on the Cutter & Buck tour, the Nordic professional golf tour for men.
 
 Write a short article about this tournament. Return ONLY a valid JSON object (no markdown, no code blocks) with these fields:
@@ -177,8 +209,8 @@ Write a short article about this tournament. Return ONLY a valid JSON object (no
     priorResultsText
       ? ' If the winner has notable prior results, briefly reference them.'
       : ''
-  }${extraordinaryRoundsText ? ' Any extraordinary rounds listed below could be mentioned in the article.' : ''}
-${extraordinaryRoundsText}${headlinesWarning}
+  }${extraordinaryRoundsText ? ' Any extraordinary rounds listed below could be mentioned in the article.' : ''}${playOffNote ? ' The tournament ended in a play-off — this MUST be prominently mentioned.' : ''}
+${extraordinaryRoundsText}${playOffNote}${statusNote}${headlinesWarning}
 Tournament: ${tournamentData.name}
 Venue: ${tournamentData.venue || 'Nordic Golf Tour'}
 Dates: ${tournamentData.startDate} – ${tournamentData.endDate}
@@ -288,20 +320,30 @@ async function main() {
     process.exit(0);
   }
 
-  console.log('\nSelect a competition:\n');
-  competitions.forEach((c, i) => {
-    const tag = existingReportIds.has(c.id) ? ' [report exists]' : '';
-    console.log(`  ${i + 1}. ${c.name} (${format(c.end, 'MMM d')})${tag}`);
-  });
+  let competition;
+  const slugArg = process.argv[2];
+  if (slugArg) {
+    competition = competitions.find(c => c.slug === slugArg);
+    if (!competition) {
+      console.error(`No competition found with slug: ${slugArg}`);
+      process.exit(1);
+    }
+  } else {
+    console.log('\nSelect a competition:\n');
+    competitions.forEach((c, i) => {
+      const tag = existingReportIds.has(c.id) ? ' [report exists]' : '';
+      console.log(`  ${i + 1}. ${c.name} (${format(c.end, 'MMM d')})${tag}`);
+    });
 
-  const answer = await promptUser('\nEnter number: ');
-  const idx = parseInt(answer, 10) - 1;
-  if (isNaN(idx) || idx < 0 || idx >= competitions.length) {
-    console.error('Invalid selection.');
-    process.exit(1);
+    const answer = await promptUser('\nEnter number: ');
+    const idx = parseInt(answer, 10) - 1;
+    if (isNaN(idx) || idx < 0 || idx >= competitions.length) {
+      console.error('Invalid selection.');
+      process.exit(1);
+    }
+
+    competition = competitions[idx];
   }
-
-  const competition = competitions[idx];
   const overwriting = existingReportIds.has(competition.id);
   console.log(
     `\n${overwriting ? 'Overwriting report' : 'Writing report'} for: ${competition.name} (id=${competition.id})`,
@@ -317,7 +359,7 @@ async function main() {
 
   // Fetch the leaderboard directly from the GolfBox API
   console.log('Fetching leaderboard from GolfBox API...');
-  const entries = await fetchLeaderboard(competition.id);
+  const { entries, statusText } = await fetchLeaderboard(competition.id);
   console.log(`  Got ${entries.length} entries`);
 
   const EXTRAORDINARY_ROUND_THRESHOLD = 63;
@@ -349,6 +391,20 @@ async function main() {
 
   const winner = topFinishers[0];
   const runnerUp = topFinishers[1];
+
+  // Detect a play-off. Two signals:
+  // 1. StatusText from GolfBox explicitly mentions "Play-Off" (with hole detail).
+  // 2. Winner and runner-up share the same score but hold positions 1 and 2 —
+  //    GolfBox never shows T1 when a play-off split the tie.
+  let playOffText = null;
+  if (statusText && /play.?off/i.test(statusText)) {
+    playOffText = statusText;
+  } else if (winner && runnerUp && winner.score === runnerUp.score) {
+    playOffText = `${winner.name} won via a play-off against ${runnerUp.name} after both finished tied at ${winner.scoreText}.`;
+  }
+  if (playOffText) {
+    console.log(`  Play-off detected: ${playOffText}`);
+  }
 
   // Check winner's previous top placements in existing reports
   const winnerPriorResults = winner
@@ -431,6 +487,8 @@ async function main() {
     winnerPriorResults,
     existingHeadlines,
     extraordinaryRounds,
+    playOffText,
+    statusText,
   };
 
   console.log('\nTournament data:');
