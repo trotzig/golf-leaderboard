@@ -200,6 +200,13 @@ a {
   margin-left: 10px;
   margin-right: 10px;
 }
+@media (prefers-color-scheme: dark) {
+  .alert {
+    background-color: rgba(229, 78, 55, 0.15);
+    border-color: rgba(229, 78, 55, 0.4);
+    color: var(--text);
+  }
+}
 
 .winner {
   margin: 10px 0;
