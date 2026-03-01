@@ -232,13 +232,13 @@ a {
 .profile,
 .schedule,
 .sign-in,
+.course,
 nav {
   max-width: 600px;
   margin: 0 auto;
 }
 
-.player-profile,
-.course {
+.player-profile {
   max-width: 710px;
   margin: 0 auto;
 }
@@ -666,53 +666,150 @@ footer {
   background-color: #6eb4ef;
 }
 
-.course-table {
-  padding: 10px;
-  width: 100%;
-  overflow: auto;
-}
 .course {
   margin-bottom: 15px;
 }
 
-.course-table {
-  color: var(--text);
+.hole-list {
+  max-width: 500px;
+  padding: 8px 0;
+}
+
+.hole-row {
+  display: grid;
+  grid-template-columns: 22px 1fr 52px 52px;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.hole-num {
   font-size: 12px;
-  opacity: 0.8;
+  font-weight: 600;
+  color: var(--text);
+  opacity: 0.5;
+  text-align: right;
 }
 
-.course-table {
-  display: grid;
-  grid-template-columns: auto repeat(21, 1fr);
-  column-gap: 5px;
-}
-.course-item {
-  display: grid;
-  grid-template-columns: 1fr;
-  row-gap: 5px;
-  text-align: center;
-}
-.course-item > *:first-child {
-  font-weight: bold;
-}
-.course-item:first-child {
-  text-align: left;
-  font-weight: bold;
-  white-space: nowrap;
+.hole-visual {
+  position: relative;
+  height: 28px;
+  border-radius: 3px;
+  overflow: visible;
 }
 
-@media (max-width: 900px) {
-  .course-table {
-    grid-template-columns: 1fr;
-    row-gap: 10px;
-    max-width: 200px;
-    margin: 0 auto;
-  }
-  .course-item {
-    grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 5px;
-    text-align: left;
-  }
+.hole-tee {
+  position: absolute;
+  left: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 18px;
+  background: #5cb870;
+  border-radius: 2px;
+  z-index: 2;
+}
+
+.hole-fairway {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: calc(var(--hole-pct) - 14px);
+  height: 10px;
+  background: #4a9e5c;
+  z-index: 1;
+}
+
+.hole-green {
+  position: absolute;
+  left: var(--hole-pct);
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 22px;
+  height: 22px;
+  background: #6ed476;
+  border-radius: 50%;
+  z-index: 3;
+}
+
+.hole-flagpole {
+  position: absolute;
+  left: calc(50% - 0.5px);
+  top: 10%;
+  width: 1px;
+  height: 40%;
+  background: #bbb;
+}
+
+.hole-flag {
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 3.5px 0 3.5px 7px;
+  border-color: transparent transparent transparent #e54e37;
+}
+
+.hole-cup {
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  background: #1a3a10;
+  border-radius: 50%;
+}
+
+.hole-len {
+  font-size: 12px;
+  color: var(--text);
+  opacity: 0.7;
+  text-align: right;
+}
+
+.hole-par {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: right;
+}
+
+.hole-subtotal {
+  display: grid;
+  grid-template-columns: 22px 1fr 52px 52px;
+  gap: 8px;
+  align-items: center;
+  padding: 4px 0;
+  font-size: 12px;
+  color: var(--text);
+  opacity: 0.6;
+  border-top: 1px solid rgba(var(--text-rgb), 0.15);
+}
+
+.hole-subtotal-label {
+  grid-column: 1;
+  font-weight: 600;
+  text-align: right;
+}
+
+.hole-subtotal-len {
+  grid-column: 3;
+  text-align: right;
+}
+
+.hole-subtotal-par {
+  grid-column: 4;
+  text-align: right;
+}
+
+.hole-subtotal--total {
+  font-weight: 700;
+  opacity: 0.9;
+  border-top: 2px solid rgba(var(--text-rgb), 0.25);
 }
 
 .leaderboard-page .round-start-time {
