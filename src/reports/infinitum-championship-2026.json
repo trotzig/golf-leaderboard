@@ -1,0 +1,74 @@
+{
+  "competitionId": 5433274,
+  "competitionSlug": "infinitum-championship-2026",
+  "competitionName": "INFINITUM Championship",
+  "venue": "Infinitum Golf, Spain",
+  "startDate": "2026-02-27T00:00:00.000Z",
+  "endDate": "2026-03-01T00:00:00.000Z",
+  "slug": "infinitum-championship-2026",
+  "headline": "Ege Edges Out Baumgartner by One in Thrilling INFINITUM Championship",
+  "blurb": "Norway's Mats Ege fires a blistering 62 in round two en route to an 18-under-par total, holding off Jonas Baumgartner by a single stroke at Infinitum Golf in Spain.",
+  "body": "Mats Ege claimed a hard-fought victory at the INFINITUM Championship, finishing at 18 under par to edge Jonas Baumgartner by just one shot at Infinitum Golf in Spain. The Stavanger Golfklubb player set the tone with a sensational second-round 62, one of several extraordinary scores posted during a week of superb golf on the Cutter & Buck tour.\n\nBaumgartner pushed Ege all the way, finishing at 17 under par, while Christian Jacobsen of Great Northern Golf Club and Sweden's Jesper Sandborg shared third place at 16 under. Jerry Ji rounded out the top five at 15 under in what proved to be a fiercely competitive tournament from start to finish.\n\nThe low scoring was not limited to the winner. August Thor Høst delivered the round of the week — a stunning 61 in the third round — while Jean Bekirian, Kristian Krogh Johannessen, and Marcus Svensson all fired 63s in round two. John Axelsen, Bjørn La Cour Søborg, and William Lithander matched that mark in the third round, underlining the quality of conditions and the depth of talent on display.\n\nDespite the birdie-fest at the top, the cut proved demanding. Of the 156 players who teed it up, only 49 advanced past the halfway mark at four under par, meaning more than two-thirds of the field headed home early. For Ege, the narrow one-shot margin made the triumph all the sweeter — a reminder that even dominant ball-striking requires nerves of steel when the pressure mounts on the final day.",
+  "winnerName": "Mats Ege",
+  "winnerPlayerId": "5-7825",
+  "winnerPlayerSlug": "mats-ege",
+  "winnerImage": "/players/5-7825.jpg",
+  "stats": {
+    "winningScore": -18,
+    "winningScoreText": "-18",
+    "totalPlayers": 156,
+    "playersMadeCut": 49,
+    "playersMissedCut": 105,
+    "cutScore": -4,
+    "cutScoreText": "-4",
+    "marginOfVictory": 1,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "Mats Ege",
+        "club": "Stavanger Golfklubb",
+        "score": -18,
+        "scoreText": "-18",
+        "playerId": "5-7825",
+        "playerSlug": "mats-ege"
+      },
+      {
+        "position": "2",
+        "name": "Jonas Baumgartner",
+        "club": "",
+        "score": -17,
+        "scoreText": "-17",
+        "playerId": "252183",
+        "playerSlug": "jonas-baumgartner"
+      },
+      {
+        "position": "T3",
+        "name": "Christian Jacobsen",
+        "club": "Great Northern Golf Club",
+        "score": -16,
+        "scoreText": "-16",
+        "playerId": "14-873",
+        "playerSlug": "christian-jacobsen"
+      },
+      {
+        "position": "T3",
+        "name": "Jesper Sandborg",
+        "club": "Landeryds Golfklubb",
+        "score": -16,
+        "scoreText": "-16",
+        "playerId": "930608-004",
+        "playerSlug": "jesper-sandborg"
+      },
+      {
+        "position": "T5",
+        "name": "Jerry Ji",
+        "club": "",
+        "score": -15,
+        "scoreText": "-15",
+        "playerId": "235307",
+        "playerSlug": "jerry-ji"
+      }
+    ]
+  },
+  "createdAt": "2026-03-01T21:05:45.104Z"
+}
