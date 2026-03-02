@@ -1158,22 +1158,29 @@ input[type='email'],
 input[type='password'] {
   all: unset;
   box-sizing: border-box;
-  border: 2px solid var(--medium);
-  border-radius: 3px;
-  padding: 5px 10px;
-  transition: all 0.1s;
+  border: 1.5px solid rgba(var(--text-rgb), 0.2);
+  border-radius: 6px;
+  padding: 8px 12px;
+  background: rgba(var(--text-rgb), 0.04);
+  transition: all 0.15s;
 }
 input:focus,
 select:focus {
   border-color: var(--primary);
   outline: none;
+  box-shadow: 0 0 0 3px rgba(229, 78, 55, 0.15);
 }
 select {
-  border: 2px solid var(--medium);
-  border-radius: 3px;
-  background-color: transparent;
-  padding: 5px;
+  border: 1.5px solid rgba(var(--text-rgb), 0.2);
+  border-radius: 6px;
+  background-color: rgba(var(--text-rgb), 0.04);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 16 16' fill='rgb(100,100,100)'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding: 8px 30px 8px 10px;
   margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
 }
 .players .player {
   display: grid;
@@ -1212,9 +1219,8 @@ select {
 }
 .players .sort-by .search-input {
   padding-right: 40px;
-  background: transparent
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='rgb(100,100,100)' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E")
-    no-repeat 13px center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='rgb(100,100,100)' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
   background-position: right 13px center;
 }
 .players .sort-by input,
@@ -1639,11 +1645,11 @@ input.ios-switch:checked:after {
 .code-input-box {
   display: inline-block;
   height: 20px;
-  border: 2px solid rgba(var(--text-rgb), 0.3);
-  border-radius: 3px;
+  border: 1.5px solid rgba(var(--text-rgb), 0.2);
+  border-radius: 6px;
 }
 .code-input-box-active {
-  border-color: var(--text);
+  border-color: var(--primary);
 }
 
 .code-input-ruler {
