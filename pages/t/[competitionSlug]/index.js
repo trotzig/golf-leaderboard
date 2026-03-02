@@ -1,4 +1,5 @@
 import CompetitionPage from '../../../src/CompetitionPage.js';
+import fetchGolfboxUrl from '../../../src/fetchGolfboxUrl.js';
 import prisma from '../../../src/prisma';
 import profileProps from '../../../src/profileProps.js';
 
@@ -27,7 +28,22 @@ export async function getServerSideProps({ req, params }) {
   const {
     props: { account },
   } = proProps;
+
+  let golfboxProps = {};
+  try {
+    const [initialData, initialTimesData, initialPlayersData, initialCompetitionData] =
+      await Promise.all([
+        fetchGolfboxUrl(`LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057`),
+        fetchGolfboxUrl(`TeeTimesHandler/GetTeeTimes/CompetitionId/${competition.id}/language/2057`),
+        fetchGolfboxUrl(`PlayersHandler/GetPlayers/CompetitionId/${competition.id}/language/2057`),
+        fetchGolfboxUrl(`CompetitionHandler/GetCompetition/CompetitionId/${competition.id}/language/2057`),
+      ]);
+    golfboxProps = { initialData, initialTimesData, initialPlayersData, initialCompetitionData };
+  } catch (e) {
+    console.error('Failed to prefetch GolfBox data for competition page:', e);
+  }
+
   return {
-    props: { competition, account: account || null, now: Date.now() },
+    props: { competition, account: account || null, now: Date.now(), ...golfboxProps },
   };
 }

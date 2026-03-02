@@ -1,14 +1,11 @@
-function parseGolfboxJson(raw) {
-  return JSON.parse(raw.replace(/:!0/g, ':false').replace(/:!1/g, ':true'));
-}
+import fetchGolfboxUrl from '../../../src/fetchGolfboxUrl';
 
 export default async function handler(req, res) {
   const path = req.query.path.join('/');
-  const url = `https://scores.golfbox.dk/Handlers/${path}/`;
-  const response = await fetch(url);
-  if (!response.ok) {
-    return res.status(response.status).end();
+  try {
+    const data = await fetchGolfboxUrl(path);
+    res.status(200).json(data);
+  } catch (e) {
+    res.status(502).json({ error: e.message });
   }
-  const data = parseGolfboxJson(await response.text());
-  res.status(200).json(data);
 }
