@@ -261,6 +261,9 @@ nav a {
   padding: 6px 10px;
   border-radius: 3px;
 }
+.menu-item-icon {
+  border-bottom: 2px solid transparent;
+}
 .menu-item-long {
   display: inline;
 }
@@ -275,6 +278,11 @@ nav svg {
 @media (max-width: 600px) {
   nav {
     gap: 7px;
+  }
+}
+@media (max-width: 380px) {
+  nav {
+    gap: 2px;
   }
   .menu-item-long {
     display: none;

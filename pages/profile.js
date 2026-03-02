@@ -34,7 +34,7 @@ export default function ProfilePage({ account }) {
 
   return (
     <div className="profile">
-      <Menu />
+      <Menu activeHref="/profile" />
       <h2>Your settings</h2>
       <div className="page-margin">
         <div className="profile-settings">
