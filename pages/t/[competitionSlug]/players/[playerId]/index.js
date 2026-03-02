@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import React from 'react';
 
-import { useJsonPData } from '../../../../../src/fetchJsonP';
+import { useGolfboxData } from '../../../../../src/useGolfboxData';
 import LoadingSkeleton from '../../../../../src/LoadingSkeleton';
 import PlayerPhoto from '../../../../../src/PlayerPhoto';
 import fixParValue from '../../../../../src/fixParValue';
@@ -127,10 +127,10 @@ function Round({ round, colors, courses, now }) {
 
 export default function CompetitionPlayer({ now: nowMs, player, competition, baseUrl }) {
   const now = new Date(nowMs);
-  const data = useJsonPData(
+  const data = useGolfboxData(
     `/api/golfbox/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057`,
   );
-  const timesData = useJsonPData(
+  const timesData = useGolfboxData(
     `/api/golfbox/TeeTimesHandler/GetTeeTimes/CompetitionId/${competition.id}/language/2057`,
   );
 

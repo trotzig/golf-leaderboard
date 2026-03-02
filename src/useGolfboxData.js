@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 const CACHE = {};
 
-export function useJsonPData(url, defaultData) {
+export function useGolfboxData(url, defaultData) {
   const [data, setData] = useState(defaultData);
   useEffect(() => {
     if (!url) {
@@ -24,10 +24,18 @@ export function useJsonPData(url, defaultData) {
       }
       lastCheck = Date.now();
       console.log(`Fetching ${url}`);
-      const res = await fetch(url);
-      const data = await res.json();
-      CACHE[url] = data;
-      setData(data);
+      try {
+        const res = await fetch(url);
+        if (!res.ok) {
+          console.error(`Failed to fetch ${url}: ${res.status}`);
+          return;
+        }
+        const data = await res.json();
+        CACHE[url] = data;
+        setData(data);
+      } catch (e) {
+        console.error(`Error fetching ${url}:`, e);
+      }
     }
 
     run();

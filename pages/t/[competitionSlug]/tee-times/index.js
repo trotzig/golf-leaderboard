@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
 
-import { useJsonPData } from '../../../../src/fetchJsonP.js';
+import { useGolfboxData } from '../../../../src/useGolfboxData.js';
 import CutInfo from '../../../../src/CutInfo.js';
 import FavoriteButton from '../../../../src/FavoriteButton.js';
 import competitionDateString from '../../../../src/competitionDateString.js';
@@ -76,7 +76,7 @@ function Game({ game }) {
 export default function TeeTimesPage({ competition, now: nowMs, round }) {
   ensureDates(competition);
   const now = new Date(nowMs);
-  const leaderboardData = useJsonPData(
+  const leaderboardData = useGolfboxData(
     `/api/golfbox/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057`,
   );
   const leaderboardEntries = leaderboardData
@@ -85,7 +85,7 @@ export default function TeeTimesPage({ competition, now: nowMs, round }) {
           {},
       )
     : null;
-  const data = useJsonPData(
+  const data = useGolfboxData(
     `/api/golfbox/TeeTimesHandler/GetTeeTimes/CompetitionId/${competition.id}/language/2057`,
   );
   const loading = !data;

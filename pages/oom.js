@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React, { useState } from 'react';
 
-import { useJsonPData } from '../src/fetchJsonP';
+import { useGolfboxData } from '../src/useGolfboxData';
 import FavoriteButton from '../src/FavoriteButton';
 import LoadingSkeleton from '../src/LoadingSkeleton';
 import generateSlug from '../src/generateSlug';
@@ -76,7 +76,7 @@ function Player({ entry, onFavorite, lastFavoriteChanged }) {
 
 export default function OrderOfMeritPage() {
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
-  const data = useJsonPData(
+  const data = useGolfboxData(
     `/api/golfbox/OrderOfMeritsHandler/GetOrderOfMerit/CustomerId/${process.env.NEXT_PUBLIC_GOLFBOX_CUSTOMER_ID}/language/2057/OrderOfMeritID/${process.env.NEXT_PUBLIC_GOLFBOX_OOM_ID}`,
   );
 

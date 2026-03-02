@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import DOMPurify from 'dompurify';
 import PlayerPhoto from './PlayerPhoto';
-import { useJsonPData } from './fetchJsonP';
+import { useGolfboxData } from './useGolfboxData';
 import ClockIcon from './ClockIcon';
 import FavoriteButton from './FavoriteButton';
 import Lazy from './Lazy';
@@ -480,19 +480,19 @@ export default function CompetitionPage({
   ensureDates(competition);
   const now = new Date(nowMs);
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
-  const data = useJsonPData(
+  const data = useGolfboxData(
     `/api/golfbox/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057`,
     initialData,
   );
-  const timesData = useJsonPData(
+  const timesData = useGolfboxData(
     `/api/golfbox/TeeTimesHandler/GetTeeTimes/CompetitionId/${competition.id}/language/2057`,
     initialTimesData,
   );
-  const playersData = useJsonPData(
+  const playersData = useGolfboxData(
     `/api/golfbox/PlayersHandler/GetPlayers/CompetitionId/${competition.id}/language/2057`,
     initialPlayersData,
   );
-  const competitionData = useJsonPData(
+  const competitionData = useGolfboxData(
     `/api/golfbox/CompetitionHandler/GetCompetition/CompetitionId/${competition.id}/language/2057`,
     initialCompetitionData,
   );

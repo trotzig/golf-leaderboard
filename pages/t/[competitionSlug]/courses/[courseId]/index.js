@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import { useJsonPData } from '../../../../../src/fetchJsonP';
+import { useGolfboxData } from '../../../../../src/useGolfboxData';
 import LoadingSkeleton from '../../../../../src/LoadingSkeleton';
 import prisma from '../../../../../src/prisma';
 
@@ -24,7 +24,7 @@ export default function Course({ competition }) {
   const router = useRouter();
   const { courseId } = router.query;
 
-  const data = useJsonPData(
+  const data = useGolfboxData(
     `/api/golfbox/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057`,
   );
 
