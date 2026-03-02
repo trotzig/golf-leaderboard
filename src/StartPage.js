@@ -1,7 +1,8 @@
 import { format } from 'date-fns';
 import Head from 'next/head';
 import Link from 'next/link';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
 
 import ReportBlurbs from './ReportBlurbs.js';
 import Leaderboard from './Leaderboard.js';
@@ -38,6 +39,22 @@ export default function StartPage({
   reports,
   now: nowMs,
 }) {
+  const router = useRouter();
+
+  useEffect(() => {
+    let wasHidden = false;
+    function handleVisibilityChange() {
+      if (document.visibilityState === 'hidden') {
+        wasHidden = true;
+      } else if (wasHidden) {
+        wasHidden = false;
+        router.replace(router.asPath);
+      }
+    }
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, [router]);
+
   pastCompetitions.forEach(ensureDates);
   upcomingCompetitions.forEach(ensureDates);
   if (nextCompetition) {
