@@ -125,7 +125,7 @@ function Round({ round, colors, courses, now }) {
   );
 }
 
-export default function CompetitionPlayer({ now: nowMs, player, competition }) {
+export default function CompetitionPlayer({ now: nowMs, player, competition, baseUrl }) {
   const now = new Date(nowMs);
   const data = useJsonPData(
     `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057/`,
@@ -148,6 +148,12 @@ export default function CompetitionPlayer({ now: nowMs, player, competition }) {
           name="description"
           content={`Results for ${player.firstName} ${player.lastName} in ${competition.name}`}
         />
+        {baseUrl && (
+          <link
+            rel="canonical"
+            href={`${baseUrl}/t/${competition.slug}/players/${player.id}`}
+          />
+        )}
       </Head>
       <div className="player-profile">
         {loading ? (
@@ -217,7 +223,7 @@ export default function CompetitionPlayer({ now: nowMs, player, competition }) {
   );
 }
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ params, req }) {
   const [competition, player] = await Promise.all([
     prisma.competition.findUnique({
       where: { slug: params.competitionSlug },
@@ -249,7 +255,9 @@ export async function getServerSideProps({ params }) {
   }
   competition.start = competition.start.getTime();
   competition.end = competition.end.getTime();
+  const protocol = req.headers['x-forwarded-proto'] || 'https';
+  const baseUrl = `${protocol}://${req.headers.host}`;
   return {
-    props: { competition, player, now: Date.now() },
+    props: { competition, player, now: Date.now(), baseUrl },
   };
 }

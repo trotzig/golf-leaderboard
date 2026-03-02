@@ -67,6 +67,9 @@ export default function PlayerPage({
             content={`${baseUrl}/players/${player.id}.jpg`}
           />
         )}
+        {baseUrl && (
+          <link rel="canonical" href={`${baseUrl}/${player.slug}`} />
+        )}
         <meta
           name="twitter:card"
           content={baseUrl ? 'summary_large_image' : 'summary'}
