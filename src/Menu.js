@@ -6,13 +6,16 @@ export default function Menu({ activeHref }) {
     <nav>
       {activeHref && (
         <style>{`
-          nav a[href="${activeHref}"] {
+          nav a.menu-item-can-be-made-active[href="${activeHref}"] {
             color: #fff;
             background-color: var(--primary);
           }
+          nav a.menu-item-icon[href="${activeHref}"] {
+            border-bottom: 2px solid var(--primary);
+          }
       `}</style>
       )}
-      <Link href="/" style={{ lineHeight: 0 }}>
+      <Link href="/" className="menu-item-icon" style={{ lineHeight: 0 }}>
           <svg viewBox="0 0 24 24" fill="currentColor">
             <path d="M0 0h24v24H0z" fill="none" />
             <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
@@ -27,7 +30,7 @@ export default function Menu({ activeHref }) {
         <span className="menu-item-long">Order of merit</span>
         <span className="menu-item-short">OOM</span>
       </Link>
-      <Link href="/profile" style={{ lineHeight: 0 }}>
+      <Link href="/profile" className="menu-item-icon" style={{ lineHeight: 0 }}>
           <svg
             enableBackground="new 0 0 24 24"
             viewBox="0 0 24 24"
