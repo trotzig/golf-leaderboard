@@ -24,18 +24,13 @@ export function useGolfboxData(url, defaultData) {
       }
       lastCheck = Date.now();
       console.log(`Fetching ${url}`);
-      try {
-        const res = await fetch(url);
-        if (!res.ok) {
-          console.error(`Failed to fetch ${url}: ${res.status}`);
-          return;
-        }
-        const data = await res.json();
-        CACHE[url] = data;
-        setData(data);
-      } catch (e) {
-        console.error(`Error fetching ${url}:`, e);
+      const res = await fetch(url);
+      if (!res.ok) {
+        throw new Error(`Failed to fetch ${url}: ${res.status}`);
       }
+      const data = await res.json();
+      CACHE[url] = data;
+      setData(data);
     }
 
     run();
