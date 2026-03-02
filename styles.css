@@ -233,6 +233,7 @@ a {
 .schedule,
 .sign-in,
 .course,
+.add-to-home-screen-page,
 nav {
   max-width: 600px;
   margin: 0 auto;
@@ -2098,4 +2099,71 @@ h2.player-big-name {
   margin-top: 8px;
   font-size: 12px;
   opacity: 0.5;
+}
+
+/* Add to home screen banner */
+.add-to-home-screen-banner {
+  background-color: var(--primary);
+  color: #fff;
+  text-align: center;
+  padding: 11px 40px 11px 10px;
+  font-size: 13px;
+  position: relative;
+}
+
+.add-to-home-screen-banner a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.add-to-home-screen-dismiss {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  line-height: 1;
+  padding: 0 4px;
+  opacity: 0.8;
+}
+
+.add-to-home-screen-dismiss:hover {
+  opacity: 1;
+}
+
+/* Add to home screen instructions page */
+.aths-section {
+  margin-bottom: 30px;
+  padding: 0 10px;
+}
+
+.aths-section h3 {
+  margin-bottom: 10px;
+}
+
+.aths-steps {
+  padding-left: 20px;
+  list-style: decimal;
+  line-height: 1.7;
+}
+
+.aths-steps li {
+  margin-bottom: 4px;
+}
+
+.aths-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 18px;
+  height: 18px;
+  position: relative;
+  top: -1px;
+}
+
+.aths-icon svg {
+  width: 18px;
+  height: 18px;
 }

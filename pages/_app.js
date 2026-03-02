@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { PagesProgressBar as NextNProgress } from 'next-nprogress-bar';
 import React, { useEffect, useState } from 'react';
 import Script from 'next/script';
+import AddToHomeScreen from '../src/AddToHomeScreen.js';
 
 function MyApp({ Component, pageProps }) {
   const [themeColor, setThemeColor] = useState('#ffffff');
@@ -53,6 +54,7 @@ function MyApp({ Component, pageProps }) {
         src="https://plausible.io/js/script.js"
       />
       <div className="blurry-background" />
+      <AddToHomeScreen />
       <main>
         <Component {...pageProps} />
       </main>
