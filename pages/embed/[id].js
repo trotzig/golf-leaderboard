@@ -57,6 +57,6 @@ export async function getServerSideProps({ params }) {
   const title = `${player.firstName} ${player.lastName} - live score`;
   const competition = player.leaderboardEntry.competition;
   return {
-    props: { players: [player], competition, title },
+    props: { players: [player], competition, title, hideChrome: true },
   };
 }
