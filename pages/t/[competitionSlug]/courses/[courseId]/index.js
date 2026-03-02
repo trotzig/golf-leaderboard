@@ -25,7 +25,7 @@ export default function Course({ competition }) {
   const { courseId } = router.query;
 
   const data = useJsonPData(
-    `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057/`,
+    `/api/golfbox/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057`,
   );
 
   const loading = !data;

@@ -128,10 +128,10 @@ function Round({ round, colors, courses, now }) {
 export default function CompetitionPlayer({ now: nowMs, player, competition, baseUrl }) {
   const now = new Date(nowMs);
   const data = useJsonPData(
-    `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057/`,
+    `/api/golfbox/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057`,
   );
   const timesData = useJsonPData(
-    `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competition.id}/language/2057/`,
+    `/api/golfbox/TeeTimesHandler/GetTeeTimes/CompetitionId/${competition.id}/language/2057`,
   );
 
   const loading = !data;

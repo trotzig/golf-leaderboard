@@ -481,19 +481,19 @@ export default function CompetitionPage({
   const now = new Date(nowMs);
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
   const data = useJsonPData(
-    `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057/`,
+    `/api/golfbox/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057`,
     initialData,
   );
   const timesData = useJsonPData(
-    `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competition.id}/language/2057/`,
+    `/api/golfbox/TeeTimesHandler/GetTeeTimes/CompetitionId/${competition.id}/language/2057`,
     initialTimesData,
   );
   const playersData = useJsonPData(
-    `https://scores.golfbox.dk/Handlers/PlayersHandler/GetPlayers/CompetitionId/${competition.id}/language/2057/`,
+    `/api/golfbox/PlayersHandler/GetPlayers/CompetitionId/${competition.id}/language/2057`,
     initialPlayersData,
   );
   const competitionData = useJsonPData(
-    `https://scores.golfbox.dk/Handlers/CompetitionHandler/GetCompetition/CompetitionId/${competition.id}/language/2057/`,
+    `/api/golfbox/CompetitionHandler/GetCompetition/CompetitionId/${competition.id}/language/2057`,
     initialCompetitionData,
   );
   const loading = loadingOverride || !data || !timesData || !playersData;

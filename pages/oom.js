@@ -77,7 +77,7 @@ function Player({ entry, onFavorite, lastFavoriteChanged }) {
 export default function OrderOfMeritPage() {
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
   const data = useJsonPData(
-    `https://scores.golfbox.dk/Handlers/OrderOfMeritsHandler/GetOrderOfMerit/CustomerId/${process.env.NEXT_PUBLIC_GOLFBOX_CUSTOMER_ID}/language/2057/OrderOfMeritID/${process.env.NEXT_PUBLIC_GOLFBOX_OOM_ID}/`,
+    `/api/golfbox/OrderOfMeritsHandler/GetOrderOfMerit/CustomerId/${process.env.NEXT_PUBLIC_GOLFBOX_CUSTOMER_ID}/language/2057/OrderOfMeritID/${process.env.NEXT_PUBLIC_GOLFBOX_OOM_ID}`,
   );
 
   function handleFavoriteChange() {

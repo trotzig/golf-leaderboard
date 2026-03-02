@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 
-import fetchJsonP from '../../src/fetchJsonP';
-
 export default function InvalidTokenPage() {
   return (
     <div className="profile">

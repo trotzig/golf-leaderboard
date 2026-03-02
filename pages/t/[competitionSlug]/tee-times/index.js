@@ -77,7 +77,7 @@ export default function TeeTimesPage({ competition, now: nowMs, round }) {
   ensureDates(competition);
   const now = new Date(nowMs);
   const leaderboardData = useJsonPData(
-    `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057/`,
+    `/api/golfbox/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057`,
   );
   const leaderboardEntries = leaderboardData
     ? Object.values(
@@ -86,7 +86,7 @@ export default function TeeTimesPage({ competition, now: nowMs, round }) {
       )
     : null;
   const data = useJsonPData(
-    `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competition.id}/language/2057/`,
+    `/api/golfbox/TeeTimesHandler/GetTeeTimes/CompetitionId/${competition.id}/language/2057`,
   );
   const loading = !data;
   const usedRound = round || (data && data.ActiveRoundNumber);
