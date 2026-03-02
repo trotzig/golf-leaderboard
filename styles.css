@@ -319,6 +319,7 @@ html.display-standalone nav {
   bottom: 0;
   left: 0;
   z-index: 1;
+  background-color: rgba(var(--background-rgb), 0.6);
   backdrop-filter: blur(2px);
   padding: 2px;
   border: 2px solid rgba(var(--text-rgb), 0.1);
