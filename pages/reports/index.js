@@ -4,7 +4,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
 
-import Menu from '../../src/Menu';
 import ReportBlurbs from '../../src/ReportBlurbs';
 
 export default function ReportsIndexPage({ reports }) {
@@ -19,7 +18,6 @@ export default function ReportsIndexPage({ reports }) {
         <meta name="twitter:title" content={`Tournament Reports | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
         <meta name="twitter:description" content={`Tournament reports and results from ${process.env.NEXT_PUBLIC_INTRO_TITLE}.`} />
       </Head>
-      <Menu />
       <div className="reports-index-page">
         <ReportBlurbs reports={reports} />
         <p className="report-footer">

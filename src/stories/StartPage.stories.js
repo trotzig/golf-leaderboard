@@ -3,6 +3,7 @@ import '../../styles.css';
 import React from 'react';
 
 import StartPage from '../StartPage.js';
+import Nav from '../Menu.js';
 
 const now = new Date('2024-06-15T12:00:00').getTime();
 
@@ -61,7 +62,13 @@ const leaderboardEntries = [
     score: -5,
     scoreText: '-5',
     hole: '18',
-    player: { id: '1', slug: 'anders-lindqvist', firstName: 'Anders', lastName: 'Lindqvist', clubName: 'Stockholms GK' },
+    player: {
+      id: '1',
+      slug: 'anders-lindqvist',
+      firstName: 'Anders',
+      lastName: 'Lindqvist',
+      clubName: 'Stockholms GK',
+    },
   },
   {
     position: 2,
@@ -69,7 +76,13 @@ const leaderboardEntries = [
     score: -3,
     scoreText: '-3',
     hole: '16',
-    player: { id: '2', slug: 'maria-eriksson', firstName: 'Maria', lastName: 'Eriksson', clubName: 'Kungliga GK' },
+    player: {
+      id: '2',
+      slug: 'maria-eriksson',
+      firstName: 'Maria',
+      lastName: 'Eriksson',
+      clubName: 'Kungliga GK',
+    },
   },
   {
     position: 3,
@@ -77,13 +90,30 @@ const leaderboardEntries = [
     score: -2,
     scoreText: '-2',
     hole: '14',
-    player: { id: '3', slug: 'johan-bergstrom', firstName: 'Johan', lastName: 'Bergström', clubName: 'Vallda GK' },
+    player: {
+      id: '3',
+      slug: 'johan-bergstrom',
+      firstName: 'Johan',
+      lastName: 'Bergström',
+      clubName: 'Vallda GK',
+    },
   },
 ];
 
 export default {
   title: 'StartPage',
   component: StartPage,
+  decorators: [
+    Story => (
+      <div>
+        <Nav />
+        <Story />
+      </div>
+    ),
+  ],
+  parameters: {
+    layout: 'fullscreen',
+  },
 };
 
 export const WithLeaderboard = () => (

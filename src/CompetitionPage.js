@@ -9,7 +9,6 @@ import ClockIcon from './ClockIcon';
 import FavoriteButton from './FavoriteButton';
 import Lazy from './Lazy';
 import LoadingSkeleton from './LoadingSkeleton';
-import Menu from './Menu';
 import competitionDateString from './competitionDateString';
 import ensureDates from './ensureDates.js';
 import CutInfo from './CutInfo';
@@ -557,7 +556,6 @@ export default function CompetitionPage({
           content={`Follow the leaderboard and see tee times for ${competition.name}${competition.venue ? ` at ${competition.venue}` : ''}.`}
         />
       </Head>
-      <Menu activeHref="/leaderboard" />
       <div className="h-intro">{getHeading(competition, now, finished)}</div>
       <h2 className="leaderboard-page-heading">{competition.name}</h2>
       {competition.venue && (

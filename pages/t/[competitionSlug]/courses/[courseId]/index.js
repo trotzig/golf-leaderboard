@@ -3,7 +3,6 @@ import React from 'react';
 
 import { useJsonPData } from '../../../../../src/fetchJsonP';
 import LoadingSkeleton from '../../../../../src/LoadingSkeleton';
-import Menu from '../../../../../src/Menu';
 import prisma from '../../../../../src/prisma';
 
 function HoleIllustration({ length, maxLength }) {
@@ -60,7 +59,6 @@ export default function Course({ competition }) {
 
   return (
     <div>
-      <Menu activeHref="/leaderboard" />
       <div className="course">
         {loading ? (
           <LoadingSkeleton />

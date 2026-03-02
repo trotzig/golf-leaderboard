@@ -6,6 +6,7 @@ import CompetitionPage from '../CompetitionPage.js';
 import finished from './testData/finished.json';
 import ongoing from './testData/ongoing.json';
 import upcoming from './testData/upcoming.json';
+import Nav from '../Menu.js';
 
 function slimEntries(data) {
   const entries = Object.values(data.initialData.Classes)[0].Leaderboard
@@ -55,6 +56,17 @@ const competition = {
 export default {
   title: 'CompetitionPage',
   component: CompetitionPage,
+  decorators: [
+    Story => (
+      <div>
+        <Nav />
+        <Story />
+      </div>
+    ),
+  ],
+  parameters: {
+    layout: 'fullscreen',
+  },
 };
 
 export const Empty = () => (

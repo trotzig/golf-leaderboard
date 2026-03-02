@@ -65,22 +65,42 @@ export function computeYearlyStats(competitionScores) {
         : null,
       cutPct: data.total > 0 ? (data.cutsMade / data.total) * 100 : null,
       bestScore: data.scores.length ? Math.min(...data.scores) : null,
-      bestPosition:
-        data.positions.length ? Math.min(...data.positions) : null,
+      bestPosition: data.positions.length ? Math.min(...data.positions) : null,
     }))
     .sort((a, b) => a.year - b.year);
 }
 
 const METRICS = [
-  { key: 'avgScore', label: 'Avg score', lower: true, format: v => formatScore(Math.round(v)) },
-  { key: 'cutPct', label: 'Cuts made %', lower: false, format: v => `${Math.round(v)}%` },
-  { key: 'bestScore', label: 'Best score', lower: true, format: v => formatScore(v) },
-  { key: 'bestPosition', label: 'Best position', lower: true, format: v => `#${v}` },
+  {
+    key: 'avgScore',
+    label: 'Avg score',
+    lower: true,
+    format: v => formatScore(Math.round(v)),
+  },
+  {
+    key: 'cutPct',
+    label: 'Cuts made %',
+    lower: false,
+    format: v => `${Math.round(v)}%`,
+  },
+  {
+    key: 'bestScore',
+    label: 'Best score',
+    lower: true,
+    format: v => formatScore(v),
+  },
+  {
+    key: 'bestPosition',
+    label: 'Best position',
+    lower: true,
+    format: v => `#${v}`,
+  },
 ];
 
 function LineChart({ data, metricKey, lower, formatValue }) {
   const values = data.map(d => d[metricKey]).filter(v => v !== null);
-  if (values.length === 0) return <p className="stats-no-data">No data available</p>;
+  if (values.length === 0)
+    return <p className="stats-no-data">No data available</p>;
 
   const width = 480;
   const height = 200;
@@ -111,11 +131,17 @@ function LineChart({ data, metricKey, lower, formatValue }) {
   function toX(i) {
     if (validData.length === 1) return padLeft + chartW / 2;
     const innerPad = 20;
-    return padLeft + innerPad + (i / (validData.length - 1)) * (chartW - innerPad * 2);
+    return (
+      padLeft +
+      innerPad +
+      (i / (validData.length - 1)) * (chartW - innerPad * 2)
+    );
   }
 
   const points = validData.map((d, i) => [toX(i), toY(d[metricKey])]);
-  const pathD = points.map((p, i) => `${i === 0 ? 'M' : 'L'}${p[0]},${p[1]}`).join(' ');
+  const pathD = points
+    .map((p, i) => `${i === 0 ? 'M' : 'L'}${p[0]},${p[1]}`)
+    .join(' ');
 
   // Y-axis: up to 4 ticks, skipping duplicates after formatting
   const ticks = 4;
@@ -135,7 +161,9 @@ function LineChart({ data, metricKey, lower, formatValue }) {
     <svg
       viewBox={`0 0 ${width} ${height}`}
       className="stats-chart-svg"
-      aria-label={`Chart showing ${METRICS.find(m => m.key === metricKey)?.label}`}
+      aria-label={`Chart showing ${
+        METRICS.find(m => m.key === metricKey)?.label
+      }`}
     >
       {/* Grid lines */}
       {yTicks.map(({ y }, i) => (
@@ -183,7 +211,9 @@ function LineChart({ data, metricKey, lower, formatValue }) {
       {/* Area fill */}
       {points.length > 1 && (
         <path
-          d={`${pathD} L${points[points.length - 1][0]},${padTop + chartH} L${points[0][0]},${padTop + chartH} Z`}
+          d={`${pathD} L${points[points.length - 1][0]},${padTop + chartH} L${
+            points[0][0]
+          },${padTop + chartH} Z`}
           fill={primaryColor}
           opacity="0.1"
         />
@@ -238,8 +268,17 @@ export default function PlayerStatsChart({ competitionScores }) {
       <div className="page-margin">
         <ul className="tabs stats-tabs">
           {METRICS.map(m => (
-            <li key={m.key} className={activeMetric === m.key ? 'tab-selected' : ''}>
-              <Link href={{ query: { ...router.query, stat: m.key } }} scroll={false} shallow>{m.label}</Link>
+            <li
+              key={m.key}
+              className={activeMetric === m.key ? 'tab-selected' : ''}
+            >
+              <Link
+                href={{ query: { ...router.query, stat: m.key } }}
+                scroll={false}
+                shallow
+              >
+                {m.label}
+              </Link>
             </li>
           ))}
         </ul>
