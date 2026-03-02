@@ -363,8 +363,8 @@ html.display-standalone nav {
   text-decoration: none;
   color: inherit;
   display: grid;
-  grid-template-columns: 55px minmax(0, 1fr);
-  column-gap: 15px;
+  grid-template-columns: 64px minmax(0, 1fr);
+  column-gap: 14px;
   align-items: center;
 }
 .competition-list-item .competition-name {
@@ -382,7 +382,7 @@ html.display-standalone nav {
   padding: 3px;
   font-size: 12px;
   border-top-width: 8px;
-  min-height: 60px;
+  min-height: 64px;
 }
 .calendar-event b {
   font-size: 16px;
