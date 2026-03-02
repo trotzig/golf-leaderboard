@@ -8,6 +8,7 @@ import ReportBlurbs from './ReportBlurbs.js';
 import Leaderboard from './Leaderboard.js';
 import competitionDateString from './competitionDateString';
 import ensureDates from './ensureDates.js';
+import { preloadJsonPData } from './fetchJsonP.js';
 
 const youtubers = [
   {
@@ -51,7 +52,8 @@ export default function StartPage({
       }
     }
     document.addEventListener('visibilitychange', handleVisibilityChange);
-    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+    return () =>
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
   }, [router]);
 
   pastCompetitions.forEach(ensureDates);
@@ -64,6 +66,26 @@ export default function StartPage({
   }
   const now = new Date(nowMs);
 
+  const prefetchCompetitionIds = [
+    upcomingCompetitions[0]?.id,
+    pastCompetitions[0]?.id,
+  ].filter(Boolean);
+
+  useEffect(() => {
+    for (const id of prefetchCompetitionIds) {
+      [
+        'LeaderboardHandler/GetLeaderboard',
+        'TeeTimesHandler/GetTeeTimes',
+        'PlayersHandler/GetPlayers',
+        'CompetitionHandler/GetCompetition',
+      ].forEach(handler => {
+        preloadJsonPData(
+          `https://scores.golfbox.dk/Handlers/${handler}/CompetitionId/${id}/language/2057/`,
+        );
+      });
+    }
+  }, [prefetchCompetitionIds]);
+
   return (
     <div className="chrome">
       <Head>
@@ -72,13 +94,19 @@ export default function StartPage({
           name="description"
           content={`${process.env.NEXT_PUBLIC_INTRO_TITLE} — ${process.env.NEXT_PUBLIC_INTRO} Follow your favorite players and get the latest updates straight in your inbox.`}
         />
-        <meta property="og:title" content={process.env.NEXT_PUBLIC_INTRO_TITLE} />
+        <meta
+          property="og:title"
+          content={process.env.NEXT_PUBLIC_INTRO_TITLE}
+        />
         <meta
           property="og:description"
           content={`${process.env.NEXT_PUBLIC_INTRO_TITLE} — ${process.env.NEXT_PUBLIC_INTRO} Follow your favorite players and get the latest updates straight in your inbox.`}
         />
         <meta property="og:type" content="website" />
-        <meta name="twitter:title" content={process.env.NEXT_PUBLIC_INTRO_TITLE} />
+        <meta
+          name="twitter:title"
+          content={process.env.NEXT_PUBLIC_INTRO_TITLE}
+        />
         <meta
           name="twitter:description"
           content={`${process.env.NEXT_PUBLIC_INTRO_TITLE} — ${process.env.NEXT_PUBLIC_INTRO} Follow your favorite players and get the latest updates straight in your inbox.`}
@@ -88,10 +116,8 @@ export default function StartPage({
         <h2>{process.env.NEXT_PUBLIC_INTRO_TITLE}</h2>
         <p className="page-desc">
           {process.env.NEXT_PUBLIC_INTRO} Follow your{' '}
-          <Link href="/players">favorite players</Link>{' '}
-          and get the latest updates{' '}
-          <Link href="/profile">straight in your inbox</Link>
-          .
+          <Link href="/players">favorite players</Link> and get the latest
+          updates <Link href="/profile">straight in your inbox</Link>.
         </p>
         {currentCompetition && (
           <Leaderboard competition={currentCompetition} now={now} />
@@ -168,11 +194,11 @@ function CompetitionListItem({ competition, now, current, next }) {
   if (current) classNames.push('current');
   if (next) classNames.push('next');
   return (
-    <li
-      key={competition.id}
-      className={classNames.join(' ')}
-    >
-      <Link href={`/t/${competition.slug}${queryString}`} className="competition">
+    <li key={competition.id} className={classNames.join(' ')}>
+      <Link
+        href={`/t/${competition.slug}${queryString}`}
+        className="competition"
+      >
         <div className="calendar-event">
           <b>{format(competition.start, 'd')}</b>
           <span>{format(competition.start, 'MMM')}</span>
