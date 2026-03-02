@@ -11,6 +11,7 @@ export default function Menu({ activeHref }) {
           }
             html.display-standalone nav a.menu-item-can-be-made-active[href="${activeHref}"] {
               background-color: rgba(var(--text-rgb), 0.1);
+              color: var(--primary);
             }
       `}</style>
       )}
