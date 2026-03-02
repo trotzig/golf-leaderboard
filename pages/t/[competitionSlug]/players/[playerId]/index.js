@@ -7,7 +7,6 @@ import React from 'react';
 
 import { useJsonPData } from '../../../../../src/fetchJsonP';
 import LoadingSkeleton from '../../../../../src/LoadingSkeleton';
-import Menu from '../../../../../src/Menu';
 import PlayerPhoto from '../../../../../src/PlayerPhoto';
 import fixParValue from '../../../../../src/fixParValue';
 import prisma from '../../../../../src/prisma';
@@ -150,7 +149,6 @@ export default function CompetitionPlayer({ now: nowMs, player, competition }) {
           content={`Results for ${player.firstName} ${player.lastName} in ${competition.name}`}
         />
       </Head>
-      <Menu activeHref="/leaderboard" />
       <div className="player-profile">
         {loading ? (
           <LoadingSkeleton />

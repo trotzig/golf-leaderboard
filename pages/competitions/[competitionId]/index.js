@@ -3,7 +3,6 @@ import prisma from '../../../src/prisma';
 export default function CompetitionRedirectPage() {
   return (
     <div className="leaderboard-page">
-      <Menu />
     </div>
   );
 }

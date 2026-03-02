@@ -277,12 +277,7 @@ nav svg {
 }
 @media (max-width: 600px) {
   nav {
-    gap: 7px;
-  }
-}
-@media (max-width: 380px) {
-  nav {
-    gap: 2px;
+    gap: 4px;
   }
   .menu-item-long {
     display: none;
@@ -292,6 +287,11 @@ nav svg {
   }
   .menu-hide-mobile {
     display: none;
+  }
+}
+@media (max-width: 400px) {
+  nav {
+    gap: 2px;
   }
 }
 
@@ -606,7 +606,16 @@ nav svg {
 }
 main {
   min-height: 100vh;
+  animation: page-enter 250ms ease-out;
 }
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
 footer {
   text-align: center;
   opacity: 0.3;

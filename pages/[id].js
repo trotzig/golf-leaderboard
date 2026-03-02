@@ -4,7 +4,6 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
 import FavoriteButton from '../src/FavoriteButton';
-import Menu from '../src/Menu';
 import PlayerPhoto from '../src/PlayerPhoto';
 import PlayerStatsChart from '../src/PlayerStatsChart';
 import SignInForm from '../src/SignInForm';
@@ -25,7 +24,11 @@ function getScoresBySeason(items) {
   return result;
 }
 
-export default function PlayerPage({ player, season: selectedSeason, baseUrl }) {
+export default function PlayerPage({
+  player,
+  season: selectedSeason,
+  baseUrl,
+}) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -49,26 +52,40 @@ export default function PlayerPage({ player, season: selectedSeason, baseUrl }) 
           name="description"
           content={`${player.firstName} ${player.lastName} from ${player.clubName} is competing in ${process.env.NEXT_PUBLIC_INTRO_TITLE}. Follow their results and subscribe to updates.`}
         />
-        <meta property="og:title" content={`${player.firstName} ${player.lastName} | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
+        <meta
+          property="og:title"
+          content={`${player.firstName} ${player.lastName} | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`}
+        />
         <meta
           property="og:description"
           content={`${player.firstName} ${player.lastName} from ${player.clubName} is competing in ${process.env.NEXT_PUBLIC_INTRO_TITLE}. Follow their results and subscribe to updates.`}
         />
         <meta property="og:type" content="profile" />
         {baseUrl && (
-          <meta property="og:image" content={`${baseUrl}/players/${player.id}.jpg`} />
+          <meta
+            property="og:image"
+            content={`${baseUrl}/players/${player.id}.jpg`}
+          />
         )}
-        <meta name="twitter:card" content={baseUrl ? 'summary_large_image' : 'summary'} />
-        <meta name="twitter:title" content={`${player.firstName} ${player.lastName} | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
+        <meta
+          name="twitter:card"
+          content={baseUrl ? 'summary_large_image' : 'summary'}
+        />
+        <meta
+          name="twitter:title"
+          content={`${player.firstName} ${player.lastName} | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`}
+        />
         <meta
           name="twitter:description"
           content={`${player.firstName} ${player.lastName} from ${player.clubName} is competing in ${process.env.NEXT_PUBLIC_INTRO_TITLE}. Follow their results and subscribe to updates.`}
         />
         {baseUrl && (
-          <meta name="twitter:image" content={`${baseUrl}/players/${player.id}.jpg`} />
+          <meta
+            name="twitter:image"
+            content={`${baseUrl}/players/${player.id}.jpg`}
+          />
         )}
       </Head>
-      <Menu activeHref="/players" />
       <div className="player-page-top">
         <PlayerPhoto player={player} />
         <div>
@@ -98,14 +115,13 @@ export default function PlayerPage({ player, season: selectedSeason, baseUrl }) 
           {profile.sendEmailOnFinished ? (
             <div>
               You are subscribed to results from {player.firstName}. Go to{' '}
-              <Link href="/profile">your settings</Link>{' '}
-              if you want to change this.
+              <Link href="/profile">your settings</Link> if you want to change
+              this.
             </div>
           ) : (
             <div>
-              Go to{' '}
-              <Link href="/profile">your settings</Link>{' '}
-              if you want to subscribe to results from {player.firstName}
+              Go to <Link href="/profile">your settings</Link> if you want to
+              subscribe to results from {player.firstName}
             </div>
           )}
         </div>
@@ -120,11 +136,11 @@ export default function PlayerPage({ player, season: selectedSeason, baseUrl }) 
             return (
               <li
                 key={year}
-                className={
-                  `${season}` === `${year}` ? 'tab-selected' : ''
-                }
+                className={`${season}` === `${year}` ? 'tab-selected' : ''}
               >
-                <Link href={`/${player.slug}?season=${year}`}>{year}</Link>
+                <Link scroll={false} href={`/${player.slug}?season=${year}`}>
+                  {year}
+                </Link>
               </li>
             );
           })}

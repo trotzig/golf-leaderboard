@@ -5,7 +5,6 @@ import Link from 'next/link';
 import React from 'react';
 import { format } from 'date-fns';
 
-import Menu from '../../src/Menu';
 import PlayerPhoto from '../../src/PlayerPhoto';
 
 export default function ReportPage({ report, baseUrl }) {
@@ -34,7 +33,6 @@ export default function ReportPage({ report, baseUrl }) {
           <meta name="twitter:image" content={`${baseUrl}/players/${report.winnerPlayerId}.jpg`} />
         )}
       </Head>
-      <Menu />
       <article className="report-page">
         <header className="report-header">
           <p className="report-meta">

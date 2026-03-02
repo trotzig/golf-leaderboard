@@ -3,7 +3,6 @@ import Link from 'next/link';
 import Head from 'next/head';
 import React, { useState, useEffect } from 'react';
 
-import Menu from '../src/Menu';
 import ensureDates from '../src/ensureDates.js';
 import prisma from '../src/prisma';
 import locations from '../src/locations.json';
@@ -46,7 +45,6 @@ export default function SchedulePage({
           content={`Full schedule for the ${new Date().getFullYear()} season of ${process.env.NEXT_PUBLIC_INTRO_TITLE}.`}
         />
       </Head>
-      <Menu activeHref="/schedule" />
       <div className="schedule">
         <h2>Tour schedule</h2>
         <div className="tour-map-wrapper">

@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import React from 'react';
-import Menu from '../src/Menu.js';
 
 export default function AddToHomeScreen() {
   return (
@@ -8,7 +7,6 @@ export default function AddToHomeScreen() {
       <Head>
         <title>Add to home screen – Nordic Golf Tour</title>
       </Head>
-      <Menu />
       <h2>Add to home screen</h2>
       <p className="page-desc">
         Install this site as an app for quick access to live scores and

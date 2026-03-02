@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 import { useJsonPData } from '../src/fetchJsonP';
 import FavoriteButton from '../src/FavoriteButton';
 import LoadingSkeleton from '../src/LoadingSkeleton';
-import Menu from '../src/Menu';
 import generateSlug from '../src/generateSlug';
 
 const NUM_FORMATTER = Intl.NumberFormat('en-US', {
@@ -102,7 +101,6 @@ export default function OrderOfMeritPage() {
         <meta name="twitter:title" content={`Order of Merit | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
         <meta name="twitter:description" content={description || `Order of merit standings for ${process.env.NEXT_PUBLIC_INTRO_TITLE}.`} />
       </Head>
-      <Menu activeHref="/oom" />
       <h2>Order of merit</h2>
       <p className="page-desc">{description}</p>
       {data ? (

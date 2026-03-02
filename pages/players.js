@@ -6,7 +6,6 @@ import debounce from 'lodash/debounce';
 
 import FavoriteButton from '../src/FavoriteButton';
 import LoadingSkeleton from '../src/LoadingSkeleton.js';
-import Menu from '../src/Menu';
 import ordinal from '../src/ordinal';
 import profileProps from '../src/profileProps.js';
 import syncFavorites from '../src/syncFavorites.js';
@@ -156,7 +155,6 @@ export default function PlayersPage({ account }) {
           content={`Browse all players competing in ${process.env.NEXT_PUBLIC_INTRO_TITLE}. Follow your favorites and subscribe to email updates.`}
         />
       </Head>
-      <Menu activeHref="/players" />
       <h2>Players</h2>
       <p className="page-desc" style={{ marginBottom: 15 }}>
         Players who have participated in at least one event during the season

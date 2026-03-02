@@ -6,7 +6,6 @@ import React, { useEffect } from 'react';
 
 import ReportBlurbs from './ReportBlurbs.js';
 import Leaderboard from './Leaderboard.js';
-import Menu from './Menu';
 import competitionDateString from './competitionDateString';
 import ensureDates from './ensureDates.js';
 
@@ -85,7 +84,6 @@ export default function StartPage({
           content={`${process.env.NEXT_PUBLIC_INTRO_TITLE} — ${process.env.NEXT_PUBLIC_INTRO} Follow your favorite players and get the latest updates straight in your inbox.`}
         />
       </Head>
-      <Menu activeHref="/" />
       <div className="competitions">
         <h2>{process.env.NEXT_PUBLIC_INTRO_TITLE}</h2>
         <p className="page-desc">

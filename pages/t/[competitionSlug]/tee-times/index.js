@@ -6,7 +6,6 @@ import React from 'react';
 import { useJsonPData } from '../../../../src/fetchJsonP.js';
 import CutInfo from '../../../../src/CutInfo.js';
 import FavoriteButton from '../../../../src/FavoriteButton.js';
-import Menu from '../../../../src/Menu.js';
 import competitionDateString from '../../../../src/competitionDateString.js';
 import ensureDates from '../../../../src/ensureDates.js';
 import prisma from '../../../../src/prisma';
@@ -127,7 +126,6 @@ export default function TeeTimesPage({ competition, now: nowMs, round }) {
           content={`See tee times for ${competition.name}`}
         />
       </Head>
-      <Menu activeHref="/leaderboard" />
       <div className="h-intro">Tee times</div>
       <h2 className="tee-times-page-heading">{competition.name}</h2>
       {competition.venue && (
