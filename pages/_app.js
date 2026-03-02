@@ -22,6 +22,7 @@ function getActiveHref(pathname) {
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const [themeColor, setThemeColor] = useState('#ffffff');
+  const hideChrome = Boolean(pageProps?.hideChrome);
 
   useEffect(() => {
     let fromPathname = null;
@@ -101,8 +102,8 @@ function MyApp({ Component, pageProps }) {
         src="https://plausible.io/js/script.js"
       />
       <div className="blurry-background" />
-      <AddToHomeScreen />
-      <Menu activeHref={getActiveHref(router.pathname)} />
+      {!hideChrome ? <AddToHomeScreen /> : null}
+      {!hideChrome ? <Menu activeHref={getActiveHref(router.pathname)} /> : null}
       <main>
         <Component {...pageProps} />
       </main>
