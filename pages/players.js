@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import debounce from 'lodash/debounce';
 
 import FavoriteButton from '../src/FavoriteButton';
@@ -9,6 +9,8 @@ import ordinal from '../src/ordinal';
 import prisma from '../src/prisma';
 import profileProps from '../src/profileProps.js';
 import syncFavorites from '../src/syncFavorites.js';
+
+const PAGE_SIZE = 50;
 
 const NUM_FORMATTER = Intl.NumberFormat('en-US', {
   notation: 'compact',
@@ -48,6 +50,8 @@ export default function PlayersPage({ account, players: rawPlayers }) {
   const [players, setPlayers] = useState(rawPlayers);
   const { sortBy = 'lastName', filter = '' } = router.query;
   const [currentFilter, setCurrentFilter] = useState(filter);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const sentinelRef = useRef(null);
 
   useEffect(() => {
     if (filter) {
@@ -113,6 +117,27 @@ export default function PlayersPage({ account, players: rawPlayers }) {
     run();
   }, []);
 
+  // Reset visible count when filter or sort changes
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
+  }, [sortBy, filter]);
+
+  // Infinite scroll: expand visible count when sentinel scrolls into view
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (!sentinel) return;
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting) {
+          setVisibleCount(c => c + PAGE_SIZE);
+        }
+      },
+      { rootMargin: '200px' },
+    );
+    observer.observe(sentinel);
+    return () => observer.unobserve(sentinel);
+  }, []);
+
   const debouncedSetFilter = useMemo(
     () =>
       debounce(filter => {
@@ -131,6 +156,7 @@ export default function PlayersPage({ account, players: rawPlayers }) {
   }
 
   const favorites = players.filter(e => e.isFavorite);
+  const visiblePlayers = players.slice(0, visibleCount);
   return (
     <div className="players">
       <Head>
@@ -227,7 +253,7 @@ export default function PlayersPage({ account, players: rawPlayers }) {
           </div>
         ) : null}
         <ul>
-          {players.map(player => {
+          {visiblePlayers.map(player => {
             return (
               <Player
                 key={player.id}
@@ -238,6 +264,7 @@ export default function PlayersPage({ account, players: rawPlayers }) {
             );
           })}
         </ul>
+        <div ref={sentinelRef} />
       </>
     </div>
   );

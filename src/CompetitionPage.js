@@ -1,7 +1,7 @@
 import { format, startOfDay } from 'date-fns';
 import Head from 'next/head';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import DOMPurify from 'dompurify';
 import PlayerPhoto from './PlayerPhoto';
 import { useJsonPData } from './fetchJsonP';
@@ -224,6 +224,7 @@ function getFirstRoundStart(round) {
 function Player({
   big,
   entry,
+  isFavorite,
   onFavoriteChange,
   lastFavoriteChanged,
   colors,
@@ -233,7 +234,7 @@ function Player({
 }) {
   const rounds = getRounds(entry);
   const classes = ['player'];
-  if (entry.isFavorite) {
+  if (isFavorite) {
     classes.push('favorite-player');
   }
 
@@ -498,25 +499,34 @@ export default function CompetitionPage({
   );
   const loading = loadingOverride || !data || !timesData || !playersData;
 
-  function handleFavoriteChange() {
+  const handleFavoriteChange = useCallback(() => {
     setLastFavoriteChanged(new Date());
-  }
+  }, []);
 
   const finishedResult = getFinishedResult(data);
-  const entries =
-    data && timesData && playersData
-      ? getEntries(data, timesData, playersData)
-      : [];
+  const entries = useMemo(
+    () =>
+      data && timesData && playersData
+        ? getEntries(data, timesData, playersData)
+        : [],
+    [data, timesData, playersData],
+  );
 
   const isMatchPlay = entries && entries[0] && entries[0].Players;
   const finished = isCompetitionFinished(competitionData, data, timesData);
   const winner = finished ? getWinner(entries) : undefined;
 
-  for (const entry of entries || []) {
-    entry.isFavorite = localStorage.getItem(entry.MemberID);
-  }
+  const favoriteIds = useMemo(() => {
+    const ids = new Set();
+    for (const entry of entries) {
+      if (localStorage.getItem(String(entry.MemberID))) {
+        ids.add(entry.MemberID);
+      }
+    }
+    return ids;
+  }, [entries, lastFavoriteChanged]);
 
-  const favorites = entries && entries.filter(e => e.isFavorite);
+  const favorites = entries && entries.filter(e => favoriteIds.has(e.MemberID));
   return (
     <div className="leaderboard-page">
       <Head>
@@ -626,6 +636,7 @@ export default function CompetitionPage({
               now={now}
               colors={data.CourseColours}
               entry={winner}
+              isFavorite={favoriteIds.has(winner.MemberID)}
               onFavoriteChange={handleFavoriteChange}
               lastFavoriteChanged={lastFavoriteChanged}
             />
@@ -648,6 +659,7 @@ export default function CompetitionPage({
                       colors={data.CourseColours}
                       key={entry.MemberID}
                       entry={entry}
+                      isFavorite={true}
                       onFavoriteChange={handleFavoriteChange}
                       lastFavoriteChanged={lastFavoriteChanged}
                     />
@@ -669,6 +681,7 @@ export default function CompetitionPage({
                   now={now}
                   colors={data.CourseColours}
                   entry={entry}
+                  isFavorite={favoriteIds.has(entry.MemberID)}
                   onFavoriteChange={handleFavoriteChange}
                   lazy={lazyItems && i > 20}
                   lastFavoriteChanged={lastFavoriteChanged}

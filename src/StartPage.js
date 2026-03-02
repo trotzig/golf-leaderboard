@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import ReportBlurbs from './ReportBlurbs.js';
 import Leaderboard from './Leaderboard.js';
@@ -66,10 +66,16 @@ export default function StartPage({
   }
   const now = new Date(nowMs);
 
-  const prefetchCompetitionIds = [
-    upcomingCompetitions[0]?.id,
-    pastCompetitions[0]?.id,
-  ].filter(Boolean);
+  const prefetchCompetitionIds = useMemo(
+    () =>
+      currentCompetition
+        ? [currentCompetition.id]
+        : [upcomingCompetitions[0]?.id, pastCompetitions[0]?.id].filter(
+            Boolean,
+          ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [currentCompetition?.id, upcomingCompetitions[0]?.id, pastCompetitions[0]?.id],
+  );
 
   useEffect(() => {
     for (const id of prefetchCompetitionIds) {

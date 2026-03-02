@@ -66,9 +66,13 @@ export function useJsonPData(url, defaultData) {
     async function run() {
       const cached = await cacheGet(url);
       if (cached) {
+        console.log('Using cached data for', url, cached.fetchedAt);
         setData(cached.data);
         if (Date.now() - cached.fetchedAt < REFETCH_INTERVAL) {
-          console.log(`Less than 30s since last fetch for ${url}`);
+          console.log(
+            `Less than 30s since last fetch for ${url}`,
+            Date.now() - cached.fetchedAt,
+          );
           return;
         }
       }
