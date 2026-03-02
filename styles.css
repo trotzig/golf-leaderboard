@@ -245,23 +245,29 @@ nav {
 }
 
 nav {
+  --nav-icon-size: 18px;
   padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
-  margin-top: 15px;
-  font-size: 16px;
+  gap: 10px;
+  font-size: 15px;
 }
 nav a {
   text-decoration: none;
 }
+.menu-link-inner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.menu-link-icon {
+  line-height: 0;
+}
 .menu-item-can-be-made-active {
   display: inline-block;
-  padding: 6px 10px;
-  border-radius: 3px;
-}
-.menu-item-icon {
+  padding: 6px 6px 4px;
   border-bottom: 2px solid transparent;
 }
 .menu-item-long {
@@ -272,12 +278,17 @@ nav a {
 }
 
 nav svg {
-  width: 30px;
-  height: 30px;
+  width: var(--nav-icon-size);
+  height: var(--nav-icon-size);
 }
 @media (max-width: 600px) {
   nav {
+    --nav-icon-size: 22px;
     gap: 4px;
+  }
+  .menu-link-inner {
+    flex-direction: column;
+    font-size: 12px;
   }
   .menu-item-long {
     display: none;
