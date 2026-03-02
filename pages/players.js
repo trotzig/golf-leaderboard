@@ -5,11 +5,10 @@ import React, { useEffect, useMemo, useState } from 'react';
 import debounce from 'lodash/debounce';
 
 import FavoriteButton from '../src/FavoriteButton';
-import LoadingSkeleton from '../src/LoadingSkeleton.js';
 import ordinal from '../src/ordinal';
+import prisma from '../src/prisma';
 import profileProps from '../src/profileProps.js';
 import syncFavorites from '../src/syncFavorites.js';
-import useData from '../src/useData.js';
 
 const NUM_FORMATTER = Intl.NumberFormat('en-US', {
   notation: 'compact',
@@ -36,15 +35,17 @@ function Player({ player, onFavorite, lastFavoriteChanged }) {
         <br />
         <span className="club">{player.clubName}</span>
       </Link>
-      <Link href="/oom" className="oom-position">{ordinal(player.oomPosition)}</Link>
+      <Link href="/oom" className="oom-position">
+        {ordinal(player.oomPosition)}
+      </Link>
     </li>
   );
 }
 
-export default function PlayersPage({ account }) {
+export default function PlayersPage({ account, players: rawPlayers }) {
   const router = useRouter();
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
-  const [players, setPlayers] = useState([]);
+  const [players, setPlayers] = useState(rawPlayers);
   const { sortBy = 'lastName', filter = '' } = router.query;
   const [currentFilter, setCurrentFilter] = useState(filter);
 
@@ -58,12 +59,7 @@ export default function PlayersPage({ account }) {
     setLastFavoriteChanged(new Date());
   }
 
-  const [rawPlayers] = useData('/api/players');
-
   useEffect(() => {
-    if (!rawPlayers) {
-      return;
-    }
     const unchangedPlayers = rawPlayers;
     const result = [];
     for (const player of unchangedPlayers) {
@@ -143,13 +139,19 @@ export default function PlayersPage({ account }) {
           name="description"
           content={`Browse all players competing in ${process.env.NEXT_PUBLIC_INTRO_TITLE}. Follow your favorites and subscribe to email updates.`}
         />
-        <meta property="og:title" content={`Players | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
+        <meta
+          property="og:title"
+          content={`Players | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`}
+        />
         <meta
           property="og:description"
           content={`Browse all players competing in ${process.env.NEXT_PUBLIC_INTRO_TITLE}. Follow your favorites and subscribe to email updates.`}
         />
         <meta property="og:type" content="website" />
-        <meta name="twitter:title" content={`Players | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
+        <meta
+          name="twitter:title"
+          content={`Players | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`}
+        />
         <meta
           name="twitter:description"
           content={`Browse all players competing in ${process.env.NEXT_PUBLIC_INTRO_TITLE}. Follow your favorites and subscribe to email updates.`}
@@ -161,9 +163,9 @@ export default function PlayersPage({ account }) {
         are listed here.{' '}
         {!account ? (
           <>
-            <Link href="/sign-in">Sign in</Link>{' '}
-            to synchronize your favorites across different devices and opt in to
-            email notifications from them.
+            <Link href="/sign-in">Sign in</Link> to synchronize your favorites
+            across different devices and opt in to email notifications from
+            them.
           </>
         ) : null}
       </p>
@@ -198,53 +200,67 @@ export default function PlayersPage({ account }) {
           </select>
         </label>
       </div>
-      {rawPlayers ? (
-        <>
-          {favorites.length > 0 ? (
-            <>
-              <h3 className="leaderboard-section-heading">Favorites</h3>
-              <ul>
-                {favorites.map(player => {
-                  return (
-                    <Player
-                      key={player.id}
-                      player={player}
-                      onFavorite={handleFavoriteChange}
-                      lastFavoriteChanged={lastFavoriteChanged}
-                    />
-                  );
-                })}
-              </ul>
-              <h3 className="leaderboard-section-heading">Everyone</h3>
-            </>
-          ) : null}
+      <>
+        {favorites.length > 0 ? (
+          <>
+            <h3 className="leaderboard-section-heading">Favorites</h3>
+            <ul>
+              {favorites.map(player => {
+                return (
+                  <Player
+                    key={player.id}
+                    player={player}
+                    onFavorite={handleFavoriteChange}
+                    lastFavoriteChanged={lastFavoriteChanged}
+                  />
+                );
+              })}
+            </ul>
+            <h3 className="leaderboard-section-heading">Everyone</h3>
+          </>
+        ) : null}
 
-          {filter && players.length === 0 ? (
-            <div className="alert page-margin">
-              It doesn't look like we have any matches for "{filter}". Try a
-              different search term.
-            </div>
-          ) : null}
-          <ul>
-            {players.map(player => {
-              return (
-                <Player
-                  key={player.id}
-                  player={player}
-                  onFavorite={handleFavoriteChange}
-                  lastFavoriteChanged={lastFavoriteChanged}
-                />
-              );
-            })}
-          </ul>
-        </>
-      ) : (
-        <LoadingSkeleton />
-      )}
+        {filter && players.length === 0 ? (
+          <div className="alert page-margin">
+            It doesn't look like we have any matches for "{filter}". Try a
+            different search term.
+          </div>
+        ) : null}
+        <ul>
+          {players.map(player => {
+            return (
+              <Player
+                key={player.id}
+                player={player}
+                onFavorite={handleFavoriteChange}
+                lastFavoriteChanged={lastFavoriteChanged}
+              />
+            );
+          })}
+        </ul>
+      </>
     </div>
   );
 }
 
-export function getServerSideProps({ req }) {
-  return profileProps({ req });
+export async function getServerSideProps({ req }) {
+  const [
+    {
+      props: { account },
+    },
+    players,
+  ] = await Promise.all([
+    profileProps({ req }),
+    prisma.player.findMany({
+      select: {
+        id: true,
+        slug: true,
+        firstName: true,
+        lastName: true,
+        clubName: true,
+        oomPosition: true,
+      },
+    }),
+  ]);
+  return { props: { account: account || null, players } };
 }
