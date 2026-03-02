@@ -707,7 +707,6 @@ footer {
   height: 18px;
   background: #5cb870;
   border-radius: 2px;
-  z-index: 2;
 }
 
 .hole-fairway {
@@ -718,7 +717,6 @@ footer {
   width: calc(var(--hole-pct) - 14px);
   height: 10px;
   background: #4a9e5c;
-  z-index: 1;
 }
 
 .hole-green {
@@ -730,7 +728,6 @@ footer {
   height: 22px;
   background: #6ed476;
   border-radius: 50%;
-  z-index: 3;
 }
 
 .hole-flagpole {
@@ -1565,7 +1562,6 @@ input.ios-switch:checked:after {
   justify-content: center;
   font-size: 14px;
   font-weight: bold;
-  z-index: 1;
 }
 
 .code-input {
