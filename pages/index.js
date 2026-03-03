@@ -7,49 +7,43 @@ import StartPage from '../src/StartPage.js';
 export default StartPage;
 
 export async function getServerSideProps() {
-  const competitions = await prisma.competition.findMany({
-    orderBy: { end: 'asc' },
-    where: { visible: true },
-    select: {
-      id: true,
-      name: true,
-      venue: true,
-      start: true,
-      end: true,
-      slug: true,
-    },
-  });
-  for (const c of competitions) {
-    c.start = c.start.getTime();
-    c.end = c.end.getTime();
-  }
-
   const now = Date.now();
   const h24 = 24 * 60 * 60 * 1000;
 
-  const pastCompetitions = competitions
-    .filter(c => c.end + h24 < now)
-    .reverse()
-    .slice(0, 3);
-  let currentCompetition = competitions.filter(
-    c => c.start <= now && c.end + h24 >= now,
-  )[0];
-
-  let upcomingCompetitions = competitions.filter(c => now < c.start);
-  const nextCompetition = currentCompetition
-    ? undefined
-    : upcomingCompetitions[0];
-
-  if (nextCompetition) {
-    upcomingCompetitions.shift();
-  }
-
-  upcomingCompetitions = upcomingCompetitions.slice(0, 3);
-
-  if (currentCompetition) {
-    // re-read current comp, now with all the related info
-    currentCompetition = await prisma.competition.findUnique({
-      where: { id: currentCompetition.id },
+  const [pastCompetitions, upcomingCompetitions, currentCompetition] = await Promise.all([
+    prisma.competition.findMany({
+      where: { visible: true, end: { lt: new Date(now - h24) } },
+      orderBy: { end: 'desc' },
+      take: 3,
+      select: {
+        id: true,
+        name: true,
+        venue: true,
+        start: true,
+        end: true,
+        slug: true,
+      },
+    }),
+    prisma.competition.findMany({
+      where: { visible: true, start: { gt: new Date(now) } },
+      orderBy: { start: 'asc' },
+      take: 4,
+      select: {
+        id: true,
+        name: true,
+        venue: true,
+        start: true,
+        end: true,
+        slug: true,
+      },
+    }),
+    prisma.competition.findFirst({
+      where: {
+        visible: true,
+        start: { lte: new Date(now) },
+        end: { gte: new Date(now - h24) },
+      },
+      orderBy: { start: 'asc' },
       select: {
         id: true,
         name: true,
@@ -59,9 +53,7 @@ export async function getServerSideProps() {
         slug: true,
         finished: true,
         leaderboardEntries: {
-          orderBy: {
-            position: 'asc',
-          },
+          orderBy: { position: 'asc' },
           select: {
             positionText: true,
             position: true,
@@ -80,10 +72,26 @@ export async function getServerSideProps() {
           },
         },
       },
-    });
+    }),
+  ]);
+
+  for (const c of pastCompetitions) {
+    c.start = c.start.getTime();
+    c.end = c.end.getTime();
+  }
+  for (const c of upcomingCompetitions) {
+    c.start = c.start.getTime();
+    c.end = c.end.getTime();
+  }
+  if (currentCompetition) {
     currentCompetition.start = currentCompetition.start.getTime();
     currentCompetition.end = currentCompetition.end.getTime();
   }
+
+  const nextCompetition = currentCompetition ? undefined : upcomingCompetitions[0];
+  const upcomingSlice = nextCompetition
+    ? upcomingCompetitions.slice(1, 4)
+    : upcomingCompetitions.slice(0, 3);
 
   // Load reports from the src/reports/ directory
   const reportsDir = path.join(process.cwd(), 'src', 'reports');
@@ -116,7 +124,7 @@ export async function getServerSideProps() {
 
   const props = {
     pastCompetitions,
-    upcomingCompetitions,
+    upcomingCompetitions: upcomingSlice,
     reports,
     now,
   };
