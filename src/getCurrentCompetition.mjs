@@ -3,6 +3,7 @@ import prisma from './prisma.mjs';
 export default async function getCurrentCompetition() {
   const now = new Date();
   const competitions = await prisma.competition.findMany({
+    where: { visible: true },
     orderBy: { end: 'desc' },
     select: {
       id: true,
