@@ -658,7 +658,7 @@ export default function CompetitionPage({
                       now={now}
                       colors={data.CourseColours}
                       key={entry.MemberID}
-                      entry={entry}
+                      entry={{ ...entry, isFirstCut: false, isFirstCutPerformed: false }}
                       isFavorite={true}
                       onFavoriteChange={handleFavoriteChange}
                       lastFavoriteChanged={lastFavoriteChanged}
