@@ -373,6 +373,10 @@ export default async function syncData({ full = true } = {}) {
       : new Date().getFullYear();
 
   const allCompetitions = await prisma.competition.findMany();
+  if (competitions.length === 0) {
+    console.warn('Fetched competitions list is empty — skipping visibility updates to avoid hiding all competitions');
+    return;
+  }
   for (const competition of allCompetitions) {
     const newCompetition = competitions.find(c => c.id === competition.id);
     if (!newCompetition) {

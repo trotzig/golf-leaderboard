@@ -53,8 +53,7 @@ export default async function fetchCompetitions() {
   }
   const json = parseJson(await res.text());
   if (json.ErrorMessage) {
-    console.log('Got error from API', json);
-    return [];
+    throw new Error(`GolfBox API returned an error: ${JSON.stringify(json.ErrorMessage)}`);
   }
   for (const year of Object.values(json.CompetitionData)) {
     for (const month of Object.values(year.Months)) {
