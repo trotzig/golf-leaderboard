@@ -144,6 +144,7 @@ function DialogRound({ round, colors }) {
 
 export default function PlayerDialog({ entry, competition, data, onClose }) {
   const dialogRef = useRef(null);
+  const mainRef = useRef(null);
 
   const handleClose = useCallback(() => {
     const dialog = dialogRef.current;
@@ -159,12 +160,15 @@ export default function PlayerDialog({ entry, competition, data, onClose }) {
     );
   }, []);
 
-  // Open dialog when entry is set
+  // Open dialog when entry is set; scroll main back to top on each new entry
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
     if (entry && !dialog.open) {
       dialog.showModal();
+    }
+    if (entry && mainRef.current) {
+      mainRef.current.scrollTop = 0;
     }
   }, [entry]);
 
@@ -316,7 +320,7 @@ export default function PlayerDialog({ entry, competition, data, onClose }) {
             ×
           </button>
         </div>
-        <div className="player-dialog-main">
+        <div className="player-dialog-main" ref={mainRef}>
           {entry && (
             <div className="player-profile">
               <div className="player-profile-top page-margin">
