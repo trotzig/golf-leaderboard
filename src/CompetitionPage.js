@@ -9,6 +9,7 @@ import ClockIcon from './ClockIcon';
 import FavoriteButton from './FavoriteButton';
 import Lazy from './Lazy';
 import LoadingSkeleton from './LoadingSkeleton';
+import PlayerDialog from './PlayerDialog';
 import competitionDateString from './competitionDateString';
 import ensureDates from './ensureDates.js';
 import CutInfo from './CutInfo';
@@ -231,6 +232,7 @@ function Player({
   now,
   lazy,
   competition,
+  onScorecardClick,
 }) {
   const rounds = getRounds(entry);
   const classes = ['player'];
@@ -283,67 +285,77 @@ function Player({
           </span>
         </Link>
       ) : null}
-      <Link
-        href={
-          rounds.length > 0 && rounds[0].Holes
-            ? `/t/${competition.slug}/players/${entry.MemberID}`
-            : `/${generateSlug(entry)}`
-        }
-        className="player-link"
-      >
-        {!big ? (
-          <span className={positionClassname}>
-            <span>
-              {entry.Position && entry.Position.Calculated ? (
-                entry.Position.Calculated
-              ) : rounds && rounds.length > 0 ? (
-                <ClockIcon
-                  date={getFirstRoundStart(rounds[rounds.length - 1])}
+      {(() => {
+        const inner = (
+          <>
+            {!big ? (
+              <span className={positionClassname}>
+                <span>
+                  {entry.Position && entry.Position.Calculated ? (
+                    entry.Position.Calculated
+                  ) : rounds && rounds.length > 0 ? (
+                    <ClockIcon
+                      date={getFirstRoundStart(rounds[rounds.length - 1])}
+                    />
+                  ) : null}
+                </span>
+                <FavoriteButton
+                  playerId={entry.MemberID}
+                  onChange={onFavoriteChange}
+                  icon
+                  lastFavoriteChanged={lastFavoriteChanged}
                 />
-              ) : null}
-            </span>
-            <FavoriteButton
-              playerId={entry.MemberID}
-              onChange={onFavoriteChange}
-              icon
-              lastFavoriteChanged={lastFavoriteChanged}
-            />
-          </span>
-        ) : null}
-        {!big ? (
-          <span>
-            {entry.FirstName} {entry.LastName}
-            <br />
-            <span className="club">
-              {entry.ClubName}
-              {process.env.NEXT_PUBLIC_SHOW_PHCP
-                ? ` — HCP ${entry.PHCP}`
-                : null}
-            </span>
-          </span>
-        ) : null}
-        {entry.ResultSum && !big ? (
-          <span
-            className={`score${
-              entry.ResultSum.ToParValue < 0 ? ' under-par' : ''
-            }`}
+              </span>
+            ) : null}
+            {!big ? (
+              <span>
+                {entry.FirstName} {entry.LastName}
+                <br />
+                <span className="club">
+                  {entry.ClubName}
+                  {process.env.NEXT_PUBLIC_SHOW_PHCP
+                    ? ` — HCP ${entry.PHCP}`
+                    : null}
+                </span>
+              </span>
+            ) : null}
+            {entry.ResultSum && !big ? (
+              <span
+                className={`score${
+                  entry.ResultSum.ToParValue < 0 ? ' under-par' : ''
+                }`}
+              >
+                {fixParValue(entry.ResultSum.ToParText)}
+              </span>
+            ) : null}
+            <StatsWrapper className="stats" minHeight={statsHeight}>
+              {rounds.map(round => {
+                return (
+                  <Round
+                    key={round.StartDateTime}
+                    round={round}
+                    colors={colors}
+                    now={now}
+                  />
+                );
+              })}
+            </StatsWrapper>
+          </>
+        );
+        return rounds.length > 0 && rounds[0].Holes && onScorecardClick ? (
+          <button
+            type="button"
+            className="player-link"
+            onClick={() => onScorecardClick(entry)}
           >
-            {fixParValue(entry.ResultSum.ToParText)}
-          </span>
-        ) : null}
-        <StatsWrapper className="stats" minHeight={statsHeight}>
-          {rounds.map(round => {
-            return (
-              <Round
-                key={round.StartDateTime}
-                round={round}
-                colors={colors}
-                now={now}
-              />
-            );
-          })}
-        </StatsWrapper>
-      </Link>
+            {inner}
+          </button>
+        ) : (
+          <Link href={`/${generateSlug(entry)}`} className="player-link">
+            {inner}
+          </Link>
+        );
+      })()}
     </li>
   );
 }
@@ -481,6 +493,7 @@ export default function CompetitionPage({
   ensureDates(competition);
   const now = new Date(nowMs);
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
+  const [selectedEntry, setSelectedEntry] = useState(null);
   const data = useJsonPData(
     `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057/`,
     initialData,
@@ -639,6 +652,7 @@ export default function CompetitionPage({
               isFavorite={favoriteIds.has(winner.MemberID)}
               onFavoriteChange={handleFavoriteChange}
               lastFavoriteChanged={lastFavoriteChanged}
+              onScorecardClick={setSelectedEntry}
             />
           </ul>
         </div>
@@ -662,6 +676,7 @@ export default function CompetitionPage({
                       isFavorite={true}
                       onFavoriteChange={handleFavoriteChange}
                       lastFavoriteChanged={lastFavoriteChanged}
+                      onScorecardClick={setSelectedEntry}
                     />
                   );
                 })}
@@ -685,6 +700,7 @@ export default function CompetitionPage({
                   onFavoriteChange={handleFavoriteChange}
                   lazy={lazyItems && i > 20}
                   lastFavoriteChanged={lastFavoriteChanged}
+                  onScorecardClick={setSelectedEntry}
                 />
               );
             })}
@@ -703,6 +719,12 @@ export default function CompetitionPage({
           </form>
         </div>
       ) : null}
+      <PlayerDialog
+        entry={selectedEntry}
+        competition={competition}
+        data={data}
+        onClose={() => setSelectedEntry(null)}
+      />
     </div>
   );
 }

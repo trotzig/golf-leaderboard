@@ -34,6 +34,7 @@ export default function FavoriteButton({
 
   const clickHandler = (confirm, e) => {
     e.preventDefault();
+    e.stopPropagation();
     if (isFavorite) {
       if (confirm &&
         !window.confirm(
@@ -77,8 +78,16 @@ export default function FavoriteButton({
   }
 
   return (
-    <button className={classes.join(' ')} onClick={clickHandler.bind(this, false)}>
+    <span
+      role="button"
+      tabIndex="0"
+      className={classes.join(' ')}
+      onClick={clickHandler.bind(this, false)}
+      onKeyDown={e => {
+        if (e.key === 'Enter' || e.key === ' ') clickHandler(false, e);
+      }}
+    >
       {icon}
-    </button>
+    </span>
   );
 }

@@ -459,11 +459,13 @@ html.display-standalone nav {
   border-bottom: 1px solid rgba(var(--text-rgb), 0.2);
 }
 
-.leaderboard-page .player a.player-link,
+.leaderboard-page .player .player-link,
 .oom .player {
   all: unset;
   cursor: pointer;
   display: grid;
+  width: 100%;
+  box-sizing: border-box;
   grid-template-columns: 30px auto 80px;
   column-gap: 15px;
   padding: 10px 10px;
@@ -882,7 +884,7 @@ footer {
     line-height: 12px;
   }
   .oom .player,
-  .leaderboard-page .player a.player-link {
+  .leaderboard-page .player .player-link {
     column-gap: 5px;
     font-size: 15px;
   }
@@ -1031,19 +1033,27 @@ footer {
 }
 .player-round-scorecard {
   display: grid;
-  grid-template-columns: repeat(22, 1fr);
-  column-gap: 10px;
+  grid-template-columns: auto repeat(9, 1fr) repeat(2, 1.5fr);
+  column-gap: 6px;
   row-gap: 3px;
   font-size: 12px;
   padding: 10px 0;
   text-align: center;
-  overflow-x: auto;
 }
 .player-round-scorecard > * {
   opacity: 0.7;
 }
 .player-round-scorecard > *:first-child {
   text-align: left;
+}
+.player-round-scorecard-hole-last {
+  border-right: 1px solid currentColor;
+  padding-right: 4px;
+  opacity: 0.7;
+}
+.player-round-scorecard-total {
+  font-weight: bold;
+  text-align: center;
 }
 .player-round-scorecard .round-score {
   opacity: 1;
@@ -1065,6 +1075,10 @@ footer {
 .player-round-scorecard-val {
   line-height: 20px;
   margin-bottom: 5px;
+}
+
+.player-round-scorecard-val.under-par {
+  color: var(--primary);
 }
 
 .icon-button {
@@ -1916,7 +1930,7 @@ body .pemb-page {
   align-items: flex-start;
 }
 
-.leaderboard-page .player.player-entry-big a.player-link {
+.leaderboard-page .player.player-entry-big .player-link {
   grid-template-columns: 0 auto auto;
 }
 h2.player-big-name {
@@ -2219,4 +2233,191 @@ h2.player-big-name {
 .aths-icon svg {
   width: 18px;
   height: 18px;
+}
+
+/* ─── Player dialog ──────────────────────────────────────────────────────── */
+
+.player-dialog {
+  border: none;
+  padding: 0;
+  background: var(--background);
+  color: var(--text);
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  width: min(600px, 92vw);
+  max-height: 80vh;
+  overflow: hidden;
+}
+.player-dialog[open],
+.player-dialog.closing {
+  display: flex;
+  flex-direction: column;
+}
+.player-dialog-inner {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+.player-dialog-main {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 5px;
+}
+
+.player-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Desktop: scale + fade */
+@media (min-width: 601px) {
+  .player-dialog[open] {
+    animation: player-dialog-in 220ms ease-out both;
+  }
+  .player-dialog.closing {
+    animation: player-dialog-out 180ms ease-in forwards;
+  }
+  .player-dialog[open]::backdrop {
+    animation: player-dialog-backdrop-in 220ms ease-out both;
+  }
+  .player-dialog.closing::backdrop {
+    animation: player-dialog-backdrop-out 180ms ease-in forwards;
+  }
+}
+
+@keyframes player-dialog-in {
+  from {
+    opacity: 0;
+    scale: 0.92;
+  }
+}
+@keyframes player-dialog-out {
+  to {
+    opacity: 0;
+    scale: 0.92;
+  }
+}
+@keyframes player-dialog-backdrop-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes player-dialog-backdrop-out {
+  to {
+    opacity: 0;
+  }
+}
+
+/* Mobile: full screen, slide in from right */
+@media (max-width: 600px) {
+  .player-dialog {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    margin: 0;
+    border-radius: 0;
+    position: fixed;
+    inset: 0;
+  }
+  .player-dialog[open] {
+    animation: player-dialog-in-mobile 260ms cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+  .player-dialog.closing {
+    animation: player-dialog-out-mobile 220ms cubic-bezier(0.4, 0, 0.2, 1)
+      forwards;
+  }
+  .player-dialog::backdrop {
+    display: none;
+  }
+}
+
+@keyframes player-dialog-in-mobile {
+  from {
+    translate: 100% 0;
+  }
+}
+@keyframes player-dialog-out-mobile {
+  to {
+    translate: 100% 0;
+  }
+}
+
+/* Dialog inner layout */
+.player-dialog-header {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  flex-shrink: 0;
+  background: var(--background);
+  border-bottom: 1px solid rgba(var(--text-rgb), 0.06);
+  position: relative;
+}
+.player-dialog-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.player-dialog-back {
+  all: unset;
+  cursor: pointer;
+  align-items: center;
+  gap: 4px;
+  color: var(--primary);
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  display: none;
+}
+.player-dialog-back:active {
+  opacity: 0.7;
+}
+
+.player-dialog-close {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(var(--text-rgb), 0.08);
+  color: var(--text);
+  font-size: 20px;
+  line-height: 1;
+  margin-left: auto;
+  user-select: none;
+  transition: background 0.15s;
+}
+.player-dialog-close:hover {
+  background: rgba(var(--text-rgb), 0.14);
+}
+
+@media (max-width: 600px) {
+  .player-dialog-back {
+    display: block;
+  }
+  .player-dialog-title {
+    display: none;
+  }
+  .player-dialog-close {
+    display: none;
+  }
+  .player-dialog .round-score.eagle:after {
+    display: block;
+  }
 }
