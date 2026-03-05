@@ -2417,4 +2417,7 @@ h2.player-big-name {
   .player-dialog-close {
     display: none;
   }
+  .player-dialog .round-score.eagle:after {
+    display: block;
+  }
 }
