@@ -1,0 +1,74 @@
+{
+  "competitionId": 5433278,
+  "competitionSlug": "infinitum-spring-series-final---by-ecco-2026",
+  "competitionName": "INFINITUM Spring Series Final - by ECCO",
+  "venue": "Infinitum Golf, Spain",
+  "startDate": "2026-03-03T00:00:00.000Z",
+  "endDate": "2026-03-05T00:00:00.000Z",
+  "slug": "infinitum-spring-series-final---by-ecco-2026",
+  "headline": "Ruuska runs away with INFINITUM Spring Series Final title",
+  "blurb": "Finland's Lauri Ruuska fired a stunning second-round 62 to seize control and claim a convincing three-shot victory at Infinitum Golf in Spain.",
+  "body": "Lauri Ruuska delivered a masterclass at Infinitum Golf in Spain, capturing the INFINITUM Spring Series Final - by ECCO at 14 under par. The Finn built a decisive lead through three rounds and held firm to finish three strokes clear of Denmark's August Thor Høst, who posted a fine 11 under for sole second place.\n\nThe key moment came in the second round, when Ruuska lit up the course with a remarkable 62 — the standout round of the entire tournament. That blistering effort separated him from the chasing pack and gave him a cushion he would never relinquish. Høst mounted a solid challenge but could never quite close the gap.\n\nTied for third at nine under par were Mads Heller, Jonas Baumgartner and Jerry Ji, all finishing five shots behind the champion. Their efforts underlined the quality at the top of the leaderboard, even as the battle for the title belonged firmly to Ruuska.\n\nFrom a starting field of 151 players, 44 made it through the cut, which fell at even par. With conditions playing tough for much of the week, Ruuska's dominant display stood out all the more, rounding off the Spring Series in emphatic fashion.",
+  "winnerName": "Lauri Ruuska",
+  "winnerPlayerId": "60-2425",
+  "winnerPlayerSlug": "lauri-ruuska",
+  "winnerImage": "/players/60-2425.jpg",
+  "stats": {
+    "winningScore": -14,
+    "winningScoreText": "-14",
+    "totalPlayers": 151,
+    "playersMadeCut": 44,
+    "playersMissedCut": 98,
+    "cutScore": 0,
+    "cutScoreText": "E",
+    "marginOfVictory": 3,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "Lauri Ruuska",
+        "club": "Tarinagolf",
+        "score": -14,
+        "scoreText": "-14",
+        "playerId": "60-2425",
+        "playerSlug": "lauri-ruuska"
+      },
+      {
+        "position": "2",
+        "name": "August Thor Høst",
+        "club": "Great Northern Golf Club",
+        "score": -11,
+        "scoreText": "-11",
+        "playerId": "101-4663",
+        "playerSlug": "august-thor-host"
+      },
+      {
+        "position": "T3",
+        "name": "Mads (a) Heller",
+        "club": "Smørum Golfklub",
+        "score": -9,
+        "scoreText": "-9",
+        "playerId": "120-84122",
+        "playerSlug": "mads-heller"
+      },
+      {
+        "position": "T3",
+        "name": "Jonas Baumgartner",
+        "club": "",
+        "score": -9,
+        "scoreText": "-9",
+        "playerId": "252183",
+        "playerSlug": "jonas-baumgartner"
+      },
+      {
+        "position": "T3",
+        "name": "Jerry Ji",
+        "club": "",
+        "score": -9,
+        "scoreText": "-9",
+        "playerId": "235307",
+        "playerSlug": "jerry-ji"
+      }
+    ]
+  },
+  "createdAt": "2026-03-05T18:04:09.099Z"
+}
