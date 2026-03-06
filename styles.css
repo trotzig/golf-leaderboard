@@ -1243,6 +1243,70 @@ input.sign-in-form-input {
   max-width: 250px;
 }
 
+.profile-favorites {
+  margin-bottom: 10px;
+}
+.profile-favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 12px;
+}
+.profile-favorite {
+  position: relative;
+}
+.profile-favorite > a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+.profile-favorite-name {
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  margin-top: 6px;
+}
+.profile-favorite-remove {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(var(--text-rgb), 0.7);
+  color: var(--background);
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+}
+.profile-favorite-remove:hover {
+  background: rgba(var(--text-rgb), 1);
+}
+.profile-favorites-undo {
+  margin-top: 16px;
+}
+.profile-favorite-undo-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: rgba(var(--text-rgb), 0.7);
+  margin-bottom: 6px;
+}
+.profile-favorite-undo-button {
+  all: unset;
+  cursor: pointer;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 14px;
+}
+.profile-favorite-undo-button:hover {
+  text-decoration: underline;
+}
 .profile-settings {
   margin-bottom: 40px;
 }

@@ -12,10 +12,25 @@ export default async function profileProps({ req }) {
       sendEmailOnStart: true,
       sendEmailOnFinished: true,
       sendEmailOnHotStreak: true,
+      favorites: {
+        select: {
+          player: {
+            select: {
+              id: true,
+              firstName: true,
+              lastName: true,
+              slug: true,
+            },
+          },
+        },
+      },
     },
   });
   if (account && account.email === 'henric.trotzig@gmail.com') {
     account.isAdmin = true;
+  }
+  if (account) {
+    account.favorites = account.favorites.map(f => f.player);
   }
   return { props: { account } };
 }
