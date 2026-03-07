@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import React from 'react';
 import Link from 'next/link';
 
@@ -7,6 +8,9 @@ import profileProps from '../src/profileProps.js';
 export default function SignInPage({ account }) {
   return (
     <div className="sign-in">
+      <Head>
+        <meta name="robots" content="noindex" />
+      </Head>
       <h2>Sign in</h2>
       <div className="sign-in-main page-margin">
         {account ? (
