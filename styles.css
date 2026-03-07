@@ -653,6 +653,13 @@ html.display-standalone nav {
   font-size: 12px;
   margin: 3px 0 5px;
 }
+
+.player-big-club {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
 main {
   min-height: 100vh;
   animation: page-enter 250ms ease-out;
