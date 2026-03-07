@@ -29,6 +29,15 @@ const youtubers = [
       height: 843,
     },
   },
+  {
+    name: 'Fredrik Lindblom',
+    url: 'https://www.youtube.com/@FredrikandHannah',
+    avatar: {
+      url: '/avatar-fredrik-lindblom.jpg',
+      width: 683,
+      height: 683,
+    },
+  },
 ];
 
 export default function StartPage({
