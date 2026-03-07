@@ -647,6 +647,7 @@ html.display-standalone nav {
 .players .player .club,
 .leaderboard-page .club {
   display: flex;
+  gap: 6px;
   align-items: center;
   color: rgba(var(--text-rgb), 0.5);
   font-size: 12px;
@@ -2513,7 +2514,6 @@ h2.player-big-name {
   width: 1.1em;
   height: auto;
   flex-shrink: 0;
-  margin-right: 4px;
   border-radius: 1px;
   box-shadow: 0 0 0 1px rgba(var(--text-rgb), 0.15);
 }
