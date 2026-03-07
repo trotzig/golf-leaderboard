@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import DOMPurify from 'dompurify';
+import FlagIcon from './FlagIcon';
 import PlayerPhoto from './PlayerPhoto';
 import { useJsonPData } from './fetchJsonP';
 import ClockIcon from './ClockIcon';
@@ -276,7 +277,8 @@ function Player({
               {normalizeName(entry.FirstName)} {normalizeName(entry.LastName)}
             </h2>
             <div className="player-big-club">
-              {entry.ClubName}
+              <FlagIcon nationality={entry.Nationality} />
+              {entry.ClubName || entry.Country}
               {process.env.NEXT_PUBLIC_SHOW_PHCP
                 ? ` — HCP ${entry.PHCP}`
                 : null}
@@ -314,7 +316,8 @@ function Player({
                 {normalizeName(entry.FirstName)} {normalizeName(entry.LastName)}
                 <br />
                 <span className="club">
-                  {entry.ClubName}
+                  <FlagIcon nationality={entry.Nationality} />
+                  {entry.ClubName || entry.Country}
                   {process.env.NEXT_PUBLIC_SHOW_PHCP
                     ? ` — HCP ${entry.PHCP}`
                     : null}

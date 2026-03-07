@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
 import FavoriteButton from '../src/FavoriteButton';
+import FlagIcon, { getCountryName } from '../src/FlagIcon';
 import PlayerPhoto from '../src/PlayerPhoto';
 import PlayerStatsChart from '../src/PlayerStatsChart';
 import SignInForm from '../src/SignInForm';
@@ -95,7 +96,10 @@ export default function PlayerPage({
           <h2>
             {player.firstName} {player.lastName}
           </h2>
-          <p className="player-page-club">{player.clubName}</p>
+          <p className="player-page-club">
+            <FlagIcon nationality={player.nationality} />
+            {player.clubName || getCountryName(player.nationality)}
+          </p>
           <FavoriteButton onChange={setIsFavorite} playerId={player.id} large />
         </div>
         <Link href="/oom" className="player-page-oom">
@@ -199,6 +203,7 @@ export async function getServerSideProps({ params, query, req }) {
       firstName: true,
       lastName: true,
       clubName: true,
+      nationality: true,
       oomPosition: true,
       competitionScore: {
         orderBy: {
