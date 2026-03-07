@@ -12,7 +12,7 @@ const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
 export default function competitionDateString(
   competition,
   initialNow = new Date(),
-  { finished } = {},
+  { finished, parts } = {},
 ) {
   const utcMidnight = new Date(
     Date.UTC(
@@ -46,27 +46,33 @@ export default function competitionDateString(
   let suffix = '';
 
   if (finished) {
-    suffix = ` — Played ${numberOfDays + 1} rounds`;
+    suffix = `Played ${numberOfDays + 1} rounds`;
   } else if (start - 60 * 60 * 1000 <= utcMidnight && utcMidnight <= end) {
     // Currently active
-    suffix = ` — Round ${differenceInDays(utcMidnight, start) + 1} of ${
+    suffix = `Round ${differenceInDays(utcMidnight, start) + 1} of ${
       numberOfDays + 1
     }`;
   } else {
     if (utcMidnight > end) {
-      return `Finished ${formatDistance(end, utcMidnight)} ago`;
+      return parts
+        ? { date: `Finished ${formatDistance(end, utcMidnight)} ago` }
+        : `Finished ${formatDistance(end, utcMidnight)} ago`;
     }
     const daysUntilStart = differenceInDays(start, utcMidnight);
     if (daysUntilStart === 1) {
-      return 'Starts tomorrow';
+      return parts ? { date: 'Starts tomorrow' } : 'Starts tomorrow';
     }
     if (daysUntilStart < 8) {
-      suffix = ` — Starts in ${formatDistance(utcMidnight, start)}`;
+      suffix = `Starts in ${formatDistance(utcMidnight, start)}`;
     }
   }
-  if (endDay < startDay) {
-    // crossing into different month
-    return `${format(start, 'MMMM d')}—${format(end, 'MMMM d')}${suffix}`;
+  const dateStr =
+    endDay < startDay
+      ? `${format(start, 'MMMM d')}—${format(end, 'MMMM d')}`
+      : `${format(start, 'MMMM d')}—${format(end, 'd')}`;
+
+  if (parts) {
+    return { date: dateStr, suffix };
   }
-  return `${format(start, 'MMMM d')}—${format(end, 'd')}${suffix}`;
+  return suffix ? `${dateStr} — ${suffix}` : dateStr;
 }

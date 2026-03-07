@@ -597,11 +597,22 @@ export default function CompetitionPage({
             </a>
           ) : (
             competition.venue
-          )}{' '}
-          –{' '}
-          {competition.start &&
-            competitionDateString(competition, now, { finished })}
-          .
+          )}
+          {competition.start && (() => {
+            const { date, suffix } = competitionDateString(competition, now, { finished, parts: true });
+            return (
+              <>
+                <span>•</span>
+                <span>{date}</span>
+                {suffix && (
+                  <>
+                    <span>•</span>
+                    <span>{suffix}</span>
+                  </>
+                )}
+              </>
+            );
+          })()}
         </p>
       )}
       <div className="page-tabs">
