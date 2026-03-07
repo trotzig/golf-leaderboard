@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React, { useCallback, useEffect, useRef } from 'react';
 
+import FlagIcon from './FlagIcon';
 import PlayerPhoto from './PlayerPhoto';
 import fixParValue from './fixParValue';
 import generateSlug from './generateSlug.mjs';
@@ -338,7 +339,10 @@ export default function PlayerDialog({ entry, competition, data, onClose }) {
                   >
                     {entry.FirstName} {entry.LastName}
                   </Link>
-                  <div className="player-profile-club">{entry.ClubName}</div>
+                  <div className="player-profile-club">
+                    <FlagIcon nationality={entry.Nationality} />
+                    {entry.ClubName}
+                  </div>
                   <div className="player-profile-actions">
                     <Link
                       href={`/${generateSlug(entry)}`}

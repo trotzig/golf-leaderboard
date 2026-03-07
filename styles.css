@@ -991,9 +991,12 @@ footer {
 
 .player-profile-club {
   margin: 0;
-  opacity: 0.7;
+  color: rgba(from currentColor r g b / 0.7);
   font-size: 14px;
   margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 .player-profile-top {
   display: grid;
