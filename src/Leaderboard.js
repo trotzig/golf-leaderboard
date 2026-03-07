@@ -4,6 +4,21 @@ import React from 'react';
 import competitionDateString from './competitionDateString.js';
 import fixParValue from './fixParValue';
 
+function normalizeNamePart(part) {
+  if (part === '(a)') return part;
+  // Leave all-uppercase abbreviations alone
+  if (/[A-Z]/.test(part) && part === part.toUpperCase()) return part;
+  if (part.includes('-')) {
+    return part.split('-').map(normalizeNamePart).join('-');
+  }
+  return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
+}
+
+function normalizeName(s) {
+  if (!s) return s;
+  return s.trim().split(' ').filter(Boolean).map(normalizeNamePart).join(' ');
+}
+
 const PLACEHOLDER_ENTRIES = [
   { position: 1, positionText: '1', score: -3, scoreText: '-3', hole: '18', player: { firstName: 'Anders', lastName: 'Lindqvist', clubName: 'Stockholms GK' } },
   { position: 2, positionText: '2', score: -1, scoreText: '-1', hole: '16', player: { firstName: 'Maria', lastName: 'Eriksson', clubName: 'Kungliga GK' } },
@@ -51,7 +66,7 @@ export default function Leaderboard({ competition, now }) {
                   <tr key={entry.position}>
                     <td>{entry.positionText}</td>
                     <td>
-                      {entry.player.firstName} {entry.player.lastName}
+                      {normalizeName(entry.player.firstName)} {normalizeName(entry.player.lastName)}
                       <div className="leaderboard-club">
                         {entry.player.clubName}
                       </div>
