@@ -127,6 +127,17 @@ button {
   margin: 0;
   opacity: 0.7;
 }
+.leaderboard-page-subtitle .venue-map-link {
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2em;
+}
+.leaderboard-page-subtitle .venue-map-link svg {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+}
 
 .page-tabs {
   display: flex;
