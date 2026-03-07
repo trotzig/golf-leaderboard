@@ -2369,6 +2369,15 @@ h2.player-big-name {
 
 /* Desktop: scale + fade */
 @media (min-width: 601px) {
+  /* Explicit centering overrides UA stylesheet — fixes iOS Safari landscape bug
+     where margin: auto centering can position the dialog off-screen */
+  .player-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+  }
   .player-dialog[open] {
     animation: player-dialog-in 220ms ease-out both;
   }
@@ -2386,13 +2395,13 @@ h2.player-big-name {
 @keyframes player-dialog-in {
   from {
     opacity: 0;
-    scale: 0.92;
+    transform: translate(-50%, -50%) scale(0.92);
   }
 }
 @keyframes player-dialog-out {
   to {
     opacity: 0;
-    scale: 0.92;
+    transform: translate(-50%, -50%) scale(0.92);
   }
 }
 @keyframes player-dialog-backdrop-in {
