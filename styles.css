@@ -1135,6 +1135,7 @@ footer {
   align-items: center;
   padding: 10px 0;
   margin-top: 0;
+  gap: 10px;
   color: rgba(var(--text-rgb), 0.5);
 }
 
