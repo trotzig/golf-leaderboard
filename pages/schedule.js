@@ -26,23 +26,23 @@ export default function SchedulePage({
   return (
     <div className="chrome">
       <Head>
-        <title>{`Schedule | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`}</title>
+        <title>{`Tour schedule ${selectedYear} | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`}</title>
         <meta
           name="description"
-          content={`Full schedule for the ${new Date().getFullYear()} season of ${
+          content={`Full schedule for the ${selectedYear} season of ${
             process.env.NEXT_PUBLIC_INTRO_TITLE
           }.`}
         />
-        <meta property="og:title" content={`Schedule | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
+        <meta property="og:title" content={`Tour schedule ${selectedYear} | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
         <meta
           property="og:description"
-          content={`Full schedule for the ${new Date().getFullYear()} season of ${process.env.NEXT_PUBLIC_INTRO_TITLE}.`}
+          content={`Full schedule for the ${selectedYear} season of ${process.env.NEXT_PUBLIC_INTRO_TITLE}.`}
         />
         <meta property="og:type" content="website" />
-        <meta name="twitter:title" content={`Schedule | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
+        <meta name="twitter:title" content={`Tour schedule ${selectedYear} | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
         <meta
           name="twitter:description"
-          content={`Full schedule for the ${new Date().getFullYear()} season of ${process.env.NEXT_PUBLIC_INTRO_TITLE}.`}
+          content={`Full schedule for the ${selectedYear} season of ${process.env.NEXT_PUBLIC_INTRO_TITLE}.`}
         />
       </Head>
       <div className="schedule">
