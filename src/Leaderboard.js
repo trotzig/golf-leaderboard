@@ -3,6 +3,7 @@ import React from 'react';
 
 import competitionDateString from './competitionDateString.js';
 import fixParValue from './fixParValue';
+import FlagIcon, { getCountryName } from './FlagIcon';
 import normalizeName from './normalizeName.js';
 
 const PLACEHOLDER_ENTRIES = [
@@ -54,7 +55,8 @@ export default function Leaderboard({ competition, now }) {
                     <td>
                       {normalizeName(entry.player.firstName)} {normalizeName(entry.player.lastName)}
                       <div className="leaderboard-club">
-                        {entry.player.clubName}
+                        <FlagIcon nationality={entry.player.nationality} />
+                        {entry.player.clubName || getCountryName(entry.player.nationality)}
                       </div>
                     </td>
                     <td className={scoreClasses.join(' ')}>

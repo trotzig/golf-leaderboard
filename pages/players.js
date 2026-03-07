@@ -5,6 +5,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import debounce from 'lodash/debounce';
 
 import FavoriteButton from '../src/FavoriteButton';
+import FlagIcon, { getCountryName } from '../src/FlagIcon';
 import ordinal from '../src/ordinal';
 import prisma from '../src/prisma';
 import profileProps from '../src/profileProps.js';
@@ -35,7 +36,10 @@ function Player({ player, onFavorite, lastFavoriteChanged }) {
       <Link href={`/${player.slug}`}>
         {player.firstName} {player.lastName}
         <br />
-        <span className="club">{player.clubName}</span>
+        <span className="club">
+          <FlagIcon nationality={player.nationality} />
+          {player.clubName || getCountryName(player.nationality)}
+        </span>
       </Link>
       <Link href="/oom" className="oom-position">
         {ordinal(player.oomPosition)}
@@ -285,6 +289,7 @@ export async function getServerSideProps({ req }) {
         firstName: true,
         lastName: true,
         clubName: true,
+        nationality: true,
         oomPosition: true,
       },
     }),

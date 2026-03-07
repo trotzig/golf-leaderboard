@@ -646,8 +646,9 @@ html.display-standalone nav {
 
 .players .player .club,
 .leaderboard-page .club {
-  display: block;
-  opacity: 0.5;
+  display: flex;
+  align-items: center;
+  color: rgba(var(--text-rgb), 0.5);
   font-size: 12px;
   margin: 3px 0 5px;
 }
@@ -1114,8 +1115,11 @@ footer {
   cursor: default;
 }
 .player-page-club {
+  display: flex;
+  align-items: center;
   padding: 10px 0;
   margin-top: 0;
+  color: rgba(var(--text-rgb), 0.5);
 }
 
 .player-page-top h2 {
@@ -1684,8 +1688,10 @@ input.ios-switch:checked:after {
   border-bottom: 1px solid rgba(var(--text-rgb), 0.2);
 }
 .leaderboard-club {
+  display: flex;
+  align-items: center;
   font-size: 12px;
-  opacity: 0.5;
+  color: rgba(var(--text-rgb), 0.5);
   margin-top: 3px;
 }
 .leaderboard-view-all {
@@ -2501,4 +2507,13 @@ h2.player-big-name {
   .player-dialog .round-score.eagle:after {
     display: block;
   }
+}
+
+.flag-icon {
+  width: 1.1em;
+  height: auto;
+  flex-shrink: 0;
+  margin-right: 4px;
+  border-radius: 1px;
+  box-shadow: 0 0 0 1px rgba(var(--text-rgb), 0.15);
 }

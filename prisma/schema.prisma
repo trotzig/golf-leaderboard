@@ -57,6 +57,7 @@ model Player {
   firstName   String
   lastName    String
   clubName    String?
+  nationality String?
   oomPosition String?
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @default(now())

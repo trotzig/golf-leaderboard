@@ -63,6 +63,7 @@ async function fetchPlayersFromEntriesList(competition) {
             lastName: entry.LastName.trim(),
             id: entry.MemberID.trim(),
             clubName: entry.ClubName.trim(),
+            nationality: entry.Nationality || null,
           };
           player.slug = generateSlug(player);
           player.competitions = [];
@@ -114,6 +115,7 @@ async function fetchPlayers(competition) {
           lastName: entry.LastName.trim(),
           id: entry.MemberID.trim(),
           clubName: entry.ClubName.trim(),
+          nationality: entry.Nationality || null,
         };
         player.slug = generateSlug(player);
         if (competition.end.getTime() + 24 * 60 * 60 * 1000 < Date.now()) {
@@ -193,6 +195,7 @@ async function fillOOM(players) {
     index[entry.MemberID] = {
       position: entry.Position,
       actualPosition: entry.ActualPosition,
+      nationality: entry.Nationality || null,
     };
   }
   for (const player of players) {
@@ -203,6 +206,9 @@ async function fillOOM(players) {
     } else {
       player.oomPosition = pos.position;
       player.oomActualPosition = pos.actualPosition;
+      if (!player.nationality && pos.nationality) {
+        player.nationality = pos.nationality;
+      }
     }
   }
   return index;
@@ -312,7 +318,7 @@ export default async function syncData({ full = true } = {}) {
       if (oomEntry) {
         // Player is in the OOM but not in the current competition sync.
         // Update their OOM position instead of clearing it.
-        if (player.oomPosition !== oomEntry.position) {
+        if (player.oomPosition !== oomEntry.position || (!player.nationality && oomEntry.nationality)) {
           batchItems.push({
             id: player.id,
             firstName: player.firstName,
@@ -320,6 +326,7 @@ export default async function syncData({ full = true } = {}) {
             clubName: player.clubName,
             slug: player.slug,
             oomPosition: oomEntry.position,
+            nationality: player.nationality || oomEntry.nationality,
           });
         }
       } else if (player.oomPosition !== null) {
@@ -332,7 +339,8 @@ export default async function syncData({ full = true } = {}) {
       newPlayer.firstName !== player.firstName ||
       newPlayer.lastName !== player.lastName ||
       newPlayer.clubName !== player.clubName ||
-      newPlayer.slug !== player.slug
+      newPlayer.slug !== player.slug ||
+      newPlayer.nationality !== player.nationality
     ) {
       batchItems.push(newPlayer);
     }
