@@ -341,7 +341,7 @@ export default function PlayerDialog({ entry, competition, data, onClose }) {
                   </Link>
                   <div className="player-profile-club">
                     <FlagIcon nationality={entry.Nationality} />
-                    {entry.ClubName}
+                    <span>{entry.ClubName}</span>
                   </div>
                   <div className="player-profile-actions">
                     <Link

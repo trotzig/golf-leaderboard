@@ -989,6 +989,9 @@ footer {
   content: '';
 }
 
+.player-profile-top > div:nth-child(2) {
+  min-width: 0;
+}
 .player-profile-club {
   margin: 0;
   color: rgba(from currentColor r g b / 0.7);
@@ -997,6 +1000,12 @@ footer {
   display: flex;
   align-items: center;
   gap: 5px;
+  overflow: hidden;
+}
+.player-profile-club span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .player-profile-top {
   display: grid;
