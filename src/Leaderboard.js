@@ -3,21 +3,7 @@ import React from 'react';
 
 import competitionDateString from './competitionDateString.js';
 import fixParValue from './fixParValue';
-
-function normalizeNamePart(part) {
-  if (part === '(a)') return part;
-  // Leave all-uppercase abbreviations alone
-  if (/[A-Z]/.test(part) && part === part.toUpperCase()) return part;
-  if (part.includes('-')) {
-    return part.split('-').map(normalizeNamePart).join('-');
-  }
-  return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
-}
-
-function normalizeName(s) {
-  if (!s) return s;
-  return s.trim().split(' ').filter(Boolean).map(normalizeNamePart).join(' ');
-}
+import normalizeName from './normalizeName.js';
 
 const PLACEHOLDER_ENTRIES = [
   { position: 1, positionText: '1', score: -3, scoreText: '-3', hole: '18', player: { firstName: 'Anders', lastName: 'Lindqvist', clubName: 'Stockholms GK' } },

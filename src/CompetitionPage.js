@@ -11,6 +11,7 @@ import Lazy from './Lazy';
 import LoadingSkeleton from './LoadingSkeleton';
 import PlayerDialog from './PlayerDialog';
 import competitionDateString from './competitionDateString';
+import normalizeName from './normalizeName.js';
 import ensureDates from './ensureDates.js';
 import CutInfo from './CutInfo';
 import fixParValue from './fixParValue';
@@ -272,7 +273,7 @@ function Player({
           <PlayerPhoto player={entry} />
           <div>
             <h2 className="player-big-name">
-              {entry.FirstName} {entry.LastName}
+              {normalizeName(entry.FirstName)} {normalizeName(entry.LastName)}
             </h2>
             <div className="player-big-club">
               {entry.ClubName}
@@ -310,7 +311,7 @@ function Player({
             ) : null}
             {!big ? (
               <span>
-                {entry.FirstName} {entry.LastName}
+                {normalizeName(entry.FirstName)} {normalizeName(entry.LastName)}
                 <br />
                 <span className="club">
                   {entry.ClubName}
@@ -388,7 +389,7 @@ function MatchPlay({ entries }) {
           return (
             <li className="match" key={entry.MatchNo}>
               <span>
-                {entry.Players[0].FirstName} {entry.Players[0].LastName}
+                {normalizeName(entry.Players[0].FirstName)} {normalizeName(entry.Players[0].LastName)}
                 <br />
                 <span className="club">{entry.Players[0].ClubName}</span>
               </span>
@@ -398,7 +399,7 @@ function MatchPlay({ entries }) {
               </div>
 
               <span>
-                {entry.Players[1].FirstName} {entry.Players[1].LastName}
+                {normalizeName(entry.Players[1].FirstName)} {normalizeName(entry.Players[1].LastName)}
                 <br />
                 <span className="club">{entry.Players[1].ClubName}</span>
               </span>
