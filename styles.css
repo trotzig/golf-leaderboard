@@ -997,16 +997,11 @@ footer {
 }
 .player-profile-top {
   display: grid;
-  grid-template-columns: 150px 1fr auto auto auto;
+  grid-template-columns: 150px 1fr auto auto;
   gap: 20px;
   align-items: flex-start;
   max-width: 600px;
   margin: 0 auto 20px;
-}
-@media (max-width: 600px) {
-  .player-profile-top {
-    grid-template-columns: 1fr;
-  }
 }
 .player-profile-course-heading {
   max-width: 600px;
@@ -1022,9 +1017,8 @@ footer {
   color: inherit;
   text-decoration: none;
 }
-
 .player-profile-actions {
-  margin-top: 10px;
+  margin: 10px 0;
 }
 
 .player-profile-top b {
@@ -1042,10 +1036,21 @@ footer {
 }
 
 @media (max-width: 600px) {
+  .player-profile-actions {
+    display: none;
+  }
+  .player-profile-top {
+    grid-template-columns: 80px 1fr auto auto;
+    gap: 15px;
+  }
+  .player-profile-name {
+    font-size: 20px;
+  }
   .player-profile-topar,
   .player-profile-position,
   .player-profile-phcp {
-    text-align: left;
+    text-align: right;
+    font-size: 20px;
   }
 }
 

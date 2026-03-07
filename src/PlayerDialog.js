@@ -73,7 +73,11 @@ function ScorecardHalf({ holeKeys, holeScores, totals = [] }) {
             <div className="player-round-scorecard-label">{label}</div>
             <div className="player-round-scorecard-val">{par ?? ''}</div>
             <div
-              className={`player-round-scorecard-val${score !== null && par !== null && score < par ? ' under-par' : ''}`}
+              className={`player-round-scorecard-val${
+                score !== null && par !== null && score < par
+                  ? ' under-par'
+                  : ''
+              }`}
             >
               {score ?? ''}
             </div>
@@ -348,7 +352,7 @@ export default function PlayerDialog({ entry, competition, data, onClose }) {
                 {entry.ResultSum && (
                   <>
                     <span className="player-profile-position">
-                      <b>Position</b>
+                      <b>Pos</b>
                       <span>{entry.Position?.Calculated}</span>
                     </span>
                     <span
