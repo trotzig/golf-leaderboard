@@ -352,6 +352,7 @@ function Player({
           <Link
             href={`/t/${competition.slug}?player=${generateSlug(entry)}`}
             shallow
+            scroll={false}
             className="player-link"
             onClick={() => onScorecardClick(entry)}
           >
@@ -528,7 +529,7 @@ export default function CompetitionPage({
   const handleDialogClose = useCallback(() => {
     setSelectedEntry(null);
     const { player: _, ...rest } = router.query;
-    router.replace({ pathname: router.pathname, query: rest }, undefined, { shallow: true });
+    router.replace({ pathname: router.pathname, query: rest }, undefined, { shallow: true, scroll: false });
   }, [router]);
 
   const finishedResult = getFinishedResult(data);
