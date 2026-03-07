@@ -3,6 +3,7 @@ import React from 'react';
 
 import competitionDateString from './competitionDateString.js';
 import fixParValue from './fixParValue';
+import normalizeName from './normalizeName.js';
 
 const PLACEHOLDER_ENTRIES = [
   { position: 1, positionText: '1', score: -3, scoreText: '-3', hole: '18', player: { firstName: 'Anders', lastName: 'Lindqvist', clubName: 'Stockholms GK' } },
@@ -51,7 +52,7 @@ export default function Leaderboard({ competition, now }) {
                   <tr key={entry.position}>
                     <td>{entry.positionText}</td>
                     <td>
-                      {entry.player.firstName} {entry.player.lastName}
+                      {normalizeName(entry.player.firstName)} {normalizeName(entry.player.lastName)}
                       <div className="leaderboard-club">
                         {entry.player.clubName}
                       </div>
