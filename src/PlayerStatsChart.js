@@ -114,10 +114,10 @@ function LineChart({ data, metricKey, lower, formatValue }) {
   const validData = data.filter(d => d[metricKey] !== null);
   const minVal = Math.min(...values);
   const maxVal = Math.max(...values);
-  // For a single data point, create a range of 2 centred on the value
+  // When all values are equal, create a range of 2 with the value near the top
   const range = maxVal - minVal || 2;
-  const displayMin = maxVal - minVal ? minVal : minVal - 1;
-  const displayMax = maxVal - minVal ? maxVal : maxVal + 1;
+  const displayMin = maxVal - minVal ? minVal : (lower ? minVal : minVal - 2);
+  const displayMax = maxVal - minVal ? maxVal : (lower ? maxVal + 2 : maxVal);
 
   // y: lower value = better visually if lower=true (put good at top)
   function toY(v) {
