@@ -1,8 +1,7 @@
 import { format, startOfDay } from 'date-fns';
 import Head from 'next/head';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import DOMPurify from 'dompurify';
 import FlagIcon from './FlagIcon';
 import PlayerPhoto from './PlayerPhoto';
@@ -349,15 +348,13 @@ function Player({
           </>
         );
         return rounds.length > 0 && rounds[0].Holes && onScorecardClick ? (
-          <Link
-            href={`/t/${competition.slug}?player=${generateSlug(entry)}`}
-            shallow
-            scroll={false}
+          <button
+            type="button"
             className="player-link"
             onClick={() => onScorecardClick(entry)}
           >
             {inner}
-          </Link>
+          </button>
         ) : (
           <Link href={`/${generateSlug(entry)}`} className="player-link">
             {inner}
@@ -500,8 +497,6 @@ export default function CompetitionPage({
 }) {
   ensureDates(competition);
   const now = new Date(nowMs);
-  const router = useRouter();
-  const playerSlug = router.query.player;
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
   const [selectedEntry, setSelectedEntry] = useState(null);
   const data = useJsonPData(
@@ -526,11 +521,6 @@ export default function CompetitionPage({
     setLastFavoriteChanged(new Date());
   }, []);
 
-  const handleDialogClose = useCallback(() => {
-    setSelectedEntry(null);
-    const { player: _, ...rest } = router.query;
-    router.replace({ pathname: router.pathname, query: rest }, undefined, { shallow: true, scroll: false });
-  }, [router]);
 
   const finishedResult = getFinishedResult(data);
   const entries = useMemo(
@@ -540,14 +530,6 @@ export default function CompetitionPage({
         : [],
     [data, timesData, playersData],
   );
-
-  useEffect(() => {
-    if (!playerSlug || !entries || !entries.length) return;
-    const entry = entries.find(e => generateSlug(e) === playerSlug);
-    if (entry) {
-      setSelectedEntry(entry);
-    }
-  }, [playerSlug, entries]);
 
   const isMatchPlay = entries && entries[0] && entries[0].Players;
   const finished = isCompetitionFinished(competitionData, data, timesData);
@@ -771,7 +753,7 @@ export default function CompetitionPage({
         entry={selectedEntry}
         competition={competition}
         data={data}
-        onClose={handleDialogClose}
+        onClose={() => setSelectedEntry(null)}
       />
     </div>
   );
