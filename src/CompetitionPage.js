@@ -1,7 +1,8 @@
 import { format, startOfDay } from 'date-fns';
 import Head from 'next/head';
 import Link from 'next/link';
-import React, { useCallback, useMemo, useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import DOMPurify from 'dompurify';
 import FlagIcon from './FlagIcon';
 import PlayerPhoto from './PlayerPhoto';
@@ -497,6 +498,7 @@ export default function CompetitionPage({
 }) {
   ensureDates(competition);
   const now = new Date(nowMs);
+  const { query } = useRouter();
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
   const [selectedEntry, setSelectedEntry] = useState(null);
   const data = useJsonPData(
@@ -530,6 +532,14 @@ export default function CompetitionPage({
         : [],
     [data, timesData, playersData],
   );
+
+  useEffect(() => {
+    if (!query.player || !entries || !entries.length) return;
+    const entry = entries.find(e => generateSlug(e) === query.player);
+    if (entry) {
+      setSelectedEntry(entry);
+    }
+  }, [query.player, entries]);
 
   const isMatchPlay = entries && entries[0] && entries[0].Players;
   const finished = isCompetitionFinished(competitionData, data, timesData);
