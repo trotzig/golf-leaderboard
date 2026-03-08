@@ -205,10 +205,10 @@ a {
 }
 .alert {
   margin: 10px 0;
-  padding: 10px;
-  border-radius: 3px;
-  background-color: var(--primary-lightest);
-  border: 1px solid var(--primary-light);
+  padding: 12px 16px;
+  border-radius: 6px;
+  background-color: var(--light);
+  border: 1px solid var(--medium);
   color: var(--dark);
 }
 .alert.page-margin {
