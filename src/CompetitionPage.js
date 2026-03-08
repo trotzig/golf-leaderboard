@@ -2,7 +2,7 @@ import { format, startOfDay } from 'date-fns';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import DOMPurify from 'dompurify';
 import FlagIcon from './FlagIcon';
 import PlayerPhoto from './PlayerPhoto';
@@ -499,6 +499,7 @@ export default function CompetitionPage({
   ensureDates(competition);
   const now = new Date(nowMs);
   const { query } = useRouter();
+  const handledQueryPlayer = useRef(false);
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
   const [selectedEntry, setSelectedEntry] = useState(null);
   const data = useJsonPData(
@@ -534,9 +535,10 @@ export default function CompetitionPage({
   );
 
   useEffect(() => {
-    if (!query.player || !entries || !entries.length) return;
+    if (handledQueryPlayer.current || !query.player || !entries || !entries.length) return;
     const entry = entries.find(e => generateSlug(e) === query.player);
     if (entry) {
+      handledQueryPlayer.current = true;
       setSelectedEntry(entry);
     }
   }, [query.player, entries]);
