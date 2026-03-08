@@ -114,10 +114,10 @@ function LineChart({ data, metricKey, lower, formatValue }) {
   const validData = data.filter(d => d[metricKey] !== null);
   const minVal = Math.min(...values);
   const maxVal = Math.max(...values);
-  // When all values are equal, create a range of 2 with the value near the top
+  // When all values are equal, center the value in a range of 2
   const range = maxVal - minVal || 2;
-  const displayMin = maxVal - minVal ? minVal : (lower ? minVal : minVal - 2);
-  const displayMax = maxVal - minVal ? maxVal : (lower ? maxVal + 2 : maxVal);
+  const displayMin = maxVal - minVal ? minVal : minVal - 1;
+  const displayMax = maxVal - minVal ? maxVal : maxVal + 1;
 
   // y: lower value = better visually if lower=true (put good at top)
   function toY(v) {
@@ -143,17 +143,22 @@ function LineChart({ data, metricKey, lower, formatValue }) {
     .map((p, i) => `${i === 0 ? 'M' : 'L'}${p[0]},${p[1]}`)
     .join(' ');
 
-  // Y-axis: up to 4 ticks, skipping duplicates after formatting
-  const ticks = 4;
-  const seenLabels = new Set();
-  const yTicks = Array.from({ length: ticks + 1 }, (_, i) => {
-    const v = displayMin + (range * i) / ticks;
-    const y = toY(v);
-    const label = formatValue(v);
-    if (seenLabels.has(label)) return null;
-    seenLabels.add(label);
-    return { v, y, label };
-  }).filter(Boolean);
+  // Y-axis: generate ticks at nice integer-aligned steps for consistent spacing
+  function niceStep(r) {
+    const raw = r / 4;
+    if (raw <= 1) return 1;
+    if (raw <= 2) return 2;
+    if (raw <= 5) return 5;
+    if (raw <= 10) return 10;
+    if (raw <= 20) return 20;
+    return 25;
+  }
+  const step = niceStep(range);
+  const tickStart = Math.ceil(displayMin / step) * step;
+  const yTicks = [];
+  for (let v = tickStart; v <= displayMax + 1e-9; v += step) {
+    yTicks.push({ v, y: toY(v), label: formatValue(v) });
+  }
 
   const primaryColor = 'var(--primary)';
 
