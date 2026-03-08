@@ -61,7 +61,7 @@ export function computeYearlyStats(competitionScores) {
     .map(([year, data]) => ({
       year: parseInt(year, 10),
       avgScore: data.scores.length
-        ? data.scores.reduce((a, b) => a + b, 0) / data.scores.length
+        ? Math.round(data.scores.reduce((a, b) => a + b, 0) / data.scores.length)
         : null,
       cutPct: data.total > 0 ? (data.cutsMade / data.total) * 100 : null,
       bestScore: data.scores.length ? Math.min(...data.scores) : null,
