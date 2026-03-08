@@ -52,7 +52,7 @@ export default function PlayersPage({ account, players: rawPlayers }) {
   const router = useRouter();
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
   const [players, setPlayers] = useState(rawPlayers);
-  const { sortBy = 'lastName', filter = '' } = router.query;
+  const { sortBy = 'lastName', filter = '', years = '3' } = router.query;
   const [currentFilter, setCurrentFilter] = useState(filter);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const sentinelRef = useRef(null);
@@ -146,17 +146,25 @@ export default function PlayersPage({ account, players: rawPlayers }) {
     () =>
       debounce(filter => {
         router.replace(
-          `/players?filter=${encodeURIComponent(filter)}&sortBy=${sortBy}`,
+          `/players?filter=${encodeURIComponent(filter)}&sortBy=${sortBy}&years=${years}`,
           undefined,
           { scroll: false, shallow: true },
         );
       }, 250),
-    [sortBy],
+    [sortBy, years],
   );
 
   function handleSearchChange(e) {
     setCurrentFilter(e.target.value);
     debouncedSetFilter(e.target.value);
+  }
+
+  function handleYearsChange(e) {
+    router.replace(
+      `/players?years=${e.target.value}&sortBy=${sortBy}&filter=${encodeURIComponent(filter)}`,
+      undefined,
+      { scroll: false },
+    );
   }
 
   const favorites = players.filter(e => e.isFavorite);
@@ -189,8 +197,27 @@ export default function PlayersPage({ account, players: rawPlayers }) {
       </Head>
       <h2>Players</h2>
       <p className="page-desc" style={{ marginBottom: 15 }}>
-        Players who have participated in at least one event during the season
-        are listed here.{' '}
+        Showing players with an active participation{' '}
+        <select
+          value={years}
+          onChange={handleYearsChange}
+          style={{
+            font: 'inherit',
+            border: 'none',
+            borderBottom: '1px solid currentColor',
+            borderRadius: 0,
+            background: 'transparent',
+            cursor: 'pointer',
+            padding: '0 2px',
+          }}
+        >
+          <option value="1">in the current season</option>
+          <option value="2">in the last 2 seasons</option>
+          <option value="3">in the last 3 seasons</option>
+          <option value="5">in the last 5 seasons</option>
+
+        </select>
+        .{' '}
         {!account ? (
           <>
             <Link href="/sign-in">Sign in</Link> to synchronize your favorites
@@ -215,9 +242,7 @@ export default function PlayersPage({ account, players: rawPlayers }) {
             value={sortBy}
             onChange={e => {
               router.replace(
-                `/players?sortBy=${e.target.value}&filter=${encodeURIComponent(
-                  filter,
-                )}`,
+                `/players?sortBy=${e.target.value}&filter=${encodeURIComponent(filter)}&years=${years}`,
                 undefined,
                 { scroll: false, shallow: true },
               );
@@ -274,7 +299,13 @@ export default function PlayersPage({ account, players: rawPlayers }) {
   );
 }
 
-export async function getServerSideProps({ req }) {
+export async function getServerSideProps({ req, query }) {
+  const years = query.years || '3';
+  const since =
+    years === 'all'
+      ? null
+      : new Date(new Date().getFullYear() - (parseInt(years, 10) - 1), 0, 1);
+
   const [
     {
       props: { account },
@@ -283,6 +314,22 @@ export async function getServerSideProps({ req }) {
   ] = await Promise.all([
     profileProps({ req }),
     prisma.player.findMany({
+      where: since
+        ? {
+            OR: [
+              {
+                leaderBoardEntries: {
+                  some: { competition: { start: { gte: since } } },
+                },
+              },
+              {
+                competitionScore: {
+                  some: { competition: { start: { gte: since } } },
+                },
+              },
+            ],
+          }
+        : undefined,
       select: {
         id: true,
         slug: true,
