@@ -8,7 +8,7 @@ export default function ReportBlurbs({ reports, showViewAll }) {
 
   return (
     <section className="report-blurbs-section">
-      <h3>Tournament reports</h3>
+      <h3>Tournament feed</h3>
       <ul className="report-blurbs">
         {reports.map(report => (
           <li key={report.slug} className="report-blurb">
@@ -32,8 +32,12 @@ export default function ReportBlurbs({ reports, showViewAll }) {
               )}
               <div className="report-blurb-content">
                 <p className="report-blurb-meta">
-                  {report.competitionName}
-                  {' · '}
+                  {!report.isSeriesReport && (
+                    <>
+                      {report.competitionName}
+                      {' · '}
+                    </>
+                  )}
                   {format(new Date(report.endDate), 'MMM yyyy')}
                 </p>
                 <h4 className="report-blurb-headline">{report.headline}</h4>
