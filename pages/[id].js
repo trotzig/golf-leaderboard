@@ -9,6 +9,7 @@ import PlayerPhoto from '../src/PlayerPhoto';
 import PlayerStatsChart from '../src/PlayerStatsChart';
 import SignInForm from '../src/SignInForm';
 import fixParValue from '../src/fixParValue';
+import formatCompetitionName from '../src/formatCompetitionName';
 import ordinal from '../src/ordinal';
 import prisma from '../src/prisma';
 import useData from '../src/useData';
@@ -170,7 +171,7 @@ export default function PlayerPage({
                 <tr key={comp.competition.name}>
                   <td className="results-table-competition">
                     <Link href={`/t/${comp.competition.slug}`}>
-                      {comp.competition.name}
+                      {formatCompetitionName(comp.competition.name)}
                       <div>{comp.competition.course}</div>
                     </Link>
                   </td>

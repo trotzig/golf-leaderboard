@@ -9,6 +9,7 @@ import { useJsonPData } from '../../../../../src/fetchJsonP';
 import LoadingSkeleton from '../../../../../src/LoadingSkeleton';
 import PlayerPhoto from '../../../../../src/PlayerPhoto';
 import fixParValue from '../../../../../src/fixParValue';
+import formatCompetitionName from '../../../../../src/formatCompetitionName';
 import prisma from '../../../../../src/prisma';
 import generateSlug from '../../../../../src/generateSlug';
 
@@ -142,11 +143,11 @@ export default function CompetitionPlayer({ now: nowMs, player, competition, bas
     <div>
       <Head>
         <title>
-          {player.firstName} {player.lastName}'s scorecard in {competition.name}
+          {player.firstName} {player.lastName}'s scorecard in {formatCompetitionName(competition.name)}
         </title>
         <meta
           name="description"
-          content={`Results for ${player.firstName} ${player.lastName} in ${competition.name}`}
+          content={`Results for ${player.firstName} ${player.lastName} in ${formatCompetitionName(competition.name)}`}
         />
         {baseUrl && (
           <link
@@ -161,7 +162,7 @@ export default function CompetitionPlayer({ now: nowMs, player, competition, bas
         ) : (
           <>
             <h2 className="player-profile-course-heading">
-              {competition.name}
+              {formatCompetitionName(competition.name)}
             </h2>
             <div className="player-profile-top page-margin">
               <PlayerPhoto player={player} />

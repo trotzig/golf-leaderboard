@@ -7,6 +7,7 @@ import React, { useEffect, useMemo } from 'react';
 import ReportBlurbs from './ReportBlurbs.js';
 import Leaderboard from './Leaderboard.js';
 import competitionDateString from './competitionDateString';
+import formatCompetitionName from './formatCompetitionName';
 import ensureDates from './ensureDates.js';
 import { preloadJsonPData } from './fetchJsonP.js';
 
@@ -220,7 +221,7 @@ function CompetitionListItem({ competition, now, current, next }) {
         </div>
         <div className="competition-details">
           <h4 className="competition-name">
-            <span>{competition.name}</span>
+            <span>{formatCompetitionName(competition.name)}</span>
           </h4>
           <p>
             {competition.venue} — {competitionDateString(competition, now)}

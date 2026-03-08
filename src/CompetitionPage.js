@@ -13,6 +13,7 @@ import Lazy from './Lazy';
 import LoadingSkeleton from './LoadingSkeleton';
 import PlayerDialog from './PlayerDialog';
 import competitionDateString from './competitionDateString';
+import formatCompetitionName from './formatCompetitionName';
 import normalizeName from './normalizeName.js';
 import ensureDates from './ensureDates.js';
 import CutInfo from './CutInfo';
@@ -561,18 +562,18 @@ export default function CompetitionPage({
   return (
     <div className="leaderboard-page">
       <Head>
-        <title>{`${competition.name} | ${getHeading(competition, now, finished)}`}</title>
+        <title>{`${formatCompetitionName(competition.name)} | ${getHeading(competition, now, finished)}`}</title>
         <meta
           name="description"
-          content={`Follow the leaderboard and see tee times for ${competition.name}${competition.venue ? ` at ${competition.venue}` : ''}.`}
+          content={`Follow the leaderboard and see tee times for ${formatCompetitionName(competition.name)}${competition.venue ? ` at ${competition.venue}` : ''}.`}
         />
         <meta
           property="og:title"
-          content={`${competition.name} | ${getHeading(competition, now, finished)}`}
+          content={`${formatCompetitionName(competition.name)} | ${getHeading(competition, now, finished)}`}
         />
         <meta
           property="og:description"
-          content={`Follow the leaderboard and see tee times for ${competition.name}${competition.venue ? ` at ${competition.venue}` : ''}.`}
+          content={`Follow the leaderboard and see tee times for ${formatCompetitionName(competition.name)}${competition.venue ? ` at ${competition.venue}` : ''}.`}
         />
         <meta property="og:type" content="website" />
         {finishedResult?.youtubeId && (
@@ -590,15 +591,15 @@ export default function CompetitionPage({
         )}
         <meta
           name="twitter:title"
-          content={`${competition.name} | ${getHeading(competition, now, finished)}`}
+          content={`${formatCompetitionName(competition.name)} | ${getHeading(competition, now, finished)}`}
         />
         <meta
           name="twitter:description"
-          content={`Follow the leaderboard and see tee times for ${competition.name}${competition.venue ? ` at ${competition.venue}` : ''}.`}
+          content={`Follow the leaderboard and see tee times for ${formatCompetitionName(competition.name)}${competition.venue ? ` at ${competition.venue}` : ''}.`}
         />
       </Head>
       <div className="h-intro">{getHeading(competition, now, finished)}</div>
-      <h2 className="leaderboard-page-heading">{competition.name}</h2>
+      <h2 className="leaderboard-page-heading">{formatCompetitionName(competition.name)}</h2>
       {competition.venue && (
         <p className="leaderboard-page-subtitle">
           <VenueMapLink venue={competition.venue} />

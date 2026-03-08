@@ -2,6 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 
 import competitionDateString from './competitionDateString.js';
+import formatCompetitionName from './formatCompetitionName';
 import fixParValue from './fixParValue';
 import FlagIcon, { getCountryName } from './FlagIcon';
 import normalizeName from './normalizeName.js';
@@ -20,7 +21,7 @@ export default function Leaderboard({ competition, now }) {
           {finished ? 'Final results' : 'Leaderboard'}
         </div>
         <h4 className="leaderboard-competition-name">
-          <span>{competition.name}</span>
+          <span>{formatCompetitionName(competition.name)}</span>
         </h4>
         <p className="leaderboard-description">
           {competition.venue} —{' '}

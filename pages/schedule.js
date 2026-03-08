@@ -4,6 +4,7 @@ import Head from 'next/head';
 import React, { useState, useEffect } from 'react';
 
 import ensureDates from '../src/ensureDates.js';
+import formatCompetitionName from '../src/formatCompetitionName';
 import prisma from '../src/prisma';
 import locations from '../src/locations.json';
 
@@ -113,7 +114,7 @@ function CompetitionItem({ competition, now, current, previousYear }) {
     >
       <td>
         <Link href={`/t/${competition.slug}${queryString}`}>
-          {competition.name}
+          {formatCompetitionName(competition.name)}
           <br />
         </Link>
         <span className="schedule-venue">{competition.venue}</span>
