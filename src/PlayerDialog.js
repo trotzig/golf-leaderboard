@@ -5,6 +5,7 @@ import FlagIcon from './FlagIcon';
 import PlayerPhoto from './PlayerPhoto';
 import fixParValue from './fixParValue';
 import generateSlug from './generateSlug.mjs';
+import formatCompetitionName from './formatCompetitionName';
 
 function getRounds(entry) {
   if (!entry.Rounds) return [];
@@ -329,9 +330,9 @@ export default function PlayerDialog({ entry, competition, data, onClose }) {
             onClick={handleClose}
             aria-label="Back"
           >
-            ← {competition.name}
+            ← {formatCompetitionName(competition.name)}
           </button>
-          <h3 className="player-dialog-title">{competition.name}</h3>
+          <h3 className="player-dialog-title">{formatCompetitionName(competition.name)}</h3>
           <button
             type="button"
             className="player-dialog-close"

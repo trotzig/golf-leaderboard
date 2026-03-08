@@ -7,6 +7,7 @@ import { useJsonPData } from '../../../../src/fetchJsonP.js';
 import CutInfo from '../../../../src/CutInfo.js';
 import FavoriteButton from '../../../../src/FavoriteButton.js';
 import competitionDateString from '../../../../src/competitionDateString.js';
+import formatCompetitionName from '../../../../src/formatCompetitionName';
 import ensureDates from '../../../../src/ensureDates.js';
 import prisma from '../../../../src/prisma';
 import removeCommonCoursePrefix from '../../../../src/removeCommonCoursePrefix.js';
@@ -120,14 +121,14 @@ export default function TeeTimesPage({ competition, now: nowMs, round }) {
   return (
     <div className="tee-times-page">
       <Head>
-        <title>{competition.name} | Tee times</title>
+        <title>{formatCompetitionName(competition.name)} | Tee times</title>
         <meta
           name="description"
-          content={`See tee times for ${competition.name}`}
+          content={`See tee times for ${formatCompetitionName(competition.name)}`}
         />
       </Head>
       <div className="h-intro">Tee times</div>
-      <h2 className="tee-times-page-heading">{competition.name}</h2>
+      <h2 className="tee-times-page-heading">{formatCompetitionName(competition.name)}</h2>
       {competition.venue && (
         <p className="tee-times-page-subtitle">
           {competition.venue} –{' '}
