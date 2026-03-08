@@ -102,10 +102,12 @@ export default function PlayerPage({
           </p>
           <FavoriteButton onChange={setIsFavorite} playerId={player.id} large />
         </div>
-        <Link href="/oom" className="player-page-oom">
-          <b>{ordinal(player.oomPosition)}</b>
-          Order of merit
-        </Link>
+        {player.oomPosition ? (
+          <Link href="/oom" className="player-page-oom">
+            <b>{ordinal(player.oomPosition)}</b>
+            Order of merit
+          </Link>
+        ) : null}
       </div>
 
       {isFavorite && !profile && !isLoadingProfile ? (
