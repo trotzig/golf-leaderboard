@@ -796,7 +796,13 @@ footer {
   transform: translateY(-50%);
   width: calc(var(--hole-pct) - 14px);
   height: 10px;
+  display: flex;
+  gap: 3px;
+}
+
+.hole-fairway-segment {
   background: #4a9e5c;
+  border-radius: 2px;
 }
 
 .hole-green {

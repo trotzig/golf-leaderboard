@@ -6,12 +6,17 @@ import LoadingSkeleton from '../../../../../src/LoadingSkeleton';
 import VenueMapLink from '../../../../../src/VenueMapLink';
 import prisma from '../../../../../src/prisma';
 
-function HoleIllustration({ length, maxLength }) {
+function HoleIllustration({ length, maxLength, par }) {
   const pct = Math.max(15, (length / maxLength) * 100);
+  const segments = par >= 5 ? [2, 2, 1] : par >= 4 ? [2, 1] : [1];
   return (
     <div className="hole-visual" style={{ '--hole-pct': `${pct}%` }}>
       <div className="hole-tee" />
-      <div className="hole-fairway" />
+      <div className="hole-fairway">
+        {segments.map((flex, i) => (
+          <div key={i} className="hole-fairway-segment" style={{ flex }} />
+        ))}
+      </div>
       <div className="hole-green">
         <div className="hole-flagpole" />
         <div className="hole-flag" />
@@ -92,7 +97,7 @@ export default function Course({ competition }) {
                 <React.Fragment key={hole.key}>
                   <div className="hole-row">
                     <span className="hole-num">{hole.number}</span>
-                    <HoleIllustration length={hole.length} maxLength={maxLength} />
+                    <HoleIllustration length={hole.length} maxLength={maxLength} par={hole.par} />
                     <span className="hole-len">{hole.length}m</span>
                     <span className="hole-par">Par {hole.par}</span>
                   </div>
