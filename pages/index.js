@@ -119,6 +119,7 @@ export async function getServerSideProps() {
         winnerName: a.winnerName || null,
         winnerPlayerId: a.winnerPlayerId || null,
         winnerImage: a.winnerImage || null,
+        isSeriesReport: a.isSeriesReport || false,
       }));
   }
 
