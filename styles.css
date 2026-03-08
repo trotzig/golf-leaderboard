@@ -2611,3 +2611,41 @@ h2.player-big-name {
   border-radius: 1px;
   box-shadow: 0 0 0 1px rgba(var(--text-rgb), 0.15);
 }
+
+/* 404 page */
+.not-found {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px 10px 40px;
+  text-align: center;
+}
+
+.not-found-bg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.not-found-heading {
+  margin: 1.5rem 0 0.25rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.not-found-subheading {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  opacity: 0.7;
+}
+
+.not-found-link {
+  font-size: 0.9rem;
+  opacity: 0.6;
+  text-decoration: underline;
+}
+
+.not-found-link:hover {
+  opacity: 1;
+}
