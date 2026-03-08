@@ -1013,7 +1013,6 @@ footer {
   gap: 20px;
   align-items: flex-start;
   max-width: 600px;
-  margin: 0 auto 20px;
 }
 .player-profile-course-heading {
   max-width: 600px;
@@ -2526,6 +2525,32 @@ h2.player-big-name {
   transition: background 0.15s;
 }
 .player-dialog-close:hover {
+  background: rgba(var(--text-rgb), 0.14);
+}
+.player-profile-share {
+  padding-top: 6px;
+  padding-bottom: 16px;
+}
+.player-dialog-share {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 6px;
+  background: rgba(var(--text-rgb), 0.08);
+  color: var(--text);
+  font-size: 14px;
+  padding: 6px 12px;
+  user-select: none;
+  transition: background 0.15s;
+}
+.player-dialog-share svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+.player-dialog-share:hover {
   background: rgba(var(--text-rgb), 0.14);
 }
 
