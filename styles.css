@@ -744,6 +744,12 @@ footer {
   margin-bottom: 15px;
 }
 
+.course-summary {
+  color: var(--secondary);
+  font-size: 14px;
+  margin: -5px 0 15px;
+}
+
 .hole-list {
   max-width: 500px;
   padding: 8px 0;
