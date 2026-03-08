@@ -1,0 +1,168 @@
+{
+  "competitionId": 5433278,
+  "competitionSlug": "infinitum-spring-series-final---by-ecco-2026",
+  "competitionName": "INFINITUM Spring Series Final - by ECCO",
+  "venue": "Infinitum Golf, Spain",
+  "startDate": "2026-02-14T00:00:00.000Z",
+  "endDate": "2026-03-06T00:00:00.000Z",
+  "slug": "season-summary-2026",
+  "headline": "Ege leads birdie charge as five aces light up the season so far",
+  "blurb": "Five tournaments in, the Cutter & Buck Tour has already delivered 5 hole-in-ones, a tight birdie race, and a handful of players showing remarkable consistency.",
+  "body": "Five events into the Cutter & Buck Tour season and the stats are already painting a vivid picture. [Mats Ege](/mats-ege) tops the birdie chart with an impressive 76 birdies, holding a narrow lead over [Adam Andersson](/adam-andersson) on 73 and [Ludvig Eriksson](/ludvig-eriksson-ab2) on 72. Close behind sit [Albin Tidén](/albin-tiden) with 71 and [Lauri Ruuska](/lauri-ruuska) with 70, making the top five almost impossible to separate.\n\nThe eagle leaderboard tells its own story. [Calum Scott](/calum-scott) shares the lead with five eagles through the opening five tournaments, while Ruuska is not far behind on four — adding a big-play dimension to his already strong birdie numbers.\n\nPerhaps the most eye-catching stat of the season so far is the number of hole-in-ones. Five players have found the cup in one shot, all at Infinitum Golf in Spain. [Matias Honkala](/matias-honkala), [Theis Poulsen](/theis-poulsen), and Eriksson all aced the 6th hole, [Jamie Tofte Nielsen](/jamie-tofte-nielsen) made his ace on 17, and [Oliver Suhr](/oliver-suhr) did the same on the 4th. That is a remarkable run of aces at a single venue.\n\nConsistency has been just as important as brilliance. Only four players have made the cut in all five events: Ege, Andersson, Tofte Nielsen, and [Fabian Wennerlöf](/fabian-wennerlof). Making every weekend on the Cutter & Buck Tour is no small feat, and those four have shown they can perform week after week regardless of the conditions.",
+  "winnerName": null,
+  "winnerPlayerId": null,
+  "winnerPlayerSlug": null,
+  "winnerImage": null,
+  "isSeriesReport": true,
+  "stats": {
+    "competitions": [
+      {
+        "id": 5299728,
+        "name": "GolfStar Winter Series Dunes",
+        "venue": "Empordá Golf Club",
+        "slug": "golfstar-winter-series-dunes-2026"
+      },
+      {
+        "id": 5299753,
+        "name": "GolfStar Winter Series Forest",
+        "venue": "Empordá Golf Club",
+        "slug": "golfstar-winter-series-forest-2026"
+      },
+      {
+        "id": 5416024,
+        "name": "INFINITUM ECCO Masters - GolfBox Tournament no. 1,000,000",
+        "venue": "Infinitum Golf, Spain",
+        "slug": "infinitum-ecco-masters---golfbox-tournament-no-1000000"
+      },
+      {
+        "id": 5433274,
+        "name": "INFINITUM Championship",
+        "venue": "Infinitum Golf, Spain",
+        "slug": "infinitum-championship-2026"
+      },
+      {
+        "id": 5433278,
+        "name": "INFINITUM Spring Series Final - by ECCO",
+        "venue": "Infinitum Golf, Spain",
+        "slug": "infinitum-spring-series-final---by-ecco-2026"
+      }
+    ],
+    "topBirdies": [
+      {
+        "id": "5-7825",
+        "name": "Mats Ege",
+        "playerSlug": "mats-ege",
+        "count": 76
+      },
+      {
+        "id": "931005-033",
+        "name": "Adam Andersson",
+        "playerSlug": "adam-andersson",
+        "count": 73
+      },
+      {
+        "id": "031218-007",
+        "name": "Ludvig Eriksson",
+        "playerSlug": "ludvig-eriksson-ab2",
+        "count": 72
+      },
+      {
+        "id": "981005-006",
+        "name": "Albin Tidén",
+        "playerSlug": "albin-tiden",
+        "count": 71
+      },
+      {
+        "id": "60-2425",
+        "name": "Lauri Ruuska",
+        "playerSlug": "lauri-ruuska",
+        "count": 70
+      }
+    ],
+    "topEagles": [
+      {
+        "id": "252558",
+        "name": "Calum Scott",
+        "playerSlug": "calum-scott",
+        "count": 5
+      },
+      {
+        "id": "188-1729",
+        "name": "Kristoffer Max",
+        "playerSlug": null,
+        "count": 5
+      },
+      {
+        "id": "60-2425",
+        "name": "Lauri Ruuska",
+        "playerSlug": "lauri-ruuska",
+        "count": 4
+      }
+    ],
+    "holeInOnes": [
+      {
+        "memberId": "46-11214",
+        "name": "Matias Honkala",
+        "playerSlug": "matias-honkala",
+        "hole": 6,
+        "venue": "Infinitum Golf, Spain",
+        "competitionName": "INFINITUM ECCO Masters - GolfBox Tournament no. 1,000,000"
+      },
+      {
+        "memberId": "37-3601",
+        "name": "Jamie Tofte Nielsen",
+        "playerSlug": "jamie-tofte-nielsen",
+        "hole": 17,
+        "venue": "Infinitum Golf, Spain",
+        "competitionName": "INFINITUM ECCO Masters - GolfBox Tournament no. 1,000,000"
+      },
+      {
+        "memberId": "031218-007",
+        "name": "Ludvig Eriksson",
+        "playerSlug": "ludvig-eriksson-ab2",
+        "hole": 6,
+        "venue": "Infinitum Golf, Spain",
+        "competitionName": "INFINITUM Championship"
+      },
+      {
+        "memberId": "120-77885",
+        "name": "Theis Poulsen",
+        "playerSlug": "theis-poulsen",
+        "hole": 6,
+        "venue": "Infinitum Golf, Spain",
+        "competitionName": "INFINITUM Championship"
+      },
+      {
+        "memberId": "8-795",
+        "name": "Oliver Suhr",
+        "playerSlug": "oliver-suhr",
+        "hole": 4,
+        "venue": "Infinitum Golf, Spain",
+        "competitionName": "INFINITUM Spring Series Final - by ECCO"
+      }
+    ],
+    "madeAllCuts": [
+      {
+        "id": "931005-033",
+        "name": "Adam Andersson",
+        "playerSlug": "adam-andersson"
+      },
+      {
+        "id": "020815-005",
+        "name": "Fabian Wennerlöf",
+        "playerSlug": "fabian-wennerlof"
+      },
+      {
+        "id": "37-3601",
+        "name": "Jamie Tofte Nielsen",
+        "playerSlug": "jamie-tofte-nielsen"
+      },
+      {
+        "id": "5-7825",
+        "name": "Mats Ege",
+        "playerSlug": "mats-ege"
+      }
+    ]
+  },
+  "createdAt": "2026-03-08T19:45:42.601Z"
+}

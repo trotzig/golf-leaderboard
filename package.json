@@ -11,6 +11,8 @@
     "update-locations": "dotenv -e node scripts/update-locations.mjs",
     "update-locations:prod": "dotenv -e production.env node scripts/update-locations.mjs",
     "write-report": "dotenv node scripts/writeReport.mjs",
+    "write-season-summary-report": "dotenv node scripts/writeSeasonSummaryReport.mjs",
+    "write-season-summary-report:prod": "dotenv -e production.env node scripts/writeSeasonSummaryReport.mjs",
     "fill-slugs:prod": "dotenv -e production.env node src/fillSlugs.mjs",
     "dev": "next dev",
     "build": "next build",

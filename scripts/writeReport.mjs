@@ -128,7 +128,13 @@ function readApiKey() {
   return null;
 }
 
-async function callAnthropicAPI(tournamentData) {
+async function callAnthropicAPI(tournamentData, playerLinksText, extraContext) {
+  const playerLinksSection = playerLinksText
+    ? `\nPlayer links (use exactly as shown, at most once each):\n${playerLinksText}\n`
+    : '';
+  const extraContextSection = extraContext
+    ? `\nAdditional context from the editor (incorporate where relevant):\n${extraContext}\n`
+    : '';
   const apiKey = readApiKey();
   if (!apiKey) {
     throw new Error('ANTHROPIC_API_KEY not set — add it to your .env file');
@@ -209,7 +215,7 @@ Write a short article about this tournament. Return ONLY a valid JSON object (no
     priorResultsText
       ? ' If the winner has notable prior results, briefly reference them.'
       : ''
-  }${extraordinaryRoundsText ? ' Any extraordinary rounds listed below could be mentioned in the article.' : ''}${playOffNote ? ' The tournament ended in a play-off — this MUST be prominently mentioned.' : ''}
+  }${extraordinaryRoundsText ? ' Any extraordinary rounds listed below could be mentioned in the article.' : ''}${playOffNote ? ' The tournament ended in a play-off — this MUST be prominently mentioned.' : ''} When mentioning a player by name, use a markdown link from the player list below — use each player link at most once across the whole article.
 ${extraordinaryRoundsText}${playOffNote}${statusNote}${headlinesWarning}
 Tournament: ${tournamentData.name}
 Venue: ${tournamentData.venue || 'Nordic Golf Tour'}
@@ -223,7 +229,7 @@ Statistics:
 - Players who made the cut: ${tournamentData.playersMadeCut}
 - ${cutText}
 - ${marginText}
-${priorResultsText}
+${priorResultsText}${playerLinksSection}${extraContextSection}
 Return only the raw JSON object.`;
 
   const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -466,6 +472,24 @@ async function main() {
     );
   }
 
+  // Build player links for the article (top 15 finishers + extraordinary round players)
+  const playerLinksMap = new Map();
+  const normalizeName = name =>
+    name.replace(/\s*\(a\)\s*/gi, ' ').replace(/\s+/g, ' ').trim();
+  for (const f of finishers.slice(0, 15)) {
+    const slug = playerSlugs[f.memberId];
+    if (slug) playerLinksMap.set(normalizeName(`${f.firstName} ${f.lastName}`), slug);
+  }
+  for (const e of entries) {
+    if ((e.rounds || []).some(r => r.grossScore <= EXTRAORDINARY_ROUND_THRESHOLD)) {
+      const slug = playerSlugs[e.memberId];
+      if (slug) playerLinksMap.set(normalizeName(`${e.firstName} ${e.lastName}`), slug);
+    }
+  }
+  const playerLinksText = [...playerLinksMap.entries()]
+    .map(([name, slug]) => `  - [${name}](/${slug})`)
+    .join('\n');
+
   // Check for winner image
   const winnerImage = winner ? findWinnerImage(winner.playerId) : null;
 
@@ -501,8 +525,12 @@ async function main() {
   console.log(`  Cut score: ${cutScore} (${cutScoreText})`);
   console.log(`  Winner image: ${winnerImage || 'none'}`);
 
+  const extraContext = await promptUser(
+    '\nAny additional context for the article? (press Enter to skip)\n> ',
+  );
+
   console.log('\nCalling Anthropic API...');
-  const article = await callAnthropicAPI(tournamentData);
+  const article = await callAnthropicAPI(tournamentData, playerLinksText, extraContext);
 
   console.log(`\nHeadline: ${article.headline}`);
   console.log(`Blurb: ${article.blurb}`);

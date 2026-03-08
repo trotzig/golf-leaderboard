@@ -7,6 +7,21 @@ import { format } from 'date-fns';
 
 import PlayerPhoto from '../../src/PlayerPhoto';
 
+// Parse markdown links ([text](href)) in a paragraph into renderable segments
+function parseParagraph(text) {
+  const segments = [];
+  const re = /\[([^\]]+)\]\(([^)]+)\)/g;
+  let last = 0;
+  let match;
+  while ((match = re.exec(text)) !== null) {
+    if (match.index > last) segments.push({ text: text.slice(last, match.index), href: null });
+    segments.push({ text: match[1], href: match[2] });
+    last = match.index + match[0].length;
+  }
+  if (last < text.length) segments.push({ text: text.slice(last), href: null });
+  return segments;
+}
+
 export default function ReportPage({ report, baseUrl }) {
   const paragraphs = report.body
     .split(/\n\n+/)
@@ -47,7 +62,13 @@ export default function ReportPage({ report, baseUrl }) {
           <p className="report-lead">{report.blurb}</p>
         </header>
 
-        {report.winnerImage && report.winnerPlayerId && (
+        {report.isSeriesReport ? (
+          <div className="report-series-icon-wrap">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="report-series-icon">
+              <path d="M5 3V19H21V21H3V3H5ZM20.2929 6.29289L21.7071 7.70711L16 13.4142L13 10.415L8.70711 14.7071L7.29289 13.2929L13 7.58579L16 10.585L20.2929 6.29289Z" />
+            </svg>
+          </div>
+        ) : report.winnerImage && report.winnerPlayerId && (
           <div className="report-winner-image-wrap">
             <PlayerPhoto
               player={{
@@ -64,7 +85,13 @@ export default function ReportPage({ report, baseUrl }) {
 
         <div className="report-body">
           {paragraphs.map((p, i) => (
-            <p key={i}>{p}</p>
+            <p key={i}>
+              {parseParagraph(p).map((seg, j) =>
+                seg.href ? (
+                  <Link key={j} href={seg.href} className="report-player-link">{seg.text}</Link>
+                ) : seg.text
+              )}
+            </p>
           ))}
         </div>
 
@@ -127,6 +154,66 @@ export default function ReportPage({ report, baseUrl }) {
                 View all scores →
               </Link>
             </div>
+          </aside>
+        )}
+
+        {report.stats?.topBirdies?.length > 0 && (
+          <aside className="report-results">
+            <h2 className="report-results-heading">Most birdies or better</h2>
+            <table className="report-results-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Player</th>
+                  <th>Birdies</th>
+                </tr>
+              </thead>
+              <tbody>
+                {report.stats.topBirdies.map((p, i) => (
+                  <tr key={i}>
+                    <td>{i + 1}</td>
+                    <td>
+                      {p.playerSlug ? (
+                        <Link href={`/${p.playerSlug}`}>{p.name}</Link>
+                      ) : (
+                        p.name
+                      )}
+                    </td>
+                    <td className="report-results-score">{p.count}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </aside>
+        )}
+
+        {report.stats?.holeInOnes?.length > 0 && (
+          <aside className="report-results">
+            <h2 className="report-results-heading">Hole-in-ones</h2>
+            <table className="report-results-table">
+              <thead>
+                <tr>
+                  <th>Player</th>
+                  <th>Hole</th>
+                  <th>Venue</th>
+                </tr>
+              </thead>
+              <tbody>
+                {report.stats.holeInOnes.map((h, i) => (
+                  <tr key={i}>
+                    <td>
+                      {h.playerSlug ? (
+                        <Link href={`/${h.playerSlug}`}>{h.name}</Link>
+                      ) : (
+                        h.name
+                      )}
+                    </td>
+                    <td className="report-results-score">{h.hole}</td>
+                    <td>{h.venue}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </aside>
         )}
 
