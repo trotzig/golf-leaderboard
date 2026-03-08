@@ -51,7 +51,7 @@ export default function PlayerPage({
         <title>{`${player.firstName} ${player.lastName} | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`}</title>
         <meta
           name="description"
-          content={`${player.firstName} ${player.lastName} from ${player.clubName} is competing in ${process.env.NEXT_PUBLIC_INTRO_TITLE}. Follow their results and subscribe to updates.`}
+          content={`${player.firstName} ${player.lastName} from ${player.clubName} is competing on the ${process.env.NEXT_PUBLIC_INTRO_TITLE}. Follow their results and subscribe to updates.`}
         />
         <meta
           property="og:title"
@@ -59,7 +59,7 @@ export default function PlayerPage({
         />
         <meta
           property="og:description"
-          content={`${player.firstName} ${player.lastName} from ${player.clubName} is competing in ${process.env.NEXT_PUBLIC_INTRO_TITLE}. Follow their results and subscribe to updates.`}
+          content={`${player.firstName} ${player.lastName} from ${player.clubName} is competing on the ${process.env.NEXT_PUBLIC_INTRO_TITLE}. Follow their results and subscribe to updates.`}
         />
         <meta property="og:type" content="profile" />
         {baseUrl && (
@@ -81,7 +81,7 @@ export default function PlayerPage({
         />
         <meta
           name="twitter:description"
-          content={`${player.firstName} ${player.lastName} from ${player.clubName} is competing in ${process.env.NEXT_PUBLIC_INTRO_TITLE}. Follow their results and subscribe to updates.`}
+          content={`${player.firstName} ${player.lastName} from ${player.clubName} is competing on the ${process.env.NEXT_PUBLIC_INTRO_TITLE}. Follow their results and subscribe to updates.`}
         />
         {baseUrl && (
           <meta
