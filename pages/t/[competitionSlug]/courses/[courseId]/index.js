@@ -3,14 +3,20 @@ import React from 'react';
 
 import { useJsonPData } from '../../../../../src/fetchJsonP';
 import LoadingSkeleton from '../../../../../src/LoadingSkeleton';
+import VenueMapLink from '../../../../../src/VenueMapLink';
 import prisma from '../../../../../src/prisma';
 
-function HoleIllustration({ length, maxLength }) {
+function HoleIllustration({ length, maxLength, par }) {
   const pct = Math.max(15, (length / maxLength) * 100);
+  const segments = par >= 5 ? [2, 2, 1] : par >= 4 ? [2, 1] : [1];
   return (
     <div className="hole-visual" style={{ '--hole-pct': `${pct}%` }}>
       <div className="hole-tee" />
-      <div className="hole-fairway" />
+      <div className="hole-fairway">
+        {segments.map((flex, i) => (
+          <div key={i} className="hole-fairway-segment" style={{ flex }} />
+        ))}
+      </div>
       <div className="hole-green">
         <div className="hole-flagpole" />
         <div className="hole-flag" />
@@ -50,6 +56,10 @@ export default function Course({ competition }) {
   const maxLength = holes.length ? Math.max(...holes.map(h => h.length)) : 1;
   const totalLength = holes.reduce((sum, h) => sum + h.length, 0);
   const totalPar = holes.reduce((sum, h) => sum + h.par, 0);
+  const parCounts = holes.reduce((acc, h) => {
+    acc[h.par] = (acc[h.par] || 0) + 1;
+    return acc;
+  }, {});
   const frontNine = holes.slice(0, 9);
   const backNine = holes.slice(9);
   const frontLength = frontNine.reduce((sum, h) => sum + h.length, 0);
@@ -67,12 +77,27 @@ export default function Course({ competition }) {
             <h2>
               {venue.Name} – {course.Name}
             </h2>
+            <p className="leaderboard-page-subtitle page-margin">
+              <VenueMapLink venue={venue.Name} />
+            </p>
+            {holes.length > 0 && (
+              <p className="course-summary page-margin">
+                {(() => {
+                  const parts = Object.entries(parCounts)
+                    .sort(([a], [b]) => parseInt(b) - parseInt(a))
+                    .map(([par, count]) => `${count} par ${par}${count === 1 ? '' : 's'}`);
+                  const last = parts.pop();
+                  const parDesc = parts.length ? `${parts.join(', ')} and ${last}` : last;
+                  return `A par ${totalPar} course with ${parDesc}, measuring a total of ${totalLength.toLocaleString('en-US')} m off the tips.`;
+                })()}
+              </p>
+            )}
             <div className="hole-list">
               {holes.map((hole, i) => (
                 <React.Fragment key={hole.key}>
                   <div className="hole-row">
                     <span className="hole-num">{hole.number}</span>
-                    <HoleIllustration length={hole.length} maxLength={maxLength} />
+                    <HoleIllustration length={hole.length} maxLength={maxLength} par={hole.par} />
                     <span className="hole-len">{hole.length}m</span>
                     <span className="hole-par">Par {hole.par}</span>
                   </div>
