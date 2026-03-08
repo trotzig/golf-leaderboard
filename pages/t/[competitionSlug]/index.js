@@ -27,7 +27,9 @@ export async function getServerSideProps({ req, params }) {
   const {
     props: { account },
   } = proProps;
+  const protocol = req.headers['x-forwarded-proto'] || 'https';
+  const baseUrl = `${protocol}://${req.headers.host}`;
   return {
-    props: { competition, account: account || null, now: Date.now() },
+    props: { competition, account: account || null, now: Date.now(), baseUrl },
   };
 }

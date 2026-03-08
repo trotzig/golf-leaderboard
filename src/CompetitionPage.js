@@ -496,6 +496,7 @@ export default function CompetitionPage({
   competition = {},
   now: nowMs = Date.now(),
   lazyItems = true,
+  baseUrl,
 }) {
   ensureDates(competition);
   const now = new Date(nowMs);
@@ -563,6 +564,7 @@ export default function CompetitionPage({
     <div className="leaderboard-page">
       <Head>
         <title>{`${formatCompetitionName(competition.name)} | ${getHeading(competition, now, finished)}`}</title>
+        {baseUrl && <link rel="canonical" href={`${baseUrl}/t/${competition.slug}`} />}
         <meta
           name="description"
           content={`Follow the leaderboard and see tee times for ${formatCompetitionName(competition.name)}${competition.venue ? ` at ${competition.venue}` : ''}.`}

@@ -74,7 +74,7 @@ function Game({ game }) {
   );
 }
 
-export default function TeeTimesPage({ competition, now: nowMs, round }) {
+export default function TeeTimesPage({ competition, now: nowMs, round, baseUrl }) {
   ensureDates(competition);
   const now = new Date(nowMs);
   const leaderboardData = useJsonPData(
@@ -122,6 +122,7 @@ export default function TeeTimesPage({ competition, now: nowMs, round }) {
     <div className="tee-times-page">
       <Head>
         <title>{formatCompetitionName(competition.name)} | Tee times</title>
+        {baseUrl && <link rel="canonical" href={`${baseUrl}/t/${competition.slug}/tee-times`} />}
         <meta
           name="description"
           content={`See tee times for ${formatCompetitionName(competition.name)}`}
@@ -213,7 +214,7 @@ export default function TeeTimesPage({ competition, now: nowMs, round }) {
   );
 }
 
-export async function getServerSideProps({ params, query }) {
+export async function getServerSideProps({ req, params, query }) {
   const competition = await prisma.competition.findUnique({
     where: { slug: params.competitionSlug },
     select: {
@@ -230,7 +231,9 @@ export async function getServerSideProps({ params, query }) {
   }
   competition.start = competition.start.getTime();
   competition.end = competition.end.getTime();
-  const props = { competition, now: Date.now() };
+  const protocol = req.headers['x-forwarded-proto'] || 'https';
+  const baseUrl = `${protocol}://${req.headers.host}`;
+  const props = { competition, now: Date.now(), baseUrl };
   if (query.round) {
     props.round = query.round;
   }
