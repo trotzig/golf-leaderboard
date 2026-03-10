@@ -213,31 +213,26 @@ async function fillOOM(players) {
   }
   return index;
 }
-function dedupeSlugs(players) {
-  // Sort players by oom position. This will make slugs that need randomness
-  // belong to less important player entries.
-  players.sort((a, b) => {
-    const oomDiff = a.oomActualPosition - b.oomActualPosition;
-    if (oomDiff !== 0) {
-      return oomDiff;
-    }
-    return b.id - a.id;
-  });
-  const slugsIndex = {};
+function assignSlugs(players) {
+  // player.slug values are already set to base slugs via generateSlug().
+  // Detect collisions, compute the stable ID-based suffix for each colliding
+  // player, and build an override map so generateSlug() can look it up.
+  const slugCount = {};
   for (const player of players) {
-    if (slugsIndex[player.slug]) {
-      console.warn(
-        `Found non-unique slug "${player.slug}" for id ${
-          player.id
-        } belonging to ${slugsIndex[player.slug].id}. Will use random suffix.`,
-      );
-      player.slug = `${player.slug}-${crypto
-        .createHash('md5')
-        .update(player.id)
-        .digest('hex')
-        .slice(0, 3)}`;
+    slugCount[player.slug] = (slugCount[player.slug] || 0) + 1;
+  }
+  const slugOverrides = new Map();
+  for (const player of players) {
+    if (slugCount[player.slug] > 1) {
+      const suffix = crypto.createHash('md5').update(player.id).digest('hex').slice(0, 3);
+      slugOverrides.set(player.id, `${player.slug}-${suffix}`);
     }
-    slugsIndex[player.slug] = player;
+  }
+  if (slugOverrides.size > 0) {
+    console.warn(`Colliding slugs found: ${[...new Set(slugOverrides.values())].join(', ')}`);
+  }
+  for (const player of players) {
+    player.slug = generateSlug(player, slugOverrides);
   }
 }
 
@@ -245,7 +240,7 @@ export default async function syncData({ full = true } = {}) {
   const competitions = await fetchCompetitions();
   const players = await fetchAllPlayers(competitions, { full });
   const oomIndex = await fillOOM(players);
-  dedupeSlugs(players);
+  assignSlugs(players);
 
   const compRes = await prisma.competition.createMany({
     data: competitions,

@@ -1,11 +1,12 @@
 import CompetitionPage from '../../../src/CompetitionPage.js';
+import getCollidingSlugs from '../../../src/getCollidingSlugs.mjs';
 import prisma from '../../../src/prisma';
 import profileProps from '../../../src/profileProps.js';
 
 export default CompetitionPage;
 
 export async function getServerSideProps({ req, params }) {
-  const [competition, proProps] = await Promise.all([
+  const [competition, proProps, collidingSlugs] = await Promise.all([
     prisma.competition.findUnique({
       where: { slug: params.competitionSlug },
       select: {
@@ -18,6 +19,7 @@ export async function getServerSideProps({ req, params }) {
       },
     }),
     profileProps({ req }),
+    getCollidingSlugs(),
   ]);
   if (!competition) {
     return { notFound: true };
@@ -30,6 +32,12 @@ export async function getServerSideProps({ req, params }) {
   const protocol = req.headers['x-forwarded-proto'] || 'https';
   const baseUrl = `${protocol}://${req.headers.host}`;
   return {
-    props: { competition, account: account || null, now: Date.now(), baseUrl },
+    props: {
+      competition,
+      account: account || null,
+      now: Date.now(),
+      baseUrl,
+      collidingSlugs: [...collidingSlugs],  // array of [id, slug] pairs
+    },
   };
 }
