@@ -1203,7 +1203,7 @@ footer a:hover {
   width: 100%;
   aspect-ratio: 1/1;
   background-size: cover;
-  background-position: top center;
+  background-position: center;
   background-repeat: no-repeat;
 }
 .player-page-oom {
