@@ -72,23 +72,32 @@ export default function SchedulePage({
           </div>
         )}
         <table className="results-table page-margin">
-          <thead>
-            <tr>
-              <th>Event</th>
-              <th>Dates</th>
-            </tr>
-          </thead>
+
           {competitions.length > 0 && (
             <tbody>
-              {competitions.map(c => (
-                <CompetitionItem
-                  key={c.id}
-                  competition={c}
-                  now={now}
-                  current={currentCompetition && currentCompetition.id === c.id}
-                  previousYear={selectedYear < new Date(nowMs).getFullYear()}
-                />
-              ))}
+              {competitions.flatMap((c, i) => {
+                const month = format(new Date(c.start), 'MMMM');
+                const prevMonth =
+                  i > 0 ? format(new Date(competitions[i - 1].start), 'MMMM') : null;
+                const rows = [];
+                if (month !== prevMonth) {
+                  rows.push(
+                    <tr key={`month-${month}`} className="schedule-month-header">
+                      <td colSpan={2}>{month}</td>
+                    </tr>,
+                  );
+                }
+                rows.push(
+                  <CompetitionItem
+                    key={c.id}
+                    competition={c}
+                    now={now}
+                    current={currentCompetition && currentCompetition.id === c.id}
+                    previousYear={selectedYear < new Date(nowMs).getFullYear()}
+                  />,
+                );
+                return rows;
+              })}
             </tbody>
           )}
         </table>
@@ -145,7 +154,7 @@ export async function getServerSideProps({ query }) {
   const yearEnd = new Date(selectedYear + 1, 0, 1);
 
   const competitions = await prisma.competition.findMany({
-    orderBy: { end: 'asc' },
+    orderBy: { start: 'asc' },
     where: {
       visible: true,
       start: { gte: yearStart, lt: yearEnd },
