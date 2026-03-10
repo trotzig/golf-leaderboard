@@ -1,11 +1,12 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { useJsonPData } from '../src/fetchJsonP';
 import FavoriteButton from '../src/FavoriteButton';
 import LoadingSkeleton from '../src/LoadingSkeleton';
 import generateSlug from '../src/generateSlug';
+import getCollidingSlugs from '../src/getCollidingSlugs.mjs';
 
 const NUM_FORMATTER = Intl.NumberFormat('en-US', {
   notation: 'compact',
@@ -28,11 +29,11 @@ function getEntries(data) {
   return result;
 }
 
-function Player({ entry, onFavorite, lastFavoriteChanged }) {
+function Player({ entry, onFavorite, lastFavoriteChanged, collidingSlugs }) {
   const classes = ['player'];
   return (
     <li>
-      <Link href={`/${generateSlug(entry)}`} className={classes.join(' ')}>
+      <Link href={`/${generateSlug(entry, collidingSlugs)}`} className={classes.join(' ')}>
         <span className="position">
           <span>{entry.Position}</span>
           <FavoriteButton
@@ -74,7 +75,8 @@ function Player({ entry, onFavorite, lastFavoriteChanged }) {
   );
 }
 
-export default function OrderOfMeritPage() {
+export default function OrderOfMeritPage({ collidingSlugs: collidingSlugsArray = [] }) {
+  const collidingSlugs = useMemo(() => new Map(collidingSlugsArray), [collidingSlugsArray]);
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
   const data = useJsonPData(
     `https://scores.golfbox.dk/Handlers/OrderOfMeritsHandler/GetOrderOfMerit/CustomerId/${process.env.NEXT_PUBLIC_GOLFBOX_CUSTOMER_ID}/language/2057/OrderOfMeritID/${process.env.NEXT_PUBLIC_GOLFBOX_OOM_ID}/`,
@@ -116,6 +118,7 @@ export default function OrderOfMeritPage() {
                       entry={entry}
                       onFavorite={handleFavoriteChange}
                       lastFavoriteChanged={lastFavoriteChanged}
+                      collidingSlugs={collidingSlugs}
                     />
                   );
                 })}
@@ -132,6 +135,7 @@ export default function OrderOfMeritPage() {
                   entry={entry}
                   onFavorite={handleFavoriteChange}
                   lastFavoriteChanged={lastFavoriteChanged}
+                  collidingSlugs={collidingSlugs}
                 />
               );
             })}
@@ -142,4 +146,9 @@ export default function OrderOfMeritPage() {
       )}
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const collidingSlugs = await getCollidingSlugs();
+  return { props: { collidingSlugs: [...collidingSlugs] } };
 }

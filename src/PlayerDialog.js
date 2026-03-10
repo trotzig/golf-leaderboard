@@ -148,13 +148,13 @@ function DialogRound({ round, colors }) {
   );
 }
 
-export default function PlayerDialog({ entry, competition, data, onClose }) {
+export default function PlayerDialog({ entry, competition, data, onClose, collidingSlugs }) {
   const dialogRef = useRef(null);
   const mainRef = useRef(null);
   const [copied, setCopied] = useState(false);
 
   const handleShare = useCallback(async () => {
-    const url = `${window.location.origin}/t/${competition.slug}?player=${generateSlug(entry)}`;
+    const url = `${window.location.origin}/t/${competition.slug}?player=${generateSlug(entry, collidingSlugs)}`;
     if (navigator.share) {
       try {
         await navigator.share({ url });
@@ -350,7 +350,7 @@ export default function PlayerDialog({ entry, competition, data, onClose }) {
                 <div>
                   <b>Player</b>
                   <Link
-                    href={`/${generateSlug(entry)}`}
+                    href={`/${generateSlug(entry, collidingSlugs)}`}
                     className="player-profile-name"
                     onClick={handleClose}
                   >
@@ -362,7 +362,7 @@ export default function PlayerDialog({ entry, competition, data, onClose }) {
                   </div>
                   <div className="player-profile-actions">
                     <Link
-                      href={`/${generateSlug(entry)}`}
+                      href={`/${generateSlug(entry, collidingSlugs)}`}
                       className="icon-button"
                       onClick={handleClose}
                     >

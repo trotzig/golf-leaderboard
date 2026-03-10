@@ -238,6 +238,7 @@ function Player({
   lazy,
   competition,
   onScorecardClick,
+  collidingSlugs,
 }) {
   const rounds = getRounds(entry);
   const classes = ['player'];
@@ -272,7 +273,7 @@ function Player({
     <li className={classes.join(' ')}>
       {entry.isFirstCut ? <span id="cut" /> : null}
       {big ? (
-        <Link href={`/${generateSlug(entry)}`} className="player-big-position">
+        <Link href={`/${generateSlug(entry, collidingSlugs)}`} className="player-big-position">
           <PlayerPhoto player={entry} />
           <div>
             <h2 className="player-big-name">
@@ -358,7 +359,7 @@ function Player({
             {inner}
           </button>
         ) : (
-          <Link href={`/${generateSlug(entry)}`} className="player-link">
+          <Link href={`/${generateSlug(entry, collidingSlugs)}`} className="player-link">
             {inner}
           </Link>
         );
@@ -497,7 +498,9 @@ export default function CompetitionPage({
   now: nowMs = Date.now(),
   lazyItems = true,
   baseUrl,
+  collidingSlugs: collidingSlugsArray = [],
 }) {
+  const collidingSlugs = useMemo(() => new Map(collidingSlugsArray), [collidingSlugsArray]);
   ensureDates(competition);
   const now = new Date(nowMs);
   const { query } = useRouter();
@@ -538,7 +541,7 @@ export default function CompetitionPage({
 
   useEffect(() => {
     if (handledQueryPlayer.current || !query.player || !entries || !entries.length) return;
-    const entry = entries.find(e => generateSlug(e) === query.player);
+    const entry = entries.find(e => generateSlug(e, collidingSlugs) === query.player);
     if (entry) {
       handledQueryPlayer.current = true;
       setSelectedEntry(entry);
@@ -686,6 +689,7 @@ export default function CompetitionPage({
               onFavoriteChange={handleFavoriteChange}
               lastFavoriteChanged={lastFavoriteChanged}
               onScorecardClick={setSelectedEntry}
+              collidingSlugs={collidingSlugs}
             />
           </ul>
         </div>
@@ -710,6 +714,7 @@ export default function CompetitionPage({
                       onFavoriteChange={handleFavoriteChange}
                       lastFavoriteChanged={lastFavoriteChanged}
                       onScorecardClick={setSelectedEntry}
+                      collidingSlugs={collidingSlugs}
                     />
                   );
                 })}
@@ -734,6 +739,7 @@ export default function CompetitionPage({
                   lazy={lazyItems && i > 20}
                   lastFavoriteChanged={lastFavoriteChanged}
                   onScorecardClick={setSelectedEntry}
+                  collidingSlugs={collidingSlugs}
                 />
               );
             })}
@@ -757,6 +763,7 @@ export default function CompetitionPage({
         competition={competition}
         data={data}
         onClose={() => setSelectedEntry(null)}
+        collidingSlugs={collidingSlugs}
       />
     </div>
   );

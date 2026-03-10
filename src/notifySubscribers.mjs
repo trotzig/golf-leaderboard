@@ -3,6 +3,7 @@ import { startOfDay } from 'date-fns';
 import { sendMail } from './mailgun.mjs';
 import fixParValue from './fixParValue.mjs';
 import generateSlug from './generateSlug.mjs';
+import getCollidingSlugs from './getCollidingSlugs.mjs';
 import getCurrentCompetition from './getCurrentCompetition.mjs';
 import parseJson from '../scripts/utils/parseJson.mjs';
 import prisma from './prisma.mjs';
@@ -97,7 +98,7 @@ async function fetchIsFinished(competition, activeRoundNumber) {
   return true;
 }
 
-async function fetchResults(competition) {
+async function fetchResults(competition, collidingSlugs) {
   const res = await fetch(
     `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057/`,
   );
@@ -155,7 +156,7 @@ async function fetchResults(competition) {
       scoreToPar: round.ResultSum.ToParText,
       totalScoreToPar: entry.ResultSum.ToParText,
       position: entry.Position.Calculated,
-      slug: generateSlug(entry),
+      slug: generateSlug(entry, collidingSlugs),
       holesPlayed: len - 3,
     };
     if (len === 21) {
@@ -319,6 +320,7 @@ async function upsertLeaderboard(competitionId, entries) {
 
 export default async function notifySubscribers() {
   const start = Date.now();
+  const collidingSlugs = await getCollidingSlugs();
   const competitions = [await getCurrentCompetition()];
   const today = startOfDay(new Date());
   for (const competition of competitions) {
@@ -343,7 +345,7 @@ export default async function notifySubscribers() {
       hotStreakers,
       leaderboardEntries,
       activeRoundNumber,
-    } = await fetchResults(competition);
+    } = await fetchResults(competition, collidingSlugs);
     await upsertLeaderboard(competition.id, leaderboardEntries);
     const isFinished = await fetchIsFinished(competition, activeRoundNumber);
     await prisma.competition.update({
