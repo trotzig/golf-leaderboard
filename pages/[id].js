@@ -199,6 +199,9 @@ export default function PlayerPage({
 }
 
 export async function getServerSideProps({ params, query, req }) {
+  if (params.id.length < 7) {
+    return { notFound: true };
+  }
   const player = await prisma.player.findUnique({
     where: { slug: params.id },
     select: {
@@ -236,6 +239,14 @@ export async function getServerSideProps({ params, query, req }) {
     },
   });
   if (!player) {
+    const redirect = await prisma.player.findFirst({
+      where: { slug: { startsWith: `${params.id}-` } },
+      orderBy: { slug: 'asc' },
+      select: { slug: true },
+    });
+    if (redirect) {
+      return { redirect: { destination: `/${redirect.slug}`, permanent: false } };
+    }
     return { notFound: true };
   }
   for (const item of player.competitionScore) {
