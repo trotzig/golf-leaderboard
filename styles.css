@@ -439,11 +439,10 @@ html.display-standalone nav {
 }
 
 .competitions li.next .competition {
-  border: 3px solid currentColor;
-  border-radius: 6px;
-  padding: 10px 12px 14px;
-  column-gap: 16px;
+  border-left: 5px solid var(--primary);
   align-items: start;
+  column-gap: 16px;
+  padding: 5px 15px;
 }
 .competitions li.next .competition::before {
   content: 'Next event';
