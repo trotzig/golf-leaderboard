@@ -146,11 +146,11 @@ export default function StartPage({
         {reports && reports.length > 0 && (
           <ReportBlurbs reports={reports} showViewAll />
         )}
-        {upcomingCompetitions.length > 0 && (
+        {(nextCompetition || upcomingCompetitions.length > 0) && (
           <>
             <h3>Future events</h3>
             <ul>
-              {upcomingCompetitions.map(c => (
+              {[...(nextCompetition ? [nextCompetition] : []), ...upcomingCompetitions].map(c => (
                 <CompetitionListItem key={c.id} competition={c} now={now} />
               ))}
             </ul>
