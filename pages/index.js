@@ -90,7 +90,7 @@ export async function getServerSideProps() {
 
   const nextCompetition = currentCompetition ? undefined : upcomingCompetitions[0];
   const upcomingSlice = nextCompetition
-    ? upcomingCompetitions.slice(1, 4)
+    ? upcomingCompetitions.slice(0, 4)
     : upcomingCompetitions.slice(0, 3);
 
   // Load reports from the src/reports/ directory
