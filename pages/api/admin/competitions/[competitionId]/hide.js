@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     return res.status(400).send('No account');
   }
 
-  if (!account.email === 'henric.trotzig@gmail.com') {
+  if (account.email !== 'henric.trotzig@gmail.com') {
     return res.status(400).send('Not an admin account');
   }
 
