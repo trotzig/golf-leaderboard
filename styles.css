@@ -2703,3 +2703,63 @@ h2.player-big-name {
 .not-found-link:hover {
   opacity: 1;
 }
+
+.admin-dashboard {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 600px) {
+  .admin-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.admin-select-label {
+  display: block;
+  font-size: 0.8rem;
+  opacity: 0.6;
+  margin-bottom: 0.5rem;
+  padding-left: 0.75rem;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+}
+
+.admin-table th,
+.admin-table td {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.admin-table th {
+  font-weight: 600;
+  opacity: 0.6;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.admin-table th:last-child,
+.admin-table td:last-child {
+  text-align: right;
+}
+
+@media (prefers-color-scheme: dark) {
+  .admin-table th,
+  .admin-table td {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+}
