@@ -442,7 +442,7 @@ html.display-standalone nav {
   border-left: 5px solid var(--primary);
   align-items: start;
   column-gap: 16px;
-  padding: 5px 15px;
+  padding: 5px 15px 5px 20px;
 }
 .competitions li.next .competition::before {
   content: 'Next event';
