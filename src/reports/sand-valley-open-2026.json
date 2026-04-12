@@ -1,0 +1,74 @@
+{
+  "competitionId": 5528196,
+  "competitionSlug": "sand-valley-open-2026",
+  "competitionName": "Sand Valley Open",
+  "venue": "Sand Valley Golf Resort - Poland",
+  "startDate": "2026-04-09T00:00:00.000Z",
+  "endDate": "2026-04-11T00:00:00.000Z",
+  "slug": "sand-valley-open-2026",
+  "headline": "Tidén claims second win of the season at Sand Valley Open",
+  "blurb": "Swedish star Albin Tidén finishes at 15 under par to win by three shots in Poland, strengthening his grip on the Road to Europe 2026 order of merit.",
+  "body": "[Albin Tidén](/albin-tiden) picked up his second title of the Cutter & Buck season with a comfortable three-shot victory at the Sand Valley Open in Poland. The Swede finished at 15 under par, pulling clear of Finland's [Kim Koivu](/kim-koivu) who posted 12 under after firing a brilliant opening-round 63.\n\nKoivu's first-round heroics set the early pace, but Tidén's consistency across all three days proved too strong. Denmark's [Oliver Hundebøll Jørgensen](/oliver-hundeboll-jorgensen) finished alone in third at 10 under, while compatriots [Jens Kristian Thysted](/jens-kristian-thysted) and [Christian Jacobsen](/christian-jacobsen) shared fourth place at seven under par.\n\nTidén, who also won the GolfStar Winter Series Dunes earlier this season with an identical 15-under total, now moves to the top of the Road to Europe 2026 order of merit. With two victories already secured, the Romeleåsens player looks set to be the man to beat as the tour heads deeper into the spring schedule.\n\nThe Sand Valley Golf Resort provided a fair test, with the cut falling at even par. A total of 56 players from the 167-strong field advanced to the final round, but by Sunday afternoon there was no doubt about who would be lifting the trophy.",
+  "winnerName": "Albin Tidén",
+  "winnerPlayerId": "981005-006",
+  "winnerPlayerSlug": "albin-tiden",
+  "winnerImage": "/players/981005-006.jpg",
+  "stats": {
+    "winningScore": -15,
+    "winningScoreText": "-15",
+    "totalPlayers": 167,
+    "playersMadeCut": 56,
+    "playersMissedCut": 107,
+    "cutScore": 0,
+    "cutScoreText": "E",
+    "marginOfVictory": 3,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "Albin Tidén",
+        "club": "Romeleåsens Golfklubb",
+        "score": -15,
+        "scoreText": "-15",
+        "playerId": "981005-006",
+        "playerSlug": "albin-tiden"
+      },
+      {
+        "position": "2",
+        "name": "Kim Koivu",
+        "club": "Kytäjä Golf",
+        "score": -12,
+        "scoreText": "-12",
+        "playerId": "108-25",
+        "playerSlug": "kim-koivu"
+      },
+      {
+        "position": "3",
+        "name": "Oliver Hundebøll Jørgensen",
+        "club": "Silkeborg Golfklub",
+        "score": -10,
+        "scoreText": "-10",
+        "playerId": "16-3021",
+        "playerSlug": "oliver-hundeboll-jorgensen"
+      },
+      {
+        "position": "T4",
+        "name": "Jens Kristian Thysted",
+        "club": "Smørum Golfklub",
+        "score": -7,
+        "scoreText": "-7",
+        "playerId": "120-90200",
+        "playerSlug": "jens-kristian-thysted"
+      },
+      {
+        "position": "T4",
+        "name": "Christian Jacobsen",
+        "club": "Korsør Golf Klub",
+        "score": -7,
+        "scoreText": "-7",
+        "playerId": "14-873",
+        "playerSlug": "christian-jacobsen"
+      }
+    ]
+  },
+  "createdAt": "2026-04-12T05:16:23.128Z"
+}
