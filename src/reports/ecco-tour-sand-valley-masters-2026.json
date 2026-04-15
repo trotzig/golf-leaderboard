@@ -1,0 +1,74 @@
+{
+  "competitionId": 5571772,
+  "competitionSlug": "ecco-tour-sand-valley-masters-2026",
+  "competitionName": "ECCO Tour Sand Valley Masters",
+  "venue": "Sand Valley Golf Resort - Poland",
+  "startDate": "2026-04-13T00:00:00.000Z",
+  "endDate": "2026-04-15T00:00:00.000Z",
+  "slug": "ecco-tour-sand-valley-masters-2026",
+  "headline": "McIntosh wins Sand Valley Masters in dramatic play-off",
+  "blurb": "Scottish newcomer Eric McIntosh claims his first ECCO Tour title after a tense play-off against Oliver Gillberg at Sand Valley Golf Resort in Poland.",
+  "body": "[Eric McIntosh](/eric-mcintosh) secured his maiden ECCO Tour victory at the Sand Valley Masters after a thrilling play-off against [Oliver Gillberg](/oliver-gillberg). Both players finished regulation play locked together at 15 under par, but it was the Scotsman who held his nerve when it mattered most to take the title in Poland.\n\nMcIntosh, a Northwestern Athletics alumni who has previously competed on the Asian Tour with a best finish of 34th at the SJM Macao Open, set the tone early with a stunning opening-round 63. Gillberg responded with his own 63 in the second round to keep the pressure on, and the pair could not be separated heading into the play-off. Four shots further back in solo third was [Martin Leth Simonsen](/martin-leth-simonsen) at 11 under, while Jeppe Kristian Andersen and [Rasmus Holmberg](/rasmus-holmberg) shared fourth place at ten under.\n\nThe final round produced fireworks across the leaderboard. Andersen and [Matias Honkala](/matias-honkala) both carded remarkable 63s to charge up the standings, but neither could quite catch the leading duo. It was a day full of low scoring at Sand Valley Golf Resort, with the course offering plenty of birdie chances to those in form.\n\nA field of 168 players started the week and 53 made the cut, which fell at even par. For McIntosh, this breakthrough win on Nordic golf's leading men's tour marks a significant step forward in his career and one he will hope to build on as the season continues.",
+  "winnerName": "Eric McIntosh",
+  "winnerPlayerId": "236012",
+  "winnerPlayerSlug": "eric-mcintosh",
+  "winnerImage": "/players/236012.jpg",
+  "stats": {
+    "winningScore": -15,
+    "winningScoreText": "-15",
+    "totalPlayers": 168,
+    "playersMadeCut": 53,
+    "playersMissedCut": 112,
+    "cutScore": 0,
+    "cutScoreText": "E",
+    "marginOfVictory": 0,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "Eric McIntosh",
+        "club": "",
+        "score": -15,
+        "scoreText": "-15",
+        "playerId": "236012",
+        "playerSlug": "eric-mcintosh"
+      },
+      {
+        "position": "2",
+        "name": "Oliver Gillberg",
+        "club": "Askersunds Golfklubb",
+        "score": -15,
+        "scoreText": "-15",
+        "playerId": "961018-009",
+        "playerSlug": "oliver-gillberg"
+      },
+      {
+        "position": "3",
+        "name": "Martin Leth Simonsen",
+        "club": "Aalborg Golf Klub",
+        "score": -11,
+        "scoreText": "-11",
+        "playerId": "2-3476",
+        "playerSlug": "martin-leth-simonsen"
+      },
+      {
+        "position": "T4",
+        "name": "Jeppe Kristian Andersen",
+        "club": "The Scandinavian Golf Club",
+        "score": -10,
+        "scoreText": "-10",
+        "playerId": "188-1001",
+        "playerSlug": null
+      },
+      {
+        "position": "T4",
+        "name": "Rasmus Holmberg",
+        "club": "Bryngfjordens Golfklubb",
+        "score": -10,
+        "scoreText": "-10",
+        "playerId": "951227-001",
+        "playerSlug": "rasmus-holmberg"
+      }
+    ]
+  },
+  "createdAt": "2026-04-15T16:59:13.611Z"
+}
