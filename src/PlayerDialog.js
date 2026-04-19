@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
+import FavoriteButton from './FavoriteButton';
 import FlagIcon from './FlagIcon';
 import PlayerPhoto from './PlayerPhoto';
 import fixParValue from './fixParValue';
@@ -148,7 +149,7 @@ function DialogRound({ round, colors }) {
   );
 }
 
-export default function PlayerDialog({ entry, competition, data, onClose, collidingSlugs }) {
+export default function PlayerDialog({ entry, competition, data, onClose, collidingSlugs, lastFavoriteChanged, onFavoriteChange }) {
   const dialogRef = useRef(null);
   const mainRef = useRef(null);
   const [copied, setCopied] = useState(false);
@@ -401,6 +402,14 @@ export default function PlayerDialog({ entry, competition, data, onClose, collid
                   )}
                   {copied ? 'Copied!' : 'Share scorecard'}
                 </button>
+                {entry && (
+                  <FavoriteButton
+                    playerId={entry.MemberID}
+                    large
+                    lastFavoriteChanged={lastFavoriteChanged}
+                    onChange={onFavoriteChange}
+                  />
+                )}
               </div>
               <div className="player-profile-rounds">
                 {rounds.map(round => (

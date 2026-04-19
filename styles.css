@@ -501,7 +501,7 @@ html.display-standalone nav {
   grid-column-end: 4;
 }
 
-.leaderboard-page .favorite-button {
+.leaderboard-page .position .favorite-button {
   all: unset;
   cursor: pointer;
   position: absolute;
@@ -1184,6 +1184,18 @@ footer a:hover {
 .icon-button:disabled {
   filter: grayscale(1);
   cursor: default;
+}
+.favorite-button-large {
+  min-width: 170px;
+}
+.player-profile-share .favorite-button-large {
+  min-width: unset;
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  background: rgba(var(--text-rgb), 0.08);
+  color: var(--text);
 }
 .player-page-club {
   display: flex;
@@ -2644,6 +2656,10 @@ h2.player-big-name {
 .player-profile-share {
   padding-top: 6px;
   padding-bottom: 16px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
 }
 .player-dialog-share {
   all: unset;
@@ -2655,7 +2671,7 @@ h2.player-big-name {
   background: rgba(var(--text-rgb), 0.08);
   color: var(--text);
   font-size: 14px;
-  padding: 6px 12px;
+  padding: 10px 12px;
   user-select: none;
   transition: background 0.15s;
 }

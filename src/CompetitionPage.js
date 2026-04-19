@@ -767,6 +767,8 @@ export default function CompetitionPage({
         data={data}
         onClose={() => setSelectedEntry(null)}
         collidingSlugs={collidingSlugs}
+        lastFavoriteChanged={lastFavoriteChanged}
+        onFavoriteChange={() => setLastFavoriteChanged(Date.now())}
       />
     </div>
   );
