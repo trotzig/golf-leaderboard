@@ -383,6 +383,23 @@ async function main() {
   // Anchor to the last finished competition
   const lastComp = competitions[competitions.length - 1];
 
+  // If there's already a season summary written for a different (earlier)
+  // tournament, generate a new slug based on the current last competition so
+  // the earlier report is preserved as a mid-season snapshot.
+  const defaultReportPath = path.join(REPORTS_DIR, `${REPORT_SLUG}.json`);
+  let slug = REPORT_SLUG;
+  if (fs.existsSync(defaultReportPath)) {
+    const existing = JSON.parse(fs.readFileSync(defaultReportPath, 'utf8'));
+    if (existing.competitionId !== lastComp.id) {
+      slug = `season-summary-after-${lastComp.slug}`;
+      console.log(
+        `\nExisting season summary is from an earlier tournament.` +
+          ` Writing new report with slug: ${slug}`,
+      );
+    }
+  }
+  const reportPath = path.join(REPORTS_DIR, `${slug}.json`);
+
   const extraContext = await promptUser(
     '\nAny additional context for the article? (press Enter to skip)\n> ',
   );
@@ -399,7 +416,7 @@ async function main() {
     venue: lastComp.venue,
     startDate: competitions[0].start.toISOString(),
     endDate: new Date(lastComp.end.getTime() + 24 * 60 * 60 * 1000).toISOString(),
-    slug: REPORT_SLUG,
+    slug,
     headline: article.headline,
     blurb: article.blurb,
     body: article.body,
@@ -412,7 +429,6 @@ async function main() {
     createdAt: new Date().toISOString(),
   };
 
-  const reportPath = path.join(REPORTS_DIR, `${REPORT_SLUG}.json`);
   fs.writeFileSync(reportPath, JSON.stringify(reportData, null, 2));
   console.log(`\nReport saved to: ${reportPath}`);
 }
