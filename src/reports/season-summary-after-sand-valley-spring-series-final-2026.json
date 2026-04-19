@@ -1,0 +1,195 @@
+{
+  "competitionId": 5582085,
+  "competitionSlug": "sand-valley-spring-series-final-2026",
+  "competitionName": "Sand Valley Spring Series Final",
+  "venue": "Sand Valley Golf Resort - Poland",
+  "startDate": "2026-02-14T00:00:00.000Z",
+  "endDate": "2026-04-20T00:00:00.000Z",
+  "slug": "season-summary-after-sand-valley-spring-series-final-2026",
+  "headline": "Andersson leads the way as birdie machine on tour",
+  "blurb": "Eight tournaments in, Adam Andersson sits atop the birdie chart and is the only player to make every cut. Here are the key stats from the Cutter & Buck Tour season so far.",
+  "body": "Eight tournaments into the Cutter & Buck Tour season and one player stands above the rest in terms of consistency. [Adam Andersson](/adam-andersson) is the only player to have made every single cut this season, and that durability has paid off — he leads the overall birdie chart with an impressive 119 birdies. Close behind him are [Matias Honkala](/matias-honkala) and [Lauri Ruuska](/lauri-ruuska) on 114 each, while [Albin Tidén](/albin-tiden) and [Anton Karlsson](/anton-karlsson) are right on their heels with 113 apiece. The race for the birdie crown promises to be tight as the season continues.\n\nWhen it comes to eagles, [Oliver Hundebøll Jørgensen](/oliver-hundeboll-jorgensen) is the man in form with seven so far — one clear of [Hugo Hellman](/hugo-hellman) and [Kristoffer Max](/kristoffer-max), who have six each. Hundebøll Jørgensen has clearly shown a knack for going low on the par fives, and it will be interesting to see if he can keep that advantage going.\n\nThe tour's recent stop at Sand Valley Golf Resort in Poland also delivered some magic moments. Hole 3 proved to be a lucky one, producing three hole-in-ones from [Oskari Nikku](/oskari-nikku), [Joel Sylvén](/joel-sylven) and Hundebøll Jørgensen.\n\nWith the season still far from over, the battle at the top of the stats leaderboards looks set to go down to the wire. Andersson's consistency gives him an edge, but the chasing pack will fancy their chances as more tournaments unfold across the Nordic swing.",
+  "winnerName": null,
+  "winnerPlayerId": null,
+  "winnerPlayerSlug": null,
+  "winnerImage": null,
+  "isSeriesReport": true,
+  "stats": {
+    "competitions": [
+      {
+        "id": 5299728,
+        "name": "GolfStar Winter Series Dunes",
+        "venue": "Empordá Golf Club",
+        "slug": "golfstar-winter-series-dunes-2026"
+      },
+      {
+        "id": 5299753,
+        "name": "GolfStar Winter Series Forest",
+        "venue": "Empordá Golf Club",
+        "slug": "golfstar-winter-series-forest-2026"
+      },
+      {
+        "id": 5416024,
+        "name": "INFINITUM ECCO Masters - GolfBox Tournament no. 1,000,000",
+        "venue": "Infinitum Golf, Spain",
+        "slug": "infinitum-ecco-masters---golfbox-tournament-no-1000000"
+      },
+      {
+        "id": 5433274,
+        "name": "INFINITUM Championship",
+        "venue": "Infinitum Golf, Spain",
+        "slug": "infinitum-championship-2026"
+      },
+      {
+        "id": 5433278,
+        "name": "INFINITUM Spring Series Final - by ECCO",
+        "venue": "Infinitum Golf, Spain",
+        "slug": "infinitum-spring-series-final---by-ecco-2026"
+      },
+      {
+        "id": 5528196,
+        "name": "Sand Valley Open",
+        "venue": "Sand Valley Golf Resort - Poland",
+        "slug": "sand-valley-open-2026"
+      },
+      {
+        "id": 5571772,
+        "name": "ECCO Tour Sand Valley Masters",
+        "venue": "Sand Valley Golf Resort - Poland",
+        "slug": "ecco-tour-sand-valley-masters-2026"
+      },
+      {
+        "id": 5582085,
+        "name": "Sand Valley Spring Series Final",
+        "venue": "Sand Valley Golf Resort - Poland",
+        "slug": "sand-valley-spring-series-final-2026"
+      }
+    ],
+    "topBirdies": [
+      {
+        "id": "931005-033",
+        "name": "Adam Andersson",
+        "playerSlug": "adam-andersson",
+        "count": 119
+      },
+      {
+        "id": "46-11214",
+        "name": "Matias Honkala",
+        "playerSlug": "matias-honkala",
+        "count": 114
+      },
+      {
+        "id": "60-2425",
+        "name": "Lauri Ruuska",
+        "playerSlug": "lauri-ruuska",
+        "count": 114
+      },
+      {
+        "id": "981005-006",
+        "name": "Albin Tidén",
+        "playerSlug": "albin-tiden",
+        "count": 113
+      },
+      {
+        "id": "930911-011",
+        "name": "Anton Karlsson",
+        "playerSlug": "anton-karlsson",
+        "count": 113
+      }
+    ],
+    "topEagles": [
+      {
+        "id": "16-3021",
+        "name": "Oliver Hundebøll Jørgensen",
+        "playerSlug": "oliver-hundeboll-jorgensen",
+        "count": 7
+      },
+      {
+        "id": "990922-005",
+        "name": "Hugo Hellman",
+        "playerSlug": "hugo-hellman",
+        "count": 6
+      },
+      {
+        "id": "188-1729",
+        "name": "Kristoffer Max",
+        "playerSlug": "kristoffer-max",
+        "count": 6
+      }
+    ],
+    "holeInOnes": [
+      {
+        "memberId": "46-11214",
+        "name": "Matias Honkala",
+        "playerSlug": "matias-honkala",
+        "hole": 6,
+        "venue": "Infinitum Golf, Spain",
+        "competitionName": "INFINITUM ECCO Masters - GolfBox Tournament no. 1,000,000"
+      },
+      {
+        "memberId": "37-3601",
+        "name": "Jamie Tofte Nielsen",
+        "playerSlug": "jamie-tofte-nielsen",
+        "hole": 17,
+        "venue": "Infinitum Golf, Spain",
+        "competitionName": "INFINITUM ECCO Masters - GolfBox Tournament no. 1,000,000"
+      },
+      {
+        "memberId": "031218-007",
+        "name": "Ludvig Eriksson",
+        "playerSlug": "ludvig-eriksson-ab2",
+        "hole": 6,
+        "venue": "Infinitum Golf, Spain",
+        "competitionName": "INFINITUM Championship"
+      },
+      {
+        "memberId": "120-77885",
+        "name": "Theis Poulsen",
+        "playerSlug": "theis-poulsen",
+        "hole": 6,
+        "venue": "Infinitum Golf, Spain",
+        "competitionName": "INFINITUM Championship"
+      },
+      {
+        "memberId": "8-795",
+        "name": "Oliver Suhr",
+        "playerSlug": "oliver-suhr",
+        "hole": 4,
+        "venue": "Infinitum Golf, Spain",
+        "competitionName": "INFINITUM Spring Series Final - by ECCO"
+      },
+      {
+        "memberId": "10-2148",
+        "name": "Oskari Nikku",
+        "playerSlug": "oskari-nikku",
+        "hole": 3,
+        "venue": "Sand Valley Golf Resort - Poland",
+        "competitionName": "ECCO Tour Sand Valley Masters"
+      },
+      {
+        "memberId": "980725-001",
+        "name": "Joel Sylvén",
+        "playerSlug": "joel-sylven",
+        "hole": 3,
+        "venue": "Sand Valley Golf Resort - Poland",
+        "competitionName": "ECCO Tour Sand Valley Masters"
+      },
+      {
+        "memberId": "16-3021",
+        "name": "Oliver Hundebøll Jørgensen",
+        "playerSlug": "oliver-hundeboll-jorgensen",
+        "hole": 3,
+        "venue": "Sand Valley Golf Resort - Poland",
+        "competitionName": "Sand Valley Spring Series Final"
+      }
+    ],
+    "madeAllCuts": [
+      {
+        "id": "931005-033",
+        "name": "Adam Andersson",
+        "playerSlug": "adam-andersson"
+      }
+    ]
+  },
+  "createdAt": "2026-04-19T12:21:46.333Z"
+}
