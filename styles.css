@@ -251,12 +251,12 @@ a {
 .add-to-home-screen-page,
 .about-page,
 nav {
-  max-width: 600px;
+  max-width: 720px;
   margin: 0 auto;
 }
 
 .player-profile {
-  max-width: 710px;
+  max-width: 720px;
   margin: 0 auto;
 }
 
@@ -292,7 +292,12 @@ nav a {
   display: inline;
 }
 .menu-item-short {
-  display: none;
+  display: inline;
+}
+@media (max-width: 650px) {
+  .menu-item-short {
+    display: none;
+  }
 }
 
 nav svg {
@@ -304,6 +309,7 @@ nav svg {
     --nav-icon-size: 22px;
     gap: 4px;
     margin-top: 0;
+    justify-content: space-between;
   }
   .menu-link-inner {
     flex-direction: column;
@@ -761,7 +767,7 @@ footer a:hover {
 }
 
 .hole-list {
-  max-width: 500px;
+  max-width: 600px;
   padding: 8px 0;
 }
 
@@ -1034,10 +1040,10 @@ footer a:hover {
   grid-template-columns: 150px 1fr auto auto;
   gap: 20px;
   align-items: flex-start;
-  max-width: 600px;
+  max-width: 720px;
 }
 .player-profile-course-heading {
-  max-width: 600px;
+  max-width: 720px;
   margin: 0 auto;
   font-size: 20px;
   margin-bottom: 10px;
@@ -1548,7 +1554,7 @@ input.ios-switch:checked:after {
 }
 
 .tour-map-wrapper {
-  max-width: 600px;
+  max-width: 720px;
   margin: 0 auto 24px;
 }
 
@@ -2163,14 +2169,14 @@ h2.player-big-name {
 }
 
 .reports-index-page {
-  max-width: 600px;
+  max-width: 720px;
   margin: 0 auto;
   padding: 0 10px 40px;
 }
 
 /* ── Article full page ── */
 .report-page {
-  max-width: 600px;
+  max-width: 720px;
   margin: 0 auto;
   padding: 0 10px 40px;
 }
@@ -2668,7 +2674,7 @@ h2.player-big-name {
 
 /* 404 page */
 .not-found {
-  max-width: 600px;
+  max-width: 720px;
   margin: 0 auto;
   padding: 20px 10px 40px;
   text-align: center;
