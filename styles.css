@@ -87,6 +87,17 @@ h2 {
   margin-bottom: 0;
 }
 
+.intro-title {
+  padding: 80px 10px 16px;
+  margin: 0;
+  line-height: 1.1;
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  font-family: Georgia, 'Times New Roman', serif;
+  max-width: 390px;
+}
+
 h3 {
   font-size: 16px;
   font-weight: normal;
@@ -112,7 +123,7 @@ button {
   margin: 0;
   opacity: 0.7;
   line-height: 1.5;
-  margin-bottom: 10px;
+  margin-bottom: 72px;
 }
 .page-desc a {
   color: inherit;
