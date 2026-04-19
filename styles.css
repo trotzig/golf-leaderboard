@@ -914,6 +914,25 @@ footer a:hover {
 .leaderboard-page .round-start-time {
   opacity: 0.5;
 }
+.position-inline {
+  display: none;
+}
+@media (max-width: 500px) {
+  .leaderboard-page .player .player-link {
+    grid-template-columns: auto 80px;
+  }
+  .leaderboard-page .position {
+    display: none;
+  }
+  .leaderboard-page .stats {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+  .position-inline {
+    display: inline;
+    margin-right: 4px;
+  }
+}
 @media (max-width: 400px) {
   .round-score {
     opacity: 0.6;
