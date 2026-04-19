@@ -1,0 +1,74 @@
+{
+  "competitionId": 5582085,
+  "competitionSlug": "sand-valley-spring-series-final-2026",
+  "competitionName": "Sand Valley Spring Series Final",
+  "venue": "Sand Valley Golf Resort - Poland",
+  "startDate": "2026-04-17T00:00:00.000Z",
+  "endDate": "2026-04-19T00:00:00.000Z",
+  "slug": "sand-valley-spring-series-final-2026",
+  "headline": "Wallin triumphs on fifth play-off hole at Sand Valley",
+  "blurb": "Adam Wallin shakes off back-to-back missed cuts with a dramatic play-off victory at the Sand Valley Spring Series Final in Poland, sinking a birdie to beat two rivals at -21.",
+  "body": "[Adam Wallin](/adam-wallin) captured the Sand Valley Spring Series Final title in thrilling fashion, draining a birdie on the fifth extra hole to emerge from a three-way play-off at Sand Valley Golf Resort in Poland. The Swede finished regulation play locked at 21 under par alongside Anders Emil Ejlersen and [Sebastian Friedrichsen](/sebastian-friedrichsen), setting the stage for an extended battle that kept spectators on the edge of their seats.\n\nThe victory is a remarkable turnaround for Wallin, who entered the week having missed two consecutive cuts despite a stellar 2025 season that featured four wins and multiple top-10 finishes. Ejlersen had given himself every chance after a sensational second-round 62, while [Martin Leth Simonsen](/martin-leth-simonsen) matched that score with a blistering 62 of his own in round one. Icelandic golfer [Sigurdur Arnar Gardarsson](/sigurdur-arnar-gardarsson) and [Jerry Ji](/jerry-ji) also lit up the course with 63s in the second round, underlining the quality of scoring across the week.\n\nJust behind the play-off trio, [Adam Andersson](/adam-andersson) and [David Nyfjäll](/david-nyfjall) shared fourth place at 20 under par in what was an incredibly bunched leaderboard. A total of 52 players from the 164-strong field made it through the cut, which fell at five under par — a sign of the depth of competition on show.\n\nIn the end, though, the week belonged to Wallin. After a wobbly run of form heading into Poland, the 2025 standout proved he remains the man to beat on the Cutter & Buck tour with a clutch birdie when it mattered most.",
+  "winnerName": "Adam Wallin",
+  "winnerPlayerId": "011207-003",
+  "winnerPlayerSlug": "adam-wallin",
+  "winnerImage": "/players/011207-003.jpg",
+  "stats": {
+    "winningScore": -21,
+    "winningScoreText": "-21",
+    "totalPlayers": 164,
+    "playersMadeCut": 52,
+    "playersMissedCut": 108,
+    "cutScore": -5,
+    "cutScoreText": "-5",
+    "marginOfVictory": 0,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "Adam Wallin",
+        "club": "Ulricehamns Golfklubb",
+        "score": -21,
+        "scoreText": "-21",
+        "playerId": "011207-003",
+        "playerSlug": "adam-wallin"
+      },
+      {
+        "position": "T2",
+        "name": "Anders Emil Ejlersen",
+        "club": "Silkeborg Golfklub",
+        "score": -21,
+        "scoreText": "-21",
+        "playerId": "39-2396",
+        "playerSlug": null
+      },
+      {
+        "position": "T2",
+        "name": "Sebastian Friedrichsen",
+        "club": "The Scandinavian Golf Club",
+        "score": -21,
+        "scoreText": "-21",
+        "playerId": "188-1274",
+        "playerSlug": "sebastian-friedrichsen"
+      },
+      {
+        "position": "T4",
+        "name": "Adam Andersson",
+        "club": "Frösåker Golf & Country Club",
+        "score": -20,
+        "scoreText": "-20",
+        "playerId": "931005-033",
+        "playerSlug": "adam-andersson"
+      },
+      {
+        "position": "T4",
+        "name": "David Nyfjäll",
+        "club": "Upsala Golfklubb",
+        "score": -20,
+        "scoreText": "-20",
+        "playerId": "990126-001",
+        "playerSlug": "david-nyfjall"
+      }
+    ]
+  },
+  "createdAt": "2026-04-19T12:01:28.548Z"
+}
