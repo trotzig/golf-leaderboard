@@ -316,6 +316,9 @@ function Player({
             ) : null}
             {!big ? (
               <span>
+                {entry.Position && entry.Position.Calculated ? (
+                  <span className="position-inline">{entry.Position.Calculated}</span>
+                ) : null}
                 {normalizeName(entry.FirstName)} {normalizeName(entry.LastName)}
                 <br />
                 <span className="club">
