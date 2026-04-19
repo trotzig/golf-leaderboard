@@ -57,6 +57,7 @@ Passwordless email-based sign-in. Flow: `auth/init.js` → email with code → `
 - `pnpm db:studio` — open Prisma Studio locally
 - `pnpm dev` — start dev server
 - `pnpm storybook` — start Storybook on port 6006
+- `pnpm test` — run unit tests (Node built-in test runner, no install needed)
 
 Use `production.env` file (gitignored) for prod env vars with the `:prod` script variants. Local development benefits from copying an .env file from the workspace source/root.
 
@@ -64,6 +65,7 @@ Use `production.env` file (gitignored) for prod env vars with the `:prod` script
 
 - Components live in `src/` as `.js` files (React, no TypeScript)
 - ESM modules use `.mjs` extension
+- Unit-testable pure logic lives in `*.mjs` files alongside components; test files are `*.test.mjs` and run with the Node built-in test runner (`node --test`)
 - Slugs are generated from player names and deduplicated with MD5 suffix if colliding
 - GolfBox API responses use JSONP format — parsed with `scripts/utils/parseJson.mjs`
 - Dark mode is supported via CSS (check `styles.css` for `prefers-color-scheme`)
