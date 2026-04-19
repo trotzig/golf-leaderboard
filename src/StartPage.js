@@ -129,9 +129,11 @@ export default function StartPage({
         />
       </Head>
       <div className="competitions">
-        <h2>{process.env.NEXT_PUBLIC_INTRO_TITLE}</h2>
+        <h1 className="intro-title">A launchpad for nordic golfers.</h1>
         <p className="page-desc">
-          {process.env.NEXT_PUBLIC_INTRO} Follow your{' '}
+          The Cutter &amp; Buck Tour is the first step for Nordic professional
+          golfers on their way to the Challenge Tour and the DP World Tour. We
+          track the scores so that you can follow your{' '}
           <Link href="/players">favorite players</Link> and get the latest
           updates <Link href="/profile">straight in your inbox</Link>.
         </p>
