@@ -67,7 +67,6 @@ export default function FavoriteButton({
           backgroundColor: isFavorite ? 'var(--primary)' : undefined,
           color: isFavorite ? '#fff' : undefined,
           borderColor: isFavorite ? 'var(--primary)' : 'currentColor',
-          minWidth: 170,
         }}
         onClick={clickHandler.bind(this, true)}
       >
