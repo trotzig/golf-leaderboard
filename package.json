@@ -21,7 +21,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "postinstall": "prisma generate",
-    "find-oom-id": "dotenv node scripts/find-oom-id.mjs"
+    "find-oom-id": "dotenv node scripts/find-oom-id.mjs",
+    "test": "node --test src/**/*.test.mjs"
   },
   "dependencies": {
     "@prisma/client": "^6.8.2",
