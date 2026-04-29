@@ -2816,3 +2816,33 @@ h2.player-big-name {
     border-bottom-color: rgba(255, 255, 255, 0.1);
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  .round-score {
+    opacity: 0.9;
+  }
+  .round-score.eagle {
+    opacity: 1;
+    color: #ff7a64;
+    border-color: #ff7a64;
+  }
+  .round-score.eagle:after {
+    border-color: #ff7a64;
+    color: #ff7a64;
+  }
+  .round-score.hio {
+    background-color: #ff7a64;
+  }
+  .round-score.bogey-plus:after {
+    border-color: rgba(var(--text-rgb), 0.5);
+  }
+  .round-total.under-par,
+  .leaderboard-score.under-par,
+  .player-round-scorecard-val.under-par {
+    color: #ff7a64;
+  }
+  .player-round-scorecard > *,
+  .player-round-scorecard-hole-last {
+    opacity: 0.9;
+  }
+}
