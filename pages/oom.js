@@ -43,6 +43,9 @@ function Player({ entry, onFavorite, lastFavoriteChanged, collidingSlugs }) {
           />
         </span>
         <span>
+          {entry.Position ? (
+            <span className="position-inline">{entry.Position}</span>
+          ) : null}
           {entry.FirstName} {entry.LastName}
           <br />
           <span className="club">{entry.ClubName}</span>
