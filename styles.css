@@ -929,7 +929,8 @@ footer a:hover {
   display: none;
 }
 @media (max-width: 500px) {
-  .leaderboard-page .player .player-link {
+  .leaderboard-page .player .player-link,
+  .oom .player {
     grid-template-columns: auto 80px;
   }
   .leaderboard-page .position {
