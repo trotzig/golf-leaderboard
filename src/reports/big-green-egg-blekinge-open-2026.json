@@ -1,0 +1,74 @@
+{
+  "competitionId": 5349635,
+  "competitionSlug": "big-green-egg-blekinge-open-2026",
+  "competitionName": "Big Green Egg Blekinge Open",
+  "venue": "Trummenäs Golfklubb",
+  "startDate": "2026-04-29T00:00:00.000Z",
+  "endDate": "2026-05-01T00:00:00.000Z",
+  "slug": "big-green-egg-blekinge-open-2026",
+  "headline": "Simonsen holds off Eriksson Krabbe to capture Blekinge Open",
+  "blurb": "Danish star Martin Leth Simonsen adds another title to his impressive season, edging out Sweden's Isak Eriksson Krabbe by a single shot at Trummenäs Golfklubb.",
+  "body": "[Martin Leth Simonsen](/martin-leth-simonsen) secured his second victory of the Cutter & Buck season with a composed performance at the Big Green Egg Blekinge Open, finishing at 13 under par to win by one stroke at Trummenäs Golfklubb in Blekinge.\n\nThe Dane from Aalborg was pushed all the way by [Isak Eriksson Krabbe](/isak-eriksson-krabbe), who posted a fine 12-under total to finish as sole runner-up. [Algot Kleén](/algot-kleen) claimed third place at 11 under, while [Sebastian Petersen](/sebastian-petersen) and [Jesper Hagborg Asp](/jesper-hagborg-asp) shared fourth on 10 under par.\n\nSimonsen continues a strong run of form that has already produced a memorable victory at the INFINITUM ECCO Masters earlier this season, where he posted a remarkable 23-under winning total. He also finished third at the Sand Valley Masters, making him one of the most consistent performers on tour this year.\n\nA field of 156 players teed it up at Trummenäs, with 48 making the cut at two under par. The tight leaderboard throughout the week underlined the quality of play on show, and Simonsen's ability to stay one step ahead under pressure further cements his standing as a player to watch as the season unfolds.",
+  "winnerName": "Martin Leth Simonsen",
+  "winnerPlayerId": "2-3476",
+  "winnerPlayerSlug": "martin-leth-simonsen",
+  "winnerImage": "/players/2-3476.jpg",
+  "stats": {
+    "winningScore": -13,
+    "winningScoreText": "-13",
+    "totalPlayers": 156,
+    "playersMadeCut": 48,
+    "playersMissedCut": 105,
+    "cutScore": -2,
+    "cutScoreText": "-2",
+    "marginOfVictory": 1,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "Martin Leth Simonsen",
+        "club": "Aalborg Golf Klub",
+        "score": -13,
+        "scoreText": "-13",
+        "playerId": "2-3476",
+        "playerSlug": "martin-leth-simonsen"
+      },
+      {
+        "position": "2",
+        "name": "Isak Eriksson Krabbe",
+        "club": "Fjällbacka Golfklubb",
+        "score": -12,
+        "scoreText": "-12",
+        "playerId": "020122-003",
+        "playerSlug": "isak-eriksson-krabbe"
+      },
+      {
+        "position": "3",
+        "name": "Algot Kleén",
+        "club": "Skaftö Golfklubb",
+        "score": -11,
+        "scoreText": "-11",
+        "playerId": "020618-005",
+        "playerSlug": "algot-kleen"
+      },
+      {
+        "position": "T4",
+        "name": "Sebastian Petersen",
+        "club": "Djurgårdens IF Golfförening",
+        "score": -10,
+        "scoreText": "-10",
+        "playerId": "980821-001",
+        "playerSlug": "sebastian-petersen"
+      },
+      {
+        "position": "T4",
+        "name": "Jesper Hagborg Asp",
+        "club": "Onsjö Golfklubb",
+        "score": -10,
+        "scoreText": "-10",
+        "playerId": "961231-001",
+        "playerSlug": "jesper-hagborg-asp"
+      }
+    ]
+  },
+  "createdAt": "2026-05-05T16:04:31.029Z"
+}
