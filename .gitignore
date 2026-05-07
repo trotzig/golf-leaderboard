@@ -10,3 +10,4 @@ design
 
 .claude
 storybook-static
+.env*.local
