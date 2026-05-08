@@ -1254,6 +1254,26 @@ footer a:hover {
   background-position: center;
   background-repeat: no-repeat;
 }
+.player-page-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.player-page-links a {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(var(--text-rgb), 0.08);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 13px;
+}
+.player-page-links a:hover {
+  background: rgba(var(--text-rgb), 0.15);
+}
 .player-page-oom {
   color: inherit;
   text-align: right;
@@ -2087,31 +2107,6 @@ body .pemb-page {
   width: 100%;
   height: 100%;
   border-radius: 4px;
-}
-
-.youtubers {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-.youtuber-link {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  color: inherit;
-  gap: 10px;
-  text-align: center;
-  font-size: 13px;
-
-  & img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    border-radius: 50%;
-  }
 }
 
 .player-big-position {

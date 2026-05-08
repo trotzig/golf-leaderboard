@@ -11,36 +11,6 @@ import formatCompetitionName from './formatCompetitionName';
 import ensureDates from './ensureDates.js';
 import { preloadJsonPData } from './fetchJsonP.js';
 
-const youtubers = [
-  {
-    name: 'Stefan Idstam',
-    url: 'https://www.youtube.com/@stefanidstamgolf',
-    avatar: {
-      url: '/avatar-stefan-idstam.jpg',
-      width: 320,
-      height: 320,
-    },
-  },
-  {
-    name: 'Adam Andersson',
-    url: 'https://adamanderssongolf.com/',
-    avatar: {
-      url: 'https://adamanderssongolf.com/wp-content/uploads/sb-instagram-feed-images/517973384_18507897097053711_8842400633805056808_nfull.webp',
-      width: 640,
-      height: 843,
-    },
-  },
-  {
-    name: 'Fredrik Lindblom',
-    url: 'https://www.youtube.com/@FredrikandHannah',
-    avatar: {
-      url: '/avatar-fredrik-lindblom.jpg',
-      width: 683,
-      height: 683,
-    },
-  },
-];
-
 export default function StartPage({
   pastCompetitions,
   upcomingCompetitions,
@@ -161,32 +131,6 @@ export default function StartPage({
             </Link>
           </>
         )}
-
-        <h3 style={{ marginBottom: 0 }}>More from the players</h3>
-        <p className="page-desc">
-          Support players by following them on their social media accounts,
-          subscribing to their channels and watching their videos.
-        </p>
-        <ul className="youtubers">
-          {youtubers.map(y => (
-            <li key={y.name} className="youtuber">
-              <a
-                href={y.url}
-                className="youtuber-link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src={y.avatar.url}
-                  alt={y.name}
-                  width={y.avatar.width}
-                  height={y.avatar.height}
-                />
-                {y.name}
-              </a>
-            </li>
-          ))}
-        </ul>
 
         {pastCompetitions.length > 0 && (
           <>
