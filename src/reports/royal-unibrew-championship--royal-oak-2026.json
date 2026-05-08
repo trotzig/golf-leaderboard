@@ -1,0 +1,74 @@
+{
+  "competitionId": 5339477,
+  "competitionSlug": "royal-unibrew-championship--royal-oak-2026",
+  "competitionName": "Royal Unibrew Championship @ Royal Oak",
+  "venue": "Royal Oak",
+  "startDate": "2026-05-06T00:00:00.000Z",
+  "endDate": "2026-05-08T00:00:00.000Z",
+  "slug": "royal-unibrew-championship--royal-oak-2026",
+  "headline": "Syr secures Royal Unibrew Championship via play-off at Royal Oak",
+  "blurb": "Norwegian Sebastian Eidsæther Syr outlasted Eric McIntosh in a tense play-off after both finished at 14 under par at the Royal Unibrew Championship.",
+  "body": "[Sebastian Eidsæther Syr](/sebastian-eidsather-syr) is the new Royal Unibrew Championship winner after defeating [Eric McIntosh](/eric-mcintosh) in a play-off at Royal Oak. Both players posted remarkable totals of -14 over three rounds, but it was the Losby Golfklubb representative who held his nerve when it mattered most to clinch the title.\n\nThe pair had separated themselves from the rest of the field heading into the final stretch. [Alexander Settemsdal](/alexander-settemsdal) finished in solo third at -12, two shots back, while Icelandic duo [Dagbjartur (Dabbi) Sigurbrandsson](/dagbjartur-sigurbrandsson) (-11) and [Sigurdur Arnar Gardarsson](/sigurdur-arnar-gardarsson) (-10) rounded out the top five with strong performances of their own.\n\nFrom a starting field of 127 players, 53 made it past the cut line which fell at -1, a reflection of the quality on show across the three days. The competitive cut underlined how tightly bunched the field was at Royal Oak, where low scoring was required just to survive the weekend.\n\nFor Syr, the victory is a significant milestone on the Cutter & Buck tour. Converting a play-off demands composure under pressure, and the Norwegian delivered exactly that against a determined McIntosh who will no doubt feel this one slipped away. Both players can take confidence from an excellent week, but it is Syr who walks away with the trophy and the bragging rights.",
+  "winnerName": "Sebastian Eidsæther Syr",
+  "winnerPlayerId": "72-2887",
+  "winnerPlayerSlug": "sebastian-eidsather-syr",
+  "winnerImage": "/players/72-2887.jpg",
+  "stats": {
+    "winningScore": -14,
+    "winningScoreText": "-14",
+    "totalPlayers": 127,
+    "playersMadeCut": 53,
+    "playersMissedCut": 70,
+    "cutScore": -1,
+    "cutScoreText": "-1",
+    "marginOfVictory": 0,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "Sebastian Eidsæther Syr",
+        "club": "Losby Golfklubb",
+        "score": -14,
+        "scoreText": "-14",
+        "playerId": "72-2887",
+        "playerSlug": "sebastian-eidsather-syr"
+      },
+      {
+        "position": "2",
+        "name": "Eric McIntosh",
+        "club": "",
+        "score": -14,
+        "scoreText": "-14",
+        "playerId": "236012",
+        "playerSlug": "eric-mcintosh"
+      },
+      {
+        "position": "3",
+        "name": "Alexander Settemsdal",
+        "club": "Nøtterøy Golfklubb",
+        "score": -12,
+        "scoreText": "-12",
+        "playerId": "132-13015",
+        "playerSlug": "alexander-settemsdal"
+      },
+      {
+        "position": "4",
+        "name": "Dagbjartur (Dabbi) Sigurbrandsson",
+        "club": "",
+        "score": -11,
+        "scoreText": "-11",
+        "playerId": "157057",
+        "playerSlug": "dagbjartur-sigurbrandsson"
+      },
+      {
+        "position": "5",
+        "name": "Sigurdur Arnar Gardarsson",
+        "club": "GKG GC",
+        "score": -10,
+        "scoreText": "-10",
+        "playerId": "179121",
+        "playerSlug": "sigurdur-arnar-gardarsson"
+      }
+    ]
+  },
+  "createdAt": "2026-05-08T14:07:47.746Z"
+}
