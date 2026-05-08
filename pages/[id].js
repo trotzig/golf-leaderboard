@@ -11,6 +11,7 @@ import SignInForm from '../src/SignInForm';
 import fixParValue from '../src/fixParValue';
 import formatCompetitionName from '../src/formatCompetitionName';
 import generateSlug from '../src/generateSlug.mjs';
+import getPlayerLinks from '../src/playerLinks';
 import ordinal from '../src/ordinal';
 import prisma from '../src/prisma';
 import useData from '../src/useData';
@@ -42,6 +43,7 @@ export default function PlayerPage({
     setIsFavorite(localStorage.getItem(player.id));
   }, [player]);
 
+  const playerLinks = getPlayerLinks(player);
   const scoresBySeason = getScoresBySeason(player.competitionScore);
   const season =
     selectedSeason ||
@@ -139,6 +141,23 @@ export default function PlayerPage({
       ) : null}
 
       <PlayerStatsChart competitionScores={player.competitionScore} />
+
+      {playerLinks.length > 0 && (
+        <>
+          <h2 style={{ paddingBottom: 0 }}>Links</h2>
+          <div className="page-margin" style={{ paddingTop: 0 }}>
+            <ul className="player-page-links">
+              {playerLinks.map(link => (
+                <li key={link.url}>
+                  <a href={link.url} target="_blank" rel="noopener noreferrer">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </>
+      )}
 
       <h2>Results</h2>
       <div className="page-margin">
