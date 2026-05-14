@@ -1,0 +1,74 @@
+{
+  "competitionId": 5398087,
+  "competitionSlug": "gamle-fredrikstad-open-2026",
+  "competitionName": "Gamle Fredrikstad Open",
+  "venue": "Gamle Fredrikstad Golfklubb",
+  "startDate": "2026-05-12T00:00:00.000Z",
+  "endDate": "2026-05-14T00:00:00.000Z",
+  "slug": "gamle-fredrikstad-open-2026",
+  "headline": "Settemsdal wins Gamle Fredrikstad Open with eagle on last hole",
+  "blurb": "Alexander Settemsdal finished with an eagle on the final hole to beat Anton Karlsson by one shot at Gamle Fredrikstad Golfklubb.",
+  "body": "[Alexander Settemsdal](/alexander-settemsdal) won the Gamle Fredrikstad Open at -14, finishing one shot ahead of [Anton Karlsson](/anton-karlsson) at -13. The win was decided on the last hole, where Settemsdal made eagle while Karlsson made birdie. That eagle gave Settemsdal the one-shot lead he needed to take the title.\n\nSettemsdal, who plays out of Nøtterøy Golfklubb, has been playing well this season. He finished third at the Royal Unibrew Championship at Royal Oak earlier in the year, so this win was not a surprise.\n\n[Sebastian Eidsæther Syr](/sebastian-eidsather-syr) finished third at -10, four shots behind the winner. [Jakob Liljedal](/jakob-liljedal) and [Kasper Nyland](/kasper-nyland) shared fourth place at -9.\n\nThe field had 156 players, and 54 made the cut at +1. That is a few more than the usual 45, showing how close the scores were across the field.",
+  "winnerName": "Alexander Settemsdal",
+  "winnerPlayerId": "132-13015",
+  "winnerPlayerSlug": "alexander-settemsdal",
+  "winnerImage": "/players/132-13015.jpg",
+  "stats": {
+    "winningScore": -14,
+    "winningScoreText": "-14",
+    "totalPlayers": 156,
+    "playersMadeCut": 54,
+    "playersMissedCut": 99,
+    "cutScore": 1,
+    "cutScoreText": "+1",
+    "marginOfVictory": 1,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "Alexander Settemsdal",
+        "club": "Nøtterøy Golfklubb",
+        "score": -14,
+        "scoreText": "-14",
+        "playerId": "132-13015",
+        "playerSlug": "alexander-settemsdal"
+      },
+      {
+        "position": "2",
+        "name": "Anton Karlsson",
+        "club": "Upsala Golfklubb",
+        "score": -13,
+        "scoreText": "-13",
+        "playerId": "930911-011",
+        "playerSlug": "anton-karlsson"
+      },
+      {
+        "position": "3",
+        "name": "Sebastian Eidsæther Syr",
+        "club": "Losby Golfklubb",
+        "score": -10,
+        "scoreText": "-10",
+        "playerId": "72-2887",
+        "playerSlug": "sebastian-eidsather-syr"
+      },
+      {
+        "position": "T4",
+        "name": "Jakob Liljedal",
+        "club": "Troxhammar Golfklubb",
+        "score": -9,
+        "scoreText": "-9",
+        "playerId": "020911-028",
+        "playerSlug": "jakob-liljedal"
+      },
+      {
+        "position": "T4",
+        "name": "Kasper Nyland",
+        "club": "",
+        "score": -9,
+        "scoreText": "-9",
+        "playerId": "237729",
+        "playerSlug": "kasper-nyland"
+      }
+    ]
+  },
+  "createdAt": "2026-05-14T14:49:22.215Z"
+}
