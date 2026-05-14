@@ -206,7 +206,14 @@ async function callAnthropicAPI(tournamentData, playerLinksText, extraContext) {
       ? `\nOfficial tournament note: ${tournamentData.statusText}`
       : '';
 
-  const prompt = `You are a sports journalist writing a brief article about a professional golf tournament on the Cutter & Buck tour, the Nordic professional golf tour for men. The audience are mostly people in Sweden, Denmark, Norway and Finland. They speak English but keep the language at a reasonable level for them.
+  const prompt = `You are a sports journalist writing a brief article about a professional golf tournament on the Cutter & Buck tour, the Nordic professional golf tour for men. The audience are mostly people in Sweden, Denmark, Norway and Finland — write primarily for Swedish and Danish readers.
+
+Language rules (important — most readers learned English in school and struggle with idioms):
+- Use plain, common English. Prefer short, everyday words over fancy or literary ones.
+- Avoid idioms, figurative phrases and sports clichés. Examples to avoid: "held his nerve", "slipped away", "bragging rights", "rounded out", "fell short", "no doubt", "down the stretch", "in the mix", "punched his ticket", "kept his cool", "underlined", "remarkable", "composure", "tightly bunched", "the stage was set".
+- Don't use words a Swedish/Danish reader is unlikely to know. Replace with simpler ones: use "showed" not "displayed", "ended" not "concluded", "won" not "clinched", "close" not "narrow", "good" not "stellar", "playing well" not "in form".
+- Write direct, factual sentences. Describe what happened with scores and players — don't dramatise.
+- Don't use Latin-derived rare words when a plain word works.
 
 Write a short article about this tournament. Return ONLY a valid JSON object (no markdown, no code blocks) with these fields:
 - "headline": A compelling report headline (max 12 words). Use sentence case.
