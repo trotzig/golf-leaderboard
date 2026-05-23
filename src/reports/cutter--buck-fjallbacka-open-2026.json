@@ -1,0 +1,74 @@
+{
+  "competitionId": 5398043,
+  "competitionSlug": "cutter--buck-fjallbacka-open-2026",
+  "competitionName": "Cutter & Buck Fjällbacka Open",
+  "venue": "Fjällbacka Golfklubb",
+  "startDate": "2026-05-21T00:00:00.000Z",
+  "endDate": "2026-05-23T00:00:00.000Z",
+  "slug": "cutter--buck-fjallbacka-open-2026",
+  "headline": "Sandborg takes Fjällbacka Open by one shot",
+  "blurb": "Jesper Sandborg finished at -11 to win the Cutter & Buck Fjällbacka Open by one shot, holding off clubmate Johannes Axell and fast-rising Elias Pettersson.",
+  "body": "[Jesper Sandborg](/jesper-sandborg) won the Cutter & Buck Fjällbacka Open at Fjällbacka Golfklubb, finishing at -11 to beat two players tied at -10 by a single shot. The victory came after three rounds played from May 21 to 23, and it was tight until the end.\n\nSharing second place at -10 were [Johannes Axell](/johannes-axell), who plays at the same club as Sandborg — Landeryds Golfklubb — and [Elias Pettersson](/elias-pettersson) from Stockholms Golfklubb. For Pettersson, this was a big step forward. His best result on the Nordic Golf tour before this week was a tied 29th place, so finishing tied second is a clear improvement. [Wilhelm Ahlgren](/wilhelm-ahlgren) ended fourth at -9, and [Roope Kakko](/roope-kakko-432) from Finland was fifth at -8.\n\nThe first round included a strong 63 from [Oskari Nikku](/oskari-nikku), one of the best rounds of the week. Sandborg himself has been playing well this season, with a tied third place at the INFINITUM Championship earlier in the year.\n\nThe cut fell at even par, with 50 players from a field of 156 going through to the final round.",
+  "winnerName": "Jesper Sandborg",
+  "winnerPlayerId": "930608-004",
+  "winnerPlayerSlug": "jesper-sandborg",
+  "winnerImage": "/players/930608-004.jpg",
+  "stats": {
+    "winningScore": -11,
+    "winningScoreText": "-11",
+    "totalPlayers": 156,
+    "playersMadeCut": 50,
+    "playersMissedCut": 105,
+    "cutScore": 0,
+    "cutScoreText": "E",
+    "marginOfVictory": 1,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "Jesper Sandborg",
+        "club": "Landeryds Golfklubb",
+        "score": -11,
+        "scoreText": "-11",
+        "playerId": "930608-004",
+        "playerSlug": "jesper-sandborg"
+      },
+      {
+        "position": "T2",
+        "name": "Johannes Axell",
+        "club": "Landeryds Golfklubb",
+        "score": -10,
+        "scoreText": "-10",
+        "playerId": "980423-001",
+        "playerSlug": "johannes-axell"
+      },
+      {
+        "position": "T2",
+        "name": "Elias Pettersson",
+        "club": "Stockholms Golfklubb",
+        "score": -10,
+        "scoreText": "-10",
+        "playerId": "021110-007",
+        "playerSlug": "elias-pettersson"
+      },
+      {
+        "position": "4",
+        "name": "Wilhelm Ahlgren",
+        "club": "Kristianstads Golfklubb",
+        "score": -9,
+        "scoreText": "-9",
+        "playerId": "991016-002",
+        "playerSlug": "wilhelm-ahlgren"
+      },
+      {
+        "position": "T5",
+        "name": "Roope Kakko",
+        "club": "Helsingin Golfklubi",
+        "score": -8,
+        "scoreText": "-8",
+        "playerId": "15-3011",
+        "playerSlug": "roope-kakko-432"
+      }
+    ]
+  },
+  "createdAt": "2026-05-23T13:28:48.604Z"
+}
