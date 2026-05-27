@@ -234,6 +234,25 @@ a {
   }
 }
 
+.format-notice {
+  background-color: rgba(229, 78, 55, 0.08);
+  border-color: var(--primary-light);
+  color: var(--dark);
+}
+@media (prefers-color-scheme: dark) {
+  .format-notice {
+    background-color: rgba(229, 78, 55, 0.18);
+    border-color: rgba(229, 78, 55, 0.5);
+    color: var(--text);
+  }
+}
+.format-notice code {
+  background-color: rgba(var(--text-rgb), 0.08);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 0.95em;
+}
+
 .winner {
   margin: 10px 0;
   border: 2px solid var(--primary);

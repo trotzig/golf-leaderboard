@@ -17,6 +17,7 @@ import formatCompetitionName from './formatCompetitionName';
 import normalizeName from './normalizeName.js';
 import ensureDates from './ensureDates.js';
 import CutInfo from './CutInfo';
+import { detectFormat, isGoodScore, formatLabel } from './competitionFormat.mjs';
 import fixParValue from './fixParValue';
 import generateSlug from './generateSlug.mjs';
 import parseCET from './parseCET';
@@ -239,6 +240,7 @@ function Player({
   competition,
   onScorecardClick,
   collidingSlugs,
+  format,
 }) {
   const rounds = getRounds(entry);
   const classes = ['player'];
@@ -333,7 +335,7 @@ function Player({
             {entry.ResultSum && !big ? (
               <span
                 className={`score${
-                  entry.ResultSum.ToParValue < 0 ? ' under-par' : ''
+                  isGoodScore(format, entry.ResultSum.ToParValue) ? ' under-par' : ''
                 }`}
               >
                 {fixParValue(entry.ResultSum.ToParText)}
@@ -541,6 +543,10 @@ export default function CompetitionPage({
         : [],
     [data, timesData, playersData],
   );
+  const format = useMemo(
+    () => detectFormat({ competitionData, entries }),
+    [competitionData, entries],
+  );
 
   useEffect(() => {
     if (handledQueryPlayer.current || !query.player || !entries || !entries.length) return;
@@ -634,6 +640,13 @@ export default function CompetitionPage({
           Tee times
         </Link>
       </div>
+      {formatLabel(format) && (
+        <div className="alert page-margin format-notice">
+          <strong>{formatLabel(format)} format.</strong>{' '}
+          Scoring differs from stroke play: higher points are better, and{' '}
+          a positive total (e.g. <code>+4p</code>) means above the points par.
+        </div>
+      )}
       <CutInfo data={data} entries={entries} />
       {data && (
         <>
@@ -693,6 +706,7 @@ export default function CompetitionPage({
               lastFavoriteChanged={lastFavoriteChanged}
               onScorecardClick={setSelectedEntry}
               collidingSlugs={collidingSlugs}
+              format={format}
             />
           </ul>
         </div>
@@ -718,6 +732,7 @@ export default function CompetitionPage({
                       lastFavoriteChanged={lastFavoriteChanged}
                       onScorecardClick={setSelectedEntry}
                       collidingSlugs={collidingSlugs}
+                      format={format}
                     />
                   );
                 })}
@@ -743,6 +758,7 @@ export default function CompetitionPage({
                   lastFavoriteChanged={lastFavoriteChanged}
                   onScorecardClick={setSelectedEntry}
                   collidingSlugs={collidingSlugs}
+                  format={format}
                 />
               );
             })}

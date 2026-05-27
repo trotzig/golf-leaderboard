@@ -2,6 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 
 import competitionDateString from './competitionDateString.js';
+import { detectFormat, isGoodScore, formatLabel } from './competitionFormat.mjs';
 import formatCompetitionName from './formatCompetitionName';
 import fixParValue from './fixParValue';
 import FlagIcon, { getCountryName } from './FlagIcon';
@@ -15,6 +16,9 @@ const PLACEHOLDER_ENTRIES = [
 
 export default function Leaderboard({ competition, now }) {
   const finished = competition.finished;
+  const format = detectFormat({
+    scoreTexts: competition.leaderboardEntries.map(e => e.scoreText),
+  });
   return (
     <Link href={`/t/${competition.slug}`} className="leaderboard">
         <div className="leaderboard-legend">
@@ -26,6 +30,7 @@ export default function Leaderboard({ competition, now }) {
         <p className="leaderboard-description">
           {competition.venue} —{' '}
           {competitionDateString(competition, now, { finished })}
+          {formatLabel(format) && ` — ${formatLabel(format)}`}
         </p>
         <div className={`leaderboard-table-wrap${competition.leaderboardEntries.length === 0 ? ' leaderboard-table-wrap--empty' : ''}`}>
           {competition.leaderboardEntries.length === 0 && (
@@ -46,7 +51,7 @@ export default function Leaderboard({ competition, now }) {
                 : PLACEHOLDER_ENTRIES
               ).map(entry => {
                 const scoreClasses = ['leaderboard-score'];
-                if (entry.score < 0) {
+                if (isGoodScore(format, entry.score)) {
                   scoreClasses.push('under-par');
                 }
 
