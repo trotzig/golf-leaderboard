@@ -16,7 +16,8 @@ function getRounds(entry) {
 }
 
 function getToParClass(score) {
-  if (!score || !(score.Score?.Value > 0)) return 'unknown';
+  if (!score) return 'unknown';
+  if (!(score.Score?.Value > 0)) return 'picked-up';
   if (score.Score.Value === 1) return 'hio';
   if (score.Score.Value < score.Par - 1) return 'eagle';
   if (score.Score.Value < score.Par) return 'birdie';
@@ -34,6 +35,10 @@ function calcHalfTotals(holeKeys, holeScores) {
     if (s?.Par) par += s.Par;
     if (s?.Score?.Value > 0) {
       score += s.Score.Value;
+      hasScore = true;
+    } else if (s && s.Score?.Value === 0 && typeof s.Par === 'number') {
+      // Stableford pick-up: count as par + 3 so the half/total still adds up.
+      score += s.Par + 3;
       hasScore = true;
     }
   }
@@ -65,7 +70,11 @@ function ScorecardHalf({ holeKeys, holeScores, totals = [] }) {
                 score,
               )}`}
             >
-              {score?.Score.Value > 0 ? score.Score.Value : null}
+              {score?.Score.Value > 0
+                ? score.Score.Value
+                : score?.Score?.Value === 0
+                ? '-'
+                : null}
             </div>
           </div>
         );

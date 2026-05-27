@@ -187,8 +187,10 @@ function Round({ round, colors, now }) {
         Object.keys(round.Holes || {}).map((holeKey, i) => {
           const score = round.HoleScores[holeKey];
           const hasScore = score && score.Score.Value > 0;
-          const toParClass = !hasScore
+          const toParClass = !score
             ? 'unknown'
+            : !hasScore
+            ? 'picked-up'
             : score.Score.Value === 1
             ? 'hio'
             : score.Score.Value < score.Par - 1

@@ -646,10 +646,12 @@ html.display-standalone nav {
 .round-score.bogey {
   border-width: 1px;
 }
-.round-score.bogey-plus {
+.round-score.bogey-plus,
+.round-score.picked-up {
   border-width: 1px;
 }
-.round-score.bogey-plus:after {
+.round-score.bogey-plus:after,
+.round-score.picked-up:after {
   content: '';
   display: block;
   top: 1px;
@@ -2847,7 +2849,8 @@ h2.player-big-name {
   .round-score.hio {
     background-color: #ff7a64;
   }
-  .round-score.bogey-plus:after {
+  .round-score.bogey-plus:after,
+  .round-score.picked-up:after {
     border-color: rgba(var(--text-rgb), 0.5);
   }
   .round-total.under-par,
