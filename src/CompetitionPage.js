@@ -186,7 +186,8 @@ function Round({ round, colors, now }) {
       ) : (
         Object.keys(round.Holes || {}).map((holeKey, i) => {
           const score = round.HoleScores[holeKey];
-          const toParClass = !score
+          const hasScore = score && score.Score.Value > 0;
+          const toParClass = !hasScore
             ? 'unknown'
             : score.Score.Value === 1
             ? 'hio'
@@ -201,7 +202,7 @@ function Round({ round, colors, now }) {
             : 'on-par';
           const result = [
             <span key={holeKey} className={`round-score ${toParClass}`}>
-              {score ? score.Score.Value : '-'}
+              {hasScore ? score.Score.Value : '-'}
             </span>,
           ];
           if (i === 8) {

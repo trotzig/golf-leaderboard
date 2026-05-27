@@ -16,7 +16,7 @@ function getRounds(entry) {
 }
 
 function getToParClass(score) {
-  if (!score) return 'unknown';
+  if (!score || !(score.Score?.Value > 0)) return 'unknown';
   if (score.Score.Value === 1) return 'hio';
   if (score.Score.Value < score.Par - 1) return 'eagle';
   if (score.Score.Value < score.Par) return 'birdie';
