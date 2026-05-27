@@ -3,6 +3,7 @@ import { startOfDay } from 'date-fns';
 import { sendMail } from './mailgun.mjs';
 import fixParValue from './fixParValue.mjs';
 import generateSlug from './generateSlug.mjs';
+import { describeHoleScore } from './holeScore.mjs';
 import getCollidingSlugs from './getCollidingSlugs.mjs';
 import getCurrentCompetition from './getCurrentCompetition.mjs';
 import parseJson from '../scripts/utils/parseJson.mjs';
@@ -47,31 +48,9 @@ function getLastHoleScore(holeScores) {
     return undefined;
   }
   const lastKey = holeKeys[holeKeys.length - 1];
-  // {"Par":4,"Result":{"ToParValue":0.0,"ToParText":"Par","ActualValue":4.0,"ActualText":"4"},"Score":{"Text":"4","Value":4},"IsCounting":!0}
-  const {
-    Result: { ToParValue: toParValue, ActualValue: actualValue },
-  } = scores[lastKey];
-
   const hole = lastKey.replace('H', '');
-  const scoreText =
-    actualValue === 1
-      ? 'a hole-in-one'
-      : toParValue === -3
-      ? 'an albatross'
-      : toParValue === -2
-      ? 'an eagle'
-      : toParValue === -1
-      ? 'a birdie'
-      : toParValue === 0
-      ? 'a par'
-      : toParValue === 1
-      ? 'a bogey'
-      : toParValue === 2
-      ? 'a double bogey'
-      : toParValue === 3
-      ? 'a triple bogey'
-      : 'other';
-  return { toParValue, actualValue, hole, scoreText };
+  const { toParValue, strokes, scoreText } = describeHoleScore(scores[lastKey]);
+  return { toParValue, actualValue: strokes, hole, scoreText };
 }
 
 async function fetchIsFinished(competition, activeRoundNumber) {
