@@ -156,19 +156,27 @@ function getRounds(entry) {
   return roundKeys.map(key => entry.Rounds[key]);
 }
 
-function RoundTotal({ score }) {
+function RoundTotal({ score, format, holes }) {
   const classes = ['round-score', 'round-total'];
-  if (score && score.Score < score.Par) {
-    classes.push('under-par');
+  const stableford = format === 'stableford';
+  const value = stableford ? Number(score?.Result?.Actual) : score?.Score;
+  if (score) {
+    if (stableford) {
+      if (Number.isFinite(value) && value > 2 * holes) {
+        classes.push('under-par');
+      }
+    } else if (score.Score < score.Par) {
+      classes.push('under-par');
+    }
   }
   return (
     <span className={classes.join(' ')}>
-      {score && score.Score > 0 ? score.Score : null}
+      {Number.isFinite(value) && value > 0 ? value : null}
     </span>
   );
 }
 
-function Round({ round, colors, now }) {
+function Round({ round, colors, now, format }) {
   const startTime = parseCET(round.StartDateTime);
 
   const classes = ['round'];
@@ -187,6 +195,7 @@ function Round({ round, colors, now }) {
         Object.keys(round.Holes || {}).map((holeKey, i) => {
           const score = round.HoleScores[holeKey];
           const hasScore = score && score.Score.Value > 0;
+          const stableford = format === 'stableford';
           const toParClass = !score
             ? 'unknown'
             : !hasScore
@@ -202,22 +211,47 @@ function Round({ round, colors, now }) {
             : score.Score.Value > score.Par
             ? 'bogey'
             : 'on-par';
+          let cellContent = '-';
+          if (score) {
+            cellContent = stableford
+              ? typeof score.Result?.ActualValue === 'number'
+                ? score.Result.ActualValue
+                : '-'
+              : hasScore
+              ? score.Score.Value
+              : '-';
+          }
           const result = [
             <span key={holeKey} className={`round-score ${toParClass}`}>
-              {hasScore ? score.Score.Value : '-'}
+              {cellContent}
             </span>,
           ];
           if (i === 8) {
             result.push(
-              <RoundTotal score={round.HoleScores['H-OUT']} key="out" />,
+              <RoundTotal
+                score={round.HoleScores['H-OUT']}
+                format={format}
+                holes={9}
+                key="out"
+              />,
             );
           }
           if (i === 17) {
             result.push(
-              <RoundTotal score={round.HoleScores['H-IN']} key="in" />,
+              <RoundTotal
+                score={round.HoleScores['H-IN']}
+                format={format}
+                holes={9}
+                key="in"
+              />,
             );
             result.push(
-              <RoundTotal score={round.HoleScores['H-TOTAL']} key="total" />,
+              <RoundTotal
+                score={round.HoleScores['H-TOTAL']}
+                format={format}
+                holes={18}
+                key="total"
+              />,
             );
           }
           return result;
@@ -352,6 +386,7 @@ function Player({
                     round={round}
                     colors={colors}
                     now={now}
+                    format={format}
                   />
                 );
               })}
@@ -788,6 +823,7 @@ export default function CompetitionPage({
         collidingSlugs={collidingSlugs}
         lastFavoriteChanged={lastFavoriteChanged}
         onFavoriteChange={() => setLastFavoriteChanged(Date.now())}
+        format={format}
       />
     </div>
   );

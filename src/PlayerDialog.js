@@ -26,18 +26,23 @@ function getToParClass(score) {
   return 'on-par';
 }
 
-function calcHalfTotals(holeKeys, holeScores) {
+function calcHalfTotals(holeKeys, holeScores, format) {
+  const stableford = format === 'stableford';
   let par = 0;
   let score = 0;
   let hasScore = false;
   for (const key of holeKeys) {
     const s = holeScores?.[key];
-    if (s?.Par) par += s.Par;
-    if (s?.Score?.Value > 0) {
+    if (s?.Par) par += stableford ? 2 : s.Par;
+    if (stableford) {
+      if (typeof s?.Result?.ActualValue === 'number') {
+        score += s.Result.ActualValue;
+        hasScore = true;
+      }
+    } else if (s?.Score?.Value > 0) {
       score += s.Score.Value;
       hasScore = true;
     } else if (s && s.Score?.Value === 0 && typeof s.Par === 'number') {
-      // Stableford pick-up: count as par + 3 so the half/total still adds up.
       score += s.Par + 3;
       hasScore = true;
     }
@@ -45,7 +50,8 @@ function calcHalfTotals(holeKeys, holeScores) {
   return { par: par || null, score: hasScore ? score : null };
 }
 
-function ScorecardHalf({ holeKeys, holeScores, totals = [] }) {
+function ScorecardHalf({ holeKeys, holeScores, totals = [], format }) {
+  const stableford = format === 'stableford';
   return (
     <div className="player-round-scorecard">
       <div>
@@ -64,13 +70,19 @@ function ScorecardHalf({ holeKeys, holeScores, totals = [] }) {
             <div className="player-round-scorecard-val">
               {holeKey.replace(/^H-?/, '')}
             </div>
-            <div className="player-round-scorecard-val">{score?.Par}</div>
+            <div className="player-round-scorecard-val">
+              {stableford ? 2 : score?.Par}
+            </div>
             <div
               className={`player-round-scorecard-val round-score ${getToParClass(
                 score,
               )}`}
             >
-              {score?.Score.Value > 0
+              {stableford
+                ? typeof score?.Result?.ActualValue === 'number'
+                  ? score.Result.ActualValue
+                  : null
+                : score?.Score.Value > 0
                 ? score.Score.Value
                 : score?.Score?.Value === 0
                 ? '-'
@@ -86,7 +98,8 @@ function ScorecardHalf({ holeKeys, holeScores, totals = [] }) {
             <div className="player-round-scorecard-val">{par ?? ''}</div>
             <div
               className={`player-round-scorecard-val${
-                score !== null && par !== null && score < par
+                score !== null && par !== null &&
+                (stableford ? score > par : score < par)
                   ? ' under-par'
                   : ''
               }`}
@@ -102,7 +115,7 @@ function ScorecardHalf({ holeKeys, holeScores, totals = [] }) {
   );
 }
 
-function DialogRound({ round, colors }) {
+function DialogRound({ round, colors, format }) {
   if (!round.Holes || !round.HoleScores) return null;
 
   const color = Object.values(colors || {}).find(
@@ -118,8 +131,8 @@ function DialogRound({ round, colors }) {
   const front9 = holeKeys.filter(k => parseInt(k.replace(/^H-?/, ''), 10) <= 9);
   const back9 = holeKeys.filter(k => parseInt(k.replace(/^H-?/, ''), 10) > 9);
 
-  const frontTotals = calcHalfTotals(front9, round.HoleScores);
-  const backTotals = calcHalfTotals(back9, round.HoleScores);
+  const frontTotals = calcHalfTotals(front9, round.HoleScores, format);
+  const backTotals = calcHalfTotals(back9, round.HoleScores, format);
   const totalPar = (frontTotals.par ?? 0) + (backTotals.par ?? 0) || null;
   const totalScore =
     frontTotals.score !== null && backTotals.score !== null
@@ -139,6 +152,7 @@ function DialogRound({ round, colors }) {
       <ScorecardHalf
         holeKeys={front9}
         holeScores={round.HoleScores}
+        format={format}
         totals={[
           { label: 'Out', par: frontTotals.par, score: frontTotals.score },
           { label: null },
@@ -148,6 +162,7 @@ function DialogRound({ round, colors }) {
         <ScorecardHalf
           holeKeys={back9}
           holeScores={round.HoleScores}
+          format={format}
           totals={[
             { label: 'In', par: backTotals.par, score: backTotals.score },
             { label: 'Total', par: totalPar, score: totalScore },
@@ -158,7 +173,7 @@ function DialogRound({ round, colors }) {
   );
 }
 
-export default function PlayerDialog({ entry, competition, data, onClose, collidingSlugs, lastFavoriteChanged, onFavoriteChange }) {
+export default function PlayerDialog({ entry, competition, data, onClose, collidingSlugs, lastFavoriteChanged, onFavoriteChange, format }) {
   const dialogRef = useRef(null);
   const mainRef = useRef(null);
   const [copied, setCopied] = useState(false);
@@ -426,6 +441,7 @@ export default function PlayerDialog({ entry, competition, data, onClose, collid
                     key={round.StartDateTime}
                     round={round}
                     colors={data?.CourseColours}
+                    format={format}
                   />
                 ))}
               </div>
