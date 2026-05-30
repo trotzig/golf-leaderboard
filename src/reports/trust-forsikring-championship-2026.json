@@ -7,8 +7,8 @@
   "endDate": "2026-05-29T00:00:00.000Z",
   "slug": "trust-forsikring-championship-2026",
   "headline": "Simonsen wins Trust Forsikring Championship by two points",
-  "blurb": "Martin Leth Simonsen added another Stableford win to his strong 2026 season, finishing two points clear of Jesper Sandborg at Lyngbygaard Golf Klub.",
-  "body": "[Martin Leth Simonsen](/martin-leth-simonsen) won the Trust Forsikring Championship at Lyngbygaard Golf Klub, finishing on +14 Stableford points — two points ahead of [Jesper Sandborg](/jesper-sandborg), who came in at +12. The event, played from May 27–29, used the Stableford format.\n\nLocal player [Bjørn La Cour Søborg](/bjorn-la-cour-soborg) and Swedish [Anton Karlsson](/anton-karlsson) shared third place on +11 points, while [Jesper Hagborg Asp](/jesper-hagborg-asp) finished fifth on +10. The win was comfortable enough for Simonsen, who kept a steady lead over the final round.\n\nTwo very low gross rounds stood out during the tournament. [Albin Tidén](/albin-tiden) shot a 60 in the second round, and [Erik Fogel](/erik-fogel) followed close behind with a 61 in the same round. Out of 72 players in the field, 31 made the cut at −16.\n\nSimonsen has been the strongest player on tour this season. He also won the Big Green Egg Blekinge Open earlier in May and the INFINITUM ECCO Masters before that, plus a third-place finish at the Sand Valley Masters. Sandborg, who won last week's Fjällbacka Open, could not keep up this time but still had a strong result in second place.",
+  "blurb": "Martin Leth Simonsen added another win to his strong 2026 season, finishing two points clear of Jesper Sandborg at Lyngbygaard Golf Klub.",
+  "body": "[Martin Leth Simonsen](/martin-leth-simonsen) won the Trust Forsikring Championship at Lyngbygaard Golf Klub, finishing on +14 Stableford points — two points ahead of [Jesper Sandborg](/jesper-sandborg), who came in at +12. The event, played from May 27–29, used the Stableford format.\n\nLocal player [Bjørn La Cour Søborg](/bjorn-la-cour-soborg) and Swedish [Anton Karlsson](/anton-karlsson) shared third place on +11 points, while [Jesper Hagborg Asp](/jesper-hagborg-asp) finished fifth on +10. The win was comfortable enough for Simonsen, who kept a steady lead over the final round.\n\nOut of 72 players in the field, 31 made the cut at +1p.\n\nSimonsen has been the strongest player on tour this season. He also won the Big Green Egg Blekinge Open earlier in May and the INFINITUM ECCO Masters before that, plus a third-place finish at the Sand Valley Masters. Sandborg, who won last week's Fjällbacka Open, could not keep up this time but still had a strong result in second place.",
   "winnerName": "Martin Leth Simonsen",
   "winnerPlayerId": "2-3476",
   "winnerPlayerSlug": "martin-leth-simonsen",
@@ -19,8 +19,8 @@
     "totalPlayers": 72,
     "playersMadeCut": 31,
     "playersMissedCut": 41,
-    "cutScore": -16,
-    "cutScoreText": "-16",
+    "cutScore": 1,
+    "cutScoreText": "+1p",
     "marginOfVictory": -2,
     "topFinishers": [
       {
