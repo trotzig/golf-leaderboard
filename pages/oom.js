@@ -7,6 +7,7 @@ import FavoriteButton from '../src/FavoriteButton';
 import LoadingSkeleton from '../src/LoadingSkeleton';
 import generateSlug from '../src/generateSlug';
 import getCollidingSlugs from '../src/getCollidingSlugs.mjs';
+import normalizeName from '../src/normalizeName.js';
 
 const NUM_FORMATTER = Intl.NumberFormat('en-US', {
   notation: 'compact',
@@ -31,9 +32,15 @@ function getEntries(data) {
 
 function Player({ entry, onFavorite, lastFavoriteChanged, collidingSlugs }) {
   const classes = ['player'];
+  const firstName = normalizeName(entry.FirstName);
+  const lastName = normalizeName(entry.LastName);
+  const slug = generateSlug(
+    { ...entry, FirstName: firstName, LastName: lastName },
+    collidingSlugs,
+  );
   return (
     <li>
-      <Link href={`/${generateSlug(entry, collidingSlugs)}`} className={classes.join(' ')}>
+      <Link href={`/${slug}`} className={classes.join(' ')}>
         <span className="position">
           <span>{entry.Position}</span>
           <FavoriteButton
@@ -46,7 +53,7 @@ function Player({ entry, onFavorite, lastFavoriteChanged, collidingSlugs }) {
           {entry.Position ? (
             <span className="position-inline">{entry.Position}</span>
           ) : null}
-          {entry.FirstName} {entry.LastName}
+          {firstName} {lastName}
           <br />
           <span className="club">{entry.ClubName}</span>
         </span>

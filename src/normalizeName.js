@@ -10,5 +10,13 @@ function normalizeNamePart(part) {
 
 export default function normalizeName(s) {
   if (!s) return s;
-  return s.trim().split(' ').filter(Boolean).map(normalizeNamePart).join(' ');
+  // Strip asterisk markers (e.g. "*" denoting non-members) that otherwise
+  // show up in the display name and break the generated slug.
+  return s
+    .replace(/\*/g, '')
+    .trim()
+    .split(' ')
+    .filter(Boolean)
+    .map(normalizeNamePart)
+    .join(' ');
 }
