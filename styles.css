@@ -123,6 +123,9 @@ button {
   margin: 0;
   opacity: 0.7;
   line-height: 1.5;
+  margin-bottom: 10px;
+}
+.intro-title + .page-desc {
   margin-bottom: 72px;
 }
 .page-desc a {
