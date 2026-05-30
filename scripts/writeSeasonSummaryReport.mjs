@@ -14,6 +14,7 @@ import readline from 'readline';
 import { fileURLToPath } from 'url';
 import prismaClient from '@prisma/client';
 import parseJson from './utils/parseJson.mjs';
+import { describeHoleScore } from '../src/holeScore.mjs';
 
 const { PrismaClient } = prismaClient;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -71,13 +72,16 @@ async function fetchLeaderboard(competitionId) {
               continue;
             const holeNumber = parseInt(holeKey.replace('H', ''), 10);
             if (isNaN(holeNumber)) continue;
-            if (!holeData.Result) continue;
 
-            const strokes = Math.round(holeData.Result.ActualValue ?? 0);
-            const toPar = Math.round(holeData.Result.ToParValue ?? 0);
+            // Use raw strokes (Score.Value) rather than Result.ActualValue:
+            // in stableford events ActualValue/ToParValue are in
+            // stableford-point space, so a hole worth 1 point would look
+            // like a 1-stroke hole-in-one. describeHoleScore handles both
+            // formats by deriving toPar from strokes − par.
+            const { strokes, toParValue: toPar } = describeHoleScore(holeData);
             const par = holeData.Par ?? 0;
 
-            if (strokes === 0) continue; // hole not played
+            if (typeof strokes !== 'number' || strokes === 0) continue; // hole not played
 
             roundHoles.push({ hole: holeNumber, par, strokes, toPar });
           }
