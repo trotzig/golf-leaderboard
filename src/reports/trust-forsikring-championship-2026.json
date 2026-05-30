@@ -1,0 +1,74 @@
+{
+  "competitionId": 5339478,
+  "competitionSlug": "trust-forsikring-championship-2026",
+  "competitionName": "Trust Forsikring Championship",
+  "venue": "Lyngbygaard Golf Klub",
+  "startDate": "2026-05-27T00:00:00.000Z",
+  "endDate": "2026-05-29T00:00:00.000Z",
+  "slug": "trust-forsikring-championship-2026",
+  "headline": "Simonsen wins Trust Forsikring Championship by two points",
+  "blurb": "Martin Leth Simonsen added another Stableford win to his strong 2026 season, finishing two points clear of Jesper Sandborg at Lyngbygaard Golf Klub.",
+  "body": "[Martin Leth Simonsen](/martin-leth-simonsen) won the Trust Forsikring Championship at Lyngbygaard Golf Klub, finishing on +14 Stableford points — two points ahead of [Jesper Sandborg](/jesper-sandborg), who came in at +12. The event, played from May 27–29, used the Stableford format.\n\nLocal player [Bjørn La Cour Søborg](/bjorn-la-cour-soborg) and Swedish [Anton Karlsson](/anton-karlsson) shared third place on +11 points, while [Jesper Hagborg Asp](/jesper-hagborg-asp) finished fifth on +10. The win was comfortable enough for Simonsen, who kept a steady lead over the final round.\n\nTwo very low gross rounds stood out during the tournament. [Albin Tidén](/albin-tiden) shot a 60 in the second round, and [Erik Fogel](/erik-fogel) followed close behind with a 61 in the same round. Out of 72 players in the field, 31 made the cut at −16.\n\nSimonsen has been the strongest player on tour this season. He also won the Big Green Egg Blekinge Open earlier in May and the INFINITUM ECCO Masters before that, plus a third-place finish at the Sand Valley Masters. Sandborg, who won last week's Fjällbacka Open, could not keep up this time but still had a strong result in second place.",
+  "winnerName": "Martin Leth Simonsen",
+  "winnerPlayerId": "2-3476",
+  "winnerPlayerSlug": "martin-leth-simonsen",
+  "winnerImage": "/players/2-3476.jpg",
+  "stats": {
+    "winningScore": 14,
+    "winningScoreText": "+14p",
+    "totalPlayers": 72,
+    "playersMadeCut": 31,
+    "playersMissedCut": 41,
+    "cutScore": -16,
+    "cutScoreText": "-16",
+    "marginOfVictory": -2,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "Martin Leth Simonsen",
+        "club": "Aalborg Golf Klub",
+        "score": 14,
+        "scoreText": "+14p",
+        "playerId": "2-3476",
+        "playerSlug": "martin-leth-simonsen"
+      },
+      {
+        "position": "2",
+        "name": "Jesper Sandborg",
+        "club": "Landeryds Golfklubb",
+        "score": 12,
+        "scoreText": "+12p",
+        "playerId": "930608-004",
+        "playerSlug": "jesper-sandborg"
+      },
+      {
+        "position": "T3",
+        "name": "Bjørn La Cour Søborg",
+        "club": "Lyngbygaard Golf Klub",
+        "score": 11,
+        "scoreText": "+11p",
+        "playerId": "185-6029",
+        "playerSlug": "bjorn-la-cour-soborg"
+      },
+      {
+        "position": "T3",
+        "name": "Anton Karlsson",
+        "club": "Upsala Golfklubb",
+        "score": 11,
+        "scoreText": "+11p",
+        "playerId": "930911-011",
+        "playerSlug": "anton-karlsson"
+      },
+      {
+        "position": "T5",
+        "name": "Jesper Hagborg Asp",
+        "club": "Onsjö Golfklubb",
+        "score": 10,
+        "scoreText": "+10p",
+        "playerId": "961231-001",
+        "playerSlug": "jesper-hagborg-asp"
+      }
+    ]
+  },
+  "createdAt": "2026-05-30T17:43:02.493Z"
+}
