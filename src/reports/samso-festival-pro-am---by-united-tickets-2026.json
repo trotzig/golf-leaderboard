@@ -1,0 +1,74 @@
+{
+  "competitionId": 5682240,
+  "competitionSlug": "samso-festival-pro-am---by-united-tickets-2026",
+  "competitionName": "Samsø Festival Pro-Am - by United Tickets",
+  "venue": "Samsø Golfklub, Denmark",
+  "startDate": "2026-06-03T00:00:00.000Z",
+  "endDate": "2026-06-05T00:00:00.000Z",
+  "slug": "samso-festival-pro-am---by-united-tickets-2026",
+  "headline": "Lundgren wins Samsø Festival Pro-Am by one shot",
+  "blurb": "Swedish player David Lundgren finished at 15 under par to beat Magnus A. Østergaard by a single stroke at Samsø Golfklub in Denmark.",
+  "body": "[David Lundgren](/david-lundgren) won the Samsø Festival Pro-Am - by United Tickets at Samsø Golfklub in Denmark, finishing at 15 under par. The Swede from Ängelholms Golfklubb had one shot to spare over [Magnus A. Østergaard](/magnus-a-ostergaard), who ended on 14 under.\n\nLundgren has been one of the most consistent players on tour this season. He finished tied for second at both the GolfStar Winter Series Dunes and the GolfStar Winter Series Forest earlier this year, and this time he went one step further to take the title.\n\nSharing third place at 12 under were [Jens Kristian Thysted](/jens-kristian-thysted) and [Bjørn La Cour Søborg](/bjorn-la-cour-soborg), while [Morten Ørum Madsen](/morten-orum-madsen) from Silkeborg Golfklub finished fifth at 11 under. The top of the leaderboard was tight, with just four shots separating first from fifth.\n\nOut of 59 players in the field, 34 made the cut, which fell at 1 under par.",
+  "winnerName": "David Lundgren",
+  "winnerPlayerId": "010515-018",
+  "winnerPlayerSlug": "david-lundgren",
+  "winnerImage": "/players/010515-018.jpg",
+  "stats": {
+    "winningScore": -15,
+    "winningScoreText": "-15",
+    "totalPlayers": 59,
+    "playersMadeCut": 34,
+    "playersMissedCut": 24,
+    "cutScore": -1,
+    "cutScoreText": "-1",
+    "marginOfVictory": 1,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "David Lundgren",
+        "club": "Ängelholms Golfklubb",
+        "score": -15,
+        "scoreText": "-15",
+        "playerId": "010515-018",
+        "playerSlug": "david-lundgren"
+      },
+      {
+        "position": "2",
+        "name": "Magnus A. Østergaard",
+        "club": "Lyngbygaard Golf Klub",
+        "score": -14,
+        "scoreText": "-14",
+        "playerId": "59-1988",
+        "playerSlug": "magnus-a-ostergaard"
+      },
+      {
+        "position": "T3",
+        "name": "Jens Kristian Thysted",
+        "club": "Smørum Golfklub",
+        "score": -12,
+        "scoreText": "-12",
+        "playerId": "120-90200",
+        "playerSlug": "jens-kristian-thysted"
+      },
+      {
+        "position": "T3",
+        "name": "Bjørn La Cour Søborg",
+        "club": "Lyngbygaard Golf Klub",
+        "score": -12,
+        "scoreText": "-12",
+        "playerId": "185-6029",
+        "playerSlug": "bjorn-la-cour-soborg"
+      },
+      {
+        "position": "5",
+        "name": "Morten Ørum Madsen",
+        "club": "Silkeborg Golfklub",
+        "score": -11,
+        "scoreText": "-11",
+        "playerId": "16-2117",
+        "playerSlug": "morten-orum-madsen"
+      }
+    ]
+  },
+  "createdAt": "2026-06-08T12:32:38.868Z"
+}
