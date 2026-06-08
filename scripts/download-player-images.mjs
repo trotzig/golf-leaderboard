@@ -175,6 +175,14 @@ async function processPlayerUpdate(player) {
   const json = readJson(player.id);
   if (!json) return 'skipped';
 
+  // Manually-added image: never overwrite from OWGR.
+  if (json.manual) {
+    console.log(
+      `  [manual] ${player.firstName} ${player.lastName} — keeping manually added photo`,
+    );
+    return 'skipped';
+  }
+
   const imageUrl = await scrapeImageUrl(json.owgrUrl);
 
   const regex = /\.(jpg|png)/;
