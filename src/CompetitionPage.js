@@ -14,6 +14,7 @@ import LoadingSkeleton from './LoadingSkeleton';
 import PlayerDialog from './PlayerDialog';
 import competitionDateString from './competitionDateString';
 import formatCompetitionName from './formatCompetitionName';
+import getCompetitionTour from './getCompetitionTour.mjs';
 import normalizeName from './normalizeName.js';
 import ensureDates from './ensureDates.js';
 import CutInfo from './CutInfo';
@@ -652,6 +653,9 @@ export default function CompetitionPage({
       </Head>
       <div className="h-intro">{getHeading(competition, now, finished)}</div>
       <h2 className="leaderboard-page-heading">{formatCompetitionName(competition.name)}</h2>
+      {getCompetitionTour(competition.categories) && (
+        <p className="leaderboard-page-tour">{getCompetitionTour(competition.categories)}</p>
+      )}
       {competition.venue && (
         <p className="leaderboard-page-subtitle">
           <VenueMapLink venue={competition.venue} />

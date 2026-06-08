@@ -22,6 +22,7 @@ export async function getServerSideProps() {
         start: true,
         end: true,
         slug: true,
+        categories: true,
       },
     }),
     prisma.competition.findMany({
@@ -35,6 +36,7 @@ export async function getServerSideProps() {
         start: true,
         end: true,
         slug: true,
+        categories: true,
       },
     }),
     prisma.competition.findFirst({
@@ -51,6 +53,7 @@ export async function getServerSideProps() {
         start: true,
         end: true,
         slug: true,
+        categories: true,
         finished: true,
         leaderboardEntries: {
           orderBy: { position: 'asc' },

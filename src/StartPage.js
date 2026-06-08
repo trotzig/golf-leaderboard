@@ -8,6 +8,7 @@ import ReportBlurbs from './ReportBlurbs.js';
 import Leaderboard from './Leaderboard.js';
 import competitionDateString from './competitionDateString';
 import formatCompetitionName from './formatCompetitionName';
+import getCompetitionTour from './getCompetitionTour.mjs';
 import ensureDates from './ensureDates.js';
 import { preloadJsonPData } from './fetchJsonP.js';
 
@@ -155,6 +156,7 @@ function CompetitionListItem({ competition, now, current, next }) {
   const classNames = ['competition-list-item'];
   if (current) classNames.push('current');
   if (next) classNames.push('next');
+  const tour = getCompetitionTour(competition.categories);
   return (
     <li key={competition.id} className={classNames.join(' ')}>
       <Link
@@ -169,6 +171,7 @@ function CompetitionListItem({ competition, now, current, next }) {
           <h4 className="competition-name">
             <span>{formatCompetitionName(competition.name)}</span>
           </h4>
+          {tour && <span className="competition-tour">{tour}</span>}
           <p>
             {competition.venue} — {competitionDateString(competition, now)}
           </p>

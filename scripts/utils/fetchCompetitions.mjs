@@ -13,6 +13,7 @@ function entryToCompetition(e, now) {
     slug: generateCompetitionSlug(e),
     start: parse(`${e.StartDate}+00`, DATE_FORMAT, now),
     end: parse(`${e.EndDate}+00`, DATE_FORMAT, now),
+    categories: e.Categories || [],
   };
 }
 

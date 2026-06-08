@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 
 import ensureDates from '../src/ensureDates.js';
 import formatCompetitionName from '../src/formatCompetitionName';
+import getCompetitionTour from '../src/getCompetitionTour.mjs';
 import prisma from '../src/prisma';
 import locations from '../src/locations.json';
 
@@ -109,6 +110,7 @@ export default function SchedulePage({
 function CompetitionItem({ competition, now, current, previousYear }) {
   const queryString = now > competition.end ? '?finished=1' : '';
   const past = !current && now > competition.end;
+  const tour = getCompetitionTour(competition.categories);
   return (
     <tr
       key={competition.id}
@@ -126,6 +128,7 @@ function CompetitionItem({ competition, now, current, previousYear }) {
           {formatCompetitionName(competition.name)}
           <br />
         </Link>
+        {tour && <span className="schedule-tour">{tour}</span>}
         <span className="schedule-venue">{competition.venue}</span>
       </td>
       <td>
@@ -166,6 +169,7 @@ export async function getServerSideProps({ query }) {
       start: true,
       end: true,
       slug: true,
+      categories: true,
     },
   });
   for (const c of competitions) {

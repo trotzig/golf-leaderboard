@@ -157,6 +157,16 @@ button {
   flex-shrink: 0;
 }
 
+.leaderboard-page-tour {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0 10px;
+  margin: 0 0 4px;
+  opacity: 0.6;
+}
+
 .page-tabs {
   display: flex;
   gap: 4px;
@@ -441,6 +451,16 @@ html.display-standalone nav {
 }
 .calendar-event b {
   font-size: 16px;
+}
+
+.competition-tour {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.6;
+  margin: 0 0 2px;
 }
 
 .competition p {
@@ -1609,6 +1629,15 @@ input.ios-switch:checked:after {
 .schedule-venue {
   display: block;
   opacity: 0.7;
+}
+
+.schedule-tour {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.6;
 }
 
 .schedule-month-header td {

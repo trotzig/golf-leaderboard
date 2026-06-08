@@ -90,6 +90,7 @@ model Competition {
   updatedAt        DateTime  @default(now())
   visible          Boolean   @default(true)
   finished         Boolean   @default(false)
+  categories       Int[]     @default([])
   competitionScore PlayerCompetitionScore[]
   leaderboardEntries LeaderboardEntry[]
 }

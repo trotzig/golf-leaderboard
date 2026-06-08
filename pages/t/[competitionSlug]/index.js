@@ -16,6 +16,7 @@ export async function getServerSideProps({ req, params }) {
         start: true,
         end: true,
         slug: true,
+        categories: true,
       },
     }),
     profileProps({ req }),
