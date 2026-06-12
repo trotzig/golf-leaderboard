@@ -10,8 +10,10 @@
  */
 
 import fs from 'fs';
+import os from 'os';
 import path from 'path';
 import readline from 'readline';
+import { spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import { format } from 'date-fns';
 import prismaClient from '@prisma/client';
@@ -296,6 +298,91 @@ function promptUser(question) {
   });
 }
 
+// Serialise the article into a human-editable text format with clearly marked
+// sections. The body keeps real blank lines between paragraphs (rather than the
+// literal \n\n stored in JSON) so it's pleasant to edit.
+function articleToEditable(article) {
+  return [
+    '# Edit the report below. Lines starting with "#" are section markers —',
+    '# keep them. Lines starting with ";" are comments and will be ignored.',
+    ';',
+    '# HEADLINE',
+    article.headline,
+    '',
+    '# BLURB',
+    article.blurb,
+    '',
+    '# BODY',
+    article.body,
+    '',
+  ].join('\n');
+}
+
+function editableToArticle(text) {
+  const sections = { headline: [], blurb: [], body: [] };
+  const markerToKey = {
+    '# HEADLINE': 'headline',
+    '# BLURB': 'blurb',
+    '# BODY': 'body',
+  };
+  let current = null;
+  for (const line of text.split('\n')) {
+    const trimmed = line.trim();
+    if (markerToKey[trimmed]) {
+      current = markerToKey[trimmed];
+      continue;
+    }
+    // Skip instruction headers and ";" comment lines
+    if (trimmed.startsWith('#') || trimmed.startsWith(';')) continue;
+    if (current) sections[current].push(line);
+  }
+  const collapse = lines => lines.join('\n').trim();
+  return {
+    headline: collapse(sections.headline),
+    blurb: collapse(sections.blurb),
+    body: collapse(sections.body),
+  };
+}
+
+// Open the generated article in the user's editor and return the edited version.
+// Returns the original article unchanged if the editor can't be launched.
+async function editArticleInEditor(article) {
+  const tmpFile = path.join(
+    fs.mkdtempSync(path.join(os.tmpdir(), 'golf-report-')),
+    'report.md',
+  );
+  fs.writeFileSync(tmpFile, articleToEditable(article));
+
+  const editor = process.env.VISUAL || process.env.EDITOR || 'vim';
+  // Editor command may contain arguments (e.g. "code --wait")
+  const [cmd, ...args] = editor.split(/\s+/);
+  const result = spawnSync(cmd, [...args, tmpFile], { stdio: 'inherit' });
+
+  if (result.error) {
+    console.warn(
+      `\nCould not open editor "${editor}" (${result.error.message}). Using the article as generated.`,
+    );
+    return article;
+  }
+  if (result.status !== 0) {
+    console.warn(
+      `\nEditor exited with status ${result.status}. Using the article as generated.`,
+    );
+    return article;
+  }
+
+  const edited = editableToArticle(fs.readFileSync(tmpFile, 'utf8'));
+  fs.rmSync(path.dirname(tmpFile), { recursive: true, force: true });
+
+  if (!edited.headline || !edited.blurb || !edited.body) {
+    console.warn(
+      '\nEdited report is missing a headline, blurb, or body. Using the article as generated.',
+    );
+    return article;
+  }
+  return edited;
+}
+
 async function main() {
   fs.mkdirSync(REPORTS_DIR, { recursive: true });
 
@@ -537,10 +624,18 @@ async function main() {
   );
 
   console.log('\nCalling Anthropic API...');
-  const article = await callAnthropicAPI(tournamentData, playerLinksText, extraContext);
+  const generated = await callAnthropicAPI(tournamentData, playerLinksText, extraContext);
 
-  console.log(`\nHeadline: ${article.headline}`);
-  console.log(`Blurb: ${article.blurb}`);
+  console.log(`\nHeadline: ${generated.headline}`);
+  console.log(`Blurb: ${generated.blurb}`);
+
+  const editAnswer = await promptUser(
+    '\nEdit the article in your editor before saving? (Y/n) ',
+  );
+  const article =
+    editAnswer.toLowerCase() === 'n'
+      ? generated
+      : await editArticleInEditor(generated);
 
   const reportData = {
     competitionId: competition.id,
