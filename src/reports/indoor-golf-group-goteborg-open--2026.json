@@ -1,0 +1,74 @@
+{
+  "competitionId": 5398099,
+  "competitionSlug": "indoor-golf-group-goteborg-open--2026",
+  "competitionName": "Indoor Golf Group Göteborg Open ",
+  "venue": "Forsgårdens Golfklubb",
+  "startDate": "2026-06-10T00:00:00.000Z",
+  "endDate": "2026-06-12T00:00:00.000Z",
+  "slug": "indoor-golf-group-goteborg-open--2026",
+  "headline": "Karlsson wins Göteborg Open on sixth play-off hole",
+  "blurb": "Anton Karlsson beat two other players in a long play-off at Forsgårdens Golfklubb after three men finished tied at -6 in the Indoor Golf Group Göteborg Open.",
+  "body": "[Anton Karlsson](/anton-karlsson) won the Indoor Golf Group Göteborg Open after a six-hole play-off at Forsgårdens Golfklubb. Three players — Karlsson, [Joachim Brandt Hansen](/joachim-brandt-hansen) and [Lucas Augustsson](/lucas-augustsson) — all finished on -6 after 54 holes, and it took six extra holes before Karlsson came out on top.\n\nThe win adds to a strong season for the Upsala Golfklubb player. Karlsson finished second at the Gamle Fredrikstad Open earlier this year and was also tied third at the Trust Forsikring Championship.\n\nOne shot behind the three leaders, [Hlynur Bergsson](/hlynur-bergsson) from Iceland ended alone in fourth place at -5. [Roope Kakko](/roope-kakko-432) from Finland took fifth place at -4.\n\nThe field started with 156 players, and 48 made the cut at +2. Scoring was tight throughout the week, with just one shot separating first and fourth place on the final leaderboard.",
+  "winnerName": "Anton Karlsson",
+  "winnerPlayerId": "930911-011",
+  "winnerPlayerSlug": "anton-karlsson",
+  "winnerImage": "/players/930911-011.jpg",
+  "stats": {
+    "winningScore": -6,
+    "winningScoreText": "-6",
+    "totalPlayers": 156,
+    "playersMadeCut": 48,
+    "playersMissedCut": 105,
+    "cutScore": 2,
+    "cutScoreText": "+2",
+    "marginOfVictory": 0,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "Anton Karlsson",
+        "club": "Upsala Golfklubb",
+        "score": -6,
+        "scoreText": "-6",
+        "playerId": "930911-011",
+        "playerSlug": "anton-karlsson"
+      },
+      {
+        "position": "T2",
+        "name": "Joachim Brandt Hansen",
+        "club": "Hillerød Golf Klub",
+        "score": -6,
+        "scoreText": "-6",
+        "playerId": "188-1036",
+        "playerSlug": "joachim-brandt-hansen"
+      },
+      {
+        "position": "T2",
+        "name": "Lucas Augustsson",
+        "club": "Ringenäs Golfklubb",
+        "score": -6,
+        "scoreText": "-6",
+        "playerId": "030509-010",
+        "playerSlug": "lucas-augustsson"
+      },
+      {
+        "position": "4",
+        "name": "Hlynur Bergsson",
+        "club": "",
+        "score": -5,
+        "scoreText": "-5",
+        "playerId": "207780",
+        "playerSlug": "hlynur-bergsson"
+      },
+      {
+        "position": "5",
+        "name": "Roope Kakko",
+        "club": "Helsingin Golfklubi",
+        "score": -4,
+        "scoreText": "-4",
+        "playerId": "15-3011",
+        "playerSlug": "roope-kakko-432"
+      }
+    ]
+  },
+  "createdAt": "2026-06-12T20:46:44.874Z"
+}
