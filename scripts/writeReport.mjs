@@ -219,12 +219,12 @@ Language rules (important — most readers learned English in school and struggl
 
 Write a short article about this tournament. Return ONLY a valid JSON object (no markdown, no code blocks) with these fields:
 - "headline": A compelling report headline (max 12 words). Use sentence case.
-- "blurb": A teaser sentence or two (max 40 words) suitable for a homepage preview card
+- "blurb": A teaser sentence or two (max 40 words) suitable for a homepage preview card. Plain text only — no markdown, no links.
 - "body": The report body as a string with paragraphs separated by double newlines (\\n\\n). Write 3–4 paragraphs. Be specific about scores and players. Mention if the win was comfortable or close. Comment on the cut if data is available. There are both amateurs (has an "(a)" in the name) and professionals. Don't mention their amateur/professional status, it has little value on this tour. The cut is almost always at 45 players. You can mention the number of players making the cut but don't make a big thing about it. The cut score is more interesting.${
     priorResultsText
       ? ' If the winner has notable prior results, briefly reference them.'
       : ''
-  }${extraordinaryRoundsText ? ' Any extraordinary rounds listed below could be mentioned in the article.' : ''}${playOffNote ? ' The tournament ended in a play-off — this MUST be prominently mentioned.' : ''} When mentioning a player by name, use a markdown link from the player list below — use each player link at most once across the whole article.
+  }${extraordinaryRoundsText ? ' Any extraordinary rounds listed below could be mentioned in the article.' : ''}${playOffNote ? ' The tournament ended in a play-off — this MUST be prominently mentioned.' : ''} When mentioning a player by name in the body, use a markdown link from the player list below — use each player link at most once across the body. Do not use markdown links in the blurb.
 ${extraordinaryRoundsText}${playOffNote}${statusNote}${headlinesWarning}
 Tournament: ${tournamentData.name}
 Venue: ${tournamentData.venue || 'Nordic Golf Tour'}
