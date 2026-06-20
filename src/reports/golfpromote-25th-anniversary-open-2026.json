@@ -1,0 +1,74 @@
+{
+  "competitionId": 5339480,
+  "competitionSlug": "golfpromote-25th-anniversary-open-2026",
+  "competitionName": "GolfPromote 25th Anniversary Open",
+  "venue": "Lübker Golf Resort",
+  "startDate": "2026-06-17T00:00:00.000Z",
+  "endDate": "2026-06-19T00:00:00.000Z",
+  "slug": "golfpromote-25th-anniversary-open-2026",
+  "headline": "Sandborg beats Lundgren in play-off at Lübker",
+  "blurb": "[Jesper Sandborg](/jesper-sandborg) won the GolfPromote 25th Anniversary Open after a play-off against David Lundgren. Both finished at -12 after 54 holes at Lübker Golf Resort.",
+  "body": "[Jesper Sandborg](/jesper-sandborg) won the GolfPromote 25th Anniversary Open at Lübker Golf Resort after a two-hole play-off against [David Lundgren](/david-lundgren). Both players finished 54 holes at -12, and it took an impressive up-and-down on the 18th to give Sandborg the title.\n\nLundgren held a two-shot lead with five holes left in the final round, but Sandborg fought back to force the play-off. It is Sandborg's second win of the season on the Cutter & Buck Tour, after his victory at the Fjällbacka Open. He also finished second at the Trust Forsikring Championship and tied for third at the INFINITUM Championship, making him one of the most consistent players on tour this year.\n\n[Oliver Lilliedahl](/oliver-lilliedahl) finished third at -9, three shots behind the two leaders. [David Nyfjäll](/david-nyfjall) and [Morten Ørum Madsen](/morten-orum-madsen) shared fourth place at -6.\n\nThe field started with 146 players, and 51 made the cut at +1. The tournament was played from June 17 to 19 at Lübker Golf Resort in Denmark.",
+  "winnerName": "Jesper Sandborg",
+  "winnerPlayerId": "930608-004",
+  "winnerPlayerSlug": "jesper-sandborg",
+  "winnerImage": "/players/930608-004.jpg",
+  "stats": {
+    "winningScore": -12,
+    "winningScoreText": "-12",
+    "totalPlayers": 146,
+    "playersMadeCut": 51,
+    "playersMissedCut": 89,
+    "cutScore": 1,
+    "cutScoreText": "+1",
+    "marginOfVictory": 0,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "Jesper Sandborg",
+        "club": "Landeryds Golfklubb",
+        "score": -12,
+        "scoreText": "-12",
+        "playerId": "930608-004",
+        "playerSlug": "jesper-sandborg"
+      },
+      {
+        "position": "2",
+        "name": "David Lundgren",
+        "club": "Ängelholms Golfklubb",
+        "score": -12,
+        "scoreText": "-12",
+        "playerId": "010515-018",
+        "playerSlug": "david-lundgren"
+      },
+      {
+        "position": "3",
+        "name": "Oliver Lilliedahl",
+        "club": "AIK Golfklubb",
+        "score": -9,
+        "scoreText": "-9",
+        "playerId": "980324-002",
+        "playerSlug": "oliver-lilliedahl"
+      },
+      {
+        "position": "T4",
+        "name": "David Nyfjäll",
+        "club": "Upsala Golfklubb",
+        "score": -6,
+        "scoreText": "-6",
+        "playerId": "990126-001",
+        "playerSlug": "david-nyfjall"
+      },
+      {
+        "position": "T4",
+        "name": "Morten Ørum Madsen",
+        "club": "Silkeborg Golfklub",
+        "score": -6,
+        "scoreText": "-6",
+        "playerId": "16-2117",
+        "playerSlug": "morten-orum-madsen"
+      }
+    ]
+  },
+  "createdAt": "2026-06-20T06:54:12.261Z"
+}
