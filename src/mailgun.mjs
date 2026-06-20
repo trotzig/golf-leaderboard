@@ -11,15 +11,19 @@ const client = mailgun.client({
 
 const from = `${NEXT_PUBLIC_TITLE} <info@${MAILGUN_DOMAIN}>`;
 
-export async function sendMail({ to, subject, text }) {
+export async function sendMail({ to, subject, text, headers = {} }) {
   if (process.env.NODE_ENV !== 'production') {
-    console.log('Sending email', { subject, to, text });
+    console.log('Sending email', { subject, to, text, headers });
   }
   const messageData = {
     from,
     to,
     subject,
     text,
+    // Mailgun sends any `h:`-prefixed field as a custom message header.
+    ...Object.fromEntries(
+      Object.entries(headers).map(([name, value]) => [`h:${name}`, value]),
+    ),
   };
 
   const res = await client.messages.create(MAILGUN_DOMAIN, messageData);

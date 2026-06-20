@@ -230,13 +230,15 @@ async function sendEmail(
       continue;
     }
 
+    const unsubscribeUrl = `${BASE_URL}/api/unsubscribe?token=${account.authToken}`;
+
     const footer = `
 See the result from ${firstName} and others in the full leaderboard here:
 ${BASE_URL}/t/${competitionSlug}
 
 -------------------
 This email was sent via ${MAILGUN_DOMAIN}. To stop getting these emails,
-unsubscribe using this link: ${BASE_URL}/api/unsubscribe?token=${account.authToken}
+unsubscribe using this link: ${unsubscribeUrl}
     `.trim();
 
     const subject =
@@ -284,6 +286,12 @@ ${footer}
       subject,
       text,
       to: account.email,
+      headers: {
+        // Surface a native unsubscribe option in the email client and enable
+        // one-click unsubscribe (RFC 8058).
+        'List-Unsubscribe': `<${unsubscribeUrl}>`,
+        'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
+      },
     });
   }
 }
