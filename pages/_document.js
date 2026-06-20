@@ -1,5 +1,6 @@
 import React from 'react';
 import { Html, Head, Main, NextScript } from 'next/document';
+import appleSplashScreens from '../src/appleSplashScreens.mjs';
 
 const standaloneScript = `
 (function() {
@@ -13,7 +14,16 @@ const standaloneScript = `
 export default function Document() {
   return (
     <Html>
-      <Head />
+      <Head>
+        {appleSplashScreens.map(({ href, media }) => (
+          <link
+            key={href}
+            rel="apple-touch-startup-image"
+            href={href}
+            media={media}
+          />
+        ))}
+      </Head>
       <body>
         <script dangerouslySetInnerHTML={{ __html: standaloneScript }} />
         <Main />
