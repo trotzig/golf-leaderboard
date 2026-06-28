@@ -1,0 +1,74 @@
+{
+  "competitionId": 5398108,
+  "competitionSlug": "pga-championship-2026",
+  "competitionName": "PGA Championship",
+  "venue": "Onsjö Golfklubb",
+  "startDate": "2026-06-24T00:00:00.000Z",
+  "endDate": "2026-06-26T00:00:00.000Z",
+  "slug": "pga-championship-2026",
+  "headline": "Längfors wins PGA Championship by one at home club",
+  "blurb": "Per Längfors finished at -18 to win the PGA Championship at his home course Onsjö Golfklubb, just one shot ahead of Claes Thrane Borregaard.",
+  "body": "Per Längfors won the PGA Championship at Onsjö Golfklubb, his home club, finishing at -18 — one shot ahead of [Claes Thrane Borregaard](/claes-thrane-borregaard). Borregaard pushed hard in the final round with a 63, the lowest round of the tournament, but Längfors held on to take the title.\n\n[Albin Tidén](/albin-tiden) finished third at -14, four shots behind the winner. [Casper Simberg](/casper-simberg) and [Anton Karlsson](/anton-karlsson) shared fourth place at -13.\n\n59 out of 159 players made the cut at -2 after round two. The low cut score shows the course suited many players, but Längfors was clearly the best over three rounds.\n\nFor Längfors, winning at his own club makes this result extra special. Borregaard's closing 63 made the final round tight, but in the end one shot was enough for the home player.",
+  "winnerName": "Per Längfors",
+  "winnerPlayerId": "940816-005",
+  "winnerPlayerSlug": null,
+  "winnerImage": null,
+  "stats": {
+    "winningScore": -18,
+    "winningScoreText": "-18",
+    "totalPlayers": 156,
+    "playersMadeCut": 59,
+    "playersMissedCut": 95,
+    "cutScore": -2,
+    "cutScoreText": "-2",
+    "marginOfVictory": 1,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "Per Längfors",
+        "club": "Onsjö Golfklubb",
+        "score": -18,
+        "scoreText": "-18",
+        "playerId": "940816-005",
+        "playerSlug": null
+      },
+      {
+        "position": "2",
+        "name": "Claes Thrane Borregaard",
+        "club": "Smørum Golfklub",
+        "score": -17,
+        "scoreText": "-17",
+        "playerId": "120-58456",
+        "playerSlug": "claes-thrane-borregaard"
+      },
+      {
+        "position": "3",
+        "name": "Albin Tidén",
+        "club": "Romeleåsens Golfklubb",
+        "score": -14,
+        "scoreText": "-14",
+        "playerId": "981005-006",
+        "playerSlug": "albin-tiden"
+      },
+      {
+        "position": "T4",
+        "name": "Casper Simberg",
+        "club": "Hirsala Golf",
+        "score": -13,
+        "scoreText": "-13",
+        "playerId": "111-5167",
+        "playerSlug": "casper-simberg"
+      },
+      {
+        "position": "T4",
+        "name": "Anton Karlsson",
+        "club": "Upsala Golfklubb",
+        "score": -13,
+        "scoreText": "-13",
+        "playerId": "930911-011",
+        "playerSlug": "anton-karlsson"
+      }
+    ]
+  },
+  "createdAt": "2026-06-28T18:47:58.876Z"
+}
