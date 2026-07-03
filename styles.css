@@ -1097,6 +1097,32 @@ input.ios-switch:checked:after {
   font-size: 0.85em;
 }
 
+.start-group {
+  padding: 14px 10px;
+  border-bottom: 1px solid rgba(var(--text-rgb), 0.15);
+}
+.start-group-header {
+  font-size: 0.8125rem; /* 13px */
+  font-weight: bold;
+  letter-spacing: 0.02em;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+.start-group-team {
+  margin-bottom: 10px;
+}
+.start-group-team:last-child {
+  margin-bottom: 0;
+}
+.start-group-players {
+  font-weight: bold;
+}
+.start-group-club {
+  font-size: 0.8125rem; /* 13px */
+  opacity: 0.6;
+  margin-top: 2px;
+}
+
 .leaderboard-page-header {
   display: grid;
   grid-template-columns: auto 1fr;

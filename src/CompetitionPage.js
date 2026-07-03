@@ -72,6 +72,62 @@ function getEntriesFromTimesData(timesData) {
   return entries;
 }
 
+// Builds the start-list groupings shown before a competition starts. Entries in
+// the active round are grouped by MatchNo (the group/flight number); within each
+// group players are grouped into their teams.
+function getStartGroups(timesData) {
+  if (!timesData || !timesData.ActiveRoundNumber || !timesData.Rounds) {
+    return null;
+  }
+  const round = timesData.Rounds[`R${timesData.ActiveRoundNumber}`];
+  if (!round || !round.StartLists) {
+    return null;
+  }
+  const byMatch = new Map();
+  for (const startList of Object.values(round.StartLists)) {
+    for (const entry of startList.Entries || []) {
+      if (!byMatch.has(entry.MatchNo)) {
+        byMatch.set(entry.MatchNo, {
+          matchNo: entry.MatchNo,
+          startTime: entry.StartTime,
+          hole: entry.Hole,
+          teams: new Map(),
+        });
+      }
+      const group = byMatch.get(entry.MatchNo);
+      const teamId = entry.TeamID || entry.MemberID;
+      if (!group.teams.has(teamId)) {
+        group.teams.set(teamId, { teamId, players: [] });
+      }
+      group.teams.get(teamId).players.push({
+        memberId: entry.MemberID,
+        name: `${(entry.FirstName || '').trim()} ${(
+          entry.LastName || ''
+        ).trim()}`.trim(),
+        club: entry.ClubName,
+        orderNo: entry.OrderNo,
+      });
+    }
+  }
+  const groups = [...byMatch.values()].map(group => ({
+    matchNo: group.matchNo,
+    startTime: group.startTime,
+    hole: group.hole,
+    teams: [...group.teams.values()]
+      .map(team => ({
+        teamId: team.teamId,
+        players: team.players.slice().sort((a, b) => a.orderNo - b.orderNo),
+      }))
+      .sort((a, b) => a.players[0].orderNo - b.players[0].orderNo),
+  }));
+  groups.sort((a, b) => {
+    if (a.startTime !== b.startTime) return a.startTime < b.startTime ? -1 : 1;
+    if (a.hole !== b.hole) return a.hole - b.hole;
+    return a.matchNo - b.matchNo;
+  });
+  return groups.length ? groups : null;
+}
+
 function getEntriesFromPlayersData(playersData) {
   if (!playersData.Classes) {
     return [];
@@ -381,6 +437,35 @@ function CutInfo({ data }) {
   );
 }
 
+function StartList({ groups, now }) {
+  return (
+    <div className="start-list">
+      <h3 className="leaderboard-section-heading">Start list</h3>
+      {groups.map(group => (
+        <div className="start-group" key={group.matchNo}>
+          <div className="start-group-header">
+            {format(parse(group.startTime, DATE_FORMAT, now), 'HH:mm')} - Hole{' '}
+            {group.hole}
+          </div>
+          {group.teams.map(team => {
+            const clubs = [
+              ...new Set(team.players.map(p => p.club).filter(Boolean)),
+            ].join(' / ');
+            return (
+              <div className="start-group-team" key={team.teamId}>
+                <div className="start-group-players">
+                  {team.players.map(p => p.name).join(' / ')}
+                </div>
+                {clubs && <div className="start-group-club">{clubs}</div>}
+              </div>
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function MatchPlay({ entries, now }) {
   return (
     <div>
@@ -502,6 +587,12 @@ export default function CompetitionPage({
   }
 
   const favorites = entries && entries.filter(e => e.isFavorite);
+
+  // Before the competition starts, show the groupings/start list instead of an
+  // empty leaderboard.
+  const isUpcoming = competition.start && competition.start > startOfDay(now);
+  const startGroups = isUpcoming ? getStartGroups(timesData) : null;
+
   return (
     <div className="leaderboard-page">
       <Head>
@@ -599,7 +690,9 @@ export default function CompetitionPage({
           )}
         </div>
       ) : null}
-      {entries && isMatchPlay ? (
+      {startGroups ? (
+        <StartList groups={startGroups} now={now} />
+      ) : entries && isMatchPlay ? (
         <MatchPlay entries={entries} now={now} />
       ) : entries ? (
         <div>
