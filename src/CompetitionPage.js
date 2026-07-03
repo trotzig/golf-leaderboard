@@ -12,7 +12,7 @@ import competitionDateString from './competitionDateString';
 import ensureDates from './ensureDates.js';
 import fixParValue from './fixParValue';
 import generateSlug from './generateSlug.mjs';
-import { KFF_PREVIOUS_RESULTS } from './kffConfig.mjs';
+import { KFF_CURRENT_SLUG, KFF_EDITIONS } from './kffConfig.mjs';
 import removeCommonCoursePrefix from './removeCommonCoursePrefix.js';
 import YouTubeEmbed from './YouTubeEmbed';
 
@@ -467,6 +467,9 @@ export default function CompetitionPage({
   lazyItems = true,
 }) {
   ensureDates(competition);
+  const selectedEdition = KFF_EDITIONS.find(e => e.slug === competition.slug);
+  const isPreviousEdition =
+    selectedEdition && selectedEdition.slug !== KFF_CURRENT_SLUG;
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
   const data = useJsonPData(
     `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057/`,
@@ -517,10 +520,11 @@ export default function CompetitionPage({
         )}
       </Head>
       <nav className="kff-previous-years">
-        <span className="kff-previous-years-label">Previous results:</span>
-        {KFF_PREVIOUS_RESULTS.map(({ year, slug }) => (
-          <Link key={year} href={`/t/${slug}`}>
-            <a>{year}</a>
+        {KFF_EDITIONS.map(({ year, slug }) => (
+          <Link key={year} href={slug === KFF_CURRENT_SLUG ? '/' : `/t/${slug}`}>
+            <a className={slug === competition.slug ? 'selected' : undefined}>
+              {year}
+            </a>
           </Link>
         ))}
       </nav>
@@ -535,7 +539,12 @@ export default function CompetitionPage({
           />
         </div>
         <div className="leaderboard-page-header-right">
-          <div className="h-intro">{getHeading(competition, now)}</div>
+          <div className="h-intro">
+            {getHeading(competition, now)}
+            {isPreviousEdition && (
+              <span className="year-badge">{selectedEdition.year}</span>
+            )}
+          </div>
           <h2 className="leaderboard-page-heading">{competition.name}</h2>
           {competition.venue && (
             <p className="leaderboard-page-subtitle">

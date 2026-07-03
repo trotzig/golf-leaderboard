@@ -7,8 +7,7 @@ import Leaderboard from '../src/Leaderboard.js';
 import Menu from '../src/Menu';
 import competitionDateString from '../src/competitionDateString';
 import ensureDates from '../src/ensureDates.js';
-import { KFF_COMPETITION_ID, KFF_PREVIOUS_RESULTS } from '../src/kffConfig.mjs';
-import prisma from '../src/prisma';
+import { KFF_CURRENT_SLUG } from '../src/kffConfig.mjs';
 
 export default function StartPage({
   pastCompetitions,
@@ -86,16 +85,9 @@ function CompetitionListItem({ competition, now, current }) {
 }
 
 export async function getServerSideProps() {
-  const competition = await prisma.competition.findUnique({
-    where: { id: KFF_COMPETITION_ID },
-    select: { slug: true },
-  });
-  const destination = competition
-    ? `/t/${competition.slug}`
-    : `/t/${KFF_PREVIOUS_RESULTS[KFF_PREVIOUS_RESULTS.length - 1].slug}`;
   return {
     redirect: {
-      destination,
+      destination: `/t/${KFF_CURRENT_SLUG}`,
       permanent: false,
     },
   };

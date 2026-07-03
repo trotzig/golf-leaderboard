@@ -1071,16 +1071,30 @@ input.ios-switch:checked:after {
   border-bottom: 1px solid rgba(var(--text-rgb), 0.15);
   font-size: 0.875rem; /* 14px */
 }
-.kff-previous-years-label {
-  opacity: 0.6;
-}
 .kff-previous-years a {
   color: var(--primary);
   text-decoration: none;
   font-weight: bold;
+  padding: 3px 10px;
+  border-radius: 999px;
 }
 .kff-previous-years a:hover {
-  text-decoration: underline;
+  background: var(--primary-lightest);
+}
+.kff-previous-years a.selected {
+  background: var(--primary);
+  color: #fff;
+}
+
+.year-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.85em;
 }
 
 .leaderboard-page-header {
