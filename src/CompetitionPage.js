@@ -254,7 +254,11 @@ function Round({ round, colors, now, hole }) {
           <span className="round-hole">{hole ? ` | Hole ${hole}` : null}</span>
         </div>
       ) : (
-        Object.keys(round.Holes || allHoles).map((holeKey, i) => {
+        Object.keys(round.Holes || allHoles)
+          // The IN/OUT/TOTAL keys are rendered separately via RoundTotal below;
+          // skip them here so they don't produce trailing empty score cells.
+          .filter(holeKey => !holeKey.startsWith('H-'))
+          .map((holeKey, i) => {
           const score = round.HoleScores[holeKey];
           const toParClass = !score
             ? 'unknown'
