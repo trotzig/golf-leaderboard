@@ -458,7 +458,6 @@ function CutInfo({ data }) {
 function StartList({ groups, now }) {
   return (
     <div className="start-list">
-      <h3 className="leaderboard-section-heading">Start list</h3>
       {groups.map(group => (
         <div className="start-group" key={group.matchNo}>
           <div className="start-group-header">
@@ -739,9 +738,7 @@ export default function CompetitionPage({
               </ul>
               <h3 className="leaderboard-section-heading">Everyone</h3>
             </div>
-          ) : (
-            <h3 className="leaderboard-section-heading">Players</h3>
-          )}
+          ) : null}
 
           <ul>
             {entries.map((entry, i) => {
