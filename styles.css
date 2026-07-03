@@ -1062,6 +1062,27 @@ input.ios-switch:checked:after {
   padding-top: 5px;
 }
 
+.kff-previous-years {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 10px;
+  border-bottom: 1px solid rgba(var(--text-rgb), 0.15);
+  font-size: 0.875rem; /* 14px */
+}
+.kff-previous-years-label {
+  opacity: 0.6;
+}
+.kff-previous-years a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: bold;
+}
+.kff-previous-years a:hover {
+  text-decoration: underline;
+}
+
 .leaderboard-page-header {
   display: grid;
   grid-template-columns: auto 1fr;

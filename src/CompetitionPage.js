@@ -12,6 +12,7 @@ import competitionDateString from './competitionDateString';
 import ensureDates from './ensureDates.js';
 import fixParValue from './fixParValue';
 import generateSlug from './generateSlug.mjs';
+import { KFF_PREVIOUS_RESULTS } from './kffConfig.mjs';
 import removeCommonCoursePrefix from './removeCommonCoursePrefix.js';
 import YouTubeEmbed from './YouTubeEmbed';
 
@@ -515,6 +516,14 @@ export default function CompetitionPage({
           />
         )}
       </Head>
+      <nav className="kff-previous-years">
+        <span className="kff-previous-years-label">Previous results:</span>
+        {KFF_PREVIOUS_RESULTS.map(({ year, slug }) => (
+          <Link key={year} href={`/t/${slug}`}>
+            <a>{year}</a>
+          </Link>
+        ))}
+      </nav>
       <div className="leaderboard-page-header">
         <div className="leaderboard-page-header-left">
           <img

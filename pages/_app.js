@@ -3,7 +3,6 @@ import '../styles.css';
 import Head from 'next/head';
 import NextNProgress from 'nextjs-progressbar';
 import React, { useEffect, useState } from 'react';
-import Script from 'next/script';
 
 function MyApp({ Component, pageProps }) {
   const [themeColor, setThemeColor] = useState('#ffffff');
@@ -37,11 +36,6 @@ function MyApp({ Component, pageProps }) {
           <link rel="stylesheet" href={process.env.NEXT_PUBLIC_EXTRA_CSS} />
         ) : null}
       </Head>
-      <Script
-        defer
-        data-domain={process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN || 'nordicgolftour.app'}
-        src="https://plausible.io/js/script.js"
-      />
       <div className="blurry-background" />
       <main>
         <Component {...pageProps} />
