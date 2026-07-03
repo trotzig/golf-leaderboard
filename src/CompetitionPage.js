@@ -139,11 +139,26 @@ function getEntriesFromPlayersData(playersData) {
   );
 }
 
+function getLeaderboard(data) {
+  const classKey = data && Object.keys(data.Classes || {})[0];
+  return classKey ? data.Classes[classKey].Leaderboard : null;
+}
+
+// True when the leaderboard actually carries results (teams or entries). Used to
+// tell a real, populated leaderboard apart from an empty/flaky GolfBox response.
+function hasLeaderboardResults(data) {
+  const leaderboard = getLeaderboard(data);
+  if (!leaderboard) {
+    return false;
+  }
+  const results = leaderboard.Entries || leaderboard.Teams;
+  return !!results && Object.keys(results).length > 0;
+}
+
 function getEntries(data, timesData, playersData) {
-  const classKey = Object.keys(data.Classes || {})[0];
-  let entries = classKey
-    ? data.Classes[classKey].Leaderboard.Entries ||
-      data.Classes[classKey].Leaderboard.Teams
+  const leaderboard = getLeaderboard(data);
+  let entries = leaderboard
+    ? leaderboard.Entries || leaderboard.Teams
     : undefined;
   if (!entries && !timesData) {
     return;
@@ -158,10 +173,9 @@ function getEntries(data, timesData, playersData) {
   }
 
   const result = Object.values(entries);
-  const cutPosition =
-    data.Classes &&
-    data.Classes[classKey].Cut &&
-    data.Classes[classKey].Cut.Position;
+  const classKey = Object.keys(data.Classes || {})[0];
+  const cut = classKey && data.Classes[classKey] && data.Classes[classKey].Cut;
+  const cutPosition = cut && cut.Position;
   for (const entry of result) {
     if (
       cutPosition &&
@@ -169,7 +183,7 @@ function getEntries(data, timesData, playersData) {
       entry.Position.Actual - 1 === cutPosition
     ) {
       entry.isFirstCut = true;
-      entry.isFirstCutPerformed = data.Classes[classKey].Cut.IsPerformed;
+      entry.isFirstCutPerformed = cut.IsPerformed;
     }
     const timeEntry = timeEntries[entry.MemberID];
     if (timeEntry) {
@@ -556,9 +570,14 @@ export default function CompetitionPage({
   const isPreviousEdition =
     selectedEdition && selectedEdition.slug !== KFF_CURRENT_SLUG;
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
+  // A finished competition must have a populated leaderboard; if GolfBox returns
+  // an empty one, treat it as a flaky response rather than falling back to the
+  // individual players list.
+  const competitionFinished = competition.end && competition.end < now;
   const data = useJsonPData(
     `https://scores.golfbox.dk/Handlers/LeaderboardHandler/GetLeaderboard/CompetitionId/${competition.id}/language/2057/`,
     initialData,
+    competitionFinished ? hasLeaderboardResults : undefined,
   );
   const timesData = useJsonPData(
     `https://scores.golfbox.dk/Handlers/TeeTimesHandler/GetTeeTimes/CompetitionId/${competition.id}/language/2057/`,
@@ -706,7 +725,7 @@ export default function CompetitionPage({
                       competition={competition}
                       now={now}
                       colors={data.CourseColours}
-                      key={entry.MemberID}
+                      key={entry.MemberID || getTeamName(entry)}
                       entry={entry}
                       onFavoriteChange={handleFavoriteChange}
                       lastFavoriteChanged={lastFavoriteChanged}
@@ -724,7 +743,7 @@ export default function CompetitionPage({
             {entries.map((entry, i) => {
               return (
                 <Player
-                  key={entry.MemberID}
+                  key={entry.MemberID || getTeamName(entry)}
                   competition={competition}
                   now={now}
                   colors={data.CourseColours}
