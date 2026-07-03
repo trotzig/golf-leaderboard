@@ -327,7 +327,10 @@ nav svg {
 .oom .player {
   all: unset;
   display: grid;
-  grid-template-columns: 30px auto 50px;
+  /* minmax(0, 1fr) lets the middle column shrink below its content instead of
+     expanding to the (very wide) scorecard's max-content and overflowing the
+     viewport on narrow screens. */
+  grid-template-columns: 30px minmax(0, 1fr) 50px;
   column-gap: 10px;
   padding: 10px 10px;
   transition: all 0.2s;
