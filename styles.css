@@ -1098,29 +1098,28 @@ input.ios-switch:checked:after {
 }
 
 .start-group {
-  padding: 14px 10px;
-  border-bottom: 1px solid rgba(var(--text-rgb), 0.15);
+  padding: 10px 10px 14px;
+  border-bottom: 1px solid rgba(var(--text-rgb), 0.2);
 }
 .start-group-header {
   font-size: 0.8125rem; /* 13px */
   font-weight: bold;
   letter-spacing: 0.02em;
   color: var(--primary);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 .start-group-team {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 .start-group-team:last-child {
   margin-bottom: 0;
 }
-.start-group-players {
-  font-weight: bold;
-}
+/* Match the leaderboard player name (default body size, normal weight). */
 .start-group-club {
-  font-size: 0.8125rem; /* 13px */
-  opacity: 0.6;
-  margin-top: 2px;
+  display: block;
+  opacity: 0.5;
+  font-size: 0.75rem; /* 12px */
+  margin: 3px 0 0;
 }
 
 .leaderboard-page-header {
