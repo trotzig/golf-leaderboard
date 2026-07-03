@@ -384,7 +384,7 @@ function Player({
             {fixParValue(entry.ResultSum.ToParText)}
           </span>
         ) : null}
-        <span>
+        <span className="stats-cell">
           <StatsWrapper className="stats" minHeight={statsHeight}>
             {rounds.map(round => {
               return (

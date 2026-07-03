@@ -337,11 +337,14 @@ nav svg {
   min-height: 50px;
 }
 
+/* The scorecard cell spans the score column too, so the scorecard gets the full
+   width below the name/score instead of being squeezed into the middle column. */
+.leaderboard-page .stats-cell {
+  grid-column: 2 / 4;
+}
 .leaderboard-page .stats {
   transition: all 0.2s;
   overflow: hidden;
-  grid-column-start: 2;
-  grid-column-end: 4;
 }
 
 .leaderboard-page .favorite-button {
