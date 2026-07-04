@@ -155,6 +155,21 @@ function hasLeaderboardResults(data) {
   return !!results && Object.keys(results).length > 0;
 }
 
+// True once any score has been recorded. Unlike the leaderboard's IsScoringOpen
+// flag (only true during live play), this stays true after the competition
+// finishes, so we can tell a finished competition apart from an upcoming one.
+function leaderboardHasScores(data) {
+  const leaderboard = getLeaderboard(data);
+  if (!leaderboard) {
+    return false;
+  }
+  const results = leaderboard.Entries || leaderboard.Teams;
+  return (
+    !!results &&
+    Object.values(results).some(r => r.ResultSum && r.ResultSum.ActualValue > 0)
+  );
+}
+
 function getEntries(data, timesData, playersData) {
   const leaderboard = getLeaderboard(data);
   let entries = leaderboard
@@ -408,13 +423,13 @@ function Player({
   );
 }
 
-function getHeading(competition, now, scoringStarted) {
+function getHeading(competition, now, hasStarted) {
   if (!competition.start) {
     // not yet loaded
     return '';
   }
   const startOfToday = startOfDay(now);
-  if (!scoringStarted && competition.start > startOfToday) {
+  if (!hasStarted && competition.start > startOfToday) {
     return 'Upcoming event';
   }
   if (competition.end >= startOfToday) {
@@ -615,15 +630,19 @@ export default function CompetitionPage({
   // leaderboard's scoring flag rather than the start date, which is unreliable
   // because GolfBox start dates are UTC midnight and can read as "upcoming" all
   // day in a positive-offset timezone.
+  // The competition is underway (or finished) once scoring is open or any score
+  // has been recorded; that stays true after it ends. Only show the start list
+  // before that — when it's genuinely upcoming — not once results exist.
   const leaderboard = getLeaderboard(data);
-  const scoringStarted = !!(leaderboard && leaderboard.IsScoringOpen);
-  const startGroups = scoringStarted ? null : getStartGroups(timesData);
+  const hasStarted =
+    !!(leaderboard && leaderboard.IsScoringOpen) || leaderboardHasScores(data);
+  const startGroups = hasStarted ? null : getStartGroups(timesData);
 
   return (
     <div className="leaderboard-page">
       <Head>
         <title>
-          {competition.name} | {getHeading(competition, now, scoringStarted)}
+          {competition.name} | {getHeading(competition, now, hasStarted)}
         </title>
         <meta
           name="description"
@@ -657,7 +676,7 @@ export default function CompetitionPage({
         </div>
         <div className="leaderboard-page-header-right">
           <div className="h-intro">
-            {getHeading(competition, now, scoringStarted)}
+            {getHeading(competition, now, hasStarted)}
             {isPreviousEdition && (
               <span className="year-badge">{selectedEdition.year}</span>
             )}
