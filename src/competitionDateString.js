@@ -12,6 +12,7 @@ const DATE_FORMAT = "yyyyMMdd'T'HHmmss";
 export default function competitionDateString(
   competition,
   initialNow = new Date(),
+  roundInfo,
 ) {
   const utcMidnight = new Date(
     Date.UTC(
@@ -45,10 +46,19 @@ export default function competitionDateString(
   let suffix = '';
 
   if (start - 60 * 60 * 1000 <= utcMidnight && utcMidnight <= end) {
-    // Currently active
-    suffix = ` — Playing round ${differenceInDays(utcMidnight, start) + 1} of ${
-      numberOfDays + 1
-    }`;
+    // Within the competition's date window.
+    if (roundInfo) {
+      // Prefer the leaderboard's real round/scoring state over the (unreliable)
+      // one-round-per-day assumption. Only say "Playing" while scoring is open;
+      // once it's closed (finished or between rounds) show no round suffix.
+      if (roundInfo.scoringOpen && roundInfo.totalRounds) {
+        suffix = ` — Playing round ${roundInfo.activeRound} of ${roundInfo.totalRounds}`;
+      }
+    } else {
+      suffix = ` — Playing round ${differenceInDays(utcMidnight, start) + 1} of ${
+        numberOfDays + 1
+      }`;
+    }
   } else {
     if (utcMidnight > end) {
       return `Finished ${formatDistance(end, utcMidnight)} ago`;

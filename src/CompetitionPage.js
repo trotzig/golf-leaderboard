@@ -637,6 +637,15 @@ export default function CompetitionPage({
   const hasStarted =
     !!(leaderboard && leaderboard.IsScoringOpen) || leaderboardHasScores(data);
   const startGroups = hasStarted ? null : getStartGroups(timesData);
+  // Real round/scoring state for the subtitle, so it doesn't infer rounds from
+  // the date span (which is wrong for a same-day, multi-round competition).
+  const roundInfo = leaderboard
+    ? {
+        scoringOpen: !!leaderboard.IsScoringOpen,
+        activeRound: leaderboard.ActiveRoundNumber,
+        totalRounds: (leaderboard.RoundNames || []).length,
+      }
+    : undefined;
 
   return (
     <div className="leaderboard-page">
@@ -685,7 +694,9 @@ export default function CompetitionPage({
           {competition.venue && (
             <p className="leaderboard-page-subtitle">
               {competition.venue} –{' '}
-              {competition.start && competitionDateString(competition, now)}.{' '}
+              {competition.start &&
+                competitionDateString(competition, now, roundInfo)}
+              .{' '}
               <CutInfo data={data} />
             </p>
           )}
