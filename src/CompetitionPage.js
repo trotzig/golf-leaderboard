@@ -408,13 +408,13 @@ function Player({
   );
 }
 
-function getHeading(competition, now) {
+function getHeading(competition, now, scoringStarted) {
   if (!competition.start) {
     // not yet loaded
     return '';
   }
   const startOfToday = startOfDay(now);
-  if (competition.start > startOfToday) {
+  if (!scoringStarted && competition.start > startOfToday) {
     return 'Upcoming event';
   }
   if (competition.end >= startOfToday) {
@@ -610,16 +610,20 @@ export default function CompetitionPage({
 
   const favorites = entries && entries.filter(e => e.isFavorite);
 
-  // Before the competition starts, show the groupings/start list instead of an
-  // empty leaderboard.
-  const isUpcoming = competition.start && competition.start > startOfDay(now);
-  const startGroups = isUpcoming ? getStartGroups(timesData) : null;
+  // Show the start list only before scoring opens; once the competition is
+  // underway (or finished) show the leaderboard results. Rely on the
+  // leaderboard's scoring flag rather than the start date, which is unreliable
+  // because GolfBox start dates are UTC midnight and can read as "upcoming" all
+  // day in a positive-offset timezone.
+  const leaderboard = getLeaderboard(data);
+  const scoringStarted = !!(leaderboard && leaderboard.IsScoringOpen);
+  const startGroups = scoringStarted ? null : getStartGroups(timesData);
 
   return (
     <div className="leaderboard-page">
       <Head>
         <title>
-          {competition.name} | {getHeading(competition, now)}
+          {competition.name} | {getHeading(competition, now, scoringStarted)}
         </title>
         <meta
           name="description"
@@ -653,7 +657,7 @@ export default function CompetitionPage({
         </div>
         <div className="leaderboard-page-header-right">
           <div className="h-intro">
-            {getHeading(competition, now)}
+            {getHeading(competition, now, scoringStarted)}
             {isPreviousEdition && (
               <span className="year-badge">{selectedEdition.year}</span>
             )}
