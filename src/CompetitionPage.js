@@ -933,7 +933,7 @@ export default function CompetitionPage({
               <>
                 <span>•</span>
                 <span>{date}</span>
-                {suffix && (
+                {suffix && !isMatchPlay && (
                   <>
                     <span>•</span>
                     <span>{suffix}</span>

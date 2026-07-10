@@ -8,16 +8,11 @@ import fixParValue from './fixParValue';
 import FlagIcon, { getCountryName } from './FlagIcon';
 import normalizeName from './normalizeName.js';
 
-const PLACEHOLDER_ENTRIES = [
-  { position: 1, positionText: '1', score: -3, scoreText: '-3', hole: '18', player: { firstName: 'Anders', lastName: 'Lindqvist', clubName: 'Stockholms GK' } },
-  { position: 2, positionText: '2', score: -1, scoreText: '-1', hole: '16', player: { firstName: 'Maria', lastName: 'Eriksson', clubName: 'Kungliga GK' } },
-  { position: 3, positionText: '3', score: 0, scoreText: 'E', hole: '14', player: { firstName: 'Johan', lastName: 'Bergström', clubName: 'Vallda GK' } },
-];
-
 export default function Leaderboard({ competition, now }) {
   const finished = competition.finished;
+  const entries = competition.leaderboardEntries;
   const format = detectFormat({
-    scoreTexts: competition.leaderboardEntries.map(e => e.scoreText),
+    scoreTexts: entries.map(e => e.scoreText),
   });
   return (
     <Link href={`/t/${competition.slug}`} className="leaderboard">
@@ -32,50 +27,50 @@ export default function Leaderboard({ competition, now }) {
           {competitionDateString(competition, now, { finished })}
           {formatLabel(format) && ` — ${formatLabel(format)}`}
         </p>
-        <div className={`leaderboard-table-wrap${competition.leaderboardEntries.length === 0 ? ' leaderboard-table-wrap--empty' : ''}`}>
-          {competition.leaderboardEntries.length === 0 && (
-            <div className="leaderboard-empty-overlay">No scores available yet</div>
-          )}
-          <table>
-            <thead>
-              <tr>
-                <th>Pos</th>
-                <th>Player</th>
-                <th>Total</th>
-                {!finished && <th>Thru</th>}
-              </tr>
-            </thead>
-            <tbody>
-              {(competition.leaderboardEntries.length > 0
-                ? competition.leaderboardEntries.slice(0, 3)
-                : PLACEHOLDER_ENTRIES
-              ).map(entry => {
-                const scoreClasses = ['leaderboard-score'];
-                if (isGoodScore(format, entry.score)) {
-                  scoreClasses.push('under-par');
-                }
-
-                return (
-                  <tr key={entry.position}>
-                    <td>{entry.positionText}</td>
-                    <td>
-                      {normalizeName(entry.player.firstName)} {normalizeName(entry.player.lastName)}
-                      <div className="leaderboard-club">
-                        <FlagIcon nationality={entry.player.nationality} />
-                        {entry.player.clubName || getCountryName(entry.player.nationality)}
-                      </div>
-                    </td>
-                    <td className={scoreClasses.join(' ')}>
-                      {fixParValue(entry.scoreText)}
-                    </td>
-                    {!finished && <td>{entry.hole}</td>}
+        {entries.length === 0 ? (
+          <div className="leaderboard-show-button">Show leaderboard</div>
+        ) : (
+          <>
+            <div className="leaderboard-table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Pos</th>
+                    <th>Player</th>
+                    <th>Total</th>
+                    {!finished && <th>Thru</th>}
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-        <div className="leaderboard-view-all">View full leaderboard</div>
+                </thead>
+                <tbody>
+                  {entries.slice(0, 3).map(entry => {
+                    const scoreClasses = ['leaderboard-score'];
+                    if (isGoodScore(format, entry.score)) {
+                      scoreClasses.push('under-par');
+                    }
+
+                    return (
+                      <tr key={entry.position}>
+                        <td>{entry.positionText}</td>
+                        <td>
+                          {normalizeName(entry.player.firstName)} {normalizeName(entry.player.lastName)}
+                          <div className="leaderboard-club">
+                            <FlagIcon nationality={entry.player.nationality} />
+                            {entry.player.clubName || getCountryName(entry.player.nationality)}
+                          </div>
+                        </td>
+                        <td className={scoreClasses.join(' ')}>
+                          {fixParValue(entry.scoreText)}
+                        </td>
+                        {!finished && <td>{entry.hole}</td>}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+            <div className="leaderboard-view-all">View full leaderboard</div>
+          </>
+        )}
     </Link>
   );
 }
