@@ -1947,13 +1947,112 @@ input.ios-switch:checked:after {
   margin-bottom: 30px;
   display: block;
 }
+.matchplay-round {
+  margin-bottom: 25px;
+}
+
 .leaderboard-page ul li.match {
-  display: block;
   padding: 10px;
   border-bottom: none;
   display: grid;
-  grid-template-columns: 1fr 100px 1fr;
-  gap: 10px;
+  grid-template-columns: 1fr 96px 1fr;
+  gap: 8px;
+  align-items: center;
+}
+
+.match-player {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.match-player--right {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.match-player-link {
+  min-width: 0;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.match-player-name {
+  display: block;
+  font-weight: bold;
+}
+
+.match-player--right .club {
+  justify-content: flex-end;
+}
+
+.match-player--tbd {
+  color: rgba(var(--text-rgb), 0.5);
+  font-style: italic;
+}
+
+.match-player--loser .match-player-name {
+  font-weight: normal;
+  color: rgba(var(--text-rgb), 0.55);
+}
+
+.match-player.favorite-player .match-player-name {
+  color: var(--primary);
+}
+
+.match-player .favorite-button {
+  flex: none;
+  opacity: 0.35;
+}
+
+.match-player .favorite-button.is-favorite {
+  opacity: 1;
+}
+
+.match-player .favorite-button svg {
+  width: 18px;
+  height: 18px;
+}
+
+.match-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.match-lead-arrow {
+  flex: none;
+  fill: var(--primary);
+}
+
+.match-result {
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.match-inprogress {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.match-inprogress .match-status {
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.match-inprogress .match-thru {
+  font-size: 11px;
+  color: rgba(var(--text-rgb), 0.6);
+}
+
+.match-center-tbd,
+.match-bye {
+  color: rgba(var(--text-rgb), 0.4);
 }
 
 .tabs {

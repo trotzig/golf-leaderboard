@@ -430,33 +430,274 @@ function getHeading(competition, now, finished) {
   return 'Final results';
 }
 
-function MatchPlay({ entries }) {
+/**
+ * Match play knockout brackets aren't exposed through the stroke-play
+ * leaderboard (which returns no entries). The bracket, pairings and match
+ * results live in a dedicated MatchplayHandler feed, grouped by round then by
+ * match. Each match has two `Entries`; the winner of a completed match is
+ * flagged with `IsLead`, and the outcome is in the match's `Result` string
+ * (e.g. "3&2", "1 Hole", or "19th" for a sudden-death win on the 19th hole).
+ */
+function getMatchPlayRounds(matchPlayData) {
+  if (!matchPlayData || !matchPlayData.Matchplay) {
+    return [];
+  }
+  const classes = Object.values(matchPlayData.Matchplay);
+  if (!classes.length) {
+    return [];
+  }
+  const clazz = classes[0];
+  // Names for the "real" rounds (Round 1, Quarter Final, ...) come from the
+  // competition setup. GolfBox includes trailing placement/consolation rounds
+  // beyond NumberOfRounds that it doesn't surface, so we cap on it too.
+  const roundNames = {};
+  for (const round of matchPlayData.CompetitionData?.RoundSetup || []) {
+    roundNames[round.Number] = round.Name;
+  }
+  const maxRounds = clazz.NumberOfRounds || Infinity;
+
+  const rounds = [];
+  for (const roundKey of Object.keys(clazz.Rounds || {})) {
+    const round = clazz.Rounds[roundKey];
+    if (round.Number > maxRounds) {
+      continue;
+    }
+    const matches = Object.values(round.Matches || {}).sort(
+      (a, b) => (a.OrderNo || a.MatchNo) - (b.OrderNo || b.MatchNo),
+    );
+    if (!matches.length) {
+      continue;
+    }
+    rounds.push({
+      key: roundKey,
+      number: round.Number,
+      name: roundNames[round.Number] || `Round ${round.Number}`,
+      matches,
+    });
+  }
+  // Show the furthest-progressed round first so the current action is on top.
+  rounds.reverse();
+  return rounds;
+}
+
+function isPlayerEntry(entry) {
+  return Boolean(entry && entry.EntryId && (entry.FirstName || entry.LastName));
+}
+
+// "6&5" -> "6 & 5"; other GolfBox result strings ("1 Hole", "19th") pass through.
+function formatMatchResult(result) {
+  const holes = result && result.match(/^(\d+)&(\d+)$/);
+  return holes ? `${holes[1]} & ${holes[2]}` : result;
+}
+
+// "2UP" -> "2 up"; "A/S" (all square) and anything else pass through.
+function formatMatchStatus(text) {
+  if (!text) {
+    return 'A/S';
+  }
+  const up = text.match(/^(\d+)UP$/i);
+  return up ? `${up[1]} up` : text;
+}
+
+/**
+ * Derive what to show in the centre column for a match, and its overall state,
+ * from the GolfBox fields (`HoleText` is "F" when final, a start time before
+ * the match begins, "-" when the pairing isn't decided yet, otherwise the hole
+ * the match stands through).
+ */
+function getMatchDisplay(match) {
+  const entries = match.Entries || [];
+  if (match.IsBye) {
+    return { state: 'bye' };
+  }
+  if (!isPlayerEntry(entries[0]) || !isPlayerEntry(entries[1])) {
+    return { state: 'tbd' };
+  }
+  if (match.HoleText === 'F') {
+    return { state: 'completed', result: formatMatchResult(match.Result) };
+  }
+  if (!match.HoleText || match.HoleText === '-' || match.HoleText.includes(':')) {
+    return { state: 'notstarted', startTime: formatCETTime(match.StartTime) };
+  }
+  const leader = entries.find(e => e.IsLead);
+  return {
+    state: 'inprogress',
+    status: formatMatchStatus(leader && leader.MatchResult?.ActualText),
+    thru: match.HoleText,
+  };
+}
+
+function LeadArrow({ direction }) {
   return (
-    <div>
-      <h3 className="leaderboard-section-heading">Matches</h3>
-      <ul>
-        {entries.map(entry => {
-          return (
-            <li className="match" key={entry.MatchNo}>
-              <span>
-                {normalizeName(entry.Players[0].FirstName)} {normalizeName(entry.Players[0].LastName)}
-                <br />
-                <span className="club">{entry.Players[0].ClubName}</span>
-              </span>
+    <svg
+      className="match-lead-arrow"
+      viewBox="0 0 10 10"
+      width="14"
+      height="14"
+      aria-hidden="true"
+    >
+      <polygon points={direction === 'left' ? '7,1 1,5 7,9' : '3,1 9,5 3,9'} />
+    </svg>
+  );
+}
 
-              <div className="round-start-time">
-                {formatCETTime(entry.StartTime)}
-              </div>
+function MatchCenter({ display, leadSide }) {
+  let value;
+  switch (display.state) {
+    case 'completed':
+      value = <span className="match-result">{display.result}</span>;
+      break;
+    case 'inprogress':
+      value = (
+        <span className="match-inprogress">
+          <span className="match-status">{display.status}</span>
+          <span className="match-thru">thru {display.thru}</span>
+        </span>
+      );
+      break;
+    case 'notstarted':
+      value = <span className="round-start-time">{display.startTime}</span>;
+      break;
+    case 'bye':
+      value = <span className="match-bye">Bye</span>;
+      break;
+    default:
+      value = <span className="match-center-tbd">–</span>;
+  }
+  return (
+    <div className="match-center">
+      {leadSide === 'left' && <LeadArrow direction="left" />}
+      {value}
+      {leadSide === 'right' && <LeadArrow direction="right" />}
+    </div>
+  );
+}
 
-              <span>
-                {normalizeName(entry.Players[1].FirstName)} {normalizeName(entry.Players[1].LastName)}
-                <br />
-                <span className="club">{entry.Players[1].ClubName}</span>
-              </span>
-            </li>
-          );
-        })}
-      </ul>
+function MatchPlayer({
+  player,
+  align,
+  isWinner,
+  isLoser,
+  isFavorite,
+  onFavoriteChange,
+  lastFavoriteChanged,
+  collidingSlugs,
+}) {
+  if (!isPlayerEntry(player)) {
+    return (
+      <span className={`match-player match-player--${align} match-player--tbd`}>
+        To be decided
+      </span>
+    );
+  }
+  const classes = ['match-player', `match-player--${align}`];
+  if (isWinner) {
+    classes.push('match-player--winner');
+  }
+  if (isLoser) {
+    classes.push('match-player--loser');
+  }
+  if (isFavorite) {
+    classes.push('favorite-player');
+  }
+  return (
+    <span className={classes.join(' ')}>
+      <FavoriteButton
+        playerId={player.MemberID}
+        onChange={onFavoriteChange}
+        icon
+        lastFavoriteChanged={lastFavoriteChanged}
+      />
+      <Link
+        href={`/${generateSlug(player, collidingSlugs)}`}
+        className="match-player-link"
+      >
+        <span className="match-player-name">
+          {normalizeName(player.FirstName)} {normalizeName(player.LastName)}
+        </span>
+        <span className="club">
+          <FlagIcon nationality={player.Nationality} />
+          {player.ClubName || player.Country}
+        </span>
+      </Link>
+    </span>
+  );
+}
+
+function Match({
+  match,
+  favoriteIds,
+  onFavoriteChange,
+  lastFavoriteChanged,
+  collidingSlugs,
+}) {
+  const display = getMatchDisplay(match);
+  const [first, second] = match.Entries || [];
+  // Emphasise the leader for both finished and in-progress matches; when a match
+  // is all square there is no leader, so neither side is highlighted.
+  const showLead =
+    display.state === 'completed' || display.state === 'inprogress';
+  const hasLeader = (match.Entries || []).some(e => e && e.IsLead);
+  const leadSide = showLead
+    ? first?.IsLead
+      ? 'left'
+      : second?.IsLead
+      ? 'right'
+      : null
+    : null;
+  return (
+    <li className="match">
+      <MatchPlayer
+        player={first}
+        align="left"
+        isWinner={showLead && Boolean(first?.IsLead)}
+        isLoser={showLead && hasLeader && !first?.IsLead}
+        isFavorite={favoriteIds.has(first?.MemberID)}
+        onFavoriteChange={onFavoriteChange}
+        lastFavoriteChanged={lastFavoriteChanged}
+        collidingSlugs={collidingSlugs}
+      />
+      <MatchCenter display={display} leadSide={leadSide} />
+      <MatchPlayer
+        player={second}
+        align="right"
+        isWinner={showLead && Boolean(second?.IsLead)}
+        isLoser={showLead && hasLeader && !second?.IsLead}
+        isFavorite={favoriteIds.has(second?.MemberID)}
+        onFavoriteChange={onFavoriteChange}
+        lastFavoriteChanged={lastFavoriteChanged}
+        collidingSlugs={collidingSlugs}
+      />
+    </li>
+  );
+}
+
+function MatchPlay({
+  rounds,
+  favoriteIds,
+  onFavoriteChange,
+  lastFavoriteChanged,
+  collidingSlugs,
+}) {
+  return (
+    <div className="matchplay">
+      {rounds.map(round => (
+        <div className="matchplay-round" key={round.key}>
+          <h3 className="leaderboard-section-heading">{round.name}</h3>
+          <ul>
+            {round.matches.map(match => (
+              <Match
+                key={match.MatchID || match.MatchNo}
+                match={match}
+                favoriteIds={favoriteIds}
+                onFavoriteChange={onFavoriteChange}
+                lastFavoriteChanged={lastFavoriteChanged}
+                collidingSlugs={collidingSlugs}
+              />
+            ))}
+          </ul>
+        </div>
+      ))}
     </div>
   );
 }
@@ -536,6 +777,7 @@ export default function CompetitionPage({
   initialTimesData,
   initialPlayersData,
   initialCompetitionData,
+  initialMatchPlayData,
   loadingOverride,
   account,
   competition = {},
@@ -567,7 +809,21 @@ export default function CompetitionPage({
     `https://scores.golfbox.dk/Handlers/CompetitionHandler/GetCompetition/CompetitionId/${competition.id}/language/2057/`,
     initialCompetitionData,
   );
-  const loading = loadingOverride || !data || !timesData || !playersData;
+  // Match play brackets/results come from a dedicated feed. Only fetch it once
+  // the leaderboard confirms the format, since it's a much larger payload.
+  const isMatchPlayCompetition = data?.CompetitionData?.Type === 'MatchPlay';
+  const matchPlayData = useJsonPData(
+    isMatchPlayCompetition
+      ? `https://scores.golfbox.dk/Handlers/MatchplayHandler/GetMatchplay/CompetitionId/${competition.id}/language/2057/`
+      : null,
+    initialMatchPlayData,
+  );
+  const loading =
+    loadingOverride ||
+    !data ||
+    !timesData ||
+    !playersData ||
+    (isMatchPlayCompetition && !matchPlayData);
 
   const handleFavoriteChange = useCallback(() => {
     setLastFavoriteChanged(new Date());
@@ -586,6 +842,10 @@ export default function CompetitionPage({
     () => detectFormat({ competitionData, entries }),
     [competitionData, entries],
   );
+  const matchRounds = useMemo(
+    () => getMatchPlayRounds(matchPlayData),
+    [matchPlayData],
+  );
 
   useEffect(() => {
     if (handledQueryPlayer.current || !query.player || !entries || !entries.length) return;
@@ -596,19 +856,27 @@ export default function CompetitionPage({
     }
   }, [query.player, entries]);
 
-  const isMatchPlay = entries && entries[0] && entries[0].Players;
+  const isMatchPlay = isMatchPlayCompetition || matchRounds.length > 0;
   const finished = isCompetitionFinished(competitionData, data, timesData);
   const winner = finished ? getWinner(entries) : undefined;
 
   const favoriteIds = useMemo(() => {
     const ids = new Set();
-    for (const entry of entries) {
-      if (localStorage.getItem(String(entry.MemberID))) {
-        ids.add(entry.MemberID);
+    const memberIds = entries.map(entry => entry.MemberID);
+    for (const round of matchRounds) {
+      for (const match of round.matches) {
+        for (const entry of match.Entries || []) {
+          memberIds.push(entry.MemberID);
+        }
+      }
+    }
+    for (const memberId of memberIds) {
+      if (memberId && localStorage.getItem(String(memberId))) {
+        ids.add(memberId);
       }
     }
     return ids;
-  }, [entries, lastFavoriteChanged]);
+  }, [entries, matchRounds, lastFavoriteChanged]);
 
   const favorites = entries && entries.filter(e => favoriteIds.has(e.MemberID));
   return (
@@ -676,12 +944,16 @@ export default function CompetitionPage({
           })()}
         </p>
       )}
-      <div className="page-tabs">
-        <span className="page-tab page-tab--active">Leaderboard</span>
-        <Link className="page-tab" href={`/t/${competition.slug}/tee-times`}>
-          Tee times
-        </Link>
-      </div>
+      {/* Match play shows tee times inline in the bracket, so it has no
+          separate tee-times view. */}
+      {!isMatchPlay && (
+        <div className="page-tabs">
+          <span className="page-tab page-tab--active">Leaderboard</span>
+          <Link className="page-tab" href={`/t/${competition.slug}/tee-times`}>
+            Tee times
+          </Link>
+        </div>
+      )}
       {formatLabel(format) && (
         <div className="alert page-margin format-notice">
           <strong>{formatLabel(format)} format.</strong>{' '}
@@ -713,7 +985,7 @@ export default function CompetitionPage({
           ) : null}
         </>
       )}
-      {!loading && (!timesData || !timesData.ActiveRoundNumber) && (
+      {!loading && !isMatchPlay && (!timesData || !timesData.ActiveRoundNumber) && (
         <p className="alert page-margin">
           {competition.start < now
             ? 'Failed to load leaderboard. This is most likely a temporary issue -- come back here in a while and see if things are back to normal!'
@@ -753,8 +1025,14 @@ export default function CompetitionPage({
           </ul>
         </div>
       )}
-      {entries && isMatchPlay ? (
-        <MatchPlay entries={entries} />
+      {isMatchPlay ? (
+        <MatchPlay
+          rounds={matchRounds}
+          favoriteIds={favoriteIds}
+          onFavoriteChange={handleFavoriteChange}
+          lastFavoriteChanged={lastFavoriteChanged}
+          collidingSlugs={collidingSlugs}
+        />
       ) : entries ? (
         <div>
           {favorites && favorites.length ? (
