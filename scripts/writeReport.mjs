@@ -79,6 +79,8 @@ async function fetchLeaderboard(competitionId) {
     }
   }
 
+  const type = json.CompetitionData?.Type || null;
+
   const entries = [];
   for (const clazz of json.Classes ? Object.values(json.Classes) : []) {
     if (clazz.Leaderboard && clazz.Leaderboard.Entries) {
@@ -112,7 +114,110 @@ async function fetchLeaderboard(competitionId) {
       }
     }
   }
-  return { entries, statusText };
+  return { entries, statusText, type };
+}
+
+// Render a GolfBox match play result string into readable text.
+// "6&5" → "6 & 5"; "1 Hole"/"2 Holes" → "1 up"/"2 up"; "19th" (a sudden-death
+// win on the 19th hole) → "on the 19th hole"; anything else is passed through.
+function formatMatchResult(result) {
+  if (!result) return '';
+  const holes = result.match(/^(\d+)&(\d+)$/);
+  if (holes) return `${holes[1]} & ${holes[2]}`;
+  const up = result.match(/^(\d+) Holes?$/);
+  if (up) return `${up[1]} up`;
+  if (/^\d+(st|nd|rd|th)$/.test(result)) return `on the ${result} hole`;
+  return result;
+}
+
+// Match play tournaments expose no leaderboard; the bracket and results live in
+// the MatchplayHandler feed. Parse it into completed rounds with a winner and
+// loser per match, capped at the "real" rounds (NumberOfRounds) so GolfBox's
+// trailing placement rounds are ignored.
+async function fetchMatchplay(competitionId) {
+  const url = `https://scores.golfbox.dk/Handlers/MatchplayHandler/GetMatchplay/CompetitionId/${competitionId}/language/2057/`;
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(
+      `Failed to fetch match play data for comp ${competitionId}: ${res.status}`,
+    );
+  }
+  const json = parseJson(await res.text());
+  const classes = json.Matchplay ? Object.values(json.Matchplay) : [];
+  if (!classes.length) return null;
+  const clazz = classes[0];
+
+  const roundNames = {};
+  for (const r of json.CompetitionData?.RoundSetup || []) {
+    roundNames[r.Number] = r.Name;
+  }
+  const maxRounds = clazz.NumberOfRounds || Infinity;
+
+  const toPlayer = e =>
+    e && e.EntryId
+      ? {
+          memberId: e.MemberID,
+          name: `${e.FirstName} ${e.LastName}`.replace(/\s+/g, ' ').trim(),
+          club: e.ClubName ? e.ClubName.trim() : null,
+        }
+      : null;
+
+  const rounds = [];
+  for (const roundKey of Object.keys(clazz.Rounds || {})) {
+    const round = clazz.Rounds[roundKey];
+    if (round.Number > maxRounds) continue;
+    const matches = Object.values(round.Matches || {})
+      .filter(m => m.HoleText === 'F') // only completed matches
+      .sort((a, b) => (a.OrderNo || a.MatchNo) - (b.OrderNo || b.MatchNo))
+      .map(m => {
+        const entries = m.Entries || [];
+        return {
+          result: formatMatchResult(m.Result),
+          winner: toPlayer(entries.find(e => e.IsLead)),
+          loser: toPlayer(entries.find(e => e && e.EntryId && !e.IsLead)),
+        };
+      })
+      .filter(m => m.winner && m.loser);
+    rounds.push({
+      number: round.Number,
+      name: roundNames[round.Number] || `Round ${round.Number}`,
+      matches,
+    });
+  }
+
+  const finalRound = rounds.find(r => r.number === maxRounds);
+  const finalMatch = finalRound?.matches[0];
+  if (!finalMatch) return null; // final not played yet
+
+  const semiRound = rounds.find(r => r.number === maxRounds - 1);
+  const semifinalists = semiRound ? semiRound.matches.map(m => m.loser) : [];
+
+  // The champion's route to the title: the match they won in each round.
+  const championPath = rounds
+    .map(r => {
+      const m = r.matches.find(
+        m => m.winner.memberId === finalMatch.winner.memberId,
+      );
+      return m
+        ? { round: r.name, opponent: m.loser.name, result: m.result }
+        : null;
+    })
+    .filter(Boolean);
+
+  // Field size = players in the first round.
+  const firstRound = rounds[0];
+  const fieldSize = firstRound ? firstRound.matches.length * 2 : null;
+
+  return {
+    isCompleted: clazz.IsCompleted,
+    champion: finalMatch.winner,
+    finalist: finalMatch.loser,
+    finalResult: finalMatch.result,
+    semifinalists,
+    championPath,
+    fieldSize,
+    rounds,
+  };
 }
 
 function readApiKey() {
@@ -130,6 +235,124 @@ function readApiKey() {
   return null;
 }
 
+const JOURNALIST_INTRO = `You are a sports journalist writing a brief article about a professional golf tournament on the Cutter & Buck tour, the Nordic professional golf tour for men. The audience are mostly people in Sweden, Denmark, Norway and Finland — write primarily for Swedish and Danish readers.
+
+Language rules (important — most readers learned English in school and struggle with idioms):
+- Use plain, common English. Prefer short, everyday words over fancy or literary ones.
+- Avoid idioms, figurative phrases and sports clichés. Examples to avoid: "held his nerve", "slipped away", "bragging rights", "rounded out", "fell short", "no doubt", "down the stretch", "in the mix", "punched his ticket", "kept his cool", "underlined", "remarkable", "composure", "tightly bunched", "the stage was set".
+- Don't use words a Swedish/Danish reader is unlikely to know. Replace with simpler ones: use "showed" not "displayed", "ended" not "concluded", "won" not "clinched", "close" not "narrow", "good" not "stellar", "playing well" not "in form".
+- Write direct, factual sentences. Describe what happened with scores and players — don't dramatise.
+- Don't use Latin-derived rare words when a plain word works.`;
+
+// Send a fully-built prompt to the Anthropic API and return the parsed article.
+async function requestArticle(prompt) {
+  const apiKey = readApiKey();
+  if (!apiKey) {
+    throw new Error('ANTHROPIC_API_KEY not set — add it to your .env file');
+  }
+
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+    },
+    body: JSON.stringify({
+      model: 'claude-opus-4-6',
+      max_tokens: 1024,
+      messages: [{ role: 'user', content: prompt }],
+    }),
+  });
+
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(`Anthropic API error ${response.status}: ${text}`);
+  }
+
+  const data = await response.json();
+  const content = data.content[0].text.trim();
+
+  // Strip markdown code fences if present
+  const jsonText = content
+    .replace(/^```(?:json)?\s*/i, '')
+    .replace(/\s*```\s*$/, '')
+    .trim();
+
+  let article;
+  try {
+    article = JSON.parse(jsonText);
+  } catch (e) {
+    throw new Error(`Failed to parse Anthropic response as JSON: ${content}`);
+  }
+
+  if (!article.headline || !article.blurb || !article.body) {
+    throw new Error(
+      `Anthropic response missing required fields: ${JSON.stringify(article)}`,
+    );
+  }
+
+  return article;
+}
+
+async function callAnthropicAPIMatchPlay(matchData, playerLinksText, extraContext) {
+  const playerLinksSection = playerLinksText
+    ? `\nPlayer links (use exactly as shown, at most once each):\n${playerLinksText}\n`
+    : '';
+  const extraContextSection = extraContext
+    ? `\nAdditional context from the editor (incorporate where relevant):\n${extraContext}\n`
+    : '';
+
+  const pathText = matchData.championPath
+    .map(p => `  - ${p.round}: beat ${p.opponent} (${p.result})`)
+    .join('\n');
+
+  const semifinalistsText = matchData.semifinalists.length
+    ? `Losing semi-finalists: ${matchData.semifinalists
+        .map(s => s.name)
+        .join(', ')}`
+    : '';
+
+  const headlinesWarning =
+    matchData.existingHeadlines?.length > 0
+      ? `\nIMPORTANT – avoid reusing these headline words/phrases from other reports:\n${matchData.existingHeadlines
+          .map(h => `  - "${h}"`)
+          .join('\n')}\nUse fresh vocabulary and a different structure.`
+      : '';
+
+  const statusNote = matchData.statusText
+    ? `\nOfficial tournament note: ${matchData.statusText}`
+    : '';
+
+  const prompt = `${JOURNALIST_INTRO}
+
+This is a MATCH PLAY (knockout) tournament, not stroke play. Players meet one-on-one and the loser is knocked out each round, all the way to the final. There is no total score to par and no cut. Results are match play margins:
+- "3 & 2" means the winner was 3 holes ahead with only 2 holes left, so the match ended early.
+- "1 up" / "2 up" means the winner was ahead by that many holes after all 18 holes.
+- "on the 19th hole" (or higher) means the match was level after 18 holes and was decided in sudden death.
+
+Write a short article about this tournament. Return ONLY a valid JSON object (no markdown, no code blocks) with these fields:
+- "headline": A compelling report headline (max 12 words). Use sentence case.
+- "blurb": A teaser sentence or two (max 40 words) suitable for a homepage preview card. Plain text only — no markdown, no links.
+- "body": The report body as a string with paragraphs separated by double newlines (\\n\\n). Write 3–4 paragraphs. Focus on who won the title and how the final went (opponent and margin). Describe the champion's route through the bracket, mentioning notable wins and margins. Mention the beaten finalist and the losing semi-finalists. Do not invent scores to par or a cut — there are none in match play. There are both amateurs (has an "(a)" in the name) and professionals; don't mention their amateur/professional status. When mentioning a player by name in the body, use a markdown link from the player list below — use each player link at most once across the body. Do not use markdown links in the blurb.
+${headlinesWarning}
+Tournament: ${matchData.name}
+Venue: ${matchData.venue || 'Nordic Golf Tour'}
+Dates: ${matchData.startDate} – ${matchData.endDate}
+Format: match play knockout${matchData.fieldSize ? `, ${matchData.fieldSize}-player field` : ''}
+
+Champion: ${matchData.champion.name}${matchData.champion.club ? ` (${matchData.champion.club})` : ''}
+Final: ${matchData.champion.name} beat ${matchData.finalist.name} ${matchData.finalResult} in the final
+${semifinalistsText}
+
+Champion's route to the title:
+${pathText}
+${statusNote}${playerLinksSection}${extraContextSection}
+Return only the raw JSON object.`;
+
+  return requestArticle(prompt);
+}
+
 async function callAnthropicAPI(tournamentData, playerLinksText, extraContext) {
   const playerLinksSection = playerLinksText
     ? `\nPlayer links (use exactly as shown, at most once each):\n${playerLinksText}\n`
@@ -137,11 +360,6 @@ async function callAnthropicAPI(tournamentData, playerLinksText, extraContext) {
   const extraContextSection = extraContext
     ? `\nAdditional context from the editor (incorporate where relevant):\n${extraContext}\n`
     : '';
-  const apiKey = readApiKey();
-  if (!apiKey) {
-    throw new Error('ANTHROPIC_API_KEY not set — add it to your .env file');
-  }
-
   const topFinishersText = tournamentData.topFinishers
     .map(
       (f, i) =>
@@ -208,14 +426,7 @@ async function callAnthropicAPI(tournamentData, playerLinksText, extraContext) {
       ? `\nOfficial tournament note: ${tournamentData.statusText}`
       : '';
 
-  const prompt = `You are a sports journalist writing a brief article about a professional golf tournament on the Cutter & Buck tour, the Nordic professional golf tour for men. The audience are mostly people in Sweden, Denmark, Norway and Finland — write primarily for Swedish and Danish readers.
-
-Language rules (important — most readers learned English in school and struggle with idioms):
-- Use plain, common English. Prefer short, everyday words over fancy or literary ones.
-- Avoid idioms, figurative phrases and sports clichés. Examples to avoid: "held his nerve", "slipped away", "bragging rights", "rounded out", "fell short", "no doubt", "down the stretch", "in the mix", "punched his ticket", "kept his cool", "underlined", "remarkable", "composure", "tightly bunched", "the stage was set".
-- Don't use words a Swedish/Danish reader is unlikely to know. Replace with simpler ones: use "showed" not "displayed", "ended" not "concluded", "won" not "clinched", "close" not "narrow", "good" not "stellar", "playing well" not "in form".
-- Write direct, factual sentences. Describe what happened with scores and players — don't dramatise.
-- Don't use Latin-derived rare words when a plain word works.
+  const prompt = `${JOURNALIST_INTRO}
 
 Write a short article about this tournament. Return ONLY a valid JSON object (no markdown, no code blocks) with these fields:
 - "headline": A compelling report headline (max 12 words). Use sentence case.
@@ -241,48 +452,7 @@ Statistics:
 ${priorResultsText}${playerLinksSection}${extraContextSection}
 Return only the raw JSON object.`;
 
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': apiKey,
-      'anthropic-version': '2023-06-01',
-    },
-    body: JSON.stringify({
-      model: 'claude-opus-4-6',
-      max_tokens: 1024,
-      messages: [{ role: 'user', content: prompt }],
-    }),
-  });
-
-  if (!response.ok) {
-    const text = await response.text();
-    throw new Error(`Anthropic API error ${response.status}: ${text}`);
-  }
-
-  const data = await response.json();
-  const content = data.content[0].text.trim();
-
-  // Strip markdown code fences if present
-  const jsonText = content
-    .replace(/^```(?:json)?\s*/i, '')
-    .replace(/\s*```\s*$/, '')
-    .trim();
-
-  let article;
-  try {
-    article = JSON.parse(jsonText);
-  } catch (e) {
-    throw new Error(`Failed to parse Anthropic response as JSON: ${content}`);
-  }
-
-  if (!article.headline || !article.blurb || !article.body) {
-    throw new Error(
-      `Anthropic response missing required fields: ${JSON.stringify(article)}`,
-    );
-  }
-
-  return article;
+  return requestArticle(prompt);
 }
 
 function promptUser(question) {
@@ -383,6 +553,144 @@ async function editArticleInEditor(article) {
   return edited;
 }
 
+// Match play competitions have no leaderboard/cut/scores, so they use the
+// bracket data instead. Builds and saves a report for a completed knockout.
+async function writeMatchPlayReport({
+  competition,
+  playerSlugs,
+  existingHeadlines,
+  statusText,
+}) {
+  console.log('Fetching match play bracket from GolfBox API...');
+  const matchplay = await fetchMatchplay(competition.id);
+  if (!matchplay) {
+    console.error(
+      'No completed match play final found for this competition — cannot write a report yet.',
+    );
+    process.exit(1);
+  }
+
+  const { champion, finalist, finalResult, semifinalists, championPath, fieldSize } =
+    matchplay;
+
+  const toEntry = (player, position) => ({
+    position,
+    name: player.name,
+    club: player.club,
+    playerId: player.memberId,
+    playerSlug: playerSlugs[player.memberId] || null,
+    score: null,
+    // Show the winning margin in the champion's "Score" cell; blank for others.
+    scoreText: position === '1' ? finalResult : '',
+  });
+  const topFinishers = [
+    toEntry(champion, '1'),
+    toEntry(finalist, '2'),
+    ...semifinalists.map(s => toEntry(s, 'T3')),
+  ];
+  const winner = topFinishers[0];
+
+  // Build player links for everyone in the bracket that we have a slug for.
+  const playerLinksMap = new Map();
+  const normalizeName = name =>
+    name.replace(/\s*\(a\)\s*/gi, ' ').replace(/\s+/g, ' ').trim();
+  for (const round of matchplay.rounds) {
+    for (const m of round.matches) {
+      for (const player of [m.winner, m.loser]) {
+        const slug = playerSlugs[player.memberId];
+        if (slug) playerLinksMap.set(normalizeName(player.name), slug);
+      }
+    }
+  }
+  const playerLinksText = [...playerLinksMap.entries()]
+    .map(([name, slug]) => `  - [${name}](/${slug})`)
+    .join('\n');
+
+  const winnerImage = findWinnerImage(champion.memberId);
+
+  console.log('\nTournament data (match play):');
+  console.log(`  Champion: ${champion.name}`);
+  console.log(`  Final: beat ${finalist.name} ${finalResult}`);
+  console.log(
+    `  Semi-finalists: ${semifinalists.map(s => s.name).join(', ') || 'n/a'}`,
+  );
+  console.log(`  Field size: ${fieldSize ?? 'unknown'}`);
+  console.log(`  Winner image: ${winnerImage || 'none'}`);
+
+  const matchData = {
+    name: competition.name,
+    venue: competition.venue,
+    startDate: format(competition.start, 'MMMM d, yyyy'),
+    endDate: format(competition.end, 'MMMM d, yyyy'),
+    champion,
+    finalist,
+    finalResult,
+    semifinalists,
+    championPath,
+    fieldSize,
+    existingHeadlines,
+    statusText,
+  };
+
+  const extraContext = await promptUser(
+    '\nAny additional context for the article? (press Enter to skip)\n> ',
+  );
+
+  console.log('\nCalling Anthropic API...');
+  const generated = await callAnthropicAPIMatchPlay(
+    matchData,
+    playerLinksText,
+    extraContext,
+  );
+
+  console.log(`\nHeadline: ${generated.headline}`);
+  console.log(`Blurb: ${generated.blurb}`);
+
+  const editAnswer = await promptUser(
+    '\nEdit the article in your editor before saving? (Y/n) ',
+  );
+  const article =
+    editAnswer.toLowerCase() === 'n'
+      ? generated
+      : await editArticleInEditor(generated);
+
+  const reportData = {
+    competitionId: competition.id,
+    competitionSlug: competition.slug,
+    competitionName: competition.name,
+    venue: competition.venue,
+    startDate: competition.start.toISOString(),
+    endDate: competition.end.toISOString(),
+    slug: competition.slug,
+    headline: article.headline,
+    blurb: article.blurb,
+    body: article.body,
+    winnerName: winner.name,
+    winnerPlayerId: winner.playerId,
+    winnerPlayerSlug: winner.playerSlug,
+    winnerImage,
+    format: 'matchplay',
+    stats: {
+      format: 'matchplay',
+      finalResult,
+      winningScore: null,
+      winningScoreText: null,
+      totalPlayers: fieldSize,
+      playersMadeCut: null,
+      playersMissedCut: null,
+      cutScore: null,
+      cutScoreText: null,
+      marginOfVictory: null,
+      topFinishers,
+    },
+    createdAt: new Date().toISOString(),
+  };
+
+  const reportPath = path.join(REPORTS_DIR, `${competition.slug}.json`);
+  fs.writeFileSync(reportPath, JSON.stringify(reportData, null, 2));
+  console.log(`\nReport saved to: ${reportPath}`);
+}
+
 async function main() {
   fs.mkdirSync(REPORTS_DIR, { recursive: true });
 
@@ -459,7 +767,20 @@ async function main() {
 
   // Fetch the leaderboard directly from the GolfBox API
   console.log('Fetching leaderboard from GolfBox API...');
-  const { entries, statusText } = await fetchLeaderboard(competition.id);
+  const { entries, statusText, type } = await fetchLeaderboard(competition.id);
+
+  // Match play tournaments have no stroke-play leaderboard; report on the
+  // knockout bracket instead.
+  if (type === 'MatchPlay') {
+    await writeMatchPlayReport({
+      competition,
+      playerSlugs,
+      existingHeadlines,
+      statusText,
+    });
+    return;
+  }
+
   console.log(`  Got ${entries.length} entries`);
 
   const EXTRAORDINARY_ROUND_THRESHOLD = 63;
