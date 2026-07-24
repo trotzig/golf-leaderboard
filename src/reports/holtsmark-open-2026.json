@@ -1,0 +1,74 @@
+{
+  "competitionId": 5398126,
+  "competitionSlug": "holtsmark-open-2026",
+  "competitionName": "Holtsmark Open",
+  "venue": "Holtsmark Golfklubb",
+  "startDate": "2026-07-21T00:00:00.000Z",
+  "endDate": "2026-07-23T00:00:00.000Z",
+  "slug": "holtsmark-open-2026",
+  "headline": "Bondestad wins Holtsmark Open by three shots",
+  "blurb": "Philip Linberg Bondestad finished at 18 under par to win the Holtsmark Open by three shots. Three players shared second place at 15 under.",
+  "body": "[Philip Linberg Bondestad](/philip-linberg-bondestad) won the Holtsmark Open at Holtsmark Golfklubb with a total score of 18 under par. The Norwegian finished three shots ahead of the rest of the field, making it a comfortable victory over the three-day tournament held July 21–23.\n\nThree players tied for second place at 15 under par: [Joachim Larsen Tegner](/joachim-larsen-tegner) from Asker Golfklubb, [Oliver Lilliedahl](/oliver-lilliedahl) from AIK Golfklubb, and [Johannes Axell](/johannes-axell) from Landeryds Golfklubb. [Benjamin Killingstad](/benjamin-killingstad) from Haga Golfklubb finished fifth at 13 under par.\n\nThe field started with 156 players, and 53 made the cut at even par. Bondestad was in control throughout the tournament and never let the gap to second place get smaller than two shots on the final day.",
+  "winnerName": "Philip Linberg Bondestad",
+  "winnerPlayerId": "30-13022",
+  "winnerPlayerSlug": "philip-linberg-bondestad",
+  "winnerImage": null,
+  "stats": {
+    "winningScore": -18,
+    "winningScoreText": "-18",
+    "totalPlayers": 156,
+    "playersMadeCut": 53,
+    "playersMissedCut": 101,
+    "cutScore": 0,
+    "cutScoreText": "E",
+    "marginOfVictory": 3,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "Philip Linberg Bondestad",
+        "club": "Drøbak Golfklubb",
+        "score": -18,
+        "scoreText": "-18",
+        "playerId": "30-13022",
+        "playerSlug": "philip-linberg-bondestad"
+      },
+      {
+        "position": "T2",
+        "name": "Joachim (a) Larsen Tegner",
+        "club": "Asker Golfklubb",
+        "score": -15,
+        "scoreText": "-15",
+        "playerId": "57-4422",
+        "playerSlug": "joachim-larsen-tegner"
+      },
+      {
+        "position": "T2",
+        "name": "Oliver Lilliedahl",
+        "club": "AIK Golfklubb",
+        "score": -15,
+        "scoreText": "-15",
+        "playerId": "980324-002",
+        "playerSlug": "oliver-lilliedahl"
+      },
+      {
+        "position": "T2",
+        "name": "Johannes Axell",
+        "club": "Landeryds Golfklubb",
+        "score": -15,
+        "scoreText": "-15",
+        "playerId": "980423-001",
+        "playerSlug": "johannes-axell"
+      },
+      {
+        "position": "5",
+        "name": "Benjamin (a) Killingstad",
+        "club": "Haga Golfklubb",
+        "score": -13,
+        "scoreText": "-13",
+        "playerId": "308-10857",
+        "playerSlug": "benjamin-killingstad"
+      }
+    ]
+  },
+  "createdAt": "2026-07-24T22:58:32.651Z"
+}

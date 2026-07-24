@@ -1,0 +1,74 @@
+{
+  "competitionId": 5398115,
+  "competitionSlug": "moregolf-mastercard-stockholm-2026",
+  "competitionName": "MoreGolf Mastercard Stockholm",
+  "venue": "Haninge Golfklubb",
+  "startDate": "2026-07-01T00:00:00.000Z",
+  "endDate": "2026-07-03T00:00:00.000Z",
+  "slug": "moregolf-mastercard-stockholm-2026",
+  "headline": "Holmberg wins Stockholm title in play-off against Borregaard",
+  "blurb": "Rasmus Holmberg and Claes Thrane Borregaard both finished at -8 at Haninge Golfklubb. Holmberg won the play-off to take the MoreGolf Mastercard Stockholm title.",
+  "body": "[Rasmus Holmberg](/rasmus-holmberg) won the MoreGolf Mastercard Stockholm after a play-off against [Claes Thrane Borregaard](/claes-thrane-borregaard) at Haninge Golfklubb. Both players finished the three-round tournament at -8, and Holmberg came out on top in the extra holes to take the title.\n\nHolmberg, who finished tied fourth at the Sand Valley Masters earlier this season, played steady golf all week to reach -8. Borregaard, from Smørum Golfklub in Denmark, matched him shot for shot but could not convert in the play-off.\n\nThird place was shared by [Isac Wallin](/isac-wallin) and [Jakob Hansson](/jakob-hansson), both at -5. Hansson had the support of the home crowd as a member of Haninge Golfklubb. [Morten Ørum Madsen](/morten-orum-madsen), the experienced Dane from Silkeborg, finished alone in fifth at -4.",
+  "winnerName": "Rasmus Holmberg",
+  "winnerPlayerId": "951227-001",
+  "winnerPlayerSlug": "rasmus-holmberg",
+  "winnerImage": "/players/951227-001.jpg",
+  "stats": {
+    "winningScore": -8,
+    "winningScoreText": "-8",
+    "totalPlayers": 156,
+    "playersMadeCut": 55,
+    "playersMissedCut": 94,
+    "cutScore": 5,
+    "cutScoreText": "+5",
+    "marginOfVictory": 0,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "Rasmus Holmberg",
+        "club": "Bryngfjordens Golfklubb",
+        "score": -8,
+        "scoreText": "-8",
+        "playerId": "951227-001",
+        "playerSlug": "rasmus-holmberg"
+      },
+      {
+        "position": "2",
+        "name": "Claes Thrane Borregaard",
+        "club": "Smørum Golfklub",
+        "score": -8,
+        "scoreText": "-8",
+        "playerId": "120-58456",
+        "playerSlug": "claes-thrane-borregaard"
+      },
+      {
+        "position": "T3",
+        "name": "Isac Wallin",
+        "club": "Bro-Bålsta Golfklubb",
+        "score": -5,
+        "scoreText": "-5",
+        "playerId": "000423-002",
+        "playerSlug": "isac-wallin"
+      },
+      {
+        "position": "T3",
+        "name": "Jakob Hansson",
+        "club": "Haninge Golfklubb",
+        "score": -5,
+        "scoreText": "-5",
+        "playerId": "960229-001",
+        "playerSlug": "jakob-hansson"
+      },
+      {
+        "position": "T5",
+        "name": "Morten Ørum Madsen",
+        "club": "Silkeborg Golfklub",
+        "score": -4,
+        "scoreText": "-4",
+        "playerId": "16-2117",
+        "playerSlug": "morten-orum-madsen"
+      }
+    ]
+  },
+  "createdAt": "2026-07-24T22:56:04.822Z"
+}
