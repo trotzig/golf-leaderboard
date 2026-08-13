@@ -6,6 +6,7 @@ import CompetitionPage from '../CompetitionPage.js';
 import finished from './testData/finished.json';
 import ongoing from './testData/ongoing.json';
 import upcoming from './testData/upcoming.json';
+import team from './testData/team.json';
 import Nav from '../Menu.js';
 
 function slimEntries(data) {
@@ -107,6 +108,21 @@ export const ProjectedCutLine = () => (
     now={new Date('2022-02-27T12:00:00')}
     competition={competition}
     initialPlayersData={{}}
+  />
+);
+const teamCompetition = {
+  id: 2,
+  name: 'Max Matthiessen Team Trophy',
+  venue: 'Smørum Golfklub',
+  start: new Date('2026-07-29T00:00:00'),
+  end: new Date('2026-07-31T00:00:00'),
+};
+export const Team = () => (
+  <CompetitionPage
+    {...team}
+    lazyItems={false}
+    now={new Date('2026-08-01T12:00:00')}
+    competition={teamCompetition}
   />
 );
 export const FinishedWithCut = () => (
