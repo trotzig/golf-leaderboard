@@ -81,25 +81,24 @@ async function fetchLeaderboard(competitionId) {
 
   const type = json.CompetitionData?.Type || null;
 
+  // GolfBox stores ToParValue multiplied by 10000 (e.g. -23 → -230000).
+  const roundTotals = rounds =>
+    Object.entries(rounds || []).flatMap(([roundKey, round]) => {
+      const total = round.HoleScores && round.HoleScores['H-TOTAL'];
+      return total && total.Score > 0
+        ? [{ roundNumber: roundKey.replace('R', ''), grossScore: total.Score }]
+        : [];
+    });
+
   const entries = [];
+  // Team competitions (pairs/foursomes) leave `Entries` empty and expose the
+  // standings under `Leaderboard.Teams` instead, each team carrying its member
+  // players, a combined score, and per-round aggregate scores.
+  const teams = [];
   for (const clazz of json.Classes ? Object.values(json.Classes) : []) {
     if (clazz.Leaderboard && clazz.Leaderboard.Entries) {
       for (const entry of Object.values(clazz.Leaderboard.Entries)) {
-        // GolfBox stores ToParValue multiplied by 10000 (e.g. -23 → -230000)
-        const rawScore = entry.ScoringToPar.ToParValue;
-        const score = Math.round(rawScore / 10000);
-        const rounds = [];
-        if (entry.Rounds) {
-          for (const [roundKey, round] of Object.entries(entry.Rounds)) {
-            const total = round.HoleScores && round.HoleScores['H-TOTAL'];
-            if (total && total.Score > 0) {
-              rounds.push({
-                roundNumber: roundKey.replace('R', ''),
-                grossScore: total.Score,
-              });
-            }
-          }
-        }
+        const score = Math.round(entry.ScoringToPar.ToParValue / 10000);
         entries.push({
           memberId: entry.MemberID,
           firstName: entry.FirstName.trim(),
@@ -109,12 +108,35 @@ async function fetchLeaderboard(competitionId) {
           positionActual: entry.Position.Actual, // numeric
           score,
           scoreText: entry.ScoringToPar.ToParText,
-          rounds,
+          rounds: roundTotals(entry.Rounds),
+        });
+      }
+    }
+    if (clazz.Leaderboard && clazz.Leaderboard.Teams) {
+      for (const team of Object.values(clazz.Leaderboard.Teams)) {
+        const members = Object.values(team.Entries || {}).map(m => ({
+          memberId: m.MemberID,
+          firstName: (m.FirstName || '').trim(),
+          lastName: (m.LastName || '').trim(),
+          clubName: (m.ClubName || '').trim(),
+        }));
+        const rawScore =
+          team.ScoringToPar?.ToParValue ?? team.ResultSum?.ToParValue ?? 0;
+        teams.push({
+          name: members
+            .map(m => `${m.firstName} ${m.lastName}`.trim())
+            .join(' & '),
+          members,
+          position: team.Position?.Calculated,
+          positionActual: team.Position?.Actual,
+          score: Math.round(rawScore / 10000),
+          scoreText: team.ScoringToPar?.ToParText ?? team.ResultSum?.ToParText,
+          rounds: roundTotals(team.Rounds),
         });
       }
     }
   }
-  return { entries, statusText, type };
+  return { entries, teams, statusText, type };
 }
 
 // Render a GolfBox match play result string into readable text.
@@ -455,6 +477,71 @@ Return only the raw JSON object.`;
   return requestArticle(prompt);
 }
 
+async function callAnthropicAPITeam(teamData, playerLinksText, extraContext) {
+  const playerLinksSection = playerLinksText
+    ? `\nPlayer links (use exactly as shown, at most once each):\n${playerLinksText}\n`
+    : '';
+  const extraContextSection = extraContext
+    ? `\nAdditional context from the editor (incorporate where relevant):\n${extraContext}\n`
+    : '';
+
+  const topFinishersText = teamData.topFinishers
+    .map(
+      (t, i) =>
+        `  ${i + 1}. ${t.name} (${t.club || 'N/A'}) — ${formatScoreForArticle(
+          t.score,
+          t.scoreText,
+        )}`,
+    )
+    .join('\n');
+
+  const marginText =
+    teamData.marginOfVictory > 0
+      ? `Margin of victory: ${teamData.marginOfVictory} shot${
+          teamData.marginOfVictory !== 1 ? 's' : ''
+        }`
+      : '';
+
+  const tieNote = teamData.tiedAtTop
+    ? `\nPLAY-OFF/COUNTBACK NOTE (must be mentioned): ${teamData.winnerName} and ${teamData.runnerUpName} both finished level at ${teamData.topScoreText}. ${teamData.winnerName} won on a play-off or countback. Say the teams finished level and do not state a shot margin between them.`
+    : '';
+
+  const headlinesWarning =
+    teamData.existingHeadlines?.length > 0
+      ? `\nIMPORTANT – avoid reusing these headline words/phrases from other reports:\n${teamData.existingHeadlines
+          .map(h => `  - "${h}"`)
+          .join('\n')}\nUse fresh vocabulary and a different structure.`
+      : '';
+
+  const statusNote = teamData.statusText
+    ? `\nOfficial tournament note: ${teamData.statusText}`
+    : '';
+
+  const prompt = `${JOURNALIST_INTRO}
+
+This is a TEAM stroke-play tournament. Players compete in teams (usually pairs), and the team's combined score to par decides the standings. There is normally no individual cut. Refer to teams by both players' names.
+
+Write a short article about this tournament. Return ONLY a valid JSON object (no markdown, no code blocks) with these fields:
+- "headline": A compelling report headline (max 12 words). Use sentence case.
+- "blurb": A teaser sentence or two (max 40 words) suitable for a homepage preview card. Plain text only — no markdown, no links.
+- "body": The report body as a string with paragraphs separated by double newlines (\\n\\n). Write 3–4 paragraphs. Focus on the winning team (both players) and their combined score. Mention if the win was comfortable or close, and name the runner-up team. There are both amateurs (has an "(a)" in the name) and professionals; don't mention their amateur/professional status. When mentioning a player by name in the body, use a markdown link from the player list below — use each player link at most once across the body. Do not use markdown links in the blurb.
+${headlinesWarning}
+Tournament: ${teamData.name}
+Venue: ${teamData.venue || 'Nordic Golf Tour'}
+Dates: ${teamData.startDate} – ${teamData.endDate}
+Format: team stroke play${teamData.totalTeams ? `, ${teamData.totalTeams} teams` : ''}
+
+Final Leaderboard (top teams):
+${topFinishersText || '  (no results available)'}
+
+Statistics:
+- Total teams in field: ${teamData.totalTeams}${marginText ? `\n- ${marginText}` : ''}
+${tieNote}${statusNote}${playerLinksSection}${extraContextSection}
+Return only the raw JSON object.`;
+
+  return requestArticle(prompt);
+}
+
 function promptUser(question) {
   const rl = readline.createInterface({
     input: process.stdin,
@@ -691,6 +778,155 @@ async function writeMatchPlayReport({
   console.log(`\nReport saved to: ${reportPath}`);
 }
 
+// Team stroke-play competitions rank teams (usually pairs) by their combined
+// score. There is no cut and no single winning player, so the report leans on
+// the team standings rather than the individual leaderboard.
+async function writeTeamReport({
+  competition,
+  teams,
+  playerSlugs,
+  existingHeadlines,
+  statusText,
+}) {
+  // GolfBox uses sentinel values (e.g. 40000/50000) for withdrawn teams.
+  const isValidScore = t => Math.abs(t.score) < 1000;
+  const finishers = teams.filter(
+    t => t.positionActual != null && isValidScore(t),
+  );
+  finishers.sort((a, b) => {
+    if (a.positionActual !== b.positionActual)
+      return a.positionActual - b.positionActual;
+    return a.score - b.score;
+  });
+
+  // Collapse duplicate clubs so a same-club pair shows one club, mixed pairs both.
+  const uniqueClubs = members => {
+    const seen = [];
+    for (const m of members) {
+      if (m.clubName && !seen.includes(m.clubName)) seen.push(m.clubName);
+    }
+    return seen.join(' / ');
+  };
+
+  const topFinishers = finishers.slice(0, 5).map(t => ({
+    position: t.position,
+    name: t.name,
+    club: uniqueClubs(t.members),
+    score: t.score,
+    scoreText: t.scoreText,
+    // A team has no single player page, so the results table shows it unlinked.
+    playerSlug: null,
+    players: t.members.map(m => ({
+      name: `${m.firstName} ${m.lastName}`.trim(),
+      playerId: m.memberId,
+      playerSlug: playerSlugs[m.memberId] || null,
+    })),
+  }));
+
+  const winner = topFinishers[0];
+  const runnerUp = topFinishers[1];
+  const marginOfVictory =
+    winner && runnerUp ? runnerUp.score - winner.score : null;
+  // A zero margin means the leading teams finished level and the title was
+  // decided by a play-off or countback — flag it so the article doesn't claim
+  // a "0 shot" win.
+  const tiedAtTop = winner && runnerUp && winner.score === runnerUp.score;
+
+  // Build player links for the members of the leading teams.
+  const playerLinksMap = new Map();
+  const normalizeName = name =>
+    name.replace(/\s*\(a\)\s*/gi, ' ').replace(/\s+/g, ' ').trim();
+  for (const t of finishers.slice(0, 10)) {
+    for (const m of t.members) {
+      const slug = playerSlugs[m.memberId];
+      if (slug) playerLinksMap.set(normalizeName(`${m.firstName} ${m.lastName}`), slug);
+    }
+  }
+  const playerLinksText = [...playerLinksMap.entries()]
+    .map(([name, slug]) => `  - [${name}](/${slug})`)
+    .join('\n');
+
+  const teamData = {
+    name: competition.name,
+    venue: competition.venue,
+    startDate: format(competition.start, 'MMMM d, yyyy'),
+    endDate: format(competition.end, 'MMMM d, yyyy'),
+    totalTeams: teams.length,
+    topFinishers,
+    marginOfVictory,
+    tiedAtTop,
+    winnerName: winner?.name,
+    runnerUpName: runnerUp?.name,
+    topScoreText: winner?.scoreText,
+    existingHeadlines,
+    statusText,
+  };
+
+  console.log('\nTournament data (team):');
+  console.log(`  Winner: ${winner?.name} (${winner?.scoreText})`);
+  console.log(`  Runner-up: ${runnerUp?.name} (${runnerUp?.scoreText})`);
+  console.log(`  Margin: ${marginOfVictory} shots`);
+  console.log(`  Field: ${teams.length} teams`);
+
+  const extraContext = await promptUser(
+    '\nAny additional context for the article? (press Enter to skip)\n> ',
+  );
+
+  console.log('\nCalling Anthropic API...');
+  const generated = await callAnthropicAPITeam(
+    teamData,
+    playerLinksText,
+    extraContext,
+  );
+
+  console.log(`\nHeadline: ${generated.headline}`);
+  console.log(`Blurb: ${generated.blurb}`);
+
+  const editAnswer = await promptUser(
+    '\nEdit the article in your editor before saving? (Y/n) ',
+  );
+  const article =
+    editAnswer.toLowerCase() === 'n'
+      ? generated
+      : await editArticleInEditor(generated);
+
+  const reportData = {
+    competitionId: competition.id,
+    competitionSlug: competition.slug,
+    competitionName: competition.name,
+    venue: competition.venue,
+    startDate: competition.start.toISOString(),
+    endDate: competition.end.toISOString(),
+    slug: competition.slug,
+    headline: article.headline,
+    blurb: article.blurb,
+    body: article.body,
+    // A team has two players, so there is no single winner photo/profile.
+    winnerName: winner?.name || null,
+    winnerPlayerId: null,
+    winnerPlayerSlug: null,
+    winnerImage: null,
+    format: 'team',
+    stats: {
+      format: 'team',
+      winningScore: winner?.score ?? null,
+      winningScoreText: winner?.scoreText || null,
+      totalPlayers: teams.length,
+      playersMadeCut: null,
+      playersMissedCut: null,
+      cutScore: null,
+      cutScoreText: null,
+      marginOfVictory,
+      topFinishers,
+    },
+    createdAt: new Date().toISOString(),
+  };
+
+  const reportPath = path.join(REPORTS_DIR, `${competition.slug}.json`);
+  fs.writeFileSync(reportPath, JSON.stringify(reportData, null, 2));
+  console.log(`\nReport saved to: ${reportPath}`);
+}
+
 async function main() {
   fs.mkdirSync(REPORTS_DIR, { recursive: true });
 
@@ -767,13 +1003,28 @@ async function main() {
 
   // Fetch the leaderboard directly from the GolfBox API
   console.log('Fetching leaderboard from GolfBox API...');
-  const { entries, statusText, type } = await fetchLeaderboard(competition.id);
+  const { entries, teams, statusText, type } = await fetchLeaderboard(
+    competition.id,
+  );
 
   // Match play tournaments have no stroke-play leaderboard; report on the
   // knockout bracket instead.
   if (type === 'MatchPlay') {
     await writeMatchPlayReport({
       competition,
+      playerSlugs,
+      existingHeadlines,
+      statusText,
+    });
+    return;
+  }
+
+  // Team competitions rank teams rather than individuals; the individual
+  // `entries` list is empty, so report on the team standings instead.
+  if (teams.length > 0) {
+    await writeTeamReport({
+      competition,
+      teams,
       playerSlugs,
       existingHeadlines,
       statusText,

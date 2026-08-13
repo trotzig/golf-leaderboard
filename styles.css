@@ -721,6 +721,44 @@ html.display-standalone nav {
   align-items: center;
 }
 
+/* ── Team (pairs) leaderboard ── */
+.leaderboard-page .team-entry .player-link {
+  cursor: default;
+}
+.team-members {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-self: center;
+}
+.team-member-name {
+  font-size: 15px;
+}
+.team-clubs {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 14px;
+  row-gap: 2px;
+  margin-bottom: 8px;
+}
+.team-entry .team-clubs .club {
+  margin: 2px 0 0;
+}
+.team-winner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 12px 10px;
+}
+.team-winner .team-member-name {
+  font-size: 20px;
+  font-weight: 600;
+}
+.team-winner .player-big-score {
+  margin: 0;
+}
+
 main {
   min-height: 100vh;
   animation: page-enter 250ms ease-out;

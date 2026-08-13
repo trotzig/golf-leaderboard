@@ -157,6 +157,49 @@ function getRounds(entry) {
   return roundKeys.map(key => entry.Rounds[key]);
 }
 
+/**
+ * Team competitions (pairs/foursomes) don't populate the stroke-play
+ * `Leaderboard.Entries`; the ranked teams live in `Leaderboard.Teams`. Each
+ * team carries its member players in `Entries`, a combined `ResultSum`, a
+ * `Position`, and per-round aggregate `HoleScores`. GolfBox omits the `Holes`
+ * metadata that the scorecard renderer keys off, so we synthesise it from the
+ * hole-score keys (H1..H18) to reuse the standard `Round` rendering.
+ */
+function getTeamEntries(data) {
+  const classKey = Object.keys(data?.Classes || {})[0];
+  const teams = classKey && data.Classes[classKey].Leaderboard?.Teams;
+  if (!teams || !Object.keys(teams).length) {
+    return [];
+  }
+  const entries = Object.values(teams).map(team => {
+    const Rounds = {};
+    for (const [key, round] of Object.entries(team.Rounds || {})) {
+      let { Holes } = round;
+      if ((!Holes || !Object.keys(Holes).length) && round.HoleScores) {
+        Holes = {};
+        for (const holeKey of Object.keys(round.HoleScores)) {
+          const match = holeKey.match(/^H(\d+)$/);
+          if (match) {
+            Holes[holeKey] = { Number: Number(match[1]) };
+          }
+        }
+      }
+      Rounds[key] = { ...round, Holes };
+    }
+    return {
+      ...team,
+      id: `team-${team.RefID}`,
+      members: Object.values(team.Entries || {}),
+      Rounds,
+    };
+  });
+  entries.sort(
+    (a, b) =>
+      (a.Position?.Actual ?? Infinity) - (b.Position?.Actual ?? Infinity),
+  );
+  return entries;
+}
+
 function RoundTotal({ score, format, holes }) {
   const classes = ['round-score', 'round-total'];
   const stableford = format === 'stableford';
@@ -409,6 +452,116 @@ function Player({
         );
       })()}
     </li>
+  );
+}
+
+function TeamMembers({ members, position }) {
+  const names = members
+    .map(m => `${normalizeName(m.FirstName)} ${normalizeName(m.LastName)}`.trim())
+    .join(' / ');
+  // Members of the same team usually share a club — collapse duplicates so it's
+  // shown once, but keep both when the pair comes from different clubs.
+  const clubs = [];
+  for (const m of members) {
+    const label = m.ClubName || m.Country;
+    if (!label || clubs.some(c => c.label === label)) {
+      continue;
+    }
+    clubs.push({ label, nationality: m.Nationality });
+  }
+  return (
+    <span className="team-members">
+      <span className="team-member-name">
+        {/* Position column is hidden on narrow screens, so surface it inline
+            the same way individual rows do. */}
+        {position ? <span className="position-inline">{position}</span> : null}
+        {names}
+      </span>
+      <span className="team-clubs">
+        {clubs.map(club => (
+          <span className="club" key={club.label}>
+            <FlagIcon nationality={club.nationality} />
+            {club.label}
+          </span>
+        ))}
+      </span>
+    </span>
+  );
+}
+
+function TeamEntry({ entry, colors, now, format }) {
+  const rounds = getRounds(entry);
+  const positionClassname =
+    entry.Position && entry.Position.Calculated.length > 3
+      ? 'position position-long-text'
+      : 'position';
+  return (
+    <li className="player team-entry">
+      <div className="player-link team-entry-link">
+        <span className={positionClassname}>
+          <span>{entry.Position && entry.Position.Calculated}</span>
+        </span>
+        <TeamMembers
+          members={entry.members}
+          position={entry.Position && entry.Position.Calculated}
+        />
+        {entry.ResultSum ? (
+          <span
+            className={`score${
+              isGoodScore(format, entry.ResultSum.ToParValue) ? ' under-par' : ''
+            }`}
+          >
+            {fixParValue(entry.ResultSum.ToParText)}
+          </span>
+        ) : null}
+        <div className="stats">
+          {rounds.map(round => (
+            <Round
+              key={round.StartDateTime}
+              round={round}
+              colors={colors}
+              now={now}
+              format={format}
+            />
+          ))}
+        </div>
+      </div>
+    </li>
+  );
+}
+
+function TeamWinner({ entry, format }) {
+  return (
+    <div className="winner">
+      <h3 className="winner-heading">Winners</h3>
+      <div className="team-winner">
+        <TeamMembers members={entry.members} />
+        {entry.ResultSum && (
+          <span className="player-big-score">
+            {fixParValue(entry.ResultSum.ToParText)}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function TeamLeaderboard({ entries, colors, now, format }) {
+  return (
+    <div>
+      <h3 className="leaderboard-section-heading">Teams</h3>
+      <ul>
+        {entries.map(entry => (
+          <TeamEntry
+            key={entry.id}
+            entry={entry}
+            colors={colors}
+            now={now}
+            format={format}
+          />
+        ))}
+      </ul>
+    </div>
   );
 }
 
@@ -831,16 +984,28 @@ export default function CompetitionPage({
 
 
   const finishedResult = getFinishedResult(data);
+  const teamEntries = useMemo(() => getTeamEntries(data), [data]);
+  const isTeam = teamEntries.length > 0;
+  // Team competitions expose their standings through `teamEntries`; the
+  // individual `getEntries` path relies on stroke-play `Entries`/tee-time
+  // structures a team feed doesn't have, so skip it entirely for teams.
   const entries = useMemo(
     () =>
-      data && timesData && playersData
+      !isTeam && data && timesData && playersData
         ? getEntries(data, timesData, playersData)
         : [],
-    [data, timesData, playersData],
+    [isTeam, data, timesData, playersData],
   );
   const format = useMemo(
-    () => detectFormat({ competitionData, entries }),
-    [competitionData, entries],
+    () =>
+      detectFormat({
+        competitionData,
+        entries: isTeam ? undefined : entries,
+        scoreTexts: isTeam
+          ? teamEntries.map(t => t.ResultSum?.ToParText)
+          : undefined,
+      }),
+    [competitionData, entries, isTeam, teamEntries],
   );
   const matchRounds = useMemo(
     () => getMatchPlayRounds(matchPlayData),
@@ -858,7 +1023,11 @@ export default function CompetitionPage({
 
   const isMatchPlay = isMatchPlayCompetition || matchRounds.length > 0;
   const finished = isCompetitionFinished(competitionData, data, timesData);
-  const winner = finished ? getWinner(entries) : undefined;
+  const winner = finished && !isTeam ? getWinner(entries) : undefined;
+  const teamWinner =
+    finished && isTeam
+      ? teamEntries.find(t => t.Position?.Actual === 1)
+      : undefined;
 
   const favoriteIds = useMemo(() => {
     const ids = new Set();
@@ -1025,6 +1194,7 @@ export default function CompetitionPage({
           </ul>
         </div>
       )}
+      {teamWinner && <TeamWinner entry={teamWinner} format={format} />}
       {isMatchPlay ? (
         <MatchPlay
           rounds={matchRounds}
@@ -1032,6 +1202,13 @@ export default function CompetitionPage({
           onFavoriteChange={handleFavoriteChange}
           lastFavoriteChanged={lastFavoriteChanged}
           collidingSlugs={collidingSlugs}
+        />
+      ) : isTeam ? (
+        <TeamLeaderboard
+          entries={teamEntries}
+          colors={data.CourseColours}
+          now={now}
+          format={format}
         />
       ) : entries ? (
         <div>
