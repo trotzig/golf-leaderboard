@@ -1,0 +1,74 @@
+{
+  "competitionId": 5398122,
+  "competitionSlug": "neh-hammaro-open-2026",
+  "competitionName": "NeH Hammarö Open",
+  "venue": "Hammarö Golfklubb",
+  "startDate": "2026-08-06T00:00:00.000Z",
+  "endDate": "2026-08-08T00:00:00.000Z",
+  "slug": "neh-hammaro-open-2026",
+  "headline": "Axell wins NeH Hammarö Open by one shot",
+  "blurb": "Johannes Axell finished at nine under par to win the NeH Hammarö Open at Hammarö Golfklubb, one shot ahead of four players tied for second.",
+  "body": "[Johannes Axell](/johannes-axell) won the NeH Hammarö Open at Hammarö Golfklubb with a total score of nine under par. The victory was tight — four players finished just one shot behind him at eight under par.\n\nTied for second place were [Jacob Björnberg](/jacob-bjornberg), [Eric McIntosh](/eric-mcintosh), [Oliver Lilliedahl](/oliver-lilliedahl) and [David Nyfjäll](/david-nyfjall). All four ended on eight under par but could not catch Axell, who stayed one step ahead through the final round.\n\nAxell has been one of the most consistent players on tour this season. He finished tied for second at both the Cutter & Buck Fjällbacka Open and the Holtsmark Open earlier this year. This time he went one better and picked up his first win of the season.\n\nThe tournament had 150 players in the field. Fifty players made the cut, which fell at three over par.",
+  "winnerName": "Johannes Axell",
+  "winnerPlayerId": "980423-001",
+  "winnerPlayerSlug": "johannes-axell",
+  "winnerImage": null,
+  "stats": {
+    "winningScore": -9,
+    "winningScoreText": "-9",
+    "totalPlayers": 150,
+    "playersMadeCut": 50,
+    "playersMissedCut": 96,
+    "cutScore": 3,
+    "cutScoreText": "+3",
+    "marginOfVictory": 1,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "Johannes Axell",
+        "club": "Landeryds Golfklubb",
+        "score": -9,
+        "scoreText": "-9",
+        "playerId": "980423-001",
+        "playerSlug": "johannes-axell"
+      },
+      {
+        "position": "T2",
+        "name": "Jacob Björnberg",
+        "club": "Sand Golf Club",
+        "score": -8,
+        "scoreText": "-8",
+        "playerId": "040930-010",
+        "playerSlug": "jacob-bjornberg"
+      },
+      {
+        "position": "T2",
+        "name": "Eric McIntosh",
+        "club": "Bruntsfield Links",
+        "score": -8,
+        "scoreText": "-8",
+        "playerId": "236012",
+        "playerSlug": "eric-mcintosh"
+      },
+      {
+        "position": "T2",
+        "name": "Oliver Lilliedahl",
+        "club": "AIK Golfklubb",
+        "score": -8,
+        "scoreText": "-8",
+        "playerId": "980324-002",
+        "playerSlug": "oliver-lilliedahl"
+      },
+      {
+        "position": "T2",
+        "name": "David Nyfjäll",
+        "club": "Upsala Golfklubb",
+        "score": -8,
+        "scoreText": "-8",
+        "playerId": "990126-001",
+        "playerSlug": "david-nyfjall"
+      }
+    ]
+  },
+  "createdAt": "2026-08-13T12:20:15.475Z"
+}
