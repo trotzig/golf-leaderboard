@@ -1,0 +1,131 @@
+{
+  "competitionId": 5339483,
+  "competitionSlug": "max-matthiessen-team-trophy-2026",
+  "competitionName": "Max Matthiessen Team Trophy",
+  "venue": "Smørum Golfklub",
+  "startDate": "2026-07-29T00:00:00.000Z",
+  "endDate": "2026-07-31T00:00:00.000Z",
+  "slug": "max-matthiessen-team-trophy-2026",
+  "headline": "Høst and Jacobsen win Team Trophy after late birdie",
+  "blurb": "August Thor Høst and Christian Jacobsen birdied the final hole to finish at -21 and win the Max Matthiessen Team Trophy at Smørum Golfklub after a countback.",
+  "body": "[August Thor Høst](/august-thor-host) and [Christian Jacobsen](/christian-jacobsen) from Great Northern Golf Club won the Max Matthiessen Team Trophy at Smørum Golfklub on July 31. Their birdie on the 18th hole in the final round brought them to a total score of -21 — the same score that [Sebastian Eidsæther Syr](/sebastian-eidsather-syr) and [Marcus Svensson](/marcus-svensson) from Losby Golfklubb and Halmstad Golfklubb had already posted. Høst and Jacobsen won on countback.\n\nThe final round was played as four ball best ball. Syr and Svensson had also birdied the par-4 18th hole and looked set to win, but Høst and Jacobsen matched them with a birdie of their own on the same hole. The two teams finished level at -21, and the title was decided in favour of the Danish pair.\n\nOne shot behind at -20 were [Bjørn La Cour Søborg](/bjorn-la-cour-soborg) and [Oliver Hundebøll Jørgensen](/oliver-hundeboll-jorgensen) from Lyngbygaard Golf Klub and Silkeborg Golfklub. Two teams shared fourth place at -19: [Tom Røed Karlsen](/tom-roed-karlsen) and [Kasper Nyland](/kasper-nyland) from Nøtterøy Golfklubb, and [Ludvig Eriksson](/ludvig-eriksson-69c) and [Filip Jinglöv](/filip-jinglov) from Stockholms Golfklubb.\n\nA total of 84 teams took part in the three-day event at Smørum Golfklub near Copenhagen.",
+  "winnerName": "August Thor Høst & Christian Jacobsen",
+  "winnerPlayerId": null,
+  "winnerPlayerSlug": null,
+  "winnerImage": null,
+  "format": "team",
+  "stats": {
+    "format": "team",
+    "winningScore": -21,
+    "winningScoreText": "-21",
+    "totalPlayers": 84,
+    "playersMadeCut": null,
+    "playersMissedCut": null,
+    "cutScore": null,
+    "cutScoreText": null,
+    "marginOfVictory": 0,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "August Thor Høst & Christian Jacobsen",
+        "club": "Great Northern Golf Club",
+        "score": -21,
+        "scoreText": "-21",
+        "playerSlug": null,
+        "players": [
+          {
+            "name": "August Thor Høst",
+            "playerId": "101-4663",
+            "playerSlug": "august-thor-host"
+          },
+          {
+            "name": "Christian Jacobsen",
+            "playerId": "14-873",
+            "playerSlug": "christian-jacobsen"
+          }
+        ]
+      },
+      {
+        "position": "2",
+        "name": "Sebastian Eidsæther Syr & Marcus Svensson",
+        "club": "Losby Golfklubb / Halmstad Golfklubb",
+        "score": -21,
+        "scoreText": "-21",
+        "playerSlug": null,
+        "players": [
+          {
+            "name": "Sebastian Eidsæther Syr",
+            "playerId": "72-2887",
+            "playerSlug": "sebastian-eidsather-syr"
+          },
+          {
+            "name": "Marcus Svensson",
+            "playerId": "980425-004",
+            "playerSlug": "marcus-svensson"
+          }
+        ]
+      },
+      {
+        "position": "3",
+        "name": "Bjørn La Cour Søborg & Oliver Hundebøll Jørgensen",
+        "club": "Lyngbygaard Golf Klub / Silkeborg Golfklub",
+        "score": -20,
+        "scoreText": "-20",
+        "playerSlug": null,
+        "players": [
+          {
+            "name": "Bjørn La Cour Søborg",
+            "playerId": "185-6029",
+            "playerSlug": "bjorn-la-cour-soborg"
+          },
+          {
+            "name": "Oliver Hundebøll Jørgensen",
+            "playerId": "16-3021",
+            "playerSlug": "oliver-hundeboll-jorgensen"
+          }
+        ]
+      },
+      {
+        "position": "T4",
+        "name": "Tom Røed Karlsen & Kasper Nyland",
+        "club": "Nøtterøy Golfklubb",
+        "score": -19,
+        "scoreText": "-19",
+        "playerSlug": null,
+        "players": [
+          {
+            "name": "Tom Røed Karlsen",
+            "playerId": "132-13060",
+            "playerSlug": "tom-roed-karlsen"
+          },
+          {
+            "name": "Kasper Nyland",
+            "playerId": "237729",
+            "playerSlug": "kasper-nyland"
+          }
+        ]
+      },
+      {
+        "position": "T4",
+        "name": "Ludvig Eriksson & Filip Jinglöv",
+        "club": "Stockholms Golfklubb",
+        "score": -19,
+        "scoreText": "-19",
+        "playerSlug": null,
+        "players": [
+          {
+            "name": "Ludvig Eriksson",
+            "playerId": "010126-001",
+            "playerSlug": "ludvig-eriksson-69c"
+          },
+          {
+            "name": "Filip Jinglöv",
+            "playerId": "000913-012",
+            "playerSlug": "filip-jinglov"
+          }
+        ]
+      }
+    ]
+  },
+  "createdAt": "2026-08-13T12:19:49.021Z"
+}
