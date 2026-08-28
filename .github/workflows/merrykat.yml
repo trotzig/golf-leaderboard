@@ -1,0 +1,35 @@
+name: merrykat
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# A newer push supersedes an in-flight run anyway; cancelling saves the CI minutes.
+concurrency:
+  group: merrykat-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  visual:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm run build-storybook
+
+      - name: Upload the build to Merrykat
+        run: npx merrykat upload --dir ./storybook-static
