@@ -1,0 +1,6 @@
+export default {
+  viewports: [
+    { name: 'desktop', width: 1280, height: 800 },
+    { name: 'mobile', width: 390, height: 844 },
+  ],
+};
