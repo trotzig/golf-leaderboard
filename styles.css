@@ -349,7 +349,7 @@ nav svg {
 }
 @media (max-width: 600px) {
   nav {
-    --nav-icon-size: 22px;
+    --nav-icon-size: 28px;
     gap: 4px;
     margin-top: 0;
     justify-content: space-between;
