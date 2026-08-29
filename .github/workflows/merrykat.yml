@@ -18,6 +18,12 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          # merrykat resolves the merge base and the PR's diff with local `git merge-base`/`git
+          # diff`, which needs history. The default fetch-depth: 1 makes both silently
+          # unavailable — every run becomes a first_run with no code context, never an error —
+          # so this isn't optional.
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
