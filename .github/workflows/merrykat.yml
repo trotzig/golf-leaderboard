@@ -32,4 +32,9 @@ jobs:
       - run: pnpm run build-storybook
 
       - name: Upload the build to Merrykat
+        env:
+          # Lets merrykat resolve the merge base and diff via the GitHub API when local git
+          # can't (this checkout is shallow) — contents: read above is already enough scope.
+          # Used only for that; never sent anywhere but api.github.com.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx merrykat upload --dir ./storybook-static
