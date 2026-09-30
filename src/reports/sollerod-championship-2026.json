@@ -1,0 +1,74 @@
+{
+  "competitionId": 5339486,
+  "competitionSlug": "sollerod-championship-2026",
+  "competitionName": "Søllerød Championship",
+  "venue": "Søllerød Golfklub",
+  "startDate": "2026-09-16T00:00:00.000Z",
+  "endDate": "2026-09-18T00:00:00.000Z",
+  "slug": "sollerod-championship-2026",
+  "headline": "Holmberg edges Bjørløw in play-off at Søllerød",
+  "blurb": "Rasmus Holmberg secured the Søllerød Championship title after a play-off against Victor Bjørløw. Both players finished at 20 under par after three rounds at Søllerød Golfklub.",
+  "body": "[Rasmus Holmberg](/rasmus-holmberg) won the Søllerød Championship after a play-off against [Victor Bjørløw](/victor-bjorlow-8f1) at Søllerød Golfklub. Both players finished at -20 after 54 holes, and Holmberg came out on top in the extra holes. It is his second win of the season after his victory at the MoreGolf Mastercard Stockholm earlier this year.\n\nThe tournament started with a strong opening round from [Claes Thrane Borregaard](/claes-thrane-borregaard), who shot a 62 on the first day. But Holmberg and Bjørløw both played very well over the following rounds. Holmberg shot a 63 in round two, and Bjørløw answered with a 63 of his own in the final round. [David Nyfjäll](/david-nyfjall) also had a 63 in round two but could not keep up the same level and finished tied for fourth at -15.\n\nBorregaard ended in third place at -16, four shots behind the two leaders. [David Lundgren](/david-lundgren) shared fourth place with Nyfjäll at -15.\n\nThe field started with 77 players, and 30 made the cut at -5. That is a low cut line, and shows how low the scoring was all week.",
+  "winnerName": "Rasmus Holmberg",
+  "winnerPlayerId": "951227-001",
+  "winnerPlayerSlug": "rasmus-holmberg",
+  "winnerImage": "/players/951227-001.jpg",
+  "stats": {
+    "winningScore": -20,
+    "winningScoreText": "-20",
+    "totalPlayers": 77,
+    "playersMadeCut": 30,
+    "playersMissedCut": 47,
+    "cutScore": -5,
+    "cutScoreText": "-5",
+    "marginOfVictory": 0,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "Rasmus Holmberg",
+        "club": "Bryngfjordens Golfklubb",
+        "score": -20,
+        "scoreText": "-20",
+        "playerId": "951227-001",
+        "playerSlug": "rasmus-holmberg"
+      },
+      {
+        "position": "2",
+        "name": "Victor Bjørløw",
+        "club": "The Scandinavian Golf Club",
+        "score": -20,
+        "scoreText": "-20",
+        "playerId": "139-2349",
+        "playerSlug": "victor-bjorlow-8f1"
+      },
+      {
+        "position": "3",
+        "name": "Claes Thrane Borregaard",
+        "club": "Smørum Golfklub",
+        "score": -16,
+        "scoreText": "-16",
+        "playerId": "120-58456",
+        "playerSlug": "claes-thrane-borregaard"
+      },
+      {
+        "position": "T4",
+        "name": "David Lundgren",
+        "club": "Ängelholms Golfklubb",
+        "score": -15,
+        "scoreText": "-15",
+        "playerId": "010515-018",
+        "playerSlug": "david-lundgren"
+      },
+      {
+        "position": "T4",
+        "name": "David Nyfjäll",
+        "club": "Upsala Golfklubb",
+        "score": -15,
+        "scoreText": "-15",
+        "playerId": "990126-001",
+        "playerSlug": "david-nyfjall"
+      }
+    ]
+  },
+  "createdAt": "2026-09-30T16:04:12.013Z"
+}

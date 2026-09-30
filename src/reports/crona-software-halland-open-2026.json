@@ -1,0 +1,74 @@
+{
+  "competitionId": 5398142,
+  "competitionSlug": "crona-software-halland-open-2026",
+  "competitionName": "Crona Software Halland Open",
+  "venue": "Laholms Golfklubb",
+  "startDate": "2026-09-02T00:00:00.000Z",
+  "endDate": "2026-09-04T00:00:00.000Z",
+  "slug": "crona-software-halland-open-2026",
+  "headline": "Nyfjäll wins Crona Software Halland Open by one shot",
+  "blurb": "David Nyfjäll finished at 14 under par to win at Laholms Golfklubb, one shot ahead of Sebastian Petersen. It is his second tour victory of the season.",
+  "body": "[David Nyfjäll](/david-nyfjall) won the Crona Software Halland Open at Laholms Golfklubb, finishing at 14 under par. [Sebastian Petersen](/sebastian-petersen) came close at 13 under but could not catch the leader. The win was decided by just one shot.\n\nThree players shared third place at 12 under par: [Jakob Hansson](/jakob-hansson), [Jesper Sandborg](/jesper-sandborg) and [Gustav Andersson](/gustav-andersson). The top of the leaderboard was tight, with only two shots separating first from third.\n\nThe second round produced some very low scores. Alexander Lindström shot a 61, the best round of the tournament. [Jacob Björnberg](/jacob-bjornberg) and [Hannes Åkermark](/hannes-akermark) both shot 63 in the same round.\n\nNyfjäll now has two wins this season after also winning the Finnish Open. He has had several other strong results, including a second place at the NeH Hammarö Open. Out of 156 players in the field, 53 made the cut at 2 under par.",
+  "winnerName": "David Nyfjäll",
+  "winnerPlayerId": "990126-001",
+  "winnerPlayerSlug": "david-nyfjall",
+  "winnerImage": "/players/990126-001.jpg",
+  "stats": {
+    "winningScore": -14,
+    "winningScoreText": "-14",
+    "totalPlayers": 156,
+    "playersMadeCut": 53,
+    "playersMissedCut": 97,
+    "cutScore": -2,
+    "cutScoreText": "-2",
+    "marginOfVictory": 1,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "David Nyfjäll",
+        "club": "Upsala Golfklubb",
+        "score": -14,
+        "scoreText": "-14",
+        "playerId": "990126-001",
+        "playerSlug": "david-nyfjall"
+      },
+      {
+        "position": "2",
+        "name": "Sebastian Petersen",
+        "club": "Djurgårdens IF Golfförening",
+        "score": -13,
+        "scoreText": "-13",
+        "playerId": "980821-001",
+        "playerSlug": "sebastian-petersen"
+      },
+      {
+        "position": "T3",
+        "name": "Jakob Hansson",
+        "club": "Haninge Golfklubb",
+        "score": -12,
+        "scoreText": "-12",
+        "playerId": "960229-001",
+        "playerSlug": "jakob-hansson"
+      },
+      {
+        "position": "T3",
+        "name": "Jesper Sandborg",
+        "club": "Landeryds Golfklubb",
+        "score": -12,
+        "scoreText": "-12",
+        "playerId": "930608-004",
+        "playerSlug": "jesper-sandborg"
+      },
+      {
+        "position": "T3",
+        "name": "Gustav Andersson",
+        "club": "Bokskogens Golfklubb",
+        "score": -12,
+        "scoreText": "-12",
+        "playerId": "010610-001",
+        "playerSlug": "gustav-andersson"
+      }
+    ]
+  },
+  "createdAt": "2026-09-30T16:03:47.120Z"
+}

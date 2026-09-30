@@ -1,0 +1,74 @@
+{
+  "competitionId": 5339485,
+  "competitionSlug": "nicon-industries-championship-by-freja-2026",
+  "competitionName": "Nicon Industries Championship by FREJA",
+  "venue": "Esbjerg Golfklub",
+  "startDate": "2026-09-09T00:00:00.000Z",
+  "endDate": "2026-09-11T00:00:00.000Z",
+  "slug": "nicon-industries-championship-by-freja-2026",
+  "headline": "Amateur Toft wins at Esbjerg by one shot",
+  "blurb": "Amateur Daniel Toft from Smørum Golfklub won the Nicon Industries Championship by FREJA at Esbjerg Golfklub, finishing one shot ahead of William Gøth-Rasmussen and Carl Härdin.",
+  "body": "Amateur [Daniel Toft](/daniel-toft) won the Nicon Industries Championship by FREJA at Esbjerg Golfklub with a total score of 9 under par. The victory was close — just one shot separated Toft from the two players in shared second place.\n\n[William Gøth-Rasmussen](/william-goth-rasmussen) and [Carl Härdin](/carl-hardin) both finished at 8 under par in a tie for second. Two more players ended at 7 under: [Albin Tidén](/albin-tiden) and [Christian Jacobsen](/christian-jacobsen), who shared fourth place.\n\nThe three-day tournament was played from September 9 to 11, with 115 players in the field. The cut fell at 3 over par, and 49 players made it through to the final round.\n\nToft plays out of Smørum Golfklub near Copenhagen. Winning a tour event as an amateur is rare, and he did it on a Danish course.",
+  "winnerName": "Daniel (a) Toft",
+  "winnerPlayerId": "120-90410",
+  "winnerPlayerSlug": "daniel-toft",
+  "winnerImage": null,
+  "stats": {
+    "winningScore": -9,
+    "winningScoreText": "-9",
+    "totalPlayers": 115,
+    "playersMadeCut": 49,
+    "playersMissedCut": 63,
+    "cutScore": 3,
+    "cutScoreText": "+3",
+    "marginOfVictory": 1,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "Daniel (a) Toft",
+        "club": "Smørum Golfklub",
+        "score": -9,
+        "scoreText": "-9",
+        "playerId": "120-90410",
+        "playerSlug": "daniel-toft"
+      },
+      {
+        "position": "T2",
+        "name": "William Gøth-Rasmussen",
+        "club": "Søllerød Golfklub",
+        "score": -8,
+        "scoreText": "-8",
+        "playerId": "4-2644",
+        "playerSlug": "william-goth-rasmussen"
+      },
+      {
+        "position": "T2",
+        "name": "Carl Härdin",
+        "club": "Barsebäck Golf & Resort",
+        "score": -8,
+        "scoreText": "-8",
+        "playerId": "010610-005",
+        "playerSlug": "carl-hardin"
+      },
+      {
+        "position": "T4",
+        "name": "Albin Tidén",
+        "club": "Romeleåsens Golfklubb",
+        "score": -7,
+        "scoreText": "-7",
+        "playerId": "981005-006",
+        "playerSlug": "albin-tiden"
+      },
+      {
+        "position": "T4",
+        "name": "Christian Jacobsen",
+        "club": "Great Northern Golf Club",
+        "score": -7,
+        "scoreText": "-7",
+        "playerId": "14-873",
+        "playerSlug": "christian-jacobsen"
+      }
+    ]
+  },
+  "createdAt": "2026-09-30T16:03:55.583Z"
+}

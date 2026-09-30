@@ -1,0 +1,74 @@
+{
+  "competitionId": 5398141,
+  "competitionSlug": "footjoy-skane-challenge-2026",
+  "competitionName": "FootJoy Skåne Challenge",
+  "venue": "Söderslätts Golfklubb",
+  "startDate": "2026-08-12T00:00:00.000Z",
+  "endDate": "2026-08-14T00:00:00.000Z",
+  "slug": "footjoy-skane-challenge-2026",
+  "headline": "Härdin takes FootJoy Skåne Challenge by one shot",
+  "blurb": "Carl Härdin finished at 14 under par to win the FootJoy Skåne Challenge at Söderslätts Golfklubb, one shot ahead of Norway's Tom Røed Karlsen.",
+  "body": "[Carl Härdin](/carl-hardin) won the FootJoy Skåne Challenge at Söderslätts Golfklubb with a total of 14 under par. The Barsebäck player finished one shot ahead of [Tom Røed Karlsen](/tom-roed-karlsen) from Norway, who ended at 13 under.\n\nThree players shared third place at 11 under par: [Lucas Augustsson](/lucas-augustsson), [Kasper Nyland](/kasper-nyland) and [Mads Laage](/mads-laage) from Denmark. That left them three shots behind the winner.\n\nThe field started with 156 players. The cut fell at 2 under par, and 49 players continued to the final round.",
+  "winnerName": "Carl Härdin",
+  "winnerPlayerId": "010610-005",
+  "winnerPlayerSlug": "carl-hardin",
+  "winnerImage": null,
+  "stats": {
+    "winningScore": -14,
+    "winningScoreText": "-14",
+    "totalPlayers": 156,
+    "playersMadeCut": 49,
+    "playersMissedCut": 106,
+    "cutScore": -2,
+    "cutScoreText": "-2",
+    "marginOfVictory": 1,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "Carl Härdin",
+        "club": "Barsebäck Golf & Resort",
+        "score": -14,
+        "scoreText": "-14",
+        "playerId": "010610-005",
+        "playerSlug": "carl-hardin"
+      },
+      {
+        "position": "2",
+        "name": "Tom Røed Karlsen",
+        "club": "Nøtterøy Golfklubb",
+        "score": -13,
+        "scoreText": "-13",
+        "playerId": "132-13060",
+        "playerSlug": "tom-roed-karlsen"
+      },
+      {
+        "position": "T3",
+        "name": "Lucas Augustsson",
+        "club": "Ringenäs Golfklubb",
+        "score": -11,
+        "scoreText": "-11",
+        "playerId": "030509-010",
+        "playerSlug": "lucas-augustsson"
+      },
+      {
+        "position": "T3",
+        "name": "Kasper Nyland",
+        "club": "",
+        "score": -11,
+        "scoreText": "-11",
+        "playerId": "237729",
+        "playerSlug": "kasper-nyland"
+      },
+      {
+        "position": "T3",
+        "name": "Mads Laage",
+        "club": "Great Northern Golf Club",
+        "score": -11,
+        "scoreText": "-11",
+        "playerId": "120-86851",
+        "playerSlug": "mads-laage"
+      }
+    ]
+  },
+  "createdAt": "2026-09-30T16:03:27.343Z"
+}
