@@ -1,0 +1,274 @@
+{
+  "players": [
+    {
+      "id": "010515-018",
+      "slug": "david-lundgren",
+      "firstName": "David",
+      "lastName": "Lundgren",
+      "clubName": "Ängelholms Golfklubb",
+      "nationality": "SE",
+      "oomPosition": "1"
+    },
+    {
+      "id": "990126-001",
+      "slug": "david-nyfjall",
+      "firstName": "David",
+      "lastName": "Nyfjäll",
+      "clubName": "Upsala Golfklubb",
+      "nationality": "SE",
+      "oomPosition": "2"
+    },
+    {
+      "id": "930608-004",
+      "slug": "jesper-sandborg",
+      "firstName": "Jesper",
+      "lastName": "Sandborg",
+      "clubName": "Landeryds Golfklubb",
+      "nationality": "SE",
+      "oomPosition": "3"
+    },
+    {
+      "id": "981005-006",
+      "slug": "albin-tiden",
+      "firstName": "Albin",
+      "lastName": "Tidén",
+      "clubName": "Romeleåsens Golfklubb",
+      "nationality": "SE",
+      "oomPosition": "4"
+    },
+    {
+      "id": "2-3476",
+      "slug": "martin-leth-simonsen",
+      "firstName": "Martin Leth",
+      "lastName": "Simonsen",
+      "clubName": "Aalborg Golf Klub",
+      "nationality": "DK",
+      "oomPosition": "5"
+    },
+    {
+      "id": "72-2887",
+      "slug": "sebastian-eidsather-syr",
+      "firstName": "Sebastian Eidsæther",
+      "lastName": "Syr",
+      "clubName": "Losby Golfklubb",
+      "nationality": "NO",
+      "oomPosition": "6"
+    },
+    {
+      "id": "930911-011",
+      "slug": "anton-karlsson",
+      "firstName": "Anton",
+      "lastName": "Karlsson",
+      "clubName": "Upsala Golfklubb",
+      "nationality": "SE",
+      "oomPosition": "7"
+    },
+    {
+      "id": "236012",
+      "slug": "eric-mcintosh",
+      "firstName": "Eric",
+      "lastName": "McIntosh",
+      "clubName": "Bruntsfield Links",
+      "nationality": "SQ",
+      "oomPosition": "8"
+    },
+    {
+      "id": "020618-005",
+      "slug": "algot-kleen",
+      "firstName": "Algot",
+      "lastName": "Kleén",
+      "clubName": "Skaftö Golfklubb",
+      "nationality": "SE",
+      "oomPosition": "9"
+    },
+    {
+      "id": "980324-002",
+      "slug": "oliver-lilliedahl",
+      "firstName": "Oliver",
+      "lastName": "Lilliedahl",
+      "clubName": "AIK Golfklubb",
+      "nationality": "SE",
+      "oomPosition": "10"
+    },
+    {
+      "id": "951227-001",
+      "slug": "rasmus-holmberg",
+      "firstName": "Rasmus",
+      "lastName": "Holmberg",
+      "clubName": "Bryngfjordens Golfklubb",
+      "nationality": "SE",
+      "oomPosition": "11"
+    },
+    {
+      "id": "980423-001",
+      "slug": "johannes-axell",
+      "firstName": "Johannes",
+      "lastName": "Axell",
+      "clubName": "Landeryds Golfklubb",
+      "nationality": "SE",
+      "oomPosition": "12"
+    },
+    {
+      "id": "14-873",
+      "slug": "christian-jacobsen",
+      "firstName": "Christian",
+      "lastName": "Jacobsen",
+      "clubName": "Great Northern Golf Club",
+      "nationality": "DK",
+      "oomPosition": "13"
+    },
+    {
+      "id": "120-58456",
+      "slug": "claes-thrane-borregaard",
+      "firstName": "Claes Thrane",
+      "lastName": "Borregaard",
+      "clubName": "Smørum Golfklub",
+      "nationality": "DK",
+      "oomPosition": "15"
+    },
+    {
+      "id": "010610-005",
+      "slug": "carl-hardin",
+      "firstName": "Carl",
+      "lastName": "Härdin",
+      "clubName": "Barsebäck Golf & Resort",
+      "nationality": "SE",
+      "oomPosition": "16"
+    },
+    {
+      "id": "101-4663",
+      "slug": "august-thor-host",
+      "firstName": "August Thor",
+      "lastName": "Høst",
+      "clubName": "Great Northern Golf Club",
+      "nationality": "DK",
+      "oomPosition": "17"
+    },
+    {
+      "id": "980821-001",
+      "slug": "sebastian-petersen",
+      "firstName": "Sebastian",
+      "lastName": "Petersen",
+      "clubName": "Djurgårdens IF Golfförening",
+      "nationality": "SE",
+      "oomPosition": "18"
+    },
+    {
+      "id": "961018-009",
+      "slug": "oliver-gillberg",
+      "firstName": "Oliver",
+      "lastName": "Gillberg",
+      "clubName": "Askersunds Golfklubb",
+      "nationality": "SE",
+      "oomPosition": "19"
+    },
+    {
+      "id": "961231-001",
+      "slug": "jesper-hagborg-asp",
+      "firstName": "Jesper",
+      "lastName": "Hagborg Asp",
+      "clubName": "Onsjö Golfklubb",
+      "nationality": "SE",
+      "oomPosition": "20"
+    },
+    {
+      "id": "16-3021",
+      "slug": "oliver-hundeboll-jorgensen",
+      "firstName": "Oliver Hundebøll",
+      "lastName": "Jørgensen",
+      "clubName": "Silkeborg Golfklub",
+      "nationality": "DK",
+      "oomPosition": "21"
+    },
+    {
+      "id": "011207-003",
+      "slug": "adam-wallin",
+      "firstName": "Adam",
+      "lastName": "Wallin",
+      "clubName": "Ulricehamns Golfklubb",
+      "nationality": "SE",
+      "oomPosition": "22"
+    },
+    {
+      "id": "980425-004",
+      "slug": "marcus-svensson",
+      "firstName": "Marcus",
+      "lastName": "Svensson",
+      "clubName": "Halmstad Golfklubb",
+      "nationality": "SE",
+      "oomPosition": "23"
+    },
+    {
+      "id": "16-2117",
+      "slug": "morten-orum-madsen",
+      "firstName": "Morten Ørum",
+      "lastName": "Madsen",
+      "clubName": "Silkeborg Golfklub",
+      "nationality": "DK",
+      "oomPosition": "24"
+    },
+    {
+      "id": "185-6029",
+      "slug": "bjorn-la-cour-soborg",
+      "firstName": "Bjørn La Cour",
+      "lastName": "Søborg",
+      "clubName": "Lyngbygaard Golf Klub",
+      "nationality": "DK",
+      "oomPosition": "25"
+    },
+    {
+      "id": "132-13015",
+      "slug": "alexander-settemsdal",
+      "firstName": "Alexander",
+      "lastName": "Settemsdal",
+      "clubName": "Nøtterøy Golfklubb",
+      "nationality": "NO",
+      "oomPosition": "26"
+    },
+    {
+      "id": "157057",
+      "slug": "dagbjartur-sigurbrandsson",
+      "firstName": "Dagbjartur",
+      "lastName": "Sigurbrandsson",
+      "clubName": "Golfklúbbur Reykjavíkur",
+      "nationality": "IS",
+      "oomPosition": "27"
+    },
+    {
+      "id": "60-2425",
+      "slug": "lauri-ruuska",
+      "firstName": "Lauri",
+      "lastName": "Ruuska",
+      "clubName": "Tarinagolf",
+      "nationality": "FI",
+      "oomPosition": "28"
+    },
+    {
+      "id": "37-3601",
+      "slug": "jamie-tofte-nielsen",
+      "firstName": "Jamie Tofte",
+      "lastName": "Nielsen",
+      "clubName": "Søllerød Golfklub",
+      "nationality": "DK",
+      "oomPosition": "29"
+    },
+    {
+      "id": "132-13060",
+      "slug": "tom-roed-karlsen",
+      "firstName": "Tom Røed",
+      "lastName": "Karlsen",
+      "clubName": "Nøtterøy Golfklubb",
+      "nationality": "NO",
+      "oomPosition": "30"
+    },
+    {
+      "id": "970509-013",
+      "slug": "benjamin-hjort",
+      "firstName": "Benjamin",
+      "lastName": "Hjort",
+      "clubName": "Frösåker Golf & Country Club",
+      "nationality": "SE",
+      "oomPosition": "31"
+    }
+  ]
+}

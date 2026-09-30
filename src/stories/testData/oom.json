@@ -1,0 +1,3084 @@
+{
+  "OrderOfMeritData": {
+    "Name": "Road to Europe 2026"
+  },
+  "Entries": {
+    "E7750988": {
+      "MemberID": "010515-018",
+      "FirstName": "David *",
+      "LastName": "Lundgren",
+      "ClubName": "Ängelholms Golfklubb",
+      "Nationality": "SE",
+      "Country": "Sweden",
+      "Picture": null,
+      "CalculatedResult": 67744.6776,
+      "Position": "1",
+      "ActualPosition": 1,
+      "TotalEvents": 24,
+      "Results": {
+        "R13635488": {
+          "CompetitionID": 5299728,
+          "Name": "GolfStar Winter Series Dunes",
+          "Date": "20260214T000000",
+          "Position": "T2",
+          "Result": 5389.625
+        },
+        "R13636965": {
+          "CompetitionID": 5299753,
+          "Name": "GolfStar Winter Series Forest",
+          "Date": "20260218T000000",
+          "Position": "T2",
+          "Result": 5389.625
+        },
+        "R13638623": {
+          "CompetitionID": 5416024,
+          "Name": "INFINITUM ECCO Masters - GolfBox Tournament no. 1,000,000",
+          "Date": "20260223T000000",
+          "Position": "T7",
+          "Result": 1716.6667
+        },
+        "R13639733": {
+          "CompetitionID": 5433274,
+          "Name": "INFINITUM Championship",
+          "Date": "20260227T000000",
+          "Position": "T5",
+          "Result": 2116.6667
+        },
+        "R13642839": {
+          "CompetitionID": 5433278,
+          "Name": "INFINITUM Spring Series Final - by ECCO",
+          "Date": "20260303T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13684336": {
+          "CompetitionID": 5528196,
+          "Name": "Sand Valley Open",
+          "Date": "20260409T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13696513": {
+          "CompetitionID": 5571772,
+          "Name": "ECCO Tour Sand Valley Masters",
+          "Date": "20260413T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13714051": {
+          "CompetitionID": 5582085,
+          "Name": "Sand Valley Spring Series Final",
+          "Date": "20260417T000000",
+          "Position": "T14",
+          "Result": 1092.5
+        },
+        "R13794995": {
+          "CompetitionID": 5349635,
+          "Name": "Big Green Egg Blekinge Open",
+          "Date": "20260429T000000",
+          "Position": "T12",
+          "Result": 1037.74
+        },
+        "R13854629": {
+          "CompetitionID": 5339477,
+          "Name": "Royal Unibrew Championship @ Royal Oak",
+          "Date": "20260506T000000",
+          "Position": "6",
+          "Result": 1800
+        },
+        "R13903702": {
+          "CompetitionID": 5398087,
+          "Name": "Gamle Fredrikstad Open",
+          "Date": "20260512T000000",
+          "Position": "T11",
+          "Result": 1019.82
+        },
+        "R14037149": {
+          "CompetitionID": 5339478,
+          "Name": "Trust Forsikring Championship",
+          "Date": "20260527T000000",
+          "Position": "T5",
+          "Result": 2125
+        },
+        "R14101306": {
+          "CompetitionID": 5682240,
+          "Name": "Samsø Festival Pro-Am - by United Tickets",
+          "Date": "20260603T000000",
+          "Position": "1",
+          "Result": 8000
+        },
+        "R14174076": {
+          "CompetitionID": 5398099,
+          "Name": "Indoor Golf Group Göteborg Open ",
+          "Date": "20260610T000000",
+          "Position": "T23",
+          "Result": 481.25
+        },
+        "R14237604": {
+          "CompetitionID": 5339480,
+          "Name": "GolfPromote 25th Anniversary Open",
+          "Date": "20260617T000000",
+          "Position": "2",
+          "Result": 8260
+        },
+        "R14322701": {
+          "CompetitionID": 5398108,
+          "Name": "PGA of Sweden Championship",
+          "Date": "20260624T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14400396": {
+          "CompetitionID": 5403939,
+          "Name": "SM Match by Upfront",
+          "Date": "20260708T000000",
+          "Position": "T5",
+          "Result": 1735.84
+        },
+        "R14479285": {
+          "CompetitionID": 5398126,
+          "Name": "Holtsmark Open",
+          "Date": "20260721T000000",
+          "Position": "T42",
+          "Result": 120.8275
+        },
+        "R14532526": {
+          "CompetitionID": null,
+          "Name": "Max Matthiessen Team Trophy",
+          "Date": "20260731T000000",
+          "Position": "11",
+          "Result": 750
+        },
+        "R14590944": {
+          "CompetitionID": 5398122,
+          "Name": "NeH Hammarö Open",
+          "Date": "20260806T000000",
+          "Position": "T7",
+          "Result": 1800
+        },
+        "R14790520": {
+          "CompetitionID": null,
+          "Name": "Dormy Open by Creekhouse",
+          "Date": "20260830T000000",
+          "Position": "2",
+          "Result": 13500
+        },
+        "R14897899": {
+          "CompetitionID": 5339485,
+          "Name": "Nicon Industries Championship by FREJA",
+          "Date": "20260909T000000",
+          "Position": "T6",
+          "Result": 1866.6667
+        },
+        "R14955777": {
+          "CompetitionID": 5339486,
+          "Name": "Søllerød Championship",
+          "Date": "20260916T000000",
+          "Position": "T4",
+          "Result": 2750
+        },
+        "R15005141": {
+          "CompetitionID": 5398146,
+          "Name": "Folksam Championship",
+          "Date": "20260923T000000",
+          "Position": "2",
+          "Result": 6792.45
+        }
+      },
+      "Holes": null,
+      "NumberOfHoles": null
+    },
+    "E7750991": {
+      "MemberID": "990126-001",
+      "FirstName": "David **",
+      "LastName": "Nyfjäll",
+      "ClubName": "Upsala Golfklubb",
+      "Nationality": "SE",
+      "Country": "Sweden",
+      "Picture": null,
+      "CalculatedResult": 50849.507,
+      "Position": "2",
+      "ActualPosition": 2,
+      "TotalEvents": 24,
+      "Results": {
+        "R13635491": {
+          "CompetitionID": 5299728,
+          "Name": "GolfStar Winter Series Dunes",
+          "Date": "20260214T000000",
+          "Position": "T5",
+          "Result": 2316.3533
+        },
+        "R13636968": {
+          "CompetitionID": 5299753,
+          "Name": "GolfStar Winter Series Forest",
+          "Date": "20260218T000000",
+          "Position": "T4",
+          "Result": 2954.715
+        },
+        "R13638685": {
+          "CompetitionID": 5416024,
+          "Name": "INFINITUM ECCO Masters - GolfBox Tournament no. 1,000,000",
+          "Date": "20260223T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13639743": {
+          "CompetitionID": 5433274,
+          "Name": "INFINITUM Championship",
+          "Date": "20260227T000000",
+          "Position": "T17",
+          "Result": 825
+        },
+        "R13642798": {
+          "CompetitionID": 5433278,
+          "Name": "INFINITUM Spring Series Final - by ECCO",
+          "Date": "20260303T000000",
+          "Position": "T11",
+          "Result": 1200
+        },
+        "R13684290": {
+          "CompetitionID": 5528196,
+          "Name": "Sand Valley Open",
+          "Date": "20260409T000000",
+          "Position": "T14",
+          "Result": 925
+        },
+        "R13696495": {
+          "CompetitionID": 5571772,
+          "Name": "ECCO Tour Sand Valley Masters",
+          "Date": "20260413T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13714040": {
+          "CompetitionID": 5582085,
+          "Name": "Sand Valley Spring Series Final",
+          "Date": "20260417T000000",
+          "Position": "T4",
+          "Result": 3105
+        },
+        "R13794996": {
+          "CompetitionID": 5349635,
+          "Name": "Big Green Egg Blekinge Open",
+          "Date": "20260429T000000",
+          "Position": "T12",
+          "Result": 1037.74
+        },
+        "R13854630": {
+          "CompetitionID": 5339477,
+          "Name": "Royal Unibrew Championship @ Royal Oak",
+          "Date": "20260506T000000",
+          "Position": "T7",
+          "Result": 1545
+        },
+        "R13903700": {
+          "CompetitionID": 5398087,
+          "Name": "Gamle Fredrikstad Open",
+          "Date": "20260512T000000",
+          "Position": "T11",
+          "Result": 1019.82
+        },
+        "R13982058": {
+          "CompetitionID": null,
+          "Name": "Danish Golf Challenge",
+          "Date": "20260524T000000",
+          "Position": "T47",
+          "Result": 626
+        },
+        "R14037150": {
+          "CompetitionID": 5339478,
+          "Name": "Trust Forsikring Championship",
+          "Date": "20260527T000000",
+          "Position": "T5",
+          "Result": 2125
+        },
+        "R14174066": {
+          "CompetitionID": 5398099,
+          "Name": "Indoor Golf Group Göteborg Open ",
+          "Date": "20260610T000000",
+          "Position": "T13",
+          "Result": 987.5
+        },
+        "R14237606": {
+          "CompetitionID": 5339480,
+          "Name": "GolfPromote 25th Anniversary Open",
+          "Date": "20260617T000000",
+          "Position": "T4",
+          "Result": 3780
+        },
+        "R14322661": {
+          "CompetitionID": 5398108,
+          "Name": "PGA of Sweden Championship",
+          "Date": "20260624T000000",
+          "Position": "T24",
+          "Result": 416.6667
+        },
+        "R14352771": {
+          "CompetitionID": 5398115,
+          "Name": "MoreGolf Mastercard Stockholm",
+          "Date": "20260701T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14479259": {
+          "CompetitionID": 5398126,
+          "Name": "Holtsmark Open",
+          "Date": "20260721T000000",
+          "Position": "T18",
+          "Result": 620.76
+        },
+        "R14590941": {
+          "CompetitionID": 5398122,
+          "Name": "NeH Hammarö Open",
+          "Date": "20260806T000000",
+          "Position": "T2",
+          "Result": 3812.5
+        },
+        "R14649102": {
+          "CompetitionID": 5398141,
+          "Name": "FootJoy Skåne Challenge",
+          "Date": "20260812T000000",
+          "Position": "T6",
+          "Result": 1710
+        },
+        "R14788525": {
+          "CompetitionID": 5515043,
+          "Name": "Finnish Open by FootJoy",
+          "Date": "20260827T000000",
+          "Position": "1",
+          "Result": 9000
+        },
+        "R14839246": {
+          "CompetitionID": 5398142,
+          "Name": "Crona Software Halland Open",
+          "Date": "20260902T000000",
+          "Position": "1",
+          "Result": 9000
+        },
+        "R14955778": {
+          "CompetitionID": 5339486,
+          "Name": "Søllerød Championship",
+          "Date": "20260916T000000",
+          "Position": "T4",
+          "Result": 2750
+        },
+        "R15005152": {
+          "CompetitionID": 5398146,
+          "Name": "Folksam Championship",
+          "Date": "20260923T000000",
+          "Position": "T13",
+          "Result": 1092.452
+        }
+      },
+      "Holes": null,
+      "NumberOfHoles": null
+    },
+    "E7751003": {
+      "MemberID": "930608-004",
+      "FirstName": "Jesper **",
+      "LastName": "Sandborg",
+      "ClubName": "Landeryds Golfklubb",
+      "Nationality": "SE",
+      "Country": "Sweden",
+      "Picture": null,
+      "CalculatedResult": 43077.621,
+      "Position": "3",
+      "ActualPosition": 3,
+      "TotalEvents": 24,
+      "Results": {
+        "R13635503": {
+          "CompetitionID": 5299728,
+          "Name": "GolfStar Winter Series Dunes",
+          "Date": "20260214T000000",
+          "Position": "T17",
+          "Result": 902.83
+        },
+        "R13636972": {
+          "CompetitionID": 5299753,
+          "Name": "GolfStar Winter Series Forest",
+          "Date": "20260218T000000",
+          "Position": "T8",
+          "Result": 1627.8325
+        },
+        "R13638693": {
+          "CompetitionID": 5416024,
+          "Name": "INFINITUM ECCO Masters - GolfBox Tournament no. 1,000,000",
+          "Date": "20260223T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13639730": {
+          "CompetitionID": 5433274,
+          "Name": "INFINITUM Championship",
+          "Date": "20260227T000000",
+          "Position": "T3",
+          "Result": 3450
+        },
+        "R13642791": {
+          "CompetitionID": 5433278,
+          "Name": "INFINITUM Spring Series Final - by ECCO",
+          "Date": "20260303T000000",
+          "Position": "6",
+          "Result": 2000
+        },
+        "R13684337": {
+          "CompetitionID": 5528196,
+          "Name": "Sand Valley Open",
+          "Date": "20260409T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13696465": {
+          "CompetitionID": 5571772,
+          "Name": "ECCO Tour Sand Valley Masters",
+          "Date": "20260413T000000",
+          "Position": "T36",
+          "Result": 198
+        },
+        "R13714073": {
+          "CompetitionID": 5582085,
+          "Name": "Sand Valley Spring Series Final",
+          "Date": "20260417T000000",
+          "Position": "T38",
+          "Result": 182.5625
+        },
+        "R13795021": {
+          "CompetitionID": 5349635,
+          "Name": "Big Green Egg Blekinge Open",
+          "Date": "20260429T000000",
+          "Position": "T37",
+          "Result": 153.774
+        },
+        "R13903704": {
+          "CompetitionID": 5398087,
+          "Name": "Gamle Fredrikstad Open",
+          "Date": "20260512T000000",
+          "Position": "T15",
+          "Result": 798.12
+        },
+        "R13979030": {
+          "CompetitionID": 5398043,
+          "Name": "Cutter & Buck Fjällbacka Open",
+          "Date": "20260521T000000",
+          "Position": "1",
+          "Result": 9000
+        },
+        "R14037144": {
+          "CompetitionID": 5339478,
+          "Name": "Trust Forsikring Championship",
+          "Date": "20260527T000000",
+          "Position": "2",
+          "Result": 6000
+        },
+        "R14174075": {
+          "CompetitionID": 5398099,
+          "Name": "Indoor Golf Group Göteborg Open ",
+          "Date": "20260610T000000",
+          "Position": "T23",
+          "Result": 481.25
+        },
+        "R14237603": {
+          "CompetitionID": 5339480,
+          "Name": "GolfPromote 25th Anniversary Open",
+          "Date": "20260617T000000",
+          "Position": "1",
+          "Result": 12600
+        },
+        "R14322717": {
+          "CompetitionID": 5398108,
+          "Name": "PGA of Sweden Championship",
+          "Date": "20260624T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14400415": {
+          "CompetitionID": 5403939,
+          "Name": "SM Match by Upfront",
+          "Date": "20260708T000000",
+          "Position": "T17",
+          "Result": 509.9
+        },
+        "R14479265": {
+          "CompetitionID": 5398126,
+          "Name": "Holtsmark Open",
+          "Date": "20260721T000000",
+          "Position": "T23",
+          "Result": 443.4
+        },
+        "R14532577": {
+          "CompetitionID": null,
+          "Name": "Max Matthiessen Team Trophy",
+          "Date": "20260731T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14590987": {
+          "CompetitionID": 5398122,
+          "Name": "NeH Hammarö Open",
+          "Date": "20260806T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14649179": {
+          "CompetitionID": 5398141,
+          "Name": "FootJoy Skåne Challenge",
+          "Date": "20260812T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14839249": {
+          "CompetitionID": 5398142,
+          "Name": "Crona Software Halland Open",
+          "Date": "20260902T000000",
+          "Position": "T3",
+          "Result": 2837.5
+        },
+        "R14897910": {
+          "CompetitionID": 5339485,
+          "Name": "Nicon Industries Championship by FREJA",
+          "Date": "20260909T000000",
+          "Position": "T16",
+          "Result": 800
+        },
+        "R14955809": {
+          "CompetitionID": 5339486,
+          "Name": "Søllerød Championship",
+          "Date": "20260916T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R15005153": {
+          "CompetitionID": 5398146,
+          "Name": "Folksam Championship",
+          "Date": "20260923T000000",
+          "Position": "T13",
+          "Result": 1092.452
+        }
+      },
+      "Holes": null,
+      "NumberOfHoles": null
+    },
+    "E7750986": {
+      "MemberID": "981005-006",
+      "FirstName": "Albin **",
+      "LastName": "Tidén",
+      "ClubName": "Romeleåsens Golfklubb",
+      "Nationality": "SE",
+      "Country": "Sweden",
+      "Picture": null,
+      "CalculatedResult": 42220.3383,
+      "Position": "4",
+      "ActualPosition": 4,
+      "TotalEvents": 24,
+      "Results": {
+        "R13635486": {
+          "CompetitionID": 5299728,
+          "Name": "GolfStar Winter Series Dunes",
+          "Date": "20260214T000000",
+          "Position": "1",
+          "Result": 9849.06
+        },
+        "R13636976": {
+          "CompetitionID": 5299753,
+          "Name": "GolfStar Winter Series Forest",
+          "Date": "20260218T000000",
+          "Position": "T12",
+          "Result": 1258.49
+        },
+        "R13638651": {
+          "CompetitionID": 5416024,
+          "Name": "INFINITUM ECCO Masters - GolfBox Tournament no. 1,000,000",
+          "Date": "20260223T000000",
+          "Position": "T32",
+          "Result": 228
+        },
+        "R13639736": {
+          "CompetitionID": 5433274,
+          "Name": "INFINITUM Championship",
+          "Date": "20260227T000000",
+          "Position": "T8",
+          "Result": 1375
+        },
+        "R13642859": {
+          "CompetitionID": 5433278,
+          "Name": "INFINITUM Spring Series Final - by ECCO",
+          "Date": "20260303T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13684274": {
+          "CompetitionID": 5528196,
+          "Name": "Sand Valley Open",
+          "Date": "20260409T000000",
+          "Position": "1",
+          "Result": 9000
+        },
+        "R13696447": {
+          "CompetitionID": 5571772,
+          "Name": "ECCO Tour Sand Valley Masters",
+          "Date": "20260413T000000",
+          "Position": "T14",
+          "Result": 962.5
+        },
+        "R13714077": {
+          "CompetitionID": 5582085,
+          "Name": "Sand Valley Spring Series Final",
+          "Date": "20260417T000000",
+          "Position": "T42",
+          "Result": 140.9643
+        },
+        "R13795024": {
+          "CompetitionID": 5349635,
+          "Name": "Big Green Egg Blekinge Open",
+          "Date": "20260429T000000",
+          "Position": "T37",
+          "Result": 153.774
+        },
+        "R13903790": {
+          "CompetitionID": 5398087,
+          "Name": "Gamle Fredrikstad Open",
+          "Date": "20260512T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13982053": {
+          "CompetitionID": null,
+          "Name": "Danish Golf Challenge",
+          "Date": "20260524T000000",
+          "Position": "T56",
+          "Result": 503
+        },
+        "R14037155": {
+          "CompetitionID": 5339478,
+          "Name": "Trust Forsikring Championship",
+          "Date": "20260527T000000",
+          "Position": "T10",
+          "Result": 1250
+        },
+        "R14237639": {
+          "CompetitionID": 5339480,
+          "Name": "GolfPromote 25th Anniversary Open",
+          "Date": "20260617T000000",
+          "Position": "T33",
+          "Result": 292.6
+        },
+        "R14322640": {
+          "CompetitionID": 5398108,
+          "Name": "PGA of Sweden Championship",
+          "Date": "20260624T000000",
+          "Position": "3",
+          "Result": 3950
+        },
+        "R14352801": {
+          "CompetitionID": 5398115,
+          "Name": "MoreGolf Mastercard Stockholm",
+          "Date": "20260701T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14400454": {
+          "CompetitionID": 5403939,
+          "Name": "SM Match by Upfront",
+          "Date": "20260708T000000",
+          "Position": "T33",
+          "Result": 0
+        },
+        "R14479248": {
+          "CompetitionID": 5398126,
+          "Name": "Holtsmark Open",
+          "Date": "20260721T000000",
+          "Position": "7",
+          "Result": 1684.92
+        },
+        "R14532592": {
+          "CompetitionID": null,
+          "Name": "Max Matthiessen Team Trophy",
+          "Date": "20260731T000000",
+          "Position": "19",
+          "Result": 185
+        },
+        "R14590956": {
+          "CompetitionID": 5398122,
+          "Name": "NeH Hammarö Open",
+          "Date": "20260806T000000",
+          "Position": "T20",
+          "Result": 625
+        },
+        "R14649115": {
+          "CompetitionID": 5398141,
+          "Name": "FootJoy Skåne Challenge",
+          "Date": "20260812T000000",
+          "Position": "T20",
+          "Result": 650
+        },
+        "R14788526": {
+          "CompetitionID": 5515043,
+          "Name": "Finnish Open by FootJoy",
+          "Date": "20260827T000000",
+          "Position": "T2",
+          "Result": 3812.5
+        },
+        "R14839268": {
+          "CompetitionID": 5398142,
+          "Name": "Crona Software Halland Open",
+          "Date": "20260902T000000",
+          "Position": "T18",
+          "Result": 675
+        },
+        "R14897897": {
+          "CompetitionID": 5339485,
+          "Name": "Nicon Industries Championship by FREJA",
+          "Date": "20260909T000000",
+          "Position": "T4",
+          "Result": 2700
+        },
+        "R15005145": {
+          "CompetitionID": 5398146,
+          "Name": "Folksam Championship",
+          "Date": "20260923T000000",
+          "Position": "T4",
+          "Result": 2924.53
+        }
+      },
+      "Holes": null,
+      "NumberOfHoles": null
+    },
+    "E7753380": {
+      "MemberID": "2-3476",
+      "FirstName": "Martin Leth ***",
+      "LastName": "Simonsen",
+      "ClubName": "Aalborg Golf Klub",
+      "Nationality": "DK",
+      "Country": "Denmark",
+      "Picture": null,
+      "CalculatedResult": 41957.2667,
+      "Position": "5",
+      "ActualPosition": 5,
+      "TotalEvents": 9,
+      "Results": {
+        "R13638617": {
+          "CompetitionID": 5416024,
+          "Name": "INFINITUM ECCO Masters - GolfBox Tournament no. 1,000,000",
+          "Date": "20260223T000000",
+          "Position": "1",
+          "Result": 9000
+        },
+        "R13639776": {
+          "CompetitionID": 5433274,
+          "Name": "INFINITUM Championship",
+          "Date": "20260227T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13642797": {
+          "CompetitionID": 5433278,
+          "Name": "INFINITUM Spring Series Final - by ECCO",
+          "Date": "20260303T000000",
+          "Position": "T11",
+          "Result": 1200
+        },
+        "R13684281": {
+          "CompetitionID": 5528196,
+          "Name": "Sand Valley Open",
+          "Date": "20260409T000000",
+          "Position": "T8",
+          "Result": 1375
+        },
+        "R13696431": {
+          "CompetitionID": 5571772,
+          "Name": "ECCO Tour Sand Valley Masters",
+          "Date": "20260413T000000",
+          "Position": "3",
+          "Result": 4345
+        },
+        "R13714043": {
+          "CompetitionID": 5582085,
+          "Name": "Sand Valley Spring Series Final",
+          "Date": "20260417T000000",
+          "Position": "T6",
+          "Result": 2146.6667
+        },
+        "R13794984": {
+          "CompetitionID": 5349635,
+          "Name": "Big Green Egg Blekinge Open",
+          "Date": "20260429T000000",
+          "Position": "1",
+          "Result": 8490.6
+        },
+        "R13982048": {
+          "CompetitionID": null,
+          "Name": "Danish Golf Challenge",
+          "Date": "20260524T000000",
+          "Position": "T6",
+          "Result": 5400
+        },
+        "R14037143": {
+          "CompetitionID": 5339478,
+          "Name": "Trust Forsikring Championship",
+          "Date": "20260527T000000",
+          "Position": "1",
+          "Result": 10000
+        }
+      },
+      "Holes": null,
+      "NumberOfHoles": null
+    },
+    "E7751040": {
+      "MemberID": "72-2887",
+      "FirstName": "Sebastian Eidsæther **",
+      "LastName": "Syr",
+      "ClubName": "Losby Golfklubb",
+      "Nationality": "NO",
+      "Country": "Norway",
+      "Picture": null,
+      "CalculatedResult": 37347.35,
+      "Position": "6",
+      "ActualPosition": 6,
+      "TotalEvents": 22,
+      "Results": {
+        "R13635540": {
+          "CompetitionID": 5299728,
+          "Name": "GolfStar Winter Series Dunes",
+          "Date": "20260214T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13636998": {
+          "CompetitionID": 5299753,
+          "Name": "GolfStar Winter Series Forest",
+          "Date": "20260218T000000",
+          "Position": "T34",
+          "Result": 232.55
+        },
+        "R13638702": {
+          "CompetitionID": 5416024,
+          "Name": "INFINITUM ECCO Masters - GolfBox Tournament no. 1,000,000",
+          "Date": "20260223T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13639830": {
+          "CompetitionID": 5433274,
+          "Name": "INFINITUM Championship",
+          "Date": "20260227T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13642831": {
+          "CompetitionID": 5433278,
+          "Name": "INFINITUM Spring Series Final - by ECCO",
+          "Date": "20260303T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13795040": {
+          "CompetitionID": 5349635,
+          "Name": "Big Green Egg Blekinge Open",
+          "Date": "20260429T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13854624": {
+          "CompetitionID": 5339477,
+          "Name": "Royal Unibrew Championship @ Royal Oak",
+          "Date": "20260506T000000",
+          "Position": "1",
+          "Result": 8100
+        },
+        "R13903691": {
+          "CompetitionID": 5398087,
+          "Name": "Gamle Fredrikstad Open",
+          "Date": "20260512T000000",
+          "Position": "3",
+          "Result": 3502.86
+        },
+        "R13979035": {
+          "CompetitionID": 5398043,
+          "Name": "Cutter & Buck Fjällbacka Open",
+          "Date": "20260521T000000",
+          "Position": "T5",
+          "Result": 2116.6667
+        },
+        "R14037194": {
+          "CompetitionID": 5339478,
+          "Name": "Trust Forsikring Championship",
+          "Date": "20260527T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14174090": {
+          "CompetitionID": 5398099,
+          "Name": "Indoor Golf Group Göteborg Open ",
+          "Date": "20260610T000000",
+          "Position": "T37",
+          "Result": 170
+        },
+        "R14237617": {
+          "CompetitionID": 5339480,
+          "Name": "GolfPromote 25th Anniversary Open",
+          "Date": "20260617T000000",
+          "Position": "T13",
+          "Result": 1423.3333
+        },
+        "R14322644": {
+          "CompetitionID": 5398108,
+          "Name": "PGA of Sweden Championship",
+          "Date": "20260624T000000",
+          "Position": "T7",
+          "Result": 1570
+        },
+        "R14400391": {
+          "CompetitionID": 5403939,
+          "Name": "SM Match by Upfront",
+          "Date": "20260708T000000",
+          "Position": "1",
+          "Result": 8679.2
+        },
+        "R14479264": {
+          "CompetitionID": 5398126,
+          "Name": "Holtsmark Open",
+          "Date": "20260721T000000",
+          "Position": "T23",
+          "Result": 443.4
+        },
+        "R14532588": {
+          "CompetitionID": null,
+          "Name": "Max Matthiessen Team Trophy",
+          "Date": "20260731T000000",
+          "Position": "2",
+          "Result": 4140
+        },
+        "R14590943": {
+          "CompetitionID": 5398122,
+          "Name": "NeH Hammarö Open",
+          "Date": "20260806T000000",
+          "Position": "T7",
+          "Result": 1800
+        },
+        "R14649167": {
+          "CompetitionID": 5398141,
+          "Name": "FootJoy Skåne Challenge",
+          "Date": "20260812T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14839296": {
+          "CompetitionID": 5398142,
+          "Name": "Crona Software Halland Open",
+          "Date": "20260902T000000",
+          "Position": "T51",
+          "Result": 75
+        },
+        "R14897952": {
+          "CompetitionID": 5339485,
+          "Name": "Nicon Industries Championship by FREJA",
+          "Date": "20260909T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14955805": {
+          "CompetitionID": 5339486,
+          "Name": "Søllerød Championship",
+          "Date": "20260916T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R15005142": {
+          "CompetitionID": 5398146,
+          "Name": "Folksam Championship",
+          "Date": "20260923T000000",
+          "Position": "3",
+          "Result": 5094.34
+        }
+      },
+      "Holes": null,
+      "NumberOfHoles": null
+    },
+    "E7751007": {
+      "MemberID": "930911-011",
+      "FirstName": "Anton *",
+      "LastName": "Karlsson",
+      "ClubName": "Upsala Golfklubb",
+      "Nationality": "SE",
+      "Country": "Sweden",
+      "Picture": null,
+      "CalculatedResult": 35224.9443,
+      "Position": "7",
+      "ActualPosition": 7,
+      "TotalEvents": 22,
+      "Results": {
+        "R13635507": {
+          "CompetitionID": 5299728,
+          "Name": "GolfStar Winter Series Dunes",
+          "Date": "20260214T000000",
+          "Position": "T22",
+          "Result": 601.8867
+        },
+        "R13636969": {
+          "CompetitionID": 5299753,
+          "Name": "GolfStar Winter Series Forest",
+          "Date": "20260218T000000",
+          "Position": "T6",
+          "Result": 2133.965
+        },
+        "R13638645": {
+          "CompetitionID": 5416024,
+          "Name": "INFINITUM ECCO Masters - GolfBox Tournament no. 1,000,000",
+          "Date": "20260223T000000",
+          "Position": "T26",
+          "Result": 362.5
+        },
+        "R13639792": {
+          "CompetitionID": 5433274,
+          "Name": "INFINITUM Championship",
+          "Date": "20260227T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13642808": {
+          "CompetitionID": 5433278,
+          "Name": "INFINITUM Spring Series Final - by ECCO",
+          "Date": "20260303T000000",
+          "Position": "T21",
+          "Result": 600
+        },
+        "R13684279": {
+          "CompetitionID": 5528196,
+          "Name": "Sand Valley Open",
+          "Date": "20260409T000000",
+          "Position": "T4",
+          "Result": 2325
+        },
+        "R13696438": {
+          "CompetitionID": 5571772,
+          "Name": "ECCO Tour Sand Valley Masters",
+          "Date": "20260413T000000",
+          "Position": "T8",
+          "Result": 1705
+        },
+        "R13714082": {
+          "CompetitionID": 5582085,
+          "Name": "Sand Valley Spring Series Final",
+          "Date": "20260417T000000",
+          "Position": "T42",
+          "Result": 140.9643
+        },
+        "R13794989": {
+          "CompetitionID": 5349635,
+          "Name": "Big Green Egg Blekinge Open",
+          "Date": "20260429T000000",
+          "Position": "T4",
+          "Result": 2327.0533
+        },
+        "R13903690": {
+          "CompetitionID": 5398087,
+          "Name": "Gamle Fredrikstad Open",
+          "Date": "20260512T000000",
+          "Position": "2",
+          "Result": 5232.12
+        },
+        "R13982057": {
+          "CompetitionID": null,
+          "Name": "Danish Golf Challenge",
+          "Date": "20260524T000000",
+          "Position": "T28",
+          "Result": 1215
+        },
+        "R14037146": {
+          "CompetitionID": 5339478,
+          "Name": "Trust Forsikring Championship",
+          "Date": "20260527T000000",
+          "Position": "T3",
+          "Result": 3750
+        },
+        "R14174053": {
+          "CompetitionID": 5398099,
+          "Name": "Indoor Golf Group Göteborg Open ",
+          "Date": "20260610T000000",
+          "Position": "1",
+          "Result": 9000
+        },
+        "R14237632": {
+          "CompetitionID": 5339480,
+          "Name": "GolfPromote 25th Anniversary Open",
+          "Date": "20260617T000000",
+          "Position": "T27",
+          "Result": 472.5
+        },
+        "R14322642": {
+          "CompetitionID": 5398108,
+          "Name": "PGA of Sweden Championship",
+          "Date": "20260624T000000",
+          "Position": "T4",
+          "Result": 2700
+        },
+        "R14352793": {
+          "CompetitionID": 5398115,
+          "Name": "MoreGolf Mastercard Stockholm",
+          "Date": "20260701T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14479287": {
+          "CompetitionID": 5398126,
+          "Name": "Holtsmark Open",
+          "Date": "20260721T000000",
+          "Position": "T46",
+          "Result": 86.455
+        },
+        "R14590963": {
+          "CompetitionID": 5398122,
+          "Name": "NeH Hammarö Open",
+          "Date": "20260806T000000",
+          "Position": "T24",
+          "Result": 430
+        },
+        "R14649137": {
+          "CompetitionID": 5398141,
+          "Name": "FootJoy Skåne Challenge",
+          "Date": "20260812T000000",
+          "Position": "T42",
+          "Result": 142.5
+        },
+        "R14839373": {
+          "CompetitionID": 5398142,
+          "Name": "Crona Software Halland Open",
+          "Date": "20260902T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14955780": {
+          "CompetitionID": 5339486,
+          "Name": "Søllerød Championship",
+          "Date": "20260916T000000",
+          "Position": "7",
+          "Result": 2000
+        },
+        "R15005177": {
+          "CompetitionID": 5398146,
+          "Name": "Folksam Championship",
+          "Date": "20260923T000000",
+          "Position": "MC",
+          "Result": 0
+        }
+      },
+      "Holes": null,
+      "NumberOfHoles": null
+    },
+    "E7784750": {
+      "MemberID": "236012",
+      "FirstName": "Eric *",
+      "LastName": "McIntosh",
+      "ClubName": "Bruntsfield Links ",
+      "Nationality": "GB",
+      "Country": "United Kingdom",
+      "Picture": null,
+      "CalculatedResult": 32777.7218,
+      "Position": "8",
+      "ActualPosition": 8,
+      "TotalEvents": 19,
+      "Results": {
+        "R13684298": {
+          "CompetitionID": 5528196,
+          "Name": "Sand Valley Open",
+          "Date": "20260409T000000",
+          "Position": "T23",
+          "Result": 435.7143
+        },
+        "R13696429": {
+          "CompetitionID": 5571772,
+          "Name": "ECCO Tour Sand Valley Masters",
+          "Date": "20260413T000000",
+          "Position": "1",
+          "Result": 9900
+        },
+        "R13714052": {
+          "CompetitionID": 5582085,
+          "Name": "Sand Valley Spring Series Final",
+          "Date": "20260417T000000",
+          "Position": "T17",
+          "Result": 862.5
+        },
+        "R13794990": {
+          "CompetitionID": 5349635,
+          "Name": "Big Green Egg Blekinge Open",
+          "Date": "20260429T000000",
+          "Position": "T7",
+          "Result": 1544.8175
+        },
+        "R13854625": {
+          "CompetitionID": 5339477,
+          "Name": "Royal Unibrew Championship @ Royal Oak",
+          "Date": "20260506T000000",
+          "Position": "2",
+          "Result": 5310
+        },
+        "R13903695": {
+          "CompetitionID": 5398087,
+          "Name": "Gamle Fredrikstad Open",
+          "Date": "20260512T000000",
+          "Position": "T7",
+          "Result": 1522.34
+        },
+        "R13979043": {
+          "CompetitionID": 5398043,
+          "Name": "Cutter & Buck Fjällbacka Open",
+          "Date": "20260521T000000",
+          "Position": "T12",
+          "Result": 1100
+        },
+        "R14037171": {
+          "CompetitionID": 5339478,
+          "Name": "Trust Forsikring Championship",
+          "Date": "20260527T000000",
+          "Position": "T29",
+          "Result": 337.5
+        },
+        "R14174061": {
+          "CompetitionID": 5398099,
+          "Name": "Indoor Golf Group Göteborg Open ",
+          "Date": "20260610T000000",
+          "Position": "T8",
+          "Result": 1430
+        },
+        "R14352741": {
+          "CompetitionID": 5398115,
+          "Name": "MoreGolf Mastercard Stockholm",
+          "Date": "20260701T000000",
+          "Position": "T42",
+          "Result": 140
+        },
+        "R14400399": {
+          "CompetitionID": 5403939,
+          "Name": "SM Match by Upfront",
+          "Date": "20260708T000000",
+          "Position": "T9",
+          "Result": 1041.5
+        },
+        "R14479316": {
+          "CompetitionID": 5398126,
+          "Name": "Holtsmark Open",
+          "Date": "20260721T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14532533": {
+          "CompetitionID": null,
+          "Name": "Max Matthiessen Team Trophy",
+          "Date": "20260731T000000",
+          "Position": "15",
+          "Result": 317
+        },
+        "R14590939": {
+          "CompetitionID": 5398122,
+          "Name": "NeH Hammarö Open",
+          "Date": "20260806T000000",
+          "Position": "T2",
+          "Result": 3812.5
+        },
+        "R14649106": {
+          "CompetitionID": 5398141,
+          "Name": "FootJoy Skåne Challenge",
+          "Date": "20260812T000000",
+          "Position": "T11",
+          "Result": 1250
+        },
+        "R14788556": {
+          "CompetitionID": 5515043,
+          "Name": "Finnish Open by FootJoy",
+          "Date": "20260827T000000",
+          "Position": "T32",
+          "Result": 228
+        },
+        "R14839255": {
+          "CompetitionID": 5398142,
+          "Name": "Crona Software Halland Open",
+          "Date": "20260902T000000",
+          "Position": "T9",
+          "Result": 1310
+        },
+        "R14955785": {
+          "CompetitionID": 5339486,
+          "Name": "Søllerød Championship",
+          "Date": "20260916T000000",
+          "Position": "T8",
+          "Result": 1500
+        },
+        "R15005161": {
+          "CompetitionID": 5398146,
+          "Name": "Folksam Championship",
+          "Date": "20260923T000000",
+          "Position": "T18",
+          "Result": 735.85
+        }
+      },
+      "Holes": null,
+      "NumberOfHoles": null
+    },
+    "E7750994": {
+      "MemberID": "020618-005",
+      "FirstName": "Algot*",
+      "LastName": "Kleén",
+      "ClubName": "Skaftö Golfklubb",
+      "Nationality": "SE",
+      "Country": "Sweden",
+      "Picture": null,
+      "CalculatedResult": 32012.6267,
+      "Position": "9",
+      "ActualPosition": 9,
+      "TotalEvents": 13,
+      "Results": {
+        "R13635494": {
+          "CompetitionID": 5299728,
+          "Name": "GolfStar Winter Series Dunes",
+          "Date": "20260214T000000",
+          "Position": "T8",
+          "Result": 1696.23
+        },
+        "R13636975": {
+          "CompetitionID": 5299753,
+          "Name": "GolfStar Winter Series Forest",
+          "Date": "20260218T000000",
+          "Position": "T12",
+          "Result": 1258.49
+        },
+        "R13638673": {
+          "CompetitionID": 5416024,
+          "Name": "INFINITUM ECCO Masters - GolfBox Tournament no. 1,000,000",
+          "Date": "20260223T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13684288": {
+          "CompetitionID": 5528196,
+          "Name": "Sand Valley Open",
+          "Date": "20260409T000000",
+          "Position": "T14",
+          "Result": 925
+        },
+        "R13696441": {
+          "CompetitionID": 5571772,
+          "Name": "ECCO Tour Sand Valley Masters",
+          "Date": "20260413T000000",
+          "Position": "T12",
+          "Result": 1265
+        },
+        "R13714041": {
+          "CompetitionID": 5582085,
+          "Name": "Sand Valley Spring Series Final",
+          "Date": "20260417T000000",
+          "Position": "T6",
+          "Result": 2146.6667
+        },
+        "R13794986": {
+          "CompetitionID": 5349635,
+          "Name": "Big Green Egg Blekinge Open",
+          "Date": "20260429T000000",
+          "Position": "3",
+          "Result": 3726.43
+        },
+        "R13903714": {
+          "CompetitionID": 5398087,
+          "Name": "Gamle Fredrikstad Open",
+          "Date": "20260512T000000",
+          "Position": "T23",
+          "Result": 399.06
+        },
+        "R13982054": {
+          "CompetitionID": null,
+          "Name": "Danish Golf Challenge",
+          "Date": "20260524T000000",
+          "Position": "T3",
+          "Result": 9000
+        },
+        "R14174119": {
+          "CompetitionID": 5398099,
+          "Name": "Indoor Golf Group Göteborg Open ",
+          "Date": "20260610T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14839278": {
+          "CompetitionID": 5398142,
+          "Name": "Crona Software Halland Open",
+          "Date": "20260902T000000",
+          "Position": "T31",
+          "Result": 275
+        },
+        "R14955833": {
+          "CompetitionID": 5339486,
+          "Name": "Søllerød Championship",
+          "Date": "20260916T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R15005140": {
+          "CompetitionID": 5398146,
+          "Name": "Folksam Championship",
+          "Date": "20260923T000000",
+          "Position": "1",
+          "Result": 11320.75
+        }
+      },
+      "Holes": null,
+      "NumberOfHoles": null
+    },
+    "E7785120": {
+      "MemberID": "980324-002",
+      "FirstName": "Oliver",
+      "LastName": "Lilliedahl",
+      "ClubName": "AIK Golfklubb",
+      "Nationality": "SE",
+      "Country": "Sweden",
+      "Picture": null,
+      "CalculatedResult": 30592.7467,
+      "Position": "10",
+      "ActualPosition": 10,
+      "TotalEvents": 20,
+      "Results": {
+        "R13684382": {
+          "CompetitionID": 5528196,
+          "Name": "Sand Valley Open",
+          "Date": "20260409T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13696437": {
+          "CompetitionID": 5571772,
+          "Name": "ECCO Tour Sand Valley Masters",
+          "Date": "20260413T000000",
+          "Position": "T8",
+          "Result": 1705
+        },
+        "R13714072": {
+          "CompetitionID": 5582085,
+          "Name": "Sand Valley Spring Series Final",
+          "Date": "20260417T000000",
+          "Position": "T33",
+          "Result": 240.35
+        },
+        "R13795081": {
+          "CompetitionID": 5349635,
+          "Name": "Big Green Egg Blekinge Open",
+          "Date": "20260429T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13854680": {
+          "CompetitionID": 5339477,
+          "Name": "Royal Unibrew Championship @ Royal Oak",
+          "Date": "20260506T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13903788": {
+          "CompetitionID": 5398087,
+          "Name": "Gamle Fredrikstad Open",
+          "Date": "20260512T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13979111": {
+          "CompetitionID": 5398043,
+          "Name": "Cutter & Buck Fjällbacka Open",
+          "Date": "20260521T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14174092": {
+          "CompetitionID": 5398099,
+          "Name": "Indoor Golf Group Göteborg Open ",
+          "Date": "20260610T000000",
+          "Position": "T40",
+          "Result": 152.5
+        },
+        "R14237605": {
+          "CompetitionID": 5339480,
+          "Name": "GolfPromote 25th Anniversary Open",
+          "Date": "20260617T000000",
+          "Position": "3",
+          "Result": 5530
+        },
+        "R14322645": {
+          "CompetitionID": 5398108,
+          "Name": "PGA of Sweden Championship",
+          "Date": "20260624T000000",
+          "Position": "T7",
+          "Result": 1570
+        },
+        "R14352706": {
+          "CompetitionID": 5398115,
+          "Name": "MoreGolf Mastercard Stockholm",
+          "Date": "20260701T000000",
+          "Position": "8",
+          "Result": 1700
+        },
+        "R14400392": {
+          "CompetitionID": 5403939,
+          "Name": "SM Match by Upfront",
+          "Date": "20260708T000000",
+          "Position": "2",
+          "Result": 5207.52
+        },
+        "R14479244": {
+          "CompetitionID": 5398126,
+          "Name": "Holtsmark Open",
+          "Date": "20260721T000000",
+          "Position": "T2",
+          "Result": 3783.68
+        },
+        "R14532521": {
+          "CompetitionID": null,
+          "Name": "Max Matthiessen Team Trophy",
+          "Date": "20260731T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14590940": {
+          "CompetitionID": 5398122,
+          "Name": "NeH Hammarö Open",
+          "Date": "20260806T000000",
+          "Position": "T2",
+          "Result": 3812.5
+        },
+        "R14649113": {
+          "CompetitionID": 5398141,
+          "Name": "FootJoy Skåne Challenge",
+          "Date": "20260812T000000",
+          "Position": "T15",
+          "Result": 850
+        },
+        "R14788535": {
+          "CompetitionID": 5515043,
+          "Name": "Finnish Open by FootJoy",
+          "Date": "20260827T000000",
+          "Position": "T11",
+          "Result": 1250
+        },
+        "R14839300": {
+          "CompetitionID": 5398142,
+          "Name": "Crona Software Halland Open",
+          "Date": "20260902T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14897901": {
+          "CompetitionID": 5339485,
+          "Name": "Nicon Industries Championship by FREJA",
+          "Date": "20260909T000000",
+          "Position": "T6",
+          "Result": 1866.6667
+        },
+        "R15005143": {
+          "CompetitionID": 5398146,
+          "Name": "Folksam Championship",
+          "Date": "20260923T000000",
+          "Position": "T4",
+          "Result": 2924.53
+        }
+      },
+      "Holes": null,
+      "NumberOfHoles": null
+    },
+    "E7751020": {
+      "MemberID": "951227-001",
+      "FirstName": "Rasmus **",
+      "LastName": "Holmberg",
+      "ClubName": "Bryngfjordens Golfklubb",
+      "Nationality": "SE",
+      "Country": "Sweden",
+      "Picture": null,
+      "CalculatedResult": 26968.9214,
+      "Position": "11",
+      "ActualPosition": 11,
+      "TotalEvents": 22,
+      "Results": {
+        "R13635520": {
+          "CompetitionID": 5299728,
+          "Name": "GolfStar Winter Series Dunes",
+          "Date": "20260214T000000",
+          "Position": "T31",
+          "Result": 253.2614
+        },
+        "R13637038": {
+          "CompetitionID": 5299753,
+          "Name": "GolfStar Winter Series Forest",
+          "Date": "20260218T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13638710": {
+          "CompetitionID": 5416024,
+          "Name": "INFINITUM ECCO Masters - GolfBox Tournament no. 1,000,000",
+          "Date": "20260223T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13639832": {
+          "CompetitionID": 5433274,
+          "Name": "INFINITUM Championship",
+          "Date": "20260227T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13642915": {
+          "CompetitionID": 5433278,
+          "Name": "INFINITUM Spring Series Final - by ECCO",
+          "Date": "20260303T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13684375": {
+          "CompetitionID": 5528196,
+          "Name": "Sand Valley Open",
+          "Date": "20260409T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13696433": {
+          "CompetitionID": 5571772,
+          "Name": "ECCO Tour Sand Valley Masters",
+          "Date": "20260413T000000",
+          "Position": "T4",
+          "Result": 2970
+        },
+        "R13714109": {
+          "CompetitionID": 5582085,
+          "Name": "Sand Valley Spring Series Final",
+          "Date": "20260417T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13795053": {
+          "CompetitionID": 5349635,
+          "Name": "Big Green Egg Blekinge Open",
+          "Date": "20260429T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14037185": {
+          "CompetitionID": 5339478,
+          "Name": "Trust Forsikring Championship",
+          "Date": "20260527T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14174070": {
+          "CompetitionID": 5398099,
+          "Name": "Indoor Golf Group Göteborg Open ",
+          "Date": "20260610T000000",
+          "Position": "T17",
+          "Result": 725
+        },
+        "R14237611": {
+          "CompetitionID": 5339480,
+          "Name": "GolfPromote 25th Anniversary Open",
+          "Date": "20260617T000000",
+          "Position": "T8",
+          "Result": 2170
+        },
+        "R14322710": {
+          "CompetitionID": 5398108,
+          "Name": "PGA of Sweden Championship",
+          "Date": "20260624T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14352699": {
+          "CompetitionID": 5398115,
+          "Name": "MoreGolf Mastercard Stockholm",
+          "Date": "20260701T000000",
+          "Position": "1",
+          "Result": 9000
+        },
+        "R14400419": {
+          "CompetitionID": 5403939,
+          "Name": "SM Match by Upfront",
+          "Date": "20260708T000000",
+          "Position": "T17",
+          "Result": 509.9
+        },
+        "R14479262": {
+          "CompetitionID": 5398126,
+          "Name": "Holtsmark Open",
+          "Date": "20260721T000000",
+          "Position": "T18",
+          "Result": 620.76
+        },
+        "R14590981": {
+          "CompetitionID": 5398122,
+          "Name": "NeH Hammarö Open",
+          "Date": "20260806T000000",
+          "Position": "T44",
+          "Result": 120
+        },
+        "R14649233": {
+          "CompetitionID": 5398141,
+          "Name": "FootJoy Skåne Challenge",
+          "Date": "20260812T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14788593": {
+          "CompetitionID": 5515043,
+          "Name": "Finnish Open by FootJoy",
+          "Date": "20260827T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14839342": {
+          "CompetitionID": 5398142,
+          "Name": "Crona Software Halland Open",
+          "Date": "20260902T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14897916": {
+          "CompetitionID": 5339485,
+          "Name": "Nicon Industries Championship by FREJA",
+          "Date": "20260909T000000",
+          "Position": "T21",
+          "Result": 600
+        },
+        "R14955774": {
+          "CompetitionID": 5339486,
+          "Name": "Søllerød Championship",
+          "Date": "20260916T000000",
+          "Position": "1",
+          "Result": 10000
+        }
+      },
+      "Holes": null,
+      "NumberOfHoles": null
+    },
+    "E7751035": {
+      "MemberID": "980423-001",
+      "FirstName": "Johannes *",
+      "LastName": "Axell",
+      "ClubName": "Landeryds Golfklubb",
+      "Nationality": "SE",
+      "Country": "Sweden",
+      "Picture": null,
+      "CalculatedResult": 25876.77,
+      "Position": "12",
+      "ActualPosition": 12,
+      "TotalEvents": 24,
+      "Results": {
+        "R13635535": {
+          "CompetitionID": 5299728,
+          "Name": "GolfStar Winter Series Dunes",
+          "Date": "20260214T000000",
+          "Position": "T50",
+          "Result": 84.815
+        },
+        "R13636986": {
+          "CompetitionID": 5299753,
+          "Name": "GolfStar Winter Series Forest",
+          "Date": "20260218T000000",
+          "Position": "T18",
+          "Result": 738.68
+        },
+        "R13638691": {
+          "CompetitionID": 5416024,
+          "Name": "INFINITUM ECCO Masters - GolfBox Tournament no. 1,000,000",
+          "Date": "20260223T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13639801": {
+          "CompetitionID": 5433274,
+          "Name": "INFINITUM Championship",
+          "Date": "20260227T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13642801": {
+          "CompetitionID": 5433278,
+          "Name": "INFINITUM Spring Series Final - by ECCO",
+          "Date": "20260303T000000",
+          "Position": "T14",
+          "Result": 950
+        },
+        "R13684360": {
+          "CompetitionID": 5528196,
+          "Name": "Sand Valley Open",
+          "Date": "20260409T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13696508": {
+          "CompetitionID": 5571772,
+          "Name": "ECCO Tour Sand Valley Masters",
+          "Date": "20260413T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13714157": {
+          "CompetitionID": 5582085,
+          "Name": "Sand Valley Spring Series Final",
+          "Date": "20260417T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13795025": {
+          "CompetitionID": 5349635,
+          "Name": "Big Green Egg Blekinge Open",
+          "Date": "20260429T000000",
+          "Position": "T42",
+          "Result": 134.435
+        },
+        "R13854660": {
+          "CompetitionID": 5339477,
+          "Name": "Royal Unibrew Championship @ Royal Oak",
+          "Date": "20260506T000000",
+          "Position": "T36",
+          "Result": 162
+        },
+        "R13903708": {
+          "CompetitionID": 5398087,
+          "Name": "Gamle Fredrikstad Open",
+          "Date": "20260512T000000",
+          "Position": "T18",
+          "Result": 620.76
+        },
+        "R13979031": {
+          "CompetitionID": 5398043,
+          "Name": "Cutter & Buck Fjällbacka Open",
+          "Date": "20260521T000000",
+          "Position": "T2",
+          "Result": 4925
+        },
+        "R14037153": {
+          "CompetitionID": 5339478,
+          "Name": "Trust Forsikring Championship",
+          "Date": "20260527T000000",
+          "Position": "T10",
+          "Result": 1250
+        },
+        "R14174065": {
+          "CompetitionID": 5398099,
+          "Name": "Indoor Golf Group Göteborg Open ",
+          "Date": "20260610T000000",
+          "Position": "T13",
+          "Result": 987.5
+        },
+        "R14237608": {
+          "CompetitionID": 5339480,
+          "Name": "GolfPromote 25th Anniversary Open",
+          "Date": "20260617T000000",
+          "Position": "T6",
+          "Result": 2730
+        },
+        "R14322709": {
+          "CompetitionID": 5398108,
+          "Name": "PGA of Sweden Championship",
+          "Date": "20260624T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14352768": {
+          "CompetitionID": 5398115,
+          "Name": "MoreGolf Mastercard Stockholm",
+          "Date": "20260701T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14400417": {
+          "CompetitionID": 5403939,
+          "Name": "SM Match by Upfront",
+          "Date": "20260708T000000",
+          "Position": "T17",
+          "Result": 509.9
+        },
+        "R14479245": {
+          "CompetitionID": 5398126,
+          "Name": "Holtsmark Open",
+          "Date": "20260721T000000",
+          "Position": "T2",
+          "Result": 3783.68
+        },
+        "R14590937": {
+          "CompetitionID": 5398122,
+          "Name": "NeH Hammarö Open",
+          "Date": "20260806T000000",
+          "Position": "1",
+          "Result": 9000
+        },
+        "R14649191": {
+          "CompetitionID": 5398141,
+          "Name": "FootJoy Skåne Challenge",
+          "Date": "20260812T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14788577": {
+          "CompetitionID": 5515043,
+          "Name": "Finnish Open by FootJoy",
+          "Date": "20260827T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14839304": {
+          "CompetitionID": 5398142,
+          "Name": "Crona Software Halland Open",
+          "Date": "20260902T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R15005185": {
+          "CompetitionID": 5398146,
+          "Name": "Folksam Championship",
+          "Date": "20260923T000000",
+          "Position": "MC",
+          "Result": 0
+        }
+      },
+      "Holes": null,
+      "NumberOfHoles": null
+    },
+    "E7751086": {
+      "MemberID": "14-873",
+      "FirstName": "Christian *",
+      "LastName": "Jacobsen",
+      "ClubName": "Great Northern Golf Club",
+      "Nationality": "DK",
+      "Country": "Denmark",
+      "Picture": null,
+      "CalculatedResult": 23194.565,
+      "Position": "13",
+      "ActualPosition": 13,
+      "TotalEvents": 14,
+      "Results": {
+        "R13635586": {
+          "CompetitionID": 5299728,
+          "Name": "GolfStar Winter Series Dunes",
+          "Date": "20260214T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13637026": {
+          "CompetitionID": 5299753,
+          "Name": "GolfStar Winter Series Forest",
+          "Date": "20260218T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13638637": {
+          "CompetitionID": 5416024,
+          "Name": "INFINITUM ECCO Masters - GolfBox Tournament no. 1,000,000",
+          "Date": "20260223T000000",
+          "Position": "T20",
+          "Result": 575
+        },
+        "R13639729": {
+          "CompetitionID": 5433274,
+          "Name": "INFINITUM Championship",
+          "Date": "20260227T000000",
+          "Position": "T3",
+          "Result": 3450
+        },
+        "R13642825": {
+          "CompetitionID": 5433278,
+          "Name": "INFINITUM Spring Series Final - by ECCO",
+          "Date": "20260303T000000",
+          "Position": "40",
+          "Result": 155
+        },
+        "R13684278": {
+          "CompetitionID": 5528196,
+          "Name": "Sand Valley Open",
+          "Date": "20260409T000000",
+          "Position": "T4",
+          "Result": 2325
+        },
+        "R13696475": {
+          "CompetitionID": 5571772,
+          "Name": "ECCO Tour Sand Valley Masters",
+          "Date": "20260413T000000",
+          "Position": "T45",
+          "Result": 124.375
+        },
+        "R13714070": {
+          "CompetitionID": 5582085,
+          "Name": "Sand Valley Spring Series Final",
+          "Date": "20260417T000000",
+          "Position": "T33",
+          "Result": 240.35
+        },
+        "R13982050": {
+          "CompetitionID": null,
+          "Name": "Danish Golf Challenge",
+          "Date": "20260524T000000",
+          "Position": "T20",
+          "Result": 1449
+        },
+        "R14400395": {
+          "CompetitionID": 5403939,
+          "Name": "SM Match by Upfront",
+          "Date": "20260708T000000",
+          "Position": "T5",
+          "Result": 1735.84
+        },
+        "R14532499": {
+          "CompetitionID": null,
+          "Name": "Max Matthiessen Team Trophy",
+          "Date": "20260731T000000",
+          "Position": "1",
+          "Result": 8940
+        },
+        "R14897898": {
+          "CompetitionID": 5339485,
+          "Name": "Nicon Industries Championship by FREJA",
+          "Date": "20260909T000000",
+          "Position": "T4",
+          "Result": 2700
+        },
+        "R14955784": {
+          "CompetitionID": 5339486,
+          "Name": "Søllerød Championship",
+          "Date": "20260916T000000",
+          "Position": "T8",
+          "Result": 1500
+        },
+        "R15005189": {
+          "CompetitionID": 5398146,
+          "Name": "Folksam Championship",
+          "Date": "20260923T000000",
+          "Position": "MC",
+          "Result": 0
+        }
+      },
+      "Holes": null,
+      "NumberOfHoles": null
+    },
+    "E7751012": {
+      "MemberID": "237729",
+      "FirstName": "Kasper",
+      "LastName": "Nyland",
+      "ClubName": "",
+      "Nationality": "DK",
+      "Country": "Denmark",
+      "Picture": null,
+      "CalculatedResult": 22695.0522,
+      "Position": "14",
+      "ActualPosition": 14,
+      "TotalEvents": 25,
+      "Results": {
+        "R13635512": {
+          "CompetitionID": 5299728,
+          "Name": "GolfStar Winter Series Dunes",
+          "Date": "20260214T000000",
+          "Position": "T25",
+          "Result": 465.0933
+        },
+        "R13637022": {
+          "CompetitionID": 5299753,
+          "Name": "GolfStar Winter Series Forest",
+          "Date": "20260218T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13638621": {
+          "CompetitionID": 5416024,
+          "Name": "INFINITUM ECCO Masters - GolfBox Tournament no. 1,000,000",
+          "Date": "20260223T000000",
+          "Position": "T3",
+          "Result": 3116.6667
+        },
+        "R13639737": {
+          "CompetitionID": 5433274,
+          "Name": "INFINITUM Championship",
+          "Date": "20260227T000000",
+          "Position": "T8",
+          "Result": 1375
+        },
+        "R13642884": {
+          "CompetitionID": 5433278,
+          "Name": "INFINITUM Spring Series Final - by ECCO",
+          "Date": "20260303T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13684374": {
+          "CompetitionID": 5528196,
+          "Name": "Sand Valley Open",
+          "Date": "20260409T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13696553": {
+          "CompetitionID": 5571772,
+          "Name": "ECCO Tour Sand Valley Masters",
+          "Date": "20260413T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13714065": {
+          "CompetitionID": 5582085,
+          "Name": "Sand Valley Spring Series Final",
+          "Date": "20260417T000000",
+          "Position": "T22",
+          "Result": 507.9167
+        },
+        "R13795012": {
+          "CompetitionID": 5349635,
+          "Name": "Big Green Egg Blekinge Open",
+          "Date": "20260429T000000",
+          "Position": "T28",
+          "Result": 306.608
+        },
+        "R13854639": {
+          "CompetitionID": 5339477,
+          "Name": "Royal Unibrew Championship @ Royal Oak",
+          "Date": "20260506T000000",
+          "Position": "T13",
+          "Result": 864
+        },
+        "R13903693": {
+          "CompetitionID": 5398087,
+          "Name": "Gamle Fredrikstad Open",
+          "Date": "20260512T000000",
+          "Position": "T4",
+          "Result": 2187.44
+        },
+        "R13979057": {
+          "CompetitionID": 5398043,
+          "Name": "Cutter & Buck Fjällbacka Open",
+          "Date": "20260521T000000",
+          "Position": "T28",
+          "Result": 337.5
+        },
+        "R14037151": {
+          "CompetitionID": 5339478,
+          "Name": "Trust Forsikring Championship",
+          "Date": "20260527T000000",
+          "Position": "9",
+          "Result": 1625
+        },
+        "R14101324": {
+          "CompetitionID": 5682240,
+          "Name": "Samsø Festival Pro-Am - by United Tickets",
+          "Date": "20260603T000000",
+          "Position": "T18",
+          "Result": 620
+        },
+        "R14174124": {
+          "CompetitionID": 5398099,
+          "Name": "Indoor Golf Group Göteborg Open ",
+          "Date": "20260610T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14237660": {
+          "CompetitionID": 5339480,
+          "Name": "GolfPromote 25th Anniversary Open",
+          "Date": "20260617T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14352722": {
+          "CompetitionID": 5398115,
+          "Name": "MoreGolf Mastercard Stockholm",
+          "Date": "20260701T000000",
+          "Position": "T23",
+          "Result": 408.3333
+        },
+        "R14400420": {
+          "CompetitionID": 5403939,
+          "Name": "SM Match by Upfront",
+          "Date": "20260708T000000",
+          "Position": "T17",
+          "Result": 509.9
+        },
+        "R14479286": {
+          "CompetitionID": 5398126,
+          "Name": "Holtsmark Open",
+          "Date": "20260721T000000",
+          "Position": "T42",
+          "Result": 120.8275
+        },
+        "R14532545": {
+          "CompetitionID": null,
+          "Name": "Max Matthiessen Team Trophy",
+          "Date": "20260731T000000",
+          "Position": "4",
+          "Result": 1965
+        },
+        "R14590948": {
+          "CompetitionID": 5398122,
+          "Name": "NeH Hammarö Open",
+          "Date": "20260806T000000",
+          "Position": "T12",
+          "Result": 1062.5
+        },
+        "R14649098": {
+          "CompetitionID": 5398141,
+          "Name": "FootJoy Skåne Challenge",
+          "Date": "20260812T000000",
+          "Position": "T3",
+          "Result": 3116.6667
+        },
+        "R14788530": {
+          "CompetitionID": 5515043,
+          "Name": "Finnish Open by FootJoy",
+          "Date": "20260827T000000",
+          "Position": "T6",
+          "Result": 1950
+        },
+        "R14897915": {
+          "CompetitionID": 5339485,
+          "Name": "Nicon Industries Championship by FREJA",
+          "Date": "20260909T000000",
+          "Position": "T21",
+          "Result": 600
+        },
+        "R15005150": {
+          "CompetitionID": 5398146,
+          "Name": "Folksam Championship",
+          "Date": "20260923T000000",
+          "Position": "T10",
+          "Result": 1556.6
+        }
+      },
+      "Holes": null,
+      "NumberOfHoles": null
+    },
+    "E7785091": {
+      "MemberID": "120-58456",
+      "FirstName": "Claes Thrane",
+      "LastName": "Borregaard",
+      "ClubName": "Smørum Golfklub",
+      "Nationality": "DK",
+      "Country": "Denmark",
+      "Picture": null,
+      "CalculatedResult": 22415.138,
+      "Position": "15",
+      "ActualPosition": 15,
+      "TotalEvents": 18,
+      "Results": {
+        "R13684349": {
+          "CompetitionID": 5528196,
+          "Name": "Sand Valley Open",
+          "Date": "20260409T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13696528": {
+          "CompetitionID": 5571772,
+          "Name": "ECCO Tour Sand Valley Masters",
+          "Date": "20260413T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13714054": {
+          "CompetitionID": 5582085,
+          "Name": "Sand Valley Spring Series Final",
+          "Date": "20260417T000000",
+          "Position": "T17",
+          "Result": 862.5
+        },
+        "R13795013": {
+          "CompetitionID": 5349635,
+          "Name": "Big Green Egg Blekinge Open",
+          "Date": "20260429T000000",
+          "Position": "T28",
+          "Result": 306.608
+        },
+        "R13854632": {
+          "CompetitionID": 5339477,
+          "Name": "Royal Unibrew Championship @ Royal Oak",
+          "Date": "20260506T000000",
+          "Position": "T7",
+          "Result": 1545
+        },
+        "R13979100": {
+          "CompetitionID": 5398043,
+          "Name": "Cutter & Buck Fjällbacka Open",
+          "Date": "20260521T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14037182": {
+          "CompetitionID": 5339478,
+          "Name": "Trust Forsikring Championship",
+          "Date": "20260527T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14237654": {
+          "CompetitionID": 5339480,
+          "Name": "GolfPromote 25th Anniversary Open",
+          "Date": "20260617T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14322639": {
+          "CompetitionID": 5398108,
+          "Name": "PGA of Sweden Championship",
+          "Date": "20260624T000000",
+          "Position": "2",
+          "Result": 5900
+        },
+        "R14352700": {
+          "CompetitionID": 5398115,
+          "Name": "MoreGolf Mastercard Stockholm",
+          "Date": "20260701T000000",
+          "Position": "2",
+          "Result": 5900
+        },
+        "R14400418": {
+          "CompetitionID": 5403939,
+          "Name": "SM Match by Upfront",
+          "Date": "20260708T000000",
+          "Position": "T17",
+          "Result": 509.9
+        },
+        "R14532462": {
+          "CompetitionID": null,
+          "Name": "Max Matthiessen Team Trophy",
+          "Date": "20260731T000000",
+          "Position": "15",
+          "Result": 317
+        },
+        "R14590992": {
+          "CompetitionID": 5398122,
+          "Name": "NeH Hammarö Open",
+          "Date": "20260806T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14649101": {
+          "CompetitionID": 5398141,
+          "Name": "FootJoy Skåne Challenge",
+          "Date": "20260812T000000",
+          "Position": "T6",
+          "Result": 1710
+        },
+        "R14839276": {
+          "CompetitionID": 5398142,
+          "Name": "Crona Software Halland Open",
+          "Date": "20260902T000000",
+          "Position": "T31",
+          "Result": 275
+        },
+        "R14897930": {
+          "CompetitionID": 5339485,
+          "Name": "Nicon Industries Championship by FREJA",
+          "Date": "20260909T000000",
+          "Position": "T34",
+          "Result": 178.75
+        },
+        "R14955776": {
+          "CompetitionID": 5339486,
+          "Name": "Søllerød Championship",
+          "Date": "20260916T000000",
+          "Position": "3",
+          "Result": 4500
+        },
+        "R15005168": {
+          "CompetitionID": 5398146,
+          "Name": "Folksam Championship",
+          "Date": "20260923T000000",
+          "Position": "T28",
+          "Result": 410.38
+        }
+      },
+      "Holes": null,
+      "NumberOfHoles": null
+    },
+    "E7751029": {
+      "MemberID": "010610-005",
+      "FirstName": "Carl *",
+      "LastName": "Härdin",
+      "ClubName": "Barsebäck Golf & Resort",
+      "Nationality": "SE",
+      "Country": "Sweden",
+      "Picture": null,
+      "CalculatedResult": 21212.8399,
+      "Position": "16",
+      "ActualPosition": 16,
+      "TotalEvents": 26,
+      "Results": {
+        "R13635529": {
+          "CompetitionID": 5299728,
+          "Name": "GolfStar Winter Series Dunes",
+          "Date": "20260214T000000",
+          "Position": "T41",
+          "Result": 152.114
+        },
+        "R13636983": {
+          "CompetitionID": 5299753,
+          "Name": "GolfStar Winter Series Forest",
+          "Date": "20260218T000000",
+          "Position": "T18",
+          "Result": 738.68
+        },
+        "R13638727": {
+          "CompetitionID": 5416024,
+          "Name": "INFINITUM ECCO Masters - GolfBox Tournament no. 1,000,000",
+          "Date": "20260223T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13639838": {
+          "CompetitionID": 5433274,
+          "Name": "INFINITUM Championship",
+          "Date": "20260227T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13642817": {
+          "CompetitionID": 5433278,
+          "Name": "INFINITUM Spring Series Final - by ECCO",
+          "Date": "20260303T000000",
+          "Position": "T31",
+          "Result": 275
+        },
+        "R13684293": {
+          "CompetitionID": 5528196,
+          "Name": "Sand Valley Open",
+          "Date": "20260409T000000",
+          "Position": "T18",
+          "Result": 700
+        },
+        "R13696486": {
+          "CompetitionID": 5571772,
+          "Name": "ECCO Tour Sand Valley Masters",
+          "Date": "20260413T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13714144": {
+          "CompetitionID": 5582085,
+          "Name": "Sand Valley Spring Series Final",
+          "Date": "20260417T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13795014": {
+          "CompetitionID": 5349635,
+          "Name": "Big Green Egg Blekinge Open",
+          "Date": "20260429T000000",
+          "Position": "T28",
+          "Result": 306.608
+        },
+        "R13854636": {
+          "CompetitionID": 5339477,
+          "Name": "Royal Unibrew Championship @ Royal Oak",
+          "Date": "20260506T000000",
+          "Position": "T13",
+          "Result": 864
+        },
+        "R13903717": {
+          "CompetitionID": 5398087,
+          "Name": "Gamle Fredrikstad Open",
+          "Date": "20260512T000000",
+          "Position": "T29",
+          "Result": 299.295
+        },
+        "R13979103": {
+          "CompetitionID": 5398043,
+          "Name": "Cutter & Buck Fjällbacka Open",
+          "Date": "20260521T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14101346": {
+          "CompetitionID": 5682240,
+          "Name": "Samsø Festival Pro-Am - by United Tickets",
+          "Date": "20260603T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14174095": {
+          "CompetitionID": 5398099,
+          "Name": "Indoor Golf Group Göteborg Open ",
+          "Date": "20260610T000000",
+          "Position": "T42",
+          "Result": 142.5
+        },
+        "R14237675": {
+          "CompetitionID": 5339480,
+          "Name": "GolfPromote 25th Anniversary Open",
+          "Date": "20260617T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14322652": {
+          "CompetitionID": 5398108,
+          "Name": "PGA of Sweden Championship",
+          "Date": "20260624T000000",
+          "Position": "T13",
+          "Result": 907.1429
+        },
+        "R14352739": {
+          "CompetitionID": 5398115,
+          "Name": "MoreGolf Mastercard Stockholm",
+          "Date": "20260701T000000",
+          "Position": "T40",
+          "Result": 152.5
+        },
+        "R14400440": {
+          "CompetitionID": 5403939,
+          "Name": "SM Match by Upfront",
+          "Date": "20260708T000000",
+          "Position": "T33",
+          "Result": 0
+        },
+        "R14479302": {
+          "CompetitionID": 5398126,
+          "Name": "Holtsmark Open",
+          "Date": "20260721T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14532496": {
+          "CompetitionID": null,
+          "Name": "Max Matthiessen Team Trophy",
+          "Date": "20260731T000000",
+          "Position": "11",
+          "Result": 750
+        },
+        "R14590942": {
+          "CompetitionID": 5398122,
+          "Name": "NeH Hammarö Open",
+          "Date": "20260806T000000",
+          "Position": "6",
+          "Result": 2000
+        },
+        "R14649095": {
+          "CompetitionID": 5398141,
+          "Name": "FootJoy Skåne Challenge",
+          "Date": "20260812T000000",
+          "Position": "1",
+          "Result": 9000
+        },
+        "R14839333": {
+          "CompetitionID": 5398142,
+          "Name": "Crona Software Halland Open",
+          "Date": "20260902T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14897896": {
+          "CompetitionID": 5339485,
+          "Name": "Nicon Industries Championship by FREJA",
+          "Date": "20260909T000000",
+          "Position": "T2",
+          "Result": 4925
+        },
+        "R14955831": {
+          "CompetitionID": 5339486,
+          "Name": "Søllerød Championship",
+          "Date": "20260916T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R15005186": {
+          "CompetitionID": 5398146,
+          "Name": "Folksam Championship",
+          "Date": "20260923T000000",
+          "Position": "MC",
+          "Result": 0
+        }
+      },
+      "Holes": null,
+      "NumberOfHoles": null
+    },
+    "E7753406": {
+      "MemberID": "101-4663",
+      "FirstName": "August Thor *",
+      "LastName": "Høst",
+      "ClubName": "Great Northern Golf Club",
+      "Nationality": "DK",
+      "Country": "Denmark",
+      "Picture": null,
+      "CalculatedResult": 21182.3343,
+      "Position": "17",
+      "ActualPosition": 17,
+      "TotalEvents": 15,
+      "Results": {
+        "R13638646": {
+          "CompetitionID": 5416024,
+          "Name": "INFINITUM ECCO Masters - GolfBox Tournament no. 1,000,000",
+          "Date": "20260223T000000",
+          "Position": "T26",
+          "Result": 362.5
+        },
+        "R13639738": {
+          "CompetitionID": 5433274,
+          "Name": "INFINITUM Championship",
+          "Date": "20260227T000000",
+          "Position": "T8",
+          "Result": 1375
+        },
+        "R13642787": {
+          "CompetitionID": 5433278,
+          "Name": "INFINITUM Spring Series Final - by ECCO",
+          "Date": "20260303T000000",
+          "Position": "2",
+          "Result": 5900
+        },
+        "R13684335": {
+          "CompetitionID": 5528196,
+          "Name": "Sand Valley Open",
+          "Date": "20260409T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13696462": {
+          "CompetitionID": 5571772,
+          "Name": "ECCO Tour Sand Valley Masters",
+          "Date": "20260413T000000",
+          "Position": "T31",
+          "Result": 275
+        },
+        "R13714080": {
+          "CompetitionID": 5582085,
+          "Name": "Sand Valley Spring Series Final",
+          "Date": "20260417T000000",
+          "Position": "T42",
+          "Result": 140.9643
+        },
+        "R13795138": {
+          "CompetitionID": 5349635,
+          "Name": "Big Green Egg Blekinge Open",
+          "Date": "20260429T000000",
+          "Position": "WD",
+          "Result": 0
+        },
+        "R13854702": {
+          "CompetitionID": 5339477,
+          "Name": "Royal Unibrew Championship @ Royal Oak",
+          "Date": "20260506T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13982051": {
+          "CompetitionID": null,
+          "Name": "Danish Golf Challenge",
+          "Date": "20260524T000000",
+          "Position": "71",
+          "Result": 300
+        },
+        "R14037202": {
+          "CompetitionID": 5339478,
+          "Name": "Trust Forsikring Championship",
+          "Date": "20260527T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14237610": {
+          "CompetitionID": 5339480,
+          "Name": "GolfPromote 25th Anniversary Open",
+          "Date": "20260617T000000",
+          "Position": "T8",
+          "Result": 2170
+        },
+        "R14479272": {
+          "CompetitionID": 5398126,
+          "Name": "Holtsmark Open",
+          "Date": "20260721T000000",
+          "Position": "T31",
+          "Result": 243.87
+        },
+        "R14532497": {
+          "CompetitionID": null,
+          "Name": "Max Matthiessen Team Trophy",
+          "Date": "20260731T000000",
+          "Position": "1",
+          "Result": 8940
+        },
+        "R14897909": {
+          "CompetitionID": 5339485,
+          "Name": "Nicon Industries Championship by FREJA",
+          "Date": "20260909T000000",
+          "Position": "T16",
+          "Result": 800
+        },
+        "R14955794": {
+          "CompetitionID": 5339486,
+          "Name": "Søllerød Championship",
+          "Date": "20260916T000000",
+          "Position": "T20",
+          "Result": 675
+        }
+      },
+      "Holes": null,
+      "NumberOfHoles": null
+    },
+    "E7753473": {
+      "MemberID": "980821-001",
+      "FirstName": "Sebastian",
+      "LastName": "Petersen",
+      "ClubName": "Djurgårdens IF Golfförening",
+      "Nationality": "SE",
+      "Country": "Sweden",
+      "Picture": null,
+      "CalculatedResult": 21038.1662,
+      "Position": "18",
+      "ActualPosition": 18,
+      "TotalEvents": 16,
+      "Results": {
+        "R13638723": {
+          "CompetitionID": 5416024,
+          "Name": "INFINITUM ECCO Masters - GolfBox Tournament no. 1,000,000",
+          "Date": "20260223T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13639759": {
+          "CompetitionID": 5433274,
+          "Name": "INFINITUM Championship",
+          "Date": "20260227T000000",
+          "Position": "T33",
+          "Result": 216.25
+        },
+        "R13642814": {
+          "CompetitionID": 5433278,
+          "Name": "INFINITUM Spring Series Final - by ECCO",
+          "Date": "20260303T000000",
+          "Position": "T25",
+          "Result": 400
+        },
+        "R13794987": {
+          "CompetitionID": 5349635,
+          "Name": "Big Green Egg Blekinge Open",
+          "Date": "20260429T000000",
+          "Position": "T4",
+          "Result": 2327.0533
+        },
+        "R13979041": {
+          "CompetitionID": 5398043,
+          "Name": "Cutter & Buck Fjällbacka Open",
+          "Date": "20260521T000000",
+          "Position": "T12",
+          "Result": 1100
+        },
+        "R14174173": {
+          "CompetitionID": 5398099,
+          "Name": "Indoor Golf Group Göteborg Open ",
+          "Date": "20260610T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14237613": {
+          "CompetitionID": 5339480,
+          "Name": "GolfPromote 25th Anniversary Open",
+          "Date": "20260617T000000",
+          "Position": "T11",
+          "Result": 1750
+        },
+        "R14322656": {
+          "CompetitionID": 5398108,
+          "Name": "PGA of Sweden Championship",
+          "Date": "20260624T000000",
+          "Position": "T13",
+          "Result": 907.1429
+        },
+        "R14352757": {
+          "CompetitionID": 5398115,
+          "Name": "MoreGolf Mastercard Stockholm",
+          "Date": "20260701T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R14400393": {
+          "CompetitionID": 5403939,
+          "Name": "SM Match by Upfront",
+          "Date": "20260708T000000",
+          "Position": "T3",
+          "Result": 3037.72
+        },
+        "R14590949": {
+          "CompetitionID": 5398122,
+          "Name": "NeH Hammarö Open",
+          "Date": "20260806T000000",
+          "Position": "T12",
+          "Result": 1062.5
+        },
+        "R14649117": {
+          "CompetitionID": 5398141,
+          "Name": "FootJoy Skåne Challenge",
+          "Date": "20260812T000000",
+          "Position": "T23",
+          "Result": 525
+        },
+        "R14788529": {
+          "CompetitionID": 5515043,
+          "Name": "Finnish Open by FootJoy",
+          "Date": "20260827T000000",
+          "Position": "T2",
+          "Result": 3812.5
+        },
+        "R14839247": {
+          "CompetitionID": 5398142,
+          "Name": "Crona Software Halland Open",
+          "Date": "20260902T000000",
+          "Position": "2",
+          "Result": 5900
+        },
+        "R14955841": {
+          "CompetitionID": 5339486,
+          "Name": "Søllerød Championship",
+          "Date": "20260916T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R15005206": {
+          "CompetitionID": 5398146,
+          "Name": "Folksam Championship",
+          "Date": "20260923T000000",
+          "Position": "MC",
+          "Result": 0
+        }
+      },
+      "Holes": null,
+      "NumberOfHoles": null
+    },
+    "E7751011": {
+      "MemberID": "961018-009",
+      "FirstName": "Oliver",
+      "LastName": "Gillberg",
+      "ClubName": "Askersunds Golfklubb",
+      "Nationality": "SE",
+      "Country": "Sweden",
+      "Picture": null,
+      "CalculatedResult": 20290.135,
+      "Position": "19",
+      "ActualPosition": 19,
+      "TotalEvents": 8,
+      "Results": {
+        "R13635511": {
+          "CompetitionID": 5299728,
+          "Name": "GolfStar Winter Series Dunes",
+          "Date": "20260214T000000",
+          "Position": "T25",
+          "Result": 465.0933
+        },
+        "R13636966": {
+          "CompetitionID": 5299753,
+          "Name": "GolfStar Winter Series Forest",
+          "Date": "20260218T000000",
+          "Position": "T2",
+          "Result": 5389.625
+        },
+        "R13639746": {
+          "CompetitionID": 5433274,
+          "Name": "INFINITUM Championship",
+          "Date": "20260227T000000",
+          "Position": "T19",
+          "Result": 725
+        },
+        "R13642792": {
+          "CompetitionID": 5433278,
+          "Name": "INFINITUM Spring Series Final - by ECCO",
+          "Date": "20260303T000000",
+          "Position": "T7",
+          "Result": 1637.5
+        },
+        "R13684284": {
+          "CompetitionID": 5528196,
+          "Name": "Sand Valley Open",
+          "Date": "20260409T000000",
+          "Position": "T8",
+          "Result": 1375
+        },
+        "R13696430": {
+          "CompetitionID": 5571772,
+          "Name": "ECCO Tour Sand Valley Masters",
+          "Date": "20260413T000000",
+          "Position": "2",
+          "Result": 6490
+        },
+        "R13714057": {
+          "CompetitionID": 5582085,
+          "Name": "Sand Valley Spring Series Final",
+          "Date": "20260417T000000",
+          "Position": "T22",
+          "Result": 507.9167
+        },
+        "R14790521": {
+          "CompetitionID": null,
+          "Name": "Dormy Open by Creekhouse",
+          "Date": "20260830T000000",
+          "Position": "8",
+          "Result": 3700
+        }
+      },
+      "Holes": null,
+      "NumberOfHoles": null
+    },
+    "E7751009": {
+      "MemberID": "961231-001",
+      "FirstName": "Jesper",
+      "LastName": "Hagborg Asp",
+      "ClubName": "Onsjö Golfklubb",
+      "Nationality": "SE",
+      "Country": "Sweden",
+      "Picture": null,
+      "CalculatedResult": 19651.9393,
+      "Position": "20",
+      "ActualPosition": 20,
+      "TotalEvents": 22,
+      "Results": {
+        "R13635509": {
+          "CompetitionID": 5299728,
+          "Name": "GolfStar Winter Series Dunes",
+          "Date": "20260214T000000",
+          "Position": "T22",
+          "Result": 601.8867
+        },
+        "R13637040": {
+          "CompetitionID": 5299753,
+          "Name": "GolfStar Winter Series Forest",
+          "Date": "20260218T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13638715": {
+          "CompetitionID": 5416024,
+          "Name": "INFINITUM ECCO Masters - GolfBox Tournament no. 1,000,000",
+          "Date": "20260223T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13639769": {
+          "CompetitionID": 5433274,
+          "Name": "INFINITUM Championship",
+          "Date": "20260227T000000",
+          "Position": "T40",
+          "Result": 145
+        },
+        "R13642809": {
+          "CompetitionID": 5433278,
+          "Name": "INFINITUM Spring Series Final - by ECCO",
+          "Date": "20260303T000000",
+          "Position": "24",
+          "Result": 500
+        },
+        "R13684300": {
+          "CompetitionID": 5528196,
+          "Name": "Sand Valley Open",
+          "Date": "20260409T000000",
+          "Position": "T23",
+          "Result": 435.7143
+        },
+        "R13696512": {
+          "CompetitionID": 5571772,
+          "Name": "ECCO Tour Sand Valley Masters",
+          "Date": "20260413T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R13714067": {
+          "CompetitionID": 5582085,
+          "Name": "Sand Valley Spring Series Final",
+          "Date": "20260417T000000",
+          "Position": "T31",
+          "Result": 330.625
+        },
+        "R13794988": {
+          "CompetitionID": 5349635,
+          "Name": "Big Green Egg Blekinge Open",
+          "Date": "20260429T000000",
+          "Position": "T4",
+          "Result": 2327.0533
+        },
+        "R13903712": {
+          "CompetitionID": 5398087,
+          "Name": "Gamle Fredrikstad Open",
+          "Date": "20260512T000000",
+          "Position": "T23",
+          "Result": 399.06
+        },
+        "R13979039": {
+          "CompetitionID": 5398043,
+          "Name": "Cutter & Buck Fjällbacka Open",
+          "Date": "20260521T000000",
+          "Position": "T8",
+          "Result": 1487.5
+        },
+        "R14037147": {
+          "CompetitionID": 5339478,
+          "Name": "Trust Forsikring Championship",
+          "Date": "20260527T000000",
+          "Position": "T5",
+          "Result": 2125
+        },
+        "R14174073": {
+          "CompetitionID": 5398099,
+          "Name": "Indoor Golf Group Göteborg Open ",
+          "Date": "20260610T000000",
+          "Position": "T17",
+          "Result": 725
+        },
+        "R14237634": {
+          "CompetitionID": 5339480,
+          "Name": "GolfPromote 25th Anniversary Open",
+          "Date": "20260617T000000",
+          "Position": "T27",
+          "Result": 472.5
+        },
+        "R14322646": {
+          "CompetitionID": 5398108,
+          "Name": "PGA of Sweden Championship",
+          "Date": "20260624T000000",
+          "Position": "T7",
+          "Result": 1570
+        },
+        "R14400400": {
+          "CompetitionID": 5403939,
+          "Name": "SM Match by Upfront",
+          "Date": "20260708T000000",
+          "Position": "T9",
+          "Result": 1041.5
+        },
+        "R14479247": {
+          "CompetitionID": 5398126,
+          "Name": "Holtsmark Open",
+          "Date": "20260721T000000",
+          "Position": "6",
+          "Result": 1773.6
+        },
+        "R14590972": {
+          "CompetitionID": 5398122,
+          "Name": "NeH Hammarö Open",
+          "Date": "20260806T000000",
+          "Position": "T35",
+          "Result": 195
+        },
+        "R14649103": {
+          "CompetitionID": 5398141,
+          "Name": "FootJoy Skåne Challenge",
+          "Date": "20260812T000000",
+          "Position": "T6",
+          "Result": 1710
+        },
+        "R14788527": {
+          "CompetitionID": 5515043,
+          "Name": "Finnish Open by FootJoy",
+          "Date": "20260827T000000",
+          "Position": "T2",
+          "Result": 3812.5
+        },
+        "R14839326": {
+          "CompetitionID": 5398142,
+          "Name": "Crona Software Halland Open",
+          "Date": "20260902T000000",
+          "Position": "MC",
+          "Result": 0
+        },
+        "R15005173": {
+          "CompetitionID": 5398146,
+          "Name": "Folksam Championship",
+          "Date": "20260923T000000",
+          "Position": "MC",
+          "Result": 0
+        }
+      },
+      "Holes": null,
+      "NumberOfHoles": null
+    }
+  }
+}

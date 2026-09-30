@@ -1,0 +1,709 @@
+{
+  "competitions": [
+    {
+      "id": 5299728,
+      "name": "GolfStar Winter Series Dunes",
+      "venue": "Empordá Golf Club",
+      "start": "2026-02-14T00:00:00.000Z",
+      "end": "2026-02-16T00:00:00.000Z",
+      "slug": "golfstar-winter-series-dunes-2026",
+      "categories": [
+        13350,
+        13361
+      ]
+    },
+    {
+      "id": 5299753,
+      "name": "GolfStar Winter Series Forest",
+      "venue": "Empordá Golf Club",
+      "start": "2026-02-18T00:00:00.000Z",
+      "end": "2026-02-20T00:00:00.000Z",
+      "slug": "golfstar-winter-series-forest-2026",
+      "categories": [
+        13350,
+        13361
+      ]
+    },
+    {
+      "id": 5416024,
+      "name": "INFINITUM ECCO Masters - GolfBox Tournament no. 1,000,000",
+      "venue": "Infinitum Golf, Spain",
+      "start": "2026-02-23T00:00:00.000Z",
+      "end": "2026-02-25T00:00:00.000Z",
+      "slug": "infinitum-ecco-masters---golfbox-tournament-no-1000000",
+      "categories": [
+        13360,
+        13361
+      ]
+    },
+    {
+      "id": 5433274,
+      "name": "INFINITUM Championship",
+      "venue": "Infinitum Golf, Spain",
+      "start": "2026-02-27T00:00:00.000Z",
+      "end": "2026-03-01T00:00:00.000Z",
+      "slug": "infinitum-championship-2026",
+      "categories": [
+        13360,
+        13361
+      ]
+    },
+    {
+      "id": 5433278,
+      "name": "INFINITUM Spring Series Final - by ECCO",
+      "venue": "Infinitum Golf, Spain",
+      "start": "2026-03-03T00:00:00.000Z",
+      "end": "2026-03-05T00:00:00.000Z",
+      "slug": "infinitum-spring-series-final---by-ecco-2026",
+      "categories": [
+        13360,
+        13361
+      ]
+    },
+    {
+      "id": 5528196,
+      "name": "Sand Valley Open",
+      "venue": "Sand Valley Golf Resort - Poland",
+      "start": "2026-04-09T00:00:00.000Z",
+      "end": "2026-04-11T00:00:00.000Z",
+      "slug": "sand-valley-open-2026",
+      "categories": [
+        13360,
+        13361
+      ]
+    },
+    {
+      "id": 5571772,
+      "name": "ECCO Tour Sand Valley Masters",
+      "venue": "Sand Valley Golf Resort - Poland",
+      "start": "2026-04-13T00:00:00.000Z",
+      "end": "2026-04-15T00:00:00.000Z",
+      "slug": "ecco-tour-sand-valley-masters-2026",
+      "categories": [
+        13360,
+        13361
+      ]
+    },
+    {
+      "id": 5582085,
+      "name": "Sand Valley Spring Series Final",
+      "venue": "Sand Valley Golf Resort - Poland",
+      "start": "2026-04-17T00:00:00.000Z",
+      "end": "2026-04-19T00:00:00.000Z",
+      "slug": "sand-valley-spring-series-final-2026",
+      "categories": [
+        13360,
+        13361
+      ]
+    },
+    {
+      "id": 5349635,
+      "name": "Big Green Egg Blekinge Open",
+      "venue": "Trummenäs Golfklubb",
+      "start": "2026-04-29T00:00:00.000Z",
+      "end": "2026-05-01T00:00:00.000Z",
+      "slug": "big-green-egg-blekinge-open-2026",
+      "categories": [
+        13350,
+        13361
+      ]
+    },
+    {
+      "id": 5339477,
+      "name": "Royal Unibrew Championship @ Royal Oak",
+      "venue": "Royal Oak",
+      "start": "2026-05-06T00:00:00.000Z",
+      "end": "2026-05-08T00:00:00.000Z",
+      "slug": "royal-unibrew-championship--royal-oak-2026",
+      "categories": [
+        13360,
+        13361
+      ]
+    },
+    {
+      "id": 5398087,
+      "name": "Gamle Fredrikstad Open",
+      "venue": "Gamle Fredrikstad Golfklubb",
+      "start": "2026-05-12T00:00:00.000Z",
+      "end": "2026-05-14T00:00:00.000Z",
+      "slug": "gamle-fredrikstad-open-2026",
+      "categories": [
+        13350,
+        13361
+      ]
+    },
+    {
+      "id": 5398043,
+      "name": "Cutter & Buck Fjällbacka Open",
+      "venue": "Fjällbacka Golfklubb",
+      "start": "2026-05-21T00:00:00.000Z",
+      "end": "2026-05-23T00:00:00.000Z",
+      "slug": "cutter--buck-fjallbacka-open-2026",
+      "categories": [
+        13350,
+        13361
+      ]
+    },
+    {
+      "id": 5339478,
+      "name": "Trust Forsikring Championship",
+      "venue": "Lyngbygaard Golf Klub",
+      "start": "2026-05-27T00:00:00.000Z",
+      "end": "2026-05-29T00:00:00.000Z",
+      "slug": "trust-forsikring-championship-2026",
+      "categories": [
+        13360,
+        13361
+      ]
+    },
+    {
+      "id": 5682240,
+      "name": "Samsø Festival Pro-Am - by United Tickets",
+      "venue": "Samsø Golfklub, Denmark",
+      "start": "2026-06-03T00:00:00.000Z",
+      "end": "2026-06-05T00:00:00.000Z",
+      "slug": "samso-festival-pro-am---by-united-tickets-2026",
+      "categories": [
+        13360,
+        13361
+      ]
+    },
+    {
+      "id": 5398099,
+      "name": "Indoor Golf Group Göteborg Open ",
+      "venue": "Forsgårdens Golfklubb",
+      "start": "2026-06-10T00:00:00.000Z",
+      "end": "2026-06-12T00:00:00.000Z",
+      "slug": "indoor-golf-group-goteborg-open--2026",
+      "categories": [
+        13350,
+        13361
+      ]
+    },
+    {
+      "id": 5339480,
+      "name": "GolfPromote 25th Anniversary Open",
+      "venue": "Lübker Golf Resort",
+      "start": "2026-06-17T00:00:00.000Z",
+      "end": "2026-06-19T00:00:00.000Z",
+      "slug": "golfpromote-25th-anniversary-open-2026",
+      "categories": [
+        13360,
+        13361
+      ]
+    },
+    {
+      "id": 5398108,
+      "name": "PGA of Sweden Championship",
+      "venue": "Onsjö Golfklubb",
+      "start": "2026-06-24T00:00:00.000Z",
+      "end": "2026-06-26T00:00:00.000Z",
+      "slug": "pga-of-sweden-championship-2026",
+      "categories": [
+        13350,
+        13361
+      ]
+    },
+    {
+      "id": 5398115,
+      "name": "MoreGolf Mastercard Stockholm",
+      "venue": "Haninge Golfklubb",
+      "start": "2026-07-01T00:00:00.000Z",
+      "end": "2026-07-03T00:00:00.000Z",
+      "slug": "moregolf-mastercard-stockholm-2026",
+      "categories": [
+        13350,
+        13361
+      ]
+    },
+    {
+      "id": 5403939,
+      "name": "SM Match by Upfront",
+      "venue": "The National Golfresort",
+      "start": "2026-07-08T00:00:00.000Z",
+      "end": "2026-07-10T00:00:00.000Z",
+      "slug": "sm-match-by-upfront-2026",
+      "categories": [
+        13350,
+        13361
+      ]
+    },
+    {
+      "id": 5398126,
+      "name": "Holtsmark Open",
+      "venue": "Holtsmark Golfklubb",
+      "start": "2026-07-21T00:00:00.000Z",
+      "end": "2026-07-23T00:00:00.000Z",
+      "slug": "holtsmark-open-2026",
+      "categories": [
+        13350,
+        13361
+      ]
+    },
+    {
+      "id": 5339483,
+      "name": "Max Matthiessen Team Trophy",
+      "venue": "Smørum Golfklub",
+      "start": "2026-07-29T00:00:00.000Z",
+      "end": "2026-07-31T00:00:00.000Z",
+      "slug": "max-matthiessen-team-trophy-2026",
+      "categories": [
+        13360,
+        13361
+      ]
+    },
+    {
+      "id": 5398122,
+      "name": "NeH Hammarö Open",
+      "venue": "Hammarö Golfklubb",
+      "start": "2026-08-06T00:00:00.000Z",
+      "end": "2026-08-08T00:00:00.000Z",
+      "slug": "neh-hammaro-open-2026",
+      "categories": [
+        13350,
+        13361
+      ]
+    },
+    {
+      "id": 5398141,
+      "name": "FootJoy Skåne Challenge",
+      "venue": "Söderslätts Golfklubb",
+      "start": "2026-08-12T00:00:00.000Z",
+      "end": "2026-08-14T00:00:00.000Z",
+      "slug": "footjoy-skane-challenge-2026",
+      "categories": [
+        13350,
+        13361
+      ]
+    },
+    {
+      "id": 5515043,
+      "name": "Finnish Open by FootJoy",
+      "venue": "Hill Side Golf Club",
+      "start": "2026-08-27T00:00:00.000Z",
+      "end": "2026-08-29T00:00:00.000Z",
+      "slug": "finnish-open-by-footjoy-2026",
+      "categories": [
+        13361,
+        14118
+      ]
+    },
+    {
+      "id": 5398142,
+      "name": "Crona Software Halland Open",
+      "venue": "Laholms Golfklubb",
+      "start": "2026-09-02T00:00:00.000Z",
+      "end": "2026-09-04T00:00:00.000Z",
+      "slug": "crona-software-halland-open-2026",
+      "categories": [
+        13350,
+        13361
+      ]
+    },
+    {
+      "id": 5339485,
+      "name": "Nicon Industries Championship by FREJA",
+      "venue": "Esbjerg Golfklub",
+      "start": "2026-09-09T00:00:00.000Z",
+      "end": "2026-09-11T00:00:00.000Z",
+      "slug": "nicon-industries-championship-by-freja-2026",
+      "categories": [
+        13360,
+        13361
+      ]
+    },
+    {
+      "id": 5339486,
+      "name": "Søllerød Championship",
+      "venue": "Søllerød Golfklub",
+      "start": "2026-09-16T00:00:00.000Z",
+      "end": "2026-09-18T00:00:00.000Z",
+      "slug": "sollerod-championship-2026",
+      "categories": [
+        13360,
+        13361
+      ]
+    },
+    {
+      "id": 5398146,
+      "name": "Folksam Championship",
+      "venue": "Barsebäck Golf & Resort",
+      "start": "2026-09-23T00:00:00.000Z",
+      "end": "2026-09-25T00:00:00.000Z",
+      "slug": "folksam-championship-2026",
+      "categories": [
+        13350,
+        13361
+      ]
+    },
+    {
+      "id": 5665728,
+      "name": "NGL Q-school 1st stage Denmark 2027",
+      "venue": "Greve Golfklub",
+      "start": "2026-10-01T00:00:00.000Z",
+      "end": "2026-10-02T00:00:00.000Z",
+      "slug": "ngl-q-school-1st-stage-denmark-2027",
+      "categories": []
+    },
+    {
+      "id": 5605171,
+      "name": "NGL Q-School Final Stage 2027",
+      "venue": "Elisefarm Golf Club",
+      "start": "2026-10-06T00:00:00.000Z",
+      "end": "2026-10-07T00:00:00.000Z",
+      "slug": "ngl-q-school-final-stage-2027",
+      "categories": [
+        13361
+      ]
+    },
+    {
+      "id": 5398147,
+      "name": "Destination Gotland Open",
+      "venue": "Visby Golfklubb",
+      "start": "2026-10-06T00:00:00.000Z",
+      "end": "2026-10-08T00:00:00.000Z",
+      "slug": "destination-gotland-open-2026",
+      "categories": [
+        13350,
+        13361
+      ]
+    },
+    {
+      "id": 5339487,
+      "name": "Road to Europe Final by Sparekassen Danmark",
+      "venue": "Aalborg Golfklub",
+      "start": "2026-10-14T00:00:00.000Z",
+      "end": "2026-10-16T00:00:00.000Z",
+      "slug": "road-to-europe-final-by-sparekassen-danmark-2026",
+      "categories": [
+        13360,
+        13361
+      ]
+    }
+  ],
+  "years": [
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "selectedYear": 2026,
+  "previousYearCompetitions": [
+    {
+      "id": 4751251,
+      "name": "GolfStar Winter Series - Links",
+      "venue": "Empordá Golf Club",
+      "start": "2025-02-14T00:00:00.000Z",
+      "end": "2025-02-16T00:00:00.000Z",
+      "slug": "golfstar-winter-series---links-2025",
+      "categories": []
+    },
+    {
+      "id": 4751252,
+      "name": "GolfStar Winter Series - Forest",
+      "venue": "Empordá Golf Club",
+      "start": "2025-02-18T00:00:00.000Z",
+      "end": "2025-02-20T00:00:00.000Z",
+      "slug": "golfstar-winter-series---forest-2025",
+      "categories": []
+    },
+    {
+      "id": 4842264,
+      "name": "INFINITUM Spanish Masters",
+      "venue": "Infinitum Golf, Spain",
+      "start": "2025-02-23T00:00:00.000Z",
+      "end": "2025-02-25T00:00:00.000Z",
+      "slug": "infinitum-spanish-masters-2025",
+      "categories": []
+    },
+    {
+      "id": 4903464,
+      "name": "INFINITUM Championship",
+      "venue": "Infinitum Golf, Spain",
+      "start": "2025-02-27T00:00:00.000Z",
+      "end": "2025-03-01T00:00:00.000Z",
+      "slug": "infinitum-championship-2025",
+      "categories": []
+    },
+    {
+      "id": 4910600,
+      "name": "INFINITUM Spring Series Final - by ECCO",
+      "venue": "Infinitum Golf, Spain",
+      "start": "2025-03-03T00:00:00.000Z",
+      "end": "2025-03-05T00:00:00.000Z",
+      "slug": "infinitum-spring-series-final---by-ecco-2025",
+      "categories": []
+    },
+    {
+      "id": 5012032,
+      "name": "Sand Valley Championship",
+      "venue": "Sand Valley Golf Resort - Poland",
+      "start": "2025-04-13T00:00:00.000Z",
+      "end": "2025-04-15T00:00:00.000Z",
+      "slug": "sand-valley-championship-2025",
+      "categories": []
+    },
+    {
+      "id": 5033140,
+      "name": "ECCO Tour Sand Valley Masters",
+      "venue": "Sand Valley Golf Resort - Poland",
+      "start": "2025-04-17T00:00:00.000Z",
+      "end": "2025-04-19T00:00:00.000Z",
+      "slug": "ecco-tour-sand-valley-masters-2025",
+      "categories": []
+    },
+    {
+      "id": 4842309,
+      "name": "Sand Valley Spring Series Final (DELETE)",
+      "venue": "Sand Valley Golf Resort - Poland",
+      "start": "2025-04-21T00:00:00.000Z",
+      "end": "2025-04-23T00:00:00.000Z",
+      "slug": "sand-valley-spring-series-final-delete-2025",
+      "categories": []
+    },
+    {
+      "id": 5040822,
+      "name": "Sand Valley Spring Series Final",
+      "venue": "Sand Valley Golf Resort - Poland",
+      "start": "2025-04-21T00:00:00.000Z",
+      "end": "2025-04-23T00:00:00.000Z",
+      "slug": "sand-valley-spring-series-final-2025",
+      "categories": []
+    },
+    {
+      "id": 4800220,
+      "name": "Golfkusten Blekinge",
+      "venue": "Sölvesborgs Golfklubb",
+      "start": "2025-04-30T00:00:00.000Z",
+      "end": "2025-05-02T00:00:00.000Z",
+      "slug": "golfkusten-blekinge-2025",
+      "categories": []
+    },
+    {
+      "id": 4794794,
+      "name": "Bravo Tours Open @ Royal Oak",
+      "venue": "Royal Oak",
+      "start": "2025-05-07T00:00:00.000Z",
+      "end": "2025-05-09T00:00:00.000Z",
+      "slug": "bravo-tours-open--royal-oak-2025",
+      "categories": []
+    },
+    {
+      "id": 4800221,
+      "name": "Cutter & Buck Fjällbacka Open",
+      "venue": "Fjällbacka Golfklubb",
+      "start": "2025-05-15T00:00:00.000Z",
+      "end": "2025-05-17T00:00:00.000Z",
+      "slug": "cutter--buck-fjallbacka-open-2025",
+      "categories": []
+    },
+    {
+      "id": 4800222,
+      "name": "Gamle Fredrikstad Open",
+      "venue": "Gamle Fredrikstad Golfklubb",
+      "start": "2025-05-20T00:00:00.000Z",
+      "end": "2025-05-22T00:00:00.000Z",
+      "slug": "gamle-fredrikstad-open-2025",
+      "categories": []
+    },
+    {
+      "id": 4794795,
+      "name": "Smørum Open",
+      "venue": "Smørum Golfklub",
+      "start": "2025-05-28T00:00:00.000Z",
+      "end": "2025-05-30T00:00:00.000Z",
+      "slug": "smorum-open-2025",
+      "categories": []
+    },
+    {
+      "id": 4794797,
+      "name": "Samsø Festival Pro-Am - by United Tickets",
+      "venue": "Samsø Golfklub, Denmark",
+      "start": "2025-06-04T00:00:00.000Z",
+      "end": "2025-06-06T00:00:00.000Z",
+      "slug": "samso-festival-pro-am---by-united-tickets-2025",
+      "categories": []
+    },
+    {
+      "id": 4800225,
+      "name": "Live it Trophy",
+      "venue": "Mälarö Golfklubb Skytteholm",
+      "start": "2025-06-11T00:00:00.000Z",
+      "end": "2025-06-13T00:00:00.000Z",
+      "slug": "live-it-trophy-2025",
+      "categories": []
+    },
+    {
+      "id": 4794804,
+      "name": "Søllerød Championship - Presented by Royal Unibrew",
+      "venue": "Søllerød Golfklub",
+      "start": "2025-06-18T00:00:00.000Z",
+      "end": "2025-06-20T00:00:00.000Z",
+      "slug": "sollerod-championship---presented-by-royal-unibrew-2025",
+      "categories": []
+    },
+    {
+      "id": 4800226,
+      "name": "PGA of Sweden Championship Landeryd",
+      "venue": "Vesterby Golf",
+      "start": "2025-06-25T00:00:00.000Z",
+      "end": "2025-06-28T00:00:00.000Z",
+      "slug": "pga-of-sweden-championship-landeryd-2025",
+      "categories": []
+    },
+    {
+      "id": 4800228,
+      "name": "Enklare att vara proffs by Ahlsell",
+      "venue": "Onsjö Golfklubb",
+      "start": "2025-07-03T00:00:00.000Z",
+      "end": "2025-07-05T00:00:00.000Z",
+      "slug": "enklare-att-vara-proffs-by-ahlsell-2025",
+      "categories": []
+    },
+    {
+      "id": 4800229,
+      "name": "Skövde Open by Crona Software",
+      "venue": "Skövde Golfklubb",
+      "start": "2025-07-08T00:00:00.000Z",
+      "end": "2025-07-10T00:00:00.000Z",
+      "slug": "skovde-open-by-crona-software-2025",
+      "categories": []
+    },
+    {
+      "id": 4800231,
+      "name": "Holtsmark Open",
+      "venue": "Holtsmark Golfklubb",
+      "start": "2025-07-22T00:00:00.000Z",
+      "end": "2025-07-24T00:00:00.000Z",
+      "slug": "holtsmark-open-2025",
+      "categories": []
+    },
+    {
+      "id": 4794799,
+      "name": "Kokkedal Championship - Hosted by Jeff Winther",
+      "venue": "Kokkedal Golfklub",
+      "start": "2025-07-30T00:00:00.000Z",
+      "end": "2025-08-01T00:00:00.000Z",
+      "slug": "kokkedal-championship---hosted-by-jeff-winther-2025",
+      "categories": []
+    },
+    {
+      "id": 5134293,
+      "name": "Max Matthiessen Team Trophy - hosted by Jeff Winther",
+      "venue": "Kokkedal Golfklub",
+      "start": "2025-07-30T00:00:00.000Z",
+      "end": "2025-08-01T00:00:00.000Z",
+      "slug": "max-matthiessen-team-trophy---hosted-by-jeff-winther-2025",
+      "categories": []
+    },
+    {
+      "id": 4800232,
+      "name": "Forsbacka Open",
+      "venue": "Forsbacka Golfklubb",
+      "start": "2025-08-06T00:00:00.000Z",
+      "end": "2025-08-08T00:00:00.000Z",
+      "slug": "forsbacka-open-2025",
+      "categories": []
+    },
+    {
+      "id": 4800233,
+      "name": "Skåne Challenge by Folksam",
+      "venue": "Söderslätt Golfklubb",
+      "start": "2025-08-13T00:00:00.000Z",
+      "end": "2025-08-15T00:00:00.000Z",
+      "slug": "skane-challenge-by-folksam-2025",
+      "categories": []
+    },
+    {
+      "id": 4827144,
+      "name": "Finnish Open",
+      "venue": "Peuramaa Golf Hjortlandet",
+      "start": "2025-08-21T00:00:00.000Z",
+      "end": "2025-08-23T00:00:00.000Z",
+      "slug": "finnish-open-2025",
+      "categories": []
+    },
+    {
+      "id": 4855153,
+      "name": "Footjoy Finnish Swing",
+      "venue": "Kankaisten Golf",
+      "start": "2025-08-27T00:00:00.000Z",
+      "end": "2025-08-29T00:00:00.000Z",
+      "slug": "footjoy-finnish-swing-2025",
+      "categories": []
+    },
+    {
+      "id": 4800236,
+      "name": "SM Match by Dormy Future Stars",
+      "venue": "Vasatorps Golfklubb",
+      "start": "2025-09-03T00:00:00.000Z",
+      "end": "2025-09-06T00:00:00.000Z",
+      "slug": "sm-match-by-dormy-future-stars-2025",
+      "categories": []
+    },
+    {
+      "id": 4794800,
+      "name": "Esbjerg Open by FREJA",
+      "venue": "Esbjerg Golfklub",
+      "start": "2025-09-10T00:00:00.000Z",
+      "end": "2025-09-12T00:00:00.000Z",
+      "slug": "esbjerg-open-by-freja-2025",
+      "categories": []
+    },
+    {
+      "id": 4794801,
+      "name": "Great Northern Challenge",
+      "venue": "Great Northern",
+      "start": "2025-09-16T00:00:00.000Z",
+      "end": "2025-09-18T00:00:00.000Z",
+      "slug": "great-northern-challenge-2025",
+      "categories": []
+    },
+    {
+      "id": 4800237,
+      "name": "FootJoy Championship",
+      "venue": "Barsebäck Golf & Resort",
+      "start": "2025-09-24T00:00:00.000Z",
+      "end": "2025-09-26T00:00:00.000Z",
+      "slug": "footjoy-championship-2025",
+      "categories": []
+    },
+    {
+      "id": 4794831,
+      "name": "Trust Forsikring Championship",
+      "venue": "Lyngbygaard Golf Klub",
+      "start": "2025-10-01T00:00:00.000Z",
+      "end": "2025-10-03T00:00:00.000Z",
+      "slug": "trust-forsikring-championship-2025",
+      "categories": []
+    },
+    {
+      "id": 5258928,
+      "name": "NGL Q-school 1st stage Denmark 2026",
+      "venue": "Greve Golfklub",
+      "start": "2025-10-01T00:00:00.000Z",
+      "end": "2025-10-02T00:00:00.000Z",
+      "slug": "ngl-q-school-1st-stage-denmark-2026",
+      "categories": []
+    },
+    {
+      "id": 4800238,
+      "name": "Destination Gotland Open",
+      "venue": "Visby Golfklubb",
+      "start": "2025-10-07T00:00:00.000Z",
+      "end": "2025-10-09T00:00:00.000Z",
+      "slug": "destination-gotland-open-2025",
+      "categories": []
+    },
+    {
+      "id": 4794802,
+      "name": "Road to Europe Final by Sparekassen Danmark",
+      "venue": "Holstebro Golfklub",
+      "start": "2025-10-15T00:00:00.000Z",
+      "end": "2025-10-17T00:00:00.000Z",
+      "slug": "road-to-europe-final-by-sparekassen-danmark-2025",
+      "categories": []
+    }
+  ]
+}

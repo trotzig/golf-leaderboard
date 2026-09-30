@@ -87,6 +87,7 @@ Use `production.env` file (gitignored) for prod env vars with the `:prod` script
 ## Conventions
 
 - Components live in `src/` as `.js` files (React, no TypeScript)
+- Page components live in `src/*Page.js`; files in `pages/` re-export them and add `getServerSideProps`. This keeps Prisma and `fs` out of Storybook, where every page has stories in `src/stories/`
 - ESM modules use `.mjs` extension
 - Unit-testable pure logic lives in `*.mjs` files alongside components; test files are `*.test.mjs` and run with the Node built-in test runner (`node --test`)
 - Slugs are generated from player names and deduplicated with MD5 suffix if colliding
