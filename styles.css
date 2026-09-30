@@ -293,6 +293,7 @@ a {
 .course,
 .add-to-home-screen-page,
 .about-page,
+.advertise-page,
 nav {
   max-width: 720px;
   margin: 0 auto;
@@ -2661,6 +2662,61 @@ h2.player-big-name {
 }
 
 .about-links a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+/* Advertise page */
+.advertise-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  padding: 0 10px;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 600px) {
+  .advertise-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.advertise-stat {
+  border: 1px solid rgba(var(--text-rgb), 0.2);
+  border-radius: 8px;
+  padding: 14px 12px;
+}
+
+.advertise-stat-value {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--primary);
+  line-height: 1.1;
+}
+
+.advertise-stat-label {
+  font-size: 13px;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+.advertise-placements {
+  list-style: none;
+  padding: 0;
+}
+
+.advertise-placements li {
+  border-left: 3px solid var(--primary);
+  padding-left: 12px;
+  margin-bottom: 16px;
+}
+
+.advertise-placements p {
+  margin: 2px 0 0;
+}
+
+.about-section a {
   color: inherit;
   text-decoration: underline;
 }
