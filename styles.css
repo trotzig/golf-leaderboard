@@ -471,8 +471,10 @@ nav svg {
   .site-wordmark {
     display: flex;
   }
-  body {
-    padding-bottom: 84px;
+  /* Keep the last bit of content scrollable above the floating tab bar. Set
+     on <html> since hosts like Storybook reset body padding. */
+  html {
+    padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
   }
   nav {
     --nav-icon-size: 22px;
@@ -535,8 +537,8 @@ html.display-standalone nav a[aria-current='page'] {
   background: var(--accent-soft);
   box-shadow: none;
 }
-html.display-standalone body {
-  padding-bottom: 84px;
+html.display-standalone {
+  padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
 }
 
 .competitions ul {
