@@ -2120,7 +2120,7 @@ input.ios-switch:checked:after {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  opacity: 0.7;
+  opacity: 0.85;
   padding-top: 0;
   padding-bottom: 0;
 }
