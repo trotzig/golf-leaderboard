@@ -3,27 +3,11 @@ import '../../styles.css';
 import React from 'react';
 
 import TeeTimesPage from '../TeeTimesPage.js';
-import ongoing from './testData/ongoing.json';
+import { competitions2026, leaderboardData, teeTimes } from './mockData.js';
 import withNav from './withNav.js';
 
-// Competition.stories.js trims the entries of this same (shared) module, so
-// trim a copy the same way to render identically regardless of load order.
-const leaderboardData = JSON.parse(JSON.stringify(ongoing.initialData));
-{
-  const entries = Object.values(leaderboardData.Classes)[0].Leaderboard.Entries;
-  for (const key of Object.keys(entries).slice(15)) {
-    delete entries[key];
-  }
-}
-
-const competition = {
-  id: 1,
-  name: 'ECCO Tour Spanish Masters - by DAT',
-  venue: 'PGA Catalunya Resort, Girona',
-  slug: 'ecco-tour-spanish-masters',
-  start: new Date('2022-02-27T00:00:00').getTime(),
-  end: new Date('2022-03-01T00:00:00').getTime(),
-};
+const competition = competitions2026[11];
+const now = new Date('2026-09-10T12:00:00').getTime();
 
 export default {
   title: 'TeeTimesPage',
@@ -37,8 +21,8 @@ export default {
 export const Default = () => (
   <TeeTimesPage
     competition={{ ...competition }}
-    now={new Date('2022-02-28T12:00:00').getTime()}
-    initialData={ongoing.initialTimesData}
+    now={now}
+    initialData={teeTimes}
     initialLeaderboardData={leaderboardData}
   />
 );
@@ -46,9 +30,9 @@ export const Default = () => (
 export const FirstRound = () => (
   <TeeTimesPage
     competition={{ ...competition }}
-    now={new Date('2022-02-28T12:00:00').getTime()}
+    now={now}
     round="1"
-    initialData={ongoing.initialTimesData}
+    initialData={teeTimes}
     initialLeaderboardData={leaderboardData}
   />
 );

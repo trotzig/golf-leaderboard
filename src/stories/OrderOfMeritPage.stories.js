@@ -3,7 +3,7 @@ import '../../styles.css';
 import React from 'react';
 
 import OrderOfMeritPage from '../OrderOfMeritPage.js';
-import oom from './testData/oom.json';
+import { orderOfMerit } from './mockData.js';
 import withNav from './withNav.js';
 
 export default {
@@ -15,4 +15,4 @@ export default {
   },
 };
 
-export const Default = () => <OrderOfMeritPage initialData={oom} />;
+export const Default = () => <OrderOfMeritPage initialData={orderOfMerit} />;

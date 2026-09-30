@@ -3,7 +3,7 @@ import '../../styles.css';
 import React from 'react';
 
 import PlayersPage from '../PlayersPage.js';
-import playersData from './testData/players.json';
+import { players } from './mockData.js';
 import withNav from './withNav.js';
 
 export default {
@@ -16,12 +16,12 @@ export default {
 };
 
 export const SignedOut = () => (
-  <PlayersPage account={null} players={playersData.players} />
+  <PlayersPage account={null} players={players} />
 );
 
 export const SignedIn = () => (
   <PlayersPage
     account={{ email: 'fan@example.com', favorites: [] }}
-    players={playersData.players}
+    players={players}
   />
 );

@@ -3,19 +3,13 @@ import '../../styles.css';
 import React from 'react';
 
 import PlayerDialog from '../PlayerDialog.js';
-import ongoing from './testData/ongoing.json';
+import {
+  competitions2026,
+  leaderboardData,
+  leaderboardEntry,
+} from './mockData.js';
 
-const data = JSON.parse(JSON.stringify(ongoing.initialData));
-const entry = Object.values(Object.values(data.Classes)[0].Leaderboard.Entries)[0];
-
-const competition = {
-  id: 1,
-  name: 'ECCO Tour Spanish Masters - by DAT',
-  venue: 'PGA Catalunya Resort, Girona',
-  slug: 'ecco-tour-spanish-masters',
-  start: new Date('2022-02-27T00:00:00'),
-  end: new Date('2022-03-01T00:00:00'),
-};
+const competition = competitions2026[11];
 
 export default {
   title: 'PlayerDialog',
@@ -27,9 +21,9 @@ export default {
 
 export const Default = () => (
   <PlayerDialog
-    entry={entry}
+    entry={leaderboardEntry}
     competition={competition}
-    data={data}
+    data={leaderboardData}
     onClose={() => {}}
     collidingSlugs={new Map()}
   />

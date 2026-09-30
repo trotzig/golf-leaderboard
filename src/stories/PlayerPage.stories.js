@@ -3,10 +3,9 @@ import '../../styles.css';
 import React from 'react';
 
 import PlayerPage from '../PlayerPage.js';
-import playerData from './testData/player.json';
+import { playerWithResults as player } from './mockData.js';
 import withNav from './withNav.js';
 
-const { player } = playerData;
 const now = new Date('2026-09-30T12:00:00').getTime();
 
 export default {
@@ -21,7 +20,7 @@ export default {
 export const Default = () => <PlayerPage player={player} season="2026" now={now} />;
 
 export const PreviousSeason = () => (
-  <PlayerPage player={player} season="2024" now={now} />
+  <PlayerPage player={player} season="2025" now={now} />
 );
 
 export const NoResults = () => (

@@ -4,6 +4,7 @@ import React from 'react';
 
 import ProfilePage from '../ProfilePage.js';
 import SignInPage from '../SignInPage.js';
+import { players } from './mockData.js';
 import withNav from './withNav.js';
 
 const account = {
@@ -11,26 +12,7 @@ const account = {
   sendEmailOnStart: false,
   sendEmailOnFinished: true,
   sendEmailOnHotStreak: true,
-  favorites: [
-    {
-      id: '010515-018',
-      firstName: 'David',
-      lastName: 'Lundgren',
-      slug: 'david-lundgren',
-    },
-    {
-      id: '020618-005',
-      firstName: 'Algot',
-      lastName: 'Kleén',
-      slug: 'algot-kleen',
-    },
-    {
-      id: '2-3476',
-      firstName: 'Martin Leth',
-      lastName: 'Simonsen',
-      slug: 'martin-leth-simonsen',
-    },
-  ],
+  favorites: players.slice(0, 3),
 };
 
 export default {
