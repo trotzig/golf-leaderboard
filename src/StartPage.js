@@ -100,17 +100,20 @@ export default function StartPage({
         />
       </Head>
       <div className="competitions">
-        <h1 className="intro-title">A launchpad for nordic golfers.</h1>
-        <p className="page-desc">
-          The Cutter &amp; Buck Tour is the first step for Nordic professional
-          golfers on their way to the Challenge Tour and the DP World Tour. We
-          track the scores so that you can follow your{' '}
-          <Link href="/players">favorite players</Link> and get the latest
-          updates <Link href="/profile">straight in your inbox</Link>.
-        </p>
         {currentCompetition && (
           <Leaderboard competition={currentCompetition} now={now} />
         )}
+        <div className={currentCompetition ? 'intro intro--compact' : 'intro'}>
+          {currentCompetition ? null : <CourseContours />}
+          <h1 className="intro-title">A launchpad for nordic golfers.</h1>
+          <p className="page-desc">
+            The Cutter &amp; Buck Tour is the first step for Nordic
+            professional golfers on their way to the Challenge Tour and the DP
+            World Tour. We track the scores so that you can follow your{' '}
+            <Link href="/players">favorite players</Link> and get the latest
+            updates <Link href="/profile">straight in your inbox</Link>.
+          </p>
+        </div>
         {nextCompetition ? (
           <ul>
             <CompetitionListItem competition={nextCompetition} now={now} next />
@@ -148,6 +151,39 @@ export default function StartPage({
         )}
       </div>
     </div>
+  );
+}
+
+// Decorative elevation lines, like the green contours in a yardage book.
+function CourseContours() {
+  const rings = [
+    [150, 112, -8],
+    [122, 90, -4],
+    [96, 70, 0],
+    [72, 52, 4],
+    [50, 36, 8],
+    [30, 22, 12],
+    [13, 10, 16],
+  ];
+  return (
+    <svg
+      className="intro-contours"
+      viewBox="0 0 360 280"
+      fill="none"
+      stroke="currentColor"
+      aria-hidden="true"
+    >
+      {rings.map(([rx, ry, rotate], i) => (
+        <ellipse
+          key={rx}
+          cx={180 + i * 4}
+          cy={140 - i * 2}
+          rx={rx}
+          ry={ry}
+          transform={`rotate(${rotate - 12} 180 140)`}
+        />
+      ))}
+    </svg>
   );
 }
 

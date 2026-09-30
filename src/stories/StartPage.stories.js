@@ -106,7 +106,7 @@ export default {
   decorators: [
     Story => (
       <div>
-        <Nav />
+        <Nav activeHref="/" />
         <Story />
       </div>
     ),

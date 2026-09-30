@@ -105,7 +105,7 @@ export const ProjectedCutLine = () => (
   <CompetitionPage
     {...round1WithCut}
     lazyItems={false}
-    now={new Date('2022-02-27T12:00:00')}
+    now={new Date('2022-02-28T12:00:00')}
     competition={competition}
     initialPlayersData={{}}
   />

@@ -16,8 +16,10 @@ export default function Leaderboard({ competition, now }) {
   });
   return (
     <Link href={`/t/${competition.slug}`} className="leaderboard">
-        <div className="leaderboard-legend">
-          {finished ? 'Final results' : 'Leaderboard'}
+        <div
+          className={`leaderboard-legend${finished ? '' : ' leaderboard-legend--live'}`}
+        >
+          {finished ? 'Final results' : 'Live now'}
         </div>
         <h4 className="leaderboard-competition-name">
           <span>{formatCompetitionName(competition.name)}</span>
@@ -68,7 +70,7 @@ export default function Leaderboard({ competition, now }) {
                 </tbody>
               </table>
             </div>
-            <div className="leaderboard-view-all">View full leaderboard</div>
+            <div className="leaderboard-view-all">View full leaderboard →</div>
           </>
         )}
     </Link>

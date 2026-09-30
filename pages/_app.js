@@ -59,14 +59,14 @@ function MyApp({ Component, pageProps }) {
       window.matchMedia &&
       window.matchMedia('(prefers-color-scheme: dark)').matches
     ) {
-      setThemeColor('#222222');
+      setThemeColor('#1b201e');
     } else {
       setThemeColor('#ffffff');
     }
   }, [Component]);
   return (
     <div>
-      <NextNProgress color="var(--primary)" height={2} showOnShallow={false} />
+      <NextNProgress color="var(--accent)" height={2} showOnShallow={false} />
       <Head>
         <title>{process.env.NEXT_PUBLIC_TITLE}</title>
         <meta
