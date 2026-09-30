@@ -1,26 +1,25 @@
-import assert from 'node:assert';
-import { test } from 'node:test';
+import { expect, test } from 'vitest';
 
 import getCompetitionTour from './getCompetitionTour.mjs';
 
 test('identifies the Cutter & Buck Tour', () => {
-  assert.strictEqual(getCompetitionTour([13350, 13361]), 'Cutter & Buck Tour');
+  expect(getCompetitionTour([13350, 13361])).toBe('Cutter & Buck Tour');
 });
 
 test('identifies the ECCO Tour', () => {
-  assert.strictEqual(getCompetitionTour([13360, 13361]), 'ECCO Tour');
+  expect(getCompetitionTour([13360, 13361])).toBe('ECCO Tour');
 });
 
 test('returns null for the shared category alone', () => {
-  assert.strictEqual(getCompetitionTour([13361]), null);
+  expect(getCompetitionTour([13361])).toBe(null);
 });
 
 test('returns null for unknown or co-sanctioned categories', () => {
-  assert.strictEqual(getCompetitionTour([13361, 14118]), null);
+  expect(getCompetitionTour([13361, 14118])).toBe(null);
 });
 
 test('returns null for empty or missing categories', () => {
-  assert.strictEqual(getCompetitionTour([]), null);
-  assert.strictEqual(getCompetitionTour(undefined), null);
-  assert.strictEqual(getCompetitionTour(null), null);
+  expect(getCompetitionTour([])).toBe(null);
+  expect(getCompetitionTour(undefined)).toBe(null);
+  expect(getCompetitionTour(null)).toBe(null);
 });

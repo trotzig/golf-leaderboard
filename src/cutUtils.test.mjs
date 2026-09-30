@@ -1,5 +1,4 @@
-import { describe, it } from 'node:test';
-import assert from 'node:assert/strict';
+import { describe, expect, it } from 'vitest';
 import { countHolesPlayedForEntry, getProjectedCutScore } from './cutUtils.mjs';
 
 describe('countHolesPlayedForEntry', () => {
@@ -14,7 +13,7 @@ describe('countHolesPlayedForEntry', () => {
         },
       };
       // Cut after round 2 — only R1 and R2 should count
-      assert.equal(countHolesPlayedForEntry(entry, 2, 2), 36);
+      expect(countHolesPlayedForEntry(entry, 2, 2)).toBe(36);
     });
 
     it('ignores rounds beyond afterRound even if completed', () => {
@@ -25,7 +24,7 @@ describe('countHolesPlayedForEntry', () => {
           R3: { IsCompleted: true },
         },
       };
-      assert.equal(countHolesPlayedForEntry(entry, 2, 2), 36);
+      expect(countHolesPlayedForEntry(entry, 2, 2)).toBe(36);
     });
 
     it('counts individual hole scores for in-progress round', () => {
@@ -39,7 +38,7 @@ describe('countHolesPlayedForEntry', () => {
         },
       };
       // R1 complete (18) + 3 holes in R2 = 21
-      assert.equal(countHolesPlayedForEntry(entry, 2, 2), 21);
+      expect(countHolesPlayedForEntry(entry, 2, 2)).toBe(21);
     });
 
     it('does not count holes from in-progress round beyond afterRound', () => {
@@ -54,7 +53,7 @@ describe('countHolesPlayedForEntry', () => {
         },
       };
       // R3 is beyond afterRound=2 and must be ignored
-      assert.equal(countHolesPlayedForEntry(entry, 3, 2), 36);
+      expect(countHolesPlayedForEntry(entry, 3, 2)).toBe(36);
     });
 
     it('returns 0 when no rounds are completed and none have hole scores', () => {
@@ -64,7 +63,7 @@ describe('countHolesPlayedForEntry', () => {
           R2: { IsCompleted: false },
         },
       };
-      assert.equal(countHolesPlayedForEntry(entry, 1, 2), 0);
+      expect(countHolesPlayedForEntry(entry, 1, 2)).toBe(0);
     });
   });
 
@@ -72,23 +71,23 @@ describe('countHolesPlayedForEntry', () => {
     it('counts current round holes plus completed rounds before cut', () => {
       const entry = { ScoringToPar: { HoleValue: 9 } };
       // activeRound=2, afterRound=2 → 1 completed round (R1) + 9 holes in R2
-      assert.equal(countHolesPlayedForEntry(entry, 2, 2), 27);
+      expect(countHolesPlayedForEntry(entry, 2, 2)).toBe(27);
     });
 
     it('clamps completed rounds at afterRound', () => {
       const entry = { ScoringToPar: { HoleValue: 5 } };
       // activeRound=3, afterRound=2 → only 2 completed rounds counted (not 2)
-      assert.equal(countHolesPlayedForEntry(entry, 3, 2), 41);
+      expect(countHolesPlayedForEntry(entry, 3, 2)).toBe(41);
     });
 
     it('clamps negative HoleValue (tee-time timestamp) to 0', () => {
       const entry = { ScoringToPar: { HoleValue: -12345 } };
-      assert.equal(countHolesPlayedForEntry(entry, 2, 2), 18);
+      expect(countHolesPlayedForEntry(entry, 2, 2)).toBe(18);
     });
 
     it('handles missing ScoringToPar', () => {
       const entry = {};
-      assert.equal(countHolesPlayedForEntry(entry, 2, 2), 18);
+      expect(countHolesPlayedForEntry(entry, 2, 2)).toBe(18);
     });
   });
 });
@@ -106,12 +105,12 @@ describe('getProjectedCutScore', () => {
   const cut = { AfterRound: 2 };
 
   it('returns null when cutConfig is missing', () => {
-    assert.equal(getProjectedCutScore(null, cut, [], 2), null);
+    expect(getProjectedCutScore(null, cut, [], 2)).toBe(null);
   });
 
   it('returns null when no entry sits at the cut line', () => {
     const entries = [makeEntry(1, -50000, { R1: { IsCompleted: true }, R2: { IsCompleted: true } })];
-    assert.equal(getProjectedCutScore(cutConfig, cut, entries, 2), null);
+    expect(getProjectedCutScore(cutConfig, cut, entries, 2)).toBe(null);
   });
 
   it('does not exceed 1.0 field completion when later rounds have data', () => {
@@ -135,12 +134,12 @@ describe('getProjectedCutScore', () => {
     // vs totalFieldHoles=2*2*18=72, giving ratio=2.0 and a wildly wrong projection.
     // With the fix, ratio=1.0 and projected = currentScore * 2 = -10.
     const result = getProjectedCutScore(cutConfig, cut, entries, 2);
-    assert.notEqual(result, null);
+    expect(result).not.toBe(null);
     // currentScore for cut entry (#2) = -50000/10000 = -5
     // fieldCompletionRatio = (18+18)/(2*2*18) ... wait both players have R1+R2 completed
     // holesPlayed = 2*36=72, totalFieldHoles=2*2*18=72, ratio=1.0
     // projected = -5 + (-5 * 1.0) = -10
-    assert.equal(result, '-10');
+    expect(result).toBe('-10');
   });
 
   it('returns null during round 1 when fewer than 75% of holes are played', () => {
@@ -149,6 +148,6 @@ describe('getProjectedCutScore', () => {
       makeEntry(2, -10000, { R1: { IsCompleted: false, HoleScores: { H1: 4 } } }),
     ];
     // 2 holes played out of 2*18=36 → 5.5% < 75%
-    assert.equal(getProjectedCutScore(cutConfig, cut, entries, 1), null);
+    expect(getProjectedCutScore(cutConfig, cut, entries, 1)).toBe(null);
   });
 });
