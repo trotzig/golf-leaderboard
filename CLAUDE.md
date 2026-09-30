@@ -2,6 +2,29 @@
 
 Unofficial website for the Cutter & Buck Tour, the Nordic professional golf tour for men. Live at [nordicgolftour.app](https://nordicgolftour.app).
 
+## Always start from a fresh `main` in a local worktree
+
+Before making any changes, make sure you're working in a local git worktree
+based on the latest `origin/main`. Never work directly in the main checkout,
+and never build on a stale local `main`.
+
+```bash
+git fetch origin main
+git worktree add -b <branch-name> <path-to-worktree> origin/main
+cd <path-to-worktree>
+```
+
+If you're already in a worktree created for this task (e.g. under
+`.claude/worktrees/`), bring it up to date before starting instead:
+
+```bash
+git fetch origin main
+git rebase origin/main
+```
+
+Worktrees don't share untracked files, so copy an `.env` file from the main
+checkout into the worktree if you need to run the app locally.
+
 ## Tech Stack
 
 - **Framework**: Next.js (Pages Router) with React 19
