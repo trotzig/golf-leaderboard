@@ -124,13 +124,13 @@ h2 {
   width: 360px;
   height: 280px;
   color: var(--accent);
-  opacity: 0.35;
+  opacity: 0.15;
   stroke-width: 1.2;
   pointer-events: none;
 }
 @media (prefers-color-scheme: dark) {
   .intro-contours {
-    opacity: 0.22;
+    opacity: 0.12;
   }
 }
 @media (max-width: 600px) {
