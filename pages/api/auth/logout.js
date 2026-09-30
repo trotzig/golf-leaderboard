@@ -1,9 +1,11 @@
-import { serialize } from 'cookie';
+import { stringifySetCookie } from 'cookie';
 
 export default async function handler(req, res) {
   res.setHeader(
     'Set-Cookie',
-    serialize('auth', 1, {
+    stringifySetCookie({
+      name: 'auth',
+      value: '1',
       httpOnly: true,
       maxAge: 1,
       path: '/',
