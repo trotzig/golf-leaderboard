@@ -1,0 +1,74 @@
+{
+  "competitionId": 5398146,
+  "competitionSlug": "folksam-championship-2026",
+  "competitionName": "Folksam Championship",
+  "venue": "Barsebäck Golf & Resort",
+  "startDate": "2026-09-23T00:00:00.000Z",
+  "endDate": "2026-09-25T00:00:00.000Z",
+  "slug": "folksam-championship-2026",
+  "headline": "Kleén wins Folksam Championship by two at Barsebäck",
+  "blurb": "Algot Kleén finished at 13 under par to win the Folksam Championship at Barsebäck Golf & Resort, two shots ahead of David Lundgren.",
+  "body": "[Algot Kleén](/algot-kleen) won the Folksam Championship at Barsebäck Golf & Resort on September 25, finishing at 13 under par. The two-shot margin over [David Lundgren](/david-lundgren) gave Kleén a comfortable victory in the end.\n\nLundgren finished second at 11 under, while Norwegian [Sebastian Eidsæther Syr](/sebastian-eidsather-syr) took third place at 10 under. [Oliver Lilliedahl](/oliver-lilliedahl) and Icelandic [Dagbjartur Sigurbrandsson](/dagbjartur-sigurbrandsson) shared fourth at eight under par.\n\nKleén has been consistent this season and also finished third at the Big Green Egg Blekinge Open earlier in the year.\n\nThe cut fell at two under par, with only 31 of the 78 players in the field moving on to the final round. That meant 47 players went home after two rounds.",
+  "winnerName": "Algot Kleén",
+  "winnerPlayerId": "020618-005",
+  "winnerPlayerSlug": "algot-kleen",
+  "winnerImage": "/players/020618-005.jpg",
+  "stats": {
+    "winningScore": -13,
+    "winningScoreText": "-13",
+    "totalPlayers": 78,
+    "playersMadeCut": 31,
+    "playersMissedCut": 47,
+    "cutScore": -2,
+    "cutScoreText": "-2",
+    "marginOfVictory": 2,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "Algot Kleén",
+        "club": "Skaftö Golfklubb",
+        "score": -13,
+        "scoreText": "-13",
+        "playerId": "020618-005",
+        "playerSlug": "algot-kleen"
+      },
+      {
+        "position": "2",
+        "name": "David Lundgren",
+        "club": "Ängelholms Golfklubb",
+        "score": -11,
+        "scoreText": "-11",
+        "playerId": "010515-018",
+        "playerSlug": "david-lundgren"
+      },
+      {
+        "position": "3",
+        "name": "Sebastian Eidsæther Syr",
+        "club": "Losby Golfklubb",
+        "score": -10,
+        "scoreText": "-10",
+        "playerId": "72-2887",
+        "playerSlug": "sebastian-eidsather-syr"
+      },
+      {
+        "position": "T4",
+        "name": "Oliver Lilliedahl",
+        "club": "AIK Golfklubb",
+        "score": -8,
+        "scoreText": "-8",
+        "playerId": "980324-002",
+        "playerSlug": "oliver-lilliedahl"
+      },
+      {
+        "position": "T4",
+        "name": "Dagbjartur Sigurbrandsson",
+        "club": "Golfklúbbur Reykjavíkur",
+        "score": -8,
+        "scoreText": "-8",
+        "playerId": "157057",
+        "playerSlug": "dagbjartur-sigurbrandsson"
+      }
+    ]
+  },
+  "createdAt": "2026-09-30T16:04:20.927Z"
+}

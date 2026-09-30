@@ -1,0 +1,74 @@
+{
+  "competitionId": 5515043,
+  "competitionSlug": "finnish-open-by-footjoy-2026",
+  "competitionName": "Finnish Open by FootJoy",
+  "venue": "Hill Side Golf Club",
+  "startDate": "2026-08-27T00:00:00.000Z",
+  "endDate": "2026-08-29T00:00:00.000Z",
+  "slug": "finnish-open-by-footjoy-2026",
+  "headline": "Nyfjäll wins Finnish Open by two after second-round 62",
+  "blurb": "David Nyfjäll fired a second-round 62 at Hill Side Golf Club and held on to win the Finnish Open by FootJoy at 17 under par, two shots ahead of four players tied for second.",
+  "body": "[David Nyfjäll](/david-nyfjall) won the Finnish Open by FootJoy at Hill Side Golf Club, finishing at 17 under par — two shots clear of four players who shared second place at 15 under. The Swedish player from Upsala Golfklubb built his winning total around a brilliant second-round 62, the lowest round of the tournament.\n\n[Albin Tidén](/albin-tiden), [Jesper Hagborg Asp](/jesper-hagborg-asp), [Morten Ørum Madsen](/morten-orum-madsen) and [Sebastian Petersen](/sebastian-petersen) all finished tied at 15 under. Tidén made a strong push in the final round with a 63, while [Kasper Nyland](/kasper-nyland) also shot 63 in round three. Amateur [Saku Ellilä](/saku-ellila) was another to go very low, shooting 63 in the second round.\n\nNyfjäll has been a steady performer all season on the Cutter & Buck tour, with a second place at the NeH Hammarö Open and several top-five finishes. This was his first win of the season.\n\nThe field started with 104 players and 48 made the cut, which fell at two under par.",
+  "winnerName": "David Nyfjäll",
+  "winnerPlayerId": "990126-001",
+  "winnerPlayerSlug": "david-nyfjall",
+  "winnerImage": "/players/990126-001.jpg",
+  "stats": {
+    "winningScore": -17,
+    "winningScoreText": "-17",
+    "totalPlayers": 104,
+    "playersMadeCut": 48,
+    "playersMissedCut": 56,
+    "cutScore": -2,
+    "cutScoreText": "-2",
+    "marginOfVictory": 2,
+    "topFinishers": [
+      {
+        "position": "1",
+        "name": "David Nyfjäll",
+        "club": "Upsala Golfklubb",
+        "score": -17,
+        "scoreText": "-17",
+        "playerId": "990126-001",
+        "playerSlug": "david-nyfjall"
+      },
+      {
+        "position": "T2",
+        "name": "Albin Tidén",
+        "club": "Romeleåsens Golfklubb",
+        "score": -15,
+        "scoreText": "-15",
+        "playerId": "981005-006",
+        "playerSlug": "albin-tiden"
+      },
+      {
+        "position": "T2",
+        "name": "Jesper Hagborg Asp",
+        "club": "Onsjö Golfklubb",
+        "score": -15,
+        "scoreText": "-15",
+        "playerId": "961231-001",
+        "playerSlug": "jesper-hagborg-asp"
+      },
+      {
+        "position": "T2",
+        "name": "Morten Ørum Madsen",
+        "club": "Silkeborg Golfklub",
+        "score": -15,
+        "scoreText": "-15",
+        "playerId": "16-2117",
+        "playerSlug": "morten-orum-madsen"
+      },
+      {
+        "position": "T2",
+        "name": "Sebastian Petersen",
+        "club": "Djurgårdens IF Golfförening",
+        "score": -15,
+        "scoreText": "-15",
+        "playerId": "980821-001",
+        "playerSlug": "sebastian-petersen"
+      }
+    ]
+  },
+  "createdAt": "2026-09-30T16:03:38.403Z"
+}

@@ -6,6 +6,14 @@
  *
  * Reports are stored as JSON in the src/reports/ folder.
  *
+ * Usage:
+ *   writeReport.mjs                      pick a competition interactively
+ *   writeReport.mjs <slug>               write a report for a specific competition
+ *   writeReport.mjs --missing            list competitions without a report
+ *   writeReport.mjs <slug> --non-interactive
+ *                                        skip the context prompt and editor step
+ *                                        (also implied when stdin is not a TTY)
+ *
  * Requires: ANTHROPIC_API_KEY env variable, DATABASE_URL (via .env / dotenv)
  */
 
@@ -542,7 +550,13 @@ Return only the raw JSON object.`;
   return requestArticle(prompt);
 }
 
-function promptUser(question) {
+const args = process.argv.slice(2);
+const NON_INTERACTIVE =
+  args.includes('--non-interactive') || !process.stdin.isTTY;
+
+// In non-interactive mode, prompts resolve to `fallback` without reading stdin.
+function promptUser(question, fallback = '') {
+  if (NON_INTERACTIVE) return Promise.resolve(fallback);
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -735,6 +749,7 @@ async function writeMatchPlayReport({
 
   const editAnswer = await promptUser(
     '\nEdit the article in your editor before saving? (Y/n) ',
+    'n',
   );
   const article =
     editAnswer.toLowerCase() === 'n'
@@ -884,6 +899,7 @@ async function writeTeamReport({
 
   const editAnswer = await promptUser(
     '\nEdit the article in your editor before saving? (Y/n) ',
+    'n',
   );
   const article =
     editAnswer.toLowerCase() === 'n'
@@ -964,8 +980,14 @@ async function main() {
     process.exit(0);
   }
 
+  if (args.includes('--missing')) {
+    const missing = competitions.filter(c => !existingReportIds.has(c.id));
+    missing.forEach(c => console.log(c.slug));
+    process.exit(0);
+  }
+
   let competition;
-  const slugArg = process.argv[2];
+  const slugArg = args.find(a => !a.startsWith('--'));
   if (slugArg) {
     competition = competitions.find(c => c.slug === slugArg);
     if (!competition) {
@@ -979,6 +1001,10 @@ async function main() {
       console.log(`  ${i + 1}. ${c.name} (${format(c.end, 'MMM d')})${tag}`);
     });
 
+    if (NON_INTERACTIVE) {
+      console.error('Pass a competition slug when running non-interactively.');
+      process.exit(1);
+    }
     const answer = await promptUser('\nEnter number: ');
     const idx = parseInt(answer, 10) - 1;
     if (isNaN(idx) || idx < 0 || idx >= competitions.length) {
@@ -1203,6 +1229,7 @@ async function main() {
 
   const editAnswer = await promptUser(
     '\nEdit the article in your editor before saving? (Y/n) ',
+    'n',
   );
   const article =
     editAnswer.toLowerCase() === 'n'
