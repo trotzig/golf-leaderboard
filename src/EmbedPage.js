@@ -5,7 +5,7 @@ import ensureDates from './ensureDates.js';
 import competitionDateString from './competitionDateString.js';
 import formatCompetitionName from './formatCompetitionName';
 
-export default function EmbedPage({ title, players, competition }) {
+export default function EmbedPage({ title, players, competition, now }) {
   ensureDates(competition);
 
   return (
@@ -26,7 +26,7 @@ export default function EmbedPage({ title, players, competition }) {
           </span>
         </div>
         <h1>{formatCompetitionName(competition.name)}</h1>
-        <div className="pemb-date">{competitionDateString(competition)}</div>
+        <div className="pemb-date">{competitionDateString(competition, now)}</div>
         {players.map(player => {
           return (
             <div key={player.id} className="pemb-player">

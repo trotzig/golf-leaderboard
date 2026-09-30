@@ -4,7 +4,6 @@ module.exports = {
   stripFileExtensions: [],
   declarationKeyword({ pathToCurrentFile }) {
     if (
-      pathToCurrentFile.endsWith('-happo.js') ||
       pathToCurrentFile.endsWith('-test.js') ||
       /\/pages\//.test(pathToCurrentFile)
     ) {
