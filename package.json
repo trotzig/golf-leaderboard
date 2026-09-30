@@ -46,7 +46,6 @@
     "babel-loader": "^10.1.1",
     "cheerio": "^1.2.0",
     "dotenv-cli": "^11.0.0",
-    "happo": "latest",
     "import": "^0.0.6",
     "prisma": "^6.8.2",
     "storybook": "^10.6.0"

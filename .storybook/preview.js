@@ -1,5 +1,3 @@
-import 'happo/storybook/register';
-
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   controls: {

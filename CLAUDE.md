@@ -32,7 +32,7 @@ checkout into the worktree if you need to run the app locally.
 - **Deployment**: Vercel
 - **Styling**: Plain CSS (`styles.css`)
 - **Email**: Mailgun
-- **Visual testing**: Happo (screenshot testing), Storybook
+- **Visual testing**: Merrykat (screenshot testing of Storybook stories)
 
 ## Project Structure
 
