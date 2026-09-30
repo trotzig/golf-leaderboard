@@ -1,9 +1,17 @@
 import { useEffect, useState } from 'react';
-import md5 from 'crypto-js/md5';
+
+// djb2 string hash, used to derive a stable, identifier-safe callback name
+function hashString(str) {
+  let hash = 5381;
+  for (let i = 0; i < str.length; i++) {
+    hash = ((hash << 5) + hash + str.charCodeAt(i)) >>> 0;
+  }
+  return hash.toString(16);
+}
 
 export default function fetchJsonP(url) {
   return new Promise(resolve => {
-    const rndFunctionName = `cb_${md5(url)}`;
+    const rndFunctionName = `cb_${hashString(url)}`;
     window[rndFunctionName] = payload => {
       resolve(payload);
     };

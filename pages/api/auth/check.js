@@ -1,6 +1,6 @@
 import prisma from '../../../src/prisma';
 import crypto from 'crypto';
-import { serialize } from 'cookie';
+import { stringifySetCookie } from 'cookie';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -23,7 +23,9 @@ export default async function handler(req, res) {
   }
   res.setHeader(
     'Set-Cookie',
-    serialize('auth', account.authToken, {
+    stringifySetCookie({
+      name: 'auth',
+      value: account.authToken,
       httpOnly: true,
       maxAge: 2592000,
       path: '/',
