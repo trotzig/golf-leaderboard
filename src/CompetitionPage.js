@@ -23,6 +23,7 @@ import fixParValue from './fixParValue';
 import generateSlug from './generateSlug.mjs';
 import parseCET from './parseCET';
 import removeCommonCoursePrefix from './removeCommonCoursePrefix.js';
+import { withoutLaterUpcomingRounds } from './upcomingRounds.mjs';
 import YouTubeEmbed from './YouTubeEmbed';
 import VenueMapLink from './VenueMapLink';
 
@@ -220,10 +221,18 @@ function RoundTotal({ score, format, holes }) {
   );
 }
 
+function isRoundNotStarted(round, now) {
+  return now < parseCET(round.StartDateTime) || !round.Holes;
+}
+
 function Round({ round, colors, now, format }) {
   const startTime = parseCET(round.StartDateTime);
 
+  const notStarted = isRoundNotStarted(round, now);
   const classes = ['round'];
+  if (notStarted) {
+    classes.push('round-not-started');
+  }
   const courseColors = Object.values(colors || {});
   const color = courseColors.find(c => c.CourseID === round.CourseRefID);
   if (color && courseColors.length > 1) {
@@ -231,7 +240,7 @@ function Round({ round, colors, now, format }) {
   }
   return (
     <div className={classes.join(' ')}>
-      {now < startTime || !round.Holes ? (
+      {notStarted ? (
         <div className="round-start-time">
           {formatCETTime(round.StartDateTime)}
         </div>
@@ -324,6 +333,9 @@ function Player({
   format,
 }) {
   const rounds = getRounds(entry);
+  const visibleRounds = withoutLaterUpcomingRounds(rounds, round =>
+    isRoundNotStarted(round, now),
+  );
   const classes = ['player'];
   if (isFavorite) {
     classes.push('favorite-player');
@@ -350,7 +362,9 @@ function Player({
 
   const StatsWrapper = lazy ? Lazy : 'div';
   const statsHeight =
-    window.innerWidth < 400 ? 14 * rounds.length : 17 * rounds.length;
+    window.innerWidth < 400
+      ? 14 * visibleRounds.length
+      : 17 * visibleRounds.length;
 
   return (
     <li className={classes.join(' ')}>
@@ -423,7 +437,7 @@ function Player({
               </span>
             ) : null}
             <StatsWrapper className="stats" minHeight={statsHeight}>
-              {rounds.map(round => {
+              {visibleRounds.map(round => {
                 return (
                   <Round
                     key={round.StartDateTime}
