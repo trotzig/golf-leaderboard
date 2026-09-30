@@ -12,6 +12,10 @@ function groupByVenue(competitions) {
   return groups;
 }
 
+// CARTO Basemaps key. It ends up in every tile request anyway, so it isn't
+// secret — restrict it to our domains from the CARTO dashboard instead.
+const CARTO_KEY = 'cb1_455o_1_2d1023f7e24859a41c0549e7';
+
 export default function TourMap({ competitions, locations, now }) {
   const containerRef = useRef(null);
   const mapRef = useRef(null);
@@ -23,11 +27,11 @@ export default function TourMap({ competitions, locations, now }) {
 
     import('leaflet').then(({ default: L }) => {
       const tileUrl = darkMode
-        ? 'https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png'
-        : 'https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png';
+        ? `https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png?key=${CARTO_KEY}`
+        : `https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png?key=${CARTO_KEY}`;
       const labelUrl = darkMode
-        ? 'https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png'
-        : 'https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png';
+        ? `https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png?key=${CARTO_KEY}`
+        : `https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png?key=${CARTO_KEY}`;
 
       const map = L.map(containerRef.current, {
         scrollWheelZoom: false,
