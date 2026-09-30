@@ -3,6 +3,6 @@ import profileProps from '../src/profileProps.js';
 
 export default ProfilePage;
 
-export function getServerSideProps({ req }) {
-  return profileProps({ req });
+export function getServerSideProps({ req, res }) {
+  return profileProps({ req, res });
 }

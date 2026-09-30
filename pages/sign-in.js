@@ -1,8 +1,8 @@
-import SignInPage from '../src/SignInPage.js';
-import profileProps from '../src/profileProps.js';
+// Sign-in lives on the profile page. This route is kept for old links.
+export default function SignIn() {
+  return null;
+}
 
-export default SignInPage;
-
-export function getServerSideProps({ req }) {
-  return profileProps({ req });
+export function getServerSideProps() {
+  return { redirect: { destination: '/profile', permanent: false } };
 }

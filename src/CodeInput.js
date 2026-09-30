@@ -1,33 +1,49 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-export default function CodeInput({ length, ...props }) {
+export default function CodeInput({
+  length,
+  value,
+  onChange,
+  onComplete = () => {},
+  ref,
+  ...props
+}) {
   const ruler = useRef();
+  const internalRef = useRef();
+  const inputRef = ref || internalRef;
   const [charWidth, setCharWidth] = useState(0);
   const [charHeight, setCharHeight] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
   const [focus, setFocus] = useState(false);
-  const inputRef = useRef();
+  const charIndex = value.length;
+
   useEffect(() => {
     const rect = ruler.current.getBoundingClientRect();
-    setCharWidth(rect.width / 4);
+    setCharWidth(rect.width / length);
     setCharHeight(rect.height);
     inputRef.current.focus();
   }, []);
+
   return (
     <div
       className="code-input"
-      style={{ caretColor: charIndex === 4 ? 'transparent' : undefined }}
+      style={{ caretColor: charIndex === length ? 'transparent' : undefined }}
     >
       <input
-        autoComplete="off"
-        pattern="[a-z0-9]+"
+        // Lets browsers suggest the code straight from the email
+        autoComplete="one-time-code"
+        inputMode="numeric"
+        pattern="[0-9]*"
         minLength={length}
         maxLength={length}
         className="code-input-input"
         {...props}
+        value={value}
         onChange={e => {
-          const len = e.target.value.length;
-          setCharIndex(len);
+          const newValue = e.target.value.replace(/\D/g, '').slice(0, length);
+          onChange(newValue);
+          if (newValue.length === length) {
+            onComplete(newValue);
+          }
         }}
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}

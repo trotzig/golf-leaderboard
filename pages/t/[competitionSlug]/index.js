@@ -5,7 +5,7 @@ import profileProps from '../../../src/profileProps.js';
 
 export default CompetitionPage;
 
-export async function getServerSideProps({ req, params }) {
+export async function getServerSideProps({ req, res, params }) {
   const [competition, proProps, collidingSlugs] = await Promise.all([
     prisma.competition.findUnique({
       where: { slug: params.competitionSlug },
@@ -19,7 +19,7 @@ export async function getServerSideProps({ req, params }) {
         categories: true,
       },
     }),
-    profileProps({ req }),
+    profileProps({ req, res }),
     getCollidingSlugs(),
   ]);
   if (!competition) {

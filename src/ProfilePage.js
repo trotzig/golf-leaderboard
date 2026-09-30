@@ -67,7 +67,7 @@ export default function ProfilePage({ account }) {
           </div>
         ) : (
           <div className="profile-signed-out">
-            <SignInForm title="Sign in to change settings" />
+            <SignInForm />
           </div>
         )}
       </div>
@@ -123,6 +123,11 @@ export default function ProfilePage({ account }) {
 
       <h2>Notifications</h2>
       <div className="page-margin">
+        {!account && (
+          <p className="profile-settings-hint">
+            Sign in to turn on email notifications.
+          </p>
+        )}
         <div className="profile-settings">
           <label className="profile-setting">
             <span>
