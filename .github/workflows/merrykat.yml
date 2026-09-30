@@ -18,6 +18,12 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Build the PR head rather than GitHub's merge commit, and fetch full history so the
+          # CLI can resolve the merge base locally. With the default shallow clone, main builds
+          # can't be used as baselines.
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
