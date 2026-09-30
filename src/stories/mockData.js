@@ -1,8 +1,7 @@
 // Fictional, deterministic data for stories. Nothing here comes from GolfBox:
-// players, clubs, venues and results are all made up. Objects that mimic
+// players, clubs, venues and results are all made up. (Reports stories use
+// the real reports in src/reports.) Objects that mimic
 // GolfBox responses only copy the shape the components read.
-
-import { format } from 'date-fns';
 
 import generateSlug from '../generateSlug.mjs';
 
@@ -258,91 +257,4 @@ export const leaderboardData = {
   CourseColours: Object.fromEntries(
     COURSES.map(c => [c.Name.toLowerCase(), c]),
   ),
-};
-
-function playerLink(player) {
-  return `[${player.firstName} ${player.lastName}](/${player.slug})`;
-}
-
-function makeReport(competition, winner, runnerUp, i) {
-  const endDate = new Date(competition.end).toISOString();
-  return {
-    competitionId: competition.id,
-    competitionSlug: competition.slug,
-    competitionName: competition.name,
-    venue: competition.venue,
-    startDate: new Date(competition.start).toISOString(),
-    endDate,
-    slug: `${competition.slug}-report`,
-    headline: `${winner.lastName} wins ${competition.name} by ${i + 1}`,
-    blurb: `${winner.firstName} ${winner.lastName} closed with a bogey-free round to win the ${competition.name} at ${competition.venue}, ${i + 1} ahead of ${runnerUp.firstName} ${runnerUp.lastName}.`,
-    body: [
-      `${playerLink(winner)} won the ${competition.name} at ${competition.venue} on ${format(new Date(competition.end), 'MMMM d')}, finishing at 12 under par.`,
-      `${playerLink(runnerUp)} made a late charge with three birdies on the back nine but could not close the gap.`,
-      `The tour moves on to its next stop in two weeks.`,
-    ].join('\n\n'),
-    winnerName: `${winner.firstName} ${winner.lastName}`,
-    winnerPlayerId: winner.id,
-    winnerPlayerSlug: winner.slug,
-    winnerImage: null,
-    stats: {
-      totalPlayers: 120,
-      playersMadeCut: 48,
-      cutScore: 1,
-      topFinishers: [winner, runnerUp, ...players.slice(10, 13)].map(
-        (p, j) => ({
-          position: j === 0 ? '1' : j === 1 ? '2' : 'T3',
-          name: `${p.firstName} ${p.lastName}`,
-          club: p.clubName,
-          score: -12 + i + j,
-          scoreText: `${-12 + i + j}`,
-          playerId: p.id,
-          playerSlug: p.slug,
-        }),
-      ),
-    },
-  };
-}
-
-export const tournamentReports = competitions2026
-  .slice(7, 12)
-  .reverse()
-  .map((competition, i) =>
-    makeReport(competition, players[i], players[i + 5], i),
-  );
-
-export const seasonSummaryReport = {
-  competitionSlug: competitions2026[6].slug,
-  competitionName: competitions2026[6].name,
-  venue: competitions2026[6].venue,
-  startDate: new Date(competitions2026[0].start).toISOString(),
-  endDate: new Date(competitions2026[6].end).toISOString(),
-  slug: 'season-summary-2026',
-  headline: 'Birdie race tightens as the season reaches its midpoint',
-  blurb:
-    'Seven events in, three players are separated by a handful of birdies and the tour has already seen two hole-in-ones.',
-  body: [
-    `${playerLink(players[2])} leads the birdie count, two ahead of ${playerLink(players[3])}.`,
-    `Aces from ${playerLink(players[7])} and ${playerLink(players[9])} have been the highlights so far.`,
-  ].join('\n\n'),
-  winnerName: null,
-  winnerPlayerId: null,
-  winnerImage: null,
-  isSeriesReport: true,
-  stats: {
-    topBirdies: players.slice(2, 7).map((p, i) => ({
-      id: p.id,
-      name: `${p.firstName} ${p.lastName}`,
-      playerSlug: p.slug,
-      count: 64 - i * 3,
-    })),
-    holeInOnes: [players[7], players[9]].map((p, i) => ({
-      memberId: p.id,
-      name: `${p.firstName} ${p.lastName}`,
-      playerSlug: p.slug,
-      hole: i === 0 ? 7 : 16,
-      venue: competitions2026[i + 2].venue,
-      competitionName: competitions2026[i + 2].name,
-    })),
-  },
 };
