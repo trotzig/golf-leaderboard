@@ -85,7 +85,7 @@ export default function TourMap({ competitions, locations, now }) {
           }</a><br><span class="tour-map-date">${dateRange}</span>`;
         });
 
-        L.marker([loc.lat, loc.lng], { icon })
+        L.marker([loc.lat, loc.lng], { icon, title: venue })
           .addTo(map)
           .bindPopup(
             `<div class="tour-map-popup"><strong>${venue}</strong>${popupLines.join(

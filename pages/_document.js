@@ -13,7 +13,7 @@ const standaloneScript = `
 
 export default function Document() {
   return (
-    <Html>
+    <Html lang="en">
       <Head>
         {appleSplashScreens.map(({ href, media }) => (
           <link

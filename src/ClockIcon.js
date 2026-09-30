@@ -23,6 +23,8 @@ function Clock({ date }) {
       viewBox="0 0 30 30"
       width="24"
       height="24"
+      role="img"
+      aria-label={`Tee time ${hours}:${String(minutes).padStart(2, '0')}`}
       style={{
         border: '2px solid currentColor',
         borderRadius: '50%',

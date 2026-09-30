@@ -94,5 +94,13 @@ export default function FlagIcon({ nationality }) {
   if (!nationality) return null;
   const FlagComponent = CODE_MAP[nationality] || FLAGS[nationality];
   if (!FlagComponent) return null;
-  return <FlagComponent className="flag-icon" />;
+  const countryName = getCountryName(nationality) || nationality;
+  return (
+    <FlagComponent
+      className="flag-icon"
+      role="img"
+      aria-label={countryName}
+      title={countryName}
+    />
+  );
 }

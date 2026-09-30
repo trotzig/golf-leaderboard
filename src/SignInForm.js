@@ -22,7 +22,7 @@ export default function SignInForm({
   return (
     <div className="sign-in-form">
       {error && (
-        <p className="alert">
+        <p className="alert" role="alert">
           {error === 'invalid-code' ? (
             <>That's not the right 4-digit code</>
           ) : (
@@ -70,7 +70,7 @@ export default function SignInForm({
           <h4>Enter code</h4>
           <p>Check your email for a 4-digit code to enter here</p>
           <div className="input-wrapper">
-            <CodeInput name="token" length={4} />
+            <CodeInput name="token" length={4} aria-label="4-digit code" />
           </div>
           <button type="submit" className="icon-button" disabled={isSubmitting}>
             Sign in
@@ -110,6 +110,8 @@ export default function SignInForm({
               value={email}
               onChange={e => setEmail(e.target.value)}
               placeholder="Enter your email address"
+              aria-label="Email address"
+              autoComplete="email"
               disabled={isSubmitting}
               required
             />

@@ -2,7 +2,7 @@
 
 :root,
 .pemb-page {
-  --primary: #e54e37;
+  --primary: #c63823;
   --primary-light: #f4c7c1;
   --primary-lightest: #ffe6e2;
 
@@ -18,6 +18,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
+    --primary: #ee6d5a;
     --background: #222;
     --background-rgb: 34, 34, 34;
     --text: #f0f0f0;
@@ -121,7 +122,7 @@ button {
 .page-desc {
   padding: 10px;
   margin: 0;
-  opacity: 0.7;
+  opacity: 0.85;
   line-height: 1.5;
   margin-bottom: 10px;
 }
@@ -139,7 +140,7 @@ button {
   font-weight: normal;
   padding: 5px 10px 10px;
   margin: 0;
-  opacity: 0.7;
+  opacity: 0.85;
   display: flex;
   align-items: center;
   gap: 0.4em;
@@ -164,7 +165,7 @@ button {
   letter-spacing: 0.06em;
   padding: 0 10px;
   margin: 0 0 4px;
-  opacity: 0.6;
+  opacity: 0.85;
 }
 
 .page-tabs {
@@ -179,7 +180,7 @@ button {
   font-size: 14px;
   text-decoration: none;
   color: inherit;
-  opacity: 0.6;
+  opacity: 0.85;
 }
 
 .page-tab--active {
@@ -207,7 +208,7 @@ button {
 .cut-info-body {
   margin: 0;
   line-height: 1.5;
-  opacity: 0.7;
+  opacity: 0.85;
   margin: 0;
   font-size: 14px;
   font-weight: normal;
@@ -400,7 +401,7 @@ html.display-standalone nav {
   gap: 0;
 
   & > a {
-    color: rgba(var(--text-rgb), 0.7);
+    color: rgba(var(--text-rgb), 0.85);
     padding: 6px 10px;
     border: 0px solid transparent;
     border-radius: var(--standalone-nav-border-radius);
@@ -419,7 +420,7 @@ html.display-standalone nav {
 }
 
 .competitions li.completed {
-  opacity: 0.3;
+  opacity: 0.85;
   transition: all 0.1s;
 }
 .competitions li.completed:hover {
@@ -460,13 +461,13 @@ html.display-standalone nav {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  opacity: 0.6;
+  opacity: 0.85;
   margin: 0 0 2px;
 }
 
 .competition p {
   margin: 0;
-  opacity: 0.7;
+  opacity: 0.85;
   font-size: 14px;
 }
 .competition h4 {
@@ -525,7 +526,7 @@ html.display-standalone nav {
   text-overflow: unset;
 }
 .competitions li.next .competition p {
-  opacity: 0.75;
+  opacity: 0.85;
 }
 
 .leaderboard-page ul li {
@@ -615,7 +616,7 @@ html.display-standalone nav {
 }
 
 .round-score {
-  opacity: 0.5;
+  opacity: 0.85;
   width: 15px;
   height: 15px;
   display: block;
@@ -634,6 +635,7 @@ html.display-standalone nav {
 }
 .round-total.under-par {
   color: var(--primary);
+  opacity: 1;
 }
 .round-score.birdie {
   border-width: 1px;
@@ -644,7 +646,7 @@ html.display-standalone nav {
   border-radius: 50%;
   border-color: var(--primary);
   color: var(--primary);
-  opacity: 0.8;
+  opacity: 1;
 }
 .round-score.eagle:after {
   content: '';
@@ -711,7 +713,7 @@ html.display-standalone nav {
   display: flex;
   gap: 6px;
   align-items: center;
-  color: rgba(var(--text-rgb), 0.5);
+  color: rgba(var(--text-rgb), 0.85);
   font-size: 12px;
   margin: 3px 0 5px;
 }
@@ -774,7 +776,7 @@ main {
 
 footer {
   text-align: center;
-  opacity: 0.4;
+  opacity: 0.85;
   padding: 80px 10px 60px;
   font-size: 14px;
 }
@@ -877,7 +879,7 @@ footer a:hover {
   font-size: 12px;
   font-weight: 600;
   color: var(--text);
-  opacity: 0.5;
+  opacity: 0.85;
   text-align: right;
 }
 
@@ -960,7 +962,7 @@ footer a:hover {
 .hole-len {
   font-size: 12px;
   color: var(--text);
-  opacity: 0.7;
+  opacity: 0.85;
   text-align: right;
 }
 
@@ -979,7 +981,7 @@ footer a:hover {
   padding: 4px 0;
   font-size: 12px;
   color: var(--text);
-  opacity: 0.6;
+  opacity: 0.85;
   border-top: 1px solid rgba(var(--text-rgb), 0.15);
 }
 
@@ -1006,7 +1008,7 @@ footer a:hover {
 }
 
 .leaderboard-page .round-start-time {
-  opacity: 0.5;
+  opacity: 0.85;
 }
 .position-inline {
   display: none;
@@ -1030,7 +1032,7 @@ footer a:hover {
 }
 @media (max-width: 400px) {
   .round-score {
-    opacity: 0.6;
+    opacity: 0.85;
     font-size: 10px;
     width: 12px;
     height: 12px;
@@ -1136,7 +1138,7 @@ footer a:hover {
 }
 .player-profile-club {
   margin: 0;
-  color: rgba(from currentColor r g b / 0.7);
+  color: rgba(from currentColor r g b / 0.85);
   font-size: 14px;
   margin-top: 5px;
   display: flex;
@@ -1176,7 +1178,7 @@ footer a:hover {
 
 .player-profile-top b {
   font-size: 14px;
-  opacity: 0.7;
+  opacity: 0.85;
   display: block;
   margin-bottom: 5px;
   font-weight: normal;
@@ -1223,7 +1225,7 @@ footer a:hover {
   text-align: center;
 }
 .player-round-scorecard > * {
-  opacity: 0.7;
+  color: rgba(var(--text-rgb), 0.85);
 }
 .player-round-scorecard > *:first-child {
   text-align: left;
@@ -1231,7 +1233,6 @@ footer a:hover {
 .player-round-scorecard-hole-last {
   border-right: 1px solid currentColor;
   padding-right: 4px;
-  opacity: 0.7;
 }
 .player-round-scorecard-total {
   font-weight: bold;
@@ -1298,7 +1299,7 @@ footer a:hover {
   padding: 10px 0;
   margin-top: 0;
   gap: 10px;
-  color: rgba(var(--text-rgb), 0.5);
+  color: rgba(var(--text-rgb), 0.85);
 }
 
 .player-page-top h2 {
@@ -1440,7 +1441,7 @@ select {
 }
 .players .sort-by label span {
   display: block;
-  opacity: 0.7;
+  opacity: 0.85;
   font-size: 14px;
   margin-bottom: 3px;
 }
@@ -1526,7 +1527,7 @@ input.sign-in-form-input {
   align-items: center;
   gap: 10px;
   font-size: 14px;
-  color: rgba(var(--text-rgb), 0.7);
+  color: rgba(var(--text-rgb), 0.85);
   margin-bottom: 6px;
 }
 .profile-favorite-undo-button {
@@ -1616,7 +1617,7 @@ input.ios-switch:checked:after {
 }
 .results-table-competition div {
   font-size: 12px;
-  opacity: 0.5;
+  opacity: 0.85;
   padding: 3px 0;
 }
 .results-table-score,
@@ -1660,14 +1661,14 @@ input.ios-switch:checked:after {
 }
 
 .stats-no-data {
-  color: rgba(128, 128, 128, 0.7);
+  color: rgba(var(--text-rgb), 0.85);
   font-size: 14px;
   padding: 20px 0;
 }
 
 .schedule-venue {
   display: block;
-  opacity: 0.7;
+  opacity: 0.85;
 }
 
 .schedule-tour {
@@ -1676,7 +1677,7 @@ input.ios-switch:checked:after {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  opacity: 0.6;
+  opacity: 0.85;
 }
 
 .schedule-month-header td {
@@ -1686,12 +1687,12 @@ input.ios-switch:checked:after {
   font-size: 0.85em;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  opacity: 0.5;
+  opacity: 0.85;
   border: none;
 }
 
-.competition-list-item.past {
-  opacity: 0.5;
+.competition-list-item.past a {
+  color: var(--text);
 }
 
 .competition-list-item.past a {
@@ -1797,7 +1798,7 @@ input.ios-switch:checked:after {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  opacity: 0.5;
+  opacity: 0.85;
   margin-bottom: 6px;
 }
 
@@ -1820,7 +1821,7 @@ input.ios-switch:checked:after {
 }
 
 .tour-map-date {
-  opacity: 0.55;
+  opacity: 0.85;
   font-size: 12px;
 }
 
@@ -1841,7 +1842,7 @@ input.ios-switch:checked:after {
   margin-bottom: 0;
   padding: 0 10px;
   font-size: 14px;
-  opacity: 0.7;
+  opacity: 0.85;
 }
 .leaderboard-page-heading,
 .tee-times-page-heading {
@@ -1855,11 +1856,11 @@ input.ios-switch:checked:after {
   font-size: 18px;
 }
 .leaderboard .leaderboard-description {
-  opacity: 0.7;
+  opacity: 0.85;
   font-size: 14px;
 }
 .leaderboard .leaderboard-legend {
-  opacity: 0.7;
+  opacity: 0.85;
   font-size: 14px;
 }
 .leaderboard {
@@ -1910,7 +1911,7 @@ input.ios-switch:checked:after {
   display: flex;
   align-items: center;
   font-size: 12px;
-  color: rgba(var(--text-rgb), 0.5);
+  color: rgba(var(--text-rgb), 0.85);
   margin-top: 3px;
 }
 .leaderboard-view-all {
@@ -2022,13 +2023,13 @@ input.ios-switch:checked:after {
 }
 
 .match-player--tbd {
-  color: rgba(var(--text-rgb), 0.5);
+  color: rgba(var(--text-rgb), 0.85);
   font-style: italic;
 }
 
 .match-player--loser .match-player-name {
   font-weight: normal;
-  color: rgba(var(--text-rgb), 0.55);
+  color: rgba(var(--text-rgb), 0.85);
 }
 
 .match-player.favorite-player .match-player-name {
@@ -2081,12 +2082,12 @@ input.ios-switch:checked:after {
 
 .match-inprogress .match-thru {
   font-size: 11px;
-  color: rgba(var(--text-rgb), 0.6);
+  color: rgba(var(--text-rgb), 0.85);
 }
 
 .match-center-tbd,
 .match-bye {
-  color: rgba(var(--text-rgb), 0.4);
+  color: rgba(var(--text-rgb), 0.85);
 }
 
 .tabs {
@@ -2148,11 +2149,11 @@ input.ios-switch:checked:after {
   }
 }
 .startlist-game-players .club {
-  opacity: 0.5;
+  opacity: 0.85;
   font-size: 12px;
 }
 .startlist-game-where {
-  opacity: 0.7;
+  opacity: 0.85;
   font-size: 12px;
 }
 .startlist-section-heading {
@@ -2171,7 +2172,7 @@ input.ios-switch:checked:after {
 }
 
 .presented-by-intro {
-  opacity: 0.7;
+  opacity: 0.85;
   text-transform: uppercase;
   font-size: 11px;
   line-height: 15px;
@@ -2196,7 +2197,7 @@ input.ios-switch:checked:after {
   height: auto;
 }
 .presented-by-outro {
-  opacity: 0.7;
+  opacity: 0.85;
   font-size: 12px;
   padding-top: 7px;
   font-weight: normal;
@@ -2227,7 +2228,7 @@ input.ios-switch:checked:after {
 
 .pemb-intro {
   font-size: 12px;
-  opacity: 0.7;
+  opacity: 0.85;
 }
 .pemb-box h1 {
   margin: 8px 0 4px;
@@ -2238,7 +2239,7 @@ input.ios-switch:checked:after {
 }
 .pemb-date {
   font-size: 12px;
-  opacity: 0.7;
+  opacity: 0.85;
 }
 .pemb-player {
   display: grid;
@@ -2252,7 +2253,7 @@ input.ios-switch:checked:after {
 }
 
 .pemb-player-club {
-  opacity: 0.5;
+  opacity: 0.85;
   font-size: 12px;
   margin: 3px 0 5px;
 }
@@ -2271,7 +2272,7 @@ input.ios-switch:checked:after {
 }
 .pemb-player-score-today {
   text-align: right;
-  opacity: 0.5;
+  opacity: 0.85;
   font-size: 12px;
   margin: 3px 0 5px;
 }
@@ -2374,7 +2375,7 @@ h2.player-big-name {
 .report-blurb-meta {
   margin: 0 0 3px;
   font-size: 12px;
-  opacity: 0.6;
+  opacity: 0.85;
   letter-spacing: 0.04em;
 }
 
@@ -2388,7 +2389,7 @@ h2.player-big-name {
 .report-blurb-text {
   margin: 0 0 6px;
   font-size: 13px;
-  opacity: 0.75;
+  opacity: 0.85;
   line-height: 1.4;
 }
 
@@ -2412,7 +2413,7 @@ h2.player-big-name {
 .report-meta {
   margin: 10px 0 10px;
   font-size: 13px;
-  opacity: 0.6;
+  opacity: 0.85;
   letter-spacing: 0.04em;
 }
 
@@ -2430,7 +2431,7 @@ h2.player-big-name {
 
 .report-lead {
   font-size: 16px;
-  opacity: 0.8;
+  opacity: 0.85;
   line-height: 1.5;
   margin: 0;
   font-style: italic;
@@ -2465,7 +2466,7 @@ h2.player-big-name {
 .report-winner-caption {
   margin: 8px 0 0;
   font-size: 13px;
-  opacity: 0.6;
+  opacity: 0.85;
 }
 
 .report-body p {
@@ -2502,7 +2503,7 @@ h2.player-big-name {
   text-align: left;
   padding: 6px 12px;
   font-size: 12px;
-  opacity: 0.6;
+  opacity: 0.85;
   font-weight: normal;
   border-bottom: 1px solid rgba(var(--text-rgb), 0.1);
 }
@@ -2518,7 +2519,7 @@ h2.player-big-name {
 
 .report-results-club {
   font-size: 12px;
-  opacity: 0.6;
+  opacity: 0.85;
   margin-top: 1px;
 }
 
@@ -2534,7 +2535,7 @@ h2.player-big-name {
 .report-results-stats {
   padding: 8px 12px;
   font-size: 12px;
-  opacity: 0.6;
+  opacity: 0.85;
   border-top: 1px solid rgba(var(--text-rgb), 0.1);
 }
 
@@ -2550,7 +2551,7 @@ h2.player-big-name {
 .report-footer {
   margin-top: 32px;
   font-size: 14px;
-  opacity: 0.7;
+  color: rgba(var(--text-rgb), 0.85);
 }
 
 .report-player-link {
@@ -2563,7 +2564,7 @@ h2.player-big-name {
 .report-ai-note {
   margin-top: 8px;
   font-size: 12px;
-  opacity: 0.5;
+  color: rgba(var(--text-rgb), 0.85);
 }
 
 /* Add to home screen banner */
@@ -2592,7 +2593,7 @@ h2.player-big-name {
   font-size: 20px;
   line-height: 1;
   padding: 0 4px;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
 .add-to-home-screen-dismiss:hover {
@@ -2697,7 +2698,7 @@ h2.player-big-name {
 
 .advertise-stat-label {
   font-size: 13px;
-  opacity: 0.7;
+  opacity: 0.85;
   margin-top: 4px;
 }
 
@@ -2980,17 +2981,12 @@ h2.player-big-name {
 .not-found-subheading {
   margin: 0 0 0.75rem;
   font-size: 1rem;
-  opacity: 0.7;
+  opacity: 0.85;
 }
 
 .not-found-link {
   font-size: 0.9rem;
-  opacity: 0.6;
   text-decoration: underline;
-}
-
-.not-found-link:hover {
-  opacity: 1;
 }
 
 .admin-dashboard {
@@ -3014,7 +3010,7 @@ h2.player-big-name {
 .admin-select-label {
   display: block;
   font-size: 0.8rem;
-  opacity: 0.6;
+  opacity: 0.85;
   margin-bottom: 0.5rem;
   padding-left: 0.75rem;
 }
@@ -3035,7 +3031,7 @@ h2.player-big-name {
 
 .admin-table th {
   font-weight: 600;
-  opacity: 0.6;
+  opacity: 0.85;
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -3081,5 +3077,33 @@ h2.player-big-name {
   .player-round-scorecard > *,
   .player-round-scorecard-hole-last {
     opacity: 0.9;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+input.ios-switch:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
