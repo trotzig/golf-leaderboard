@@ -197,6 +197,7 @@ export default function PlayersPage({ account, players: rawPlayers }) {
       <p className="page-desc" style={{ marginBottom: 15 }}>
         Showing players with an active participation{' '}
         <select
+          aria-label="Seasons"
           value={years}
           onChange={handleYearsChange}
           style={{

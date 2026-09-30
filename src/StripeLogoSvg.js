@@ -2,7 +2,9 @@ import React from 'react';
 
 export default function StripeLogoSvg({ color = '#103133' }) {
   return (
-    <svg x="0" y="0" version="1.1" viewBox="0 0 523.09 144.2" fill={color}>
+    <svg x="0" y="0" version="1.1" viewBox="0 0 523.09 144.2" fill={color}
+      aria-hidden="true"
+    >
       <path
         d="M234.29 51.37h-17.33v25.94h17.33c3.57 0 6.62-1.27 9.15-3.8 2.53-2.53 3.8-5.58 3.8-9.15 0-3.6-1.27-6.67-3.8-9.2-2.53-2.53-5.58-3.79-9.15-3.79zm-28.86 57.31h11.53V88.84h12.65l15.63 19.84h14.69l-16.89-21.44c4.67-1.78 8.44-4.74 11.29-8.86 2.95-4.22 4.43-8.89 4.43-14.02 0-6.78-2.38-12.56-7.15-17.33-4.8-4.8-10.58-7.2-17.33-7.2h-30.95l-4.82 11.53h6.91v57.32z"
         style={{ fillRule: 'evenodd', clipRule: 'evenodd' }}

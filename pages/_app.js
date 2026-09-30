@@ -71,7 +71,7 @@ function MyApp({ Component, pageProps }) {
         <title>{process.env.NEXT_PUBLIC_TITLE}</title>
         <meta
           name="viewport"
-          content="initial-scale=1.0, width=device-width, user-scalable=no"
+          content="initial-scale=1.0, width=device-width"
         />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
