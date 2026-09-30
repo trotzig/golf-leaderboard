@@ -108,7 +108,7 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
       </main>
       <footer>
-        By <a href="https://github.com/trotzig">@trotzig</a> 2022–{new Date().getFullYear()} · <a href="/about">About</a> this open-source website
+        By <a href="https://github.com/trotzig">@trotzig</a> 2022–{new Date().getFullYear()} · <a href="/about">About</a> this open-source website · <a href="/advertise">Advertise</a>
       </footer>
     </div>
   );
