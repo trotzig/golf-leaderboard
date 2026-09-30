@@ -1,3 +1,4 @@
+import { setAuthCookie } from '../../src/authCookie.mjs';
 import prisma from '../../src/prisma';
 
 export default async function handler(req, res) {
@@ -10,6 +11,7 @@ export default async function handler(req, res) {
     return res.status(401).send();
   }
 
+  setAuthCookie(res, authToken);
   const { email, sendEmailOnFinished, sendEmailOnStart, sendEmailOnHotStreak } =
     account;
   res.json({

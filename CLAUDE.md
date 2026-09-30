@@ -71,7 +71,7 @@ Key env vars: `DATABASE_URL`, `NEXT_PUBLIC_GOLFBOX_CUSTOMER_ID`, `NEXT_PUBLIC_GO
 
 ## Authentication
 
-Passwordless email-based sign-in. Flow: `auth/init.js` → email with code → `auth/confirm-code.js` or `auth/confirm.js` → sets auth cookie.
+Passwordless email-based sign-in. Flow: `auth/init.js` → email with 4-digit code → `auth/confirm-code.js` → sets auth cookie (renewed on each visit). Sign-in UI is `src/SignInForm.js`, shown on `/profile` (`/sign-in` redirects there).
 
 ## Key Scripts
 

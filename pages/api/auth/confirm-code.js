@@ -1,44 +1,54 @@
-import prisma from '../../../src/prisma';
 import crypto from 'crypto';
-import { stringifySetCookie } from 'cookie';
+
+import { checkCode } from '../../../src/signIn.mjs';
+import { setAuthCookie } from '../../../src/authCookie.mjs';
+import prisma from '../../../src/prisma';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(400).send('This endpoint accepts POST requests');
   }
   const { token, signInAttemptId } = req.body;
-  const attempt = await prisma.signInAttempt.findUnique({
-    where: { id: signInAttemptId },
-  });
-  if (!attempt || attempt.token !== token) {
-    return res.status(400).send('Bad token');
+  const attempt = signInAttemptId
+    ? await prisma.signInAttempt.findUnique({ where: { id: signInAttemptId } })
+    : null;
+
+  const result = checkCode(attempt, token);
+  if (result !== 'ok') {
+    if (result === 'invalid-code' && attempt) {
+      await prisma.signInAttempt.update({
+        where: { id: attempt.id },
+        data: { failedAttempts: { increment: 1 } },
+      });
+    }
+    return res.status(400).json({ error: result });
   }
-  const twoHoursAgo = new Date(Date.now() - 2 * 60 * 60 * 1000);
-  if (twoHoursAgo > attempt.createdAt) {
-    return res.status(400).send('Expired token');
-  }
-  const { email } = attempt;
-  const authToken = crypto.randomBytes(10).toString('hex');
-  const account =
-    (await prisma.account.findUnique({ where: { email } })) ||
-    (await prisma.account.create({ data: { email, authToken } }));
 
   await prisma.signInAttempt.update({
     where: { id: attempt.id },
     data: { confirmedAt: new Date() },
   });
 
-  res.setHeader(
-    'Set-Cookie',
-    stringifySetCookie({
-      name: 'auth',
-      value: account.authToken,
-      httpOnly: true,
-      maxAge: 2592000,
-      path: '/',
-      sameSite: 'Strict',
-      secure: process.env.NODE_ENV === 'production',
-    }),
-  );
+  // Match case-insensitively so that accounts created before emails were
+  // normalized are still found.
+  let account = await prisma.account.findFirst({
+    where: { email: { equals: attempt.email, mode: 'insensitive' } },
+    orderBy: { createdAt: 'asc' },
+  });
+  if (!account) {
+    account = await prisma.account.create({
+      data: {
+        email: attempt.email,
+        authToken: crypto.randomBytes(10).toString('hex'),
+      },
+    });
+  } else if (!account.authToken) {
+    account = await prisma.account.update({
+      where: { id: account.id },
+      data: { authToken: crypto.randomBytes(10).toString('hex') },
+    });
+  }
+
+  setAuthCookie(res, account.authToken);
   res.status(204).send();
 }

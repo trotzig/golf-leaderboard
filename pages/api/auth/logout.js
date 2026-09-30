@@ -1,17 +1,6 @@
-import { stringifySetCookie } from 'cookie';
+import { clearAuthCookie } from '../../../src/authCookie.mjs';
 
 export default async function handler(req, res) {
-  res.setHeader(
-    'Set-Cookie',
-    stringifySetCookie({
-      name: 'auth',
-      value: '1',
-      httpOnly: true,
-      maxAge: 1,
-      path: '/',
-      sameSite: 'Strict',
-      secure: process.env.NODE_ENV === 'production',
-    }),
-  );
+  clearAuthCookie(res);
   res.redirect('/');
 }

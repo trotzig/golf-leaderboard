@@ -4,7 +4,7 @@ import profileProps from '../src/profileProps.js';
 
 export default PlayersPage;
 
-export async function getServerSideProps({ req, query }) {
+export async function getServerSideProps({ req, res, query }) {
   const years = query.years || '3';
   const since =
     years === 'all'
@@ -17,7 +17,7 @@ export async function getServerSideProps({ req, query }) {
     },
     players,
   ] = await Promise.all([
-    profileProps({ req }),
+    profileProps({ req, res }),
     prisma.player.findMany({
       where: since
         ? {

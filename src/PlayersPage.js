@@ -219,7 +219,7 @@ export default function PlayersPage({ account, players: rawPlayers }) {
         .{' '}
         {!account ? (
           <>
-            <Link href="/sign-in">Sign in</Link> to synchronize your favorites
+            <Link href="/profile">Sign in</Link> to synchronize your favorites
             across different devices and opt in to email notifications from
             them.
           </>

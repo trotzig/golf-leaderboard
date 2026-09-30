@@ -117,8 +117,7 @@ export default function PlayerPage({
       {isFavorite && !profile && !isLoadingProfile ? (
         <div className="page-margin">
           <SignInForm
-            title={`Sign in to subscribe to results from ${player.firstName}`}
-            favoritedPlayerId={player.id}
+            title={`Sign in to get results from ${player.firstName} by email`}
           />
         </div>
       ) : null}

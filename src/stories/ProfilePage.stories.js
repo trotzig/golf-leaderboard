@@ -3,7 +3,7 @@ import '../../styles.css';
 import React from 'react';
 
 import ProfilePage from '../ProfilePage.js';
-import SignInPage from '../SignInPage.js';
+import SignInForm from '../SignInForm.js';
 import { players } from './mockData.js';
 import withNav from './withNav.js';
 
@@ -32,6 +32,36 @@ export const SignedInWithoutFavorites = () => (
   <ProfilePage account={{ ...account, favorites: [] }} />
 );
 
-export const SignIn = () => <SignInPage />;
+export const SignInFormEnterCode = () => (
+  <div className="page-margin">
+    <SignInForm initialState={{ step: 'code', email: 'fan@example.com' }} />
+  </div>
+);
 
-export const SignInWhenSignedIn = () => <SignInPage account={account} />;
+export const SignInFormWrongCode = () => (
+  <div className="page-margin">
+    <SignInForm
+      initialState={{
+        step: 'code',
+        email: 'fan@example.com',
+        error: 'invalid-code',
+      }}
+    />
+  </div>
+);
+
+export const SignInFormExpiredCode = () => (
+  <div className="page-margin">
+    <SignInForm
+      initialState={{ step: 'code', email: 'fan@example.com', error: 'expired' }}
+    />
+  </div>
+);
+
+export const SignInFormSendFailed = () => (
+  <div className="page-margin">
+    <SignInForm
+      initialState={{ email: 'fan@example.com', error: 'send-failed' }}
+    />
+  </div>
+);

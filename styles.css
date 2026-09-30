@@ -1470,6 +1470,37 @@ select {
 .sign-in-form h4 {
   margin: 0 0 15px;
 }
+.sign-in-form-intro {
+  margin: 0 0 15px;
+  color: rgba(var(--text-rgb), 0.75);
+}
+.sign-in-form-notice {
+  margin: 0 0 15px;
+}
+.sign-in-form-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 20px;
+  margin-top: 15px;
+}
+.sign-in-form-link {
+  all: unset;
+  cursor: pointer;
+  color: var(--primary);
+  text-decoration: underline;
+}
+.sign-in-form-link:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+.sign-in-form-link:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+.profile-settings-hint {
+  margin-top: 0;
+  color: rgba(var(--text-rgb), 0.75);
+}
 input.sign-in-form-input {
   margin-bottom: 10px;
   width: 100%;
