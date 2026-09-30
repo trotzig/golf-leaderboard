@@ -80,7 +80,7 @@ Passwordless email-based sign-in. Flow: `auth/init.js` → email with 4-digit co
 - `pnpm db:studio` — open Prisma Studio locally
 - `pnpm dev` — start dev server
 - `pnpm storybook` — start Storybook on port 6006
-- `pnpm test` — run unit tests (Node built-in test runner, no install needed)
+- `pnpm test` — run unit tests (Vitest)
 
 Use `production.env` file (gitignored) for prod env vars with the `:prod` script variants. Local development benefits from copying an .env file from the workspace source/root.
 
@@ -89,7 +89,15 @@ Use `production.env` file (gitignored) for prod env vars with the `:prod` script
 - Components live in `src/` as `.js` files (React, no TypeScript)
 - Page components live in `src/*Page.js`; files in `pages/` re-export them and add `getServerSideProps`. This keeps Prisma and `fs` out of Storybook, where every page has stories in `src/stories/`
 - ESM modules use `.mjs` extension
-- Unit-testable pure logic lives in `*.mjs` files alongside components; test files are `*.test.mjs` and run with the Node built-in test runner (`node --test`)
+- Unit-testable pure logic lives in `*.mjs` files alongside components; test files are `*.test.mjs` next to the code they test, using Vitest
 - Slugs are generated from player names and deduplicated with MD5 suffix if colliding
 - GolfBox API responses use JSONP format — parsed with `scripts/utils/parseJson.mjs`
 - Dark mode is supported via CSS (check `styles.css` for `prefers-color-scheme`)
+
+## Testing
+
+When you add or change logic, add or update a Vitest test for it and run
+`pnpm test` before finishing. Keep it pragmatic: cover the new behavior and any
+bug being fixed, not every line. Pure logic is the priority — if something is
+hard to test, consider pulling the logic out into a `*.mjs` helper. UI changes
+are covered visually by Storybook stories, so add or update a story instead.

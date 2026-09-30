@@ -1,5 +1,4 @@
-import { test } from 'node:test';
-import assert from 'node:assert/strict';
+import { expect, test } from 'vitest';
 
 import { describeHoleScore } from './holeScore.mjs';
 
@@ -10,8 +9,8 @@ test('describeHoleScore identifies a stroke-play eagle', () => {
     Result: { ToParValue: -2, ActualValue: 3 },
     Score: { Value: 3 },
   };
-  assert.equal(describeHoleScore(hole).scoreText, 'an eagle');
-  assert.equal(describeHoleScore(hole).toParValue, -2);
+  expect(describeHoleScore(hole).scoreText).toBe('an eagle');
+  expect(describeHoleScore(hole).toParValue).toBe(-2);
 });
 
 test('describeHoleScore identifies a stroke-play double bogey', () => {
@@ -20,7 +19,7 @@ test('describeHoleScore identifies a stroke-play double bogey', () => {
     Result: { ToParValue: 2, ActualValue: 6 },
     Score: { Value: 6 },
   };
-  assert.equal(describeHoleScore(hole).scoreText, 'a double bogey');
+  expect(describeHoleScore(hole).scoreText).toBe('a double bogey');
 });
 
 // Stableford: GolfBox returns Result.ToParValue in stableford-point space
@@ -32,8 +31,8 @@ test('describeHoleScore identifies a stableford double bogey', () => {
     Result: { ToParValue: -2, ActualValue: 0 }, // 0 stableford points
     Score: { Value: 6 },
   };
-  assert.equal(describeHoleScore(hole).scoreText, 'a double bogey');
-  assert.equal(describeHoleScore(hole).toParValue, 2);
+  expect(describeHoleScore(hole).scoreText).toBe('a double bogey');
+  expect(describeHoleScore(hole).toParValue).toBe(2);
 });
 
 test('describeHoleScore identifies a stableford birdie', () => {
@@ -43,7 +42,7 @@ test('describeHoleScore identifies a stableford birdie', () => {
     Result: { ToParValue: 1, ActualValue: 3 },
     Score: { Value: 2 },
   };
-  assert.equal(describeHoleScore(hole).scoreText, 'a birdie');
+  expect(describeHoleScore(hole).scoreText).toBe('a birdie');
 });
 
 test('describeHoleScore identifies a hole-in-one regardless of format', () => {
@@ -52,5 +51,5 @@ test('describeHoleScore identifies a hole-in-one regardless of format', () => {
     Result: { ToParValue: 3, ActualValue: 5 }, // stableford "ace" = 5 pts
     Score: { Value: 1 },
   };
-  assert.equal(describeHoleScore(hole).scoreText, 'a hole-in-one');
+  expect(describeHoleScore(hole).scoreText).toBe('a hole-in-one');
 });

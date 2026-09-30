@@ -1,17 +1,16 @@
-import { test } from 'node:test';
-import assert from 'node:assert/strict';
+import { expect, test } from 'vitest';
 
 import { detectFormat, isGoodScore, isStablefordText } from './competitionFormat.mjs';
 
 test('isStablefordText matches stableford ToParText', () => {
-  assert.equal(isStablefordText('+4p'), true);
-  assert.equal(isStablefordText('-1p'), true);
-  assert.equal(isStablefordText('0p'), true);
-  assert.equal(isStablefordText('E'), false);
-  assert.equal(isStablefordText('Par'), false);
-  assert.equal(isStablefordText('-3'), false);
-  assert.equal(isStablefordText('+2'), false);
-  assert.equal(isStablefordText(null), false);
+  expect(isStablefordText('+4p')).toBe(true);
+  expect(isStablefordText('-1p')).toBe(true);
+  expect(isStablefordText('0p')).toBe(true);
+  expect(isStablefordText('E')).toBe(false);
+  expect(isStablefordText('Par')).toBe(false);
+  expect(isStablefordText('-3')).toBe(false);
+  expect(isStablefordText('+2')).toBe(false);
+  expect(isStablefordText(null)).toBe(false);
 });
 
 test('detectFormat reads stableford from LivescoringSettings StatusText', () => {
@@ -22,29 +21,29 @@ test('detectFormat reads stableford from LivescoringSettings StatusText', () => 
       },
     },
   };
-  assert.equal(detectFormat({ competitionData }), 'stableford');
+  expect(detectFormat({ competitionData })).toBe('stableford');
 });
 
 test('detectFormat falls back to entry ResultSum.ToParText', () => {
   const entries = [{ ResultSum: { ToParText: 'E' } }, { ResultSum: { ToParText: '+4p' } }];
-  assert.equal(detectFormat({ entries }), 'stableford');
+  expect(detectFormat({ entries })).toBe('stableford');
 });
 
 test('detectFormat falls back to scoreTexts array', () => {
-  assert.equal(detectFormat({ scoreTexts: ['E', '-1p'] }), 'stableford');
-  assert.equal(detectFormat({ scoreTexts: ['E', '-3', '+2'] }), 'strokeplay');
+  expect(detectFormat({ scoreTexts: ['E', '-1p'] })).toBe('stableford');
+  expect(detectFormat({ scoreTexts: ['E', '-3', '+2'] })).toBe('strokeplay');
 });
 
 test('detectFormat defaults to strokeplay', () => {
-  assert.equal(detectFormat({}), 'strokeplay');
-  assert.equal(detectFormat({ entries: [] }), 'strokeplay');
+  expect(detectFormat({})).toBe('strokeplay');
+  expect(detectFormat({ entries: [] })).toBe('strokeplay');
 });
 
 test('isGoodScore inverts for stableford', () => {
-  assert.equal(isGoodScore('strokeplay', -3), true);
-  assert.equal(isGoodScore('strokeplay', 2), false);
-  assert.equal(isGoodScore('stableford', 4), true);
-  assert.equal(isGoodScore('stableford', -1), false);
-  assert.equal(isGoodScore('strokeplay', 0), false);
-  assert.equal(isGoodScore('stableford', 0), false);
+  expect(isGoodScore('strokeplay', -3)).toBe(true);
+  expect(isGoodScore('strokeplay', 2)).toBe(false);
+  expect(isGoodScore('stableford', 4)).toBe(true);
+  expect(isGoodScore('stableford', -1)).toBe(false);
+  expect(isGoodScore('strokeplay', 0)).toBe(false);
+  expect(isGoodScore('stableford', 0)).toBe(false);
 });
