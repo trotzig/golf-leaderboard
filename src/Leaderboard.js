@@ -6,6 +6,7 @@ import { detectFormat, isGoodScore, formatLabel } from './competitionFormat.mjs'
 import formatCompetitionName from './formatCompetitionName';
 import fixParValue from './fixParValue';
 import FlagIcon, { getCountryName } from './FlagIcon';
+import Icon from './Icon';
 import normalizeName from './normalizeName.js';
 
 export default function Leaderboard({ competition, now }) {
@@ -70,7 +71,7 @@ export default function Leaderboard({ competition, now }) {
                 </tbody>
               </table>
             </div>
-            <div className="leaderboard-view-all">View full leaderboard →</div>
+            <div className="leaderboard-view-all">View full leaderboard <Icon name="arrow-right" /></div>
           </>
         )}
     </Link>

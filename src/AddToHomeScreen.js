@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
+import Icon from './Icon';
+
 const DISMISSED_KEY = 'add-to-home-screen-dismissed-v2';
 
 export default function AddToHomeScreen() {
@@ -34,7 +36,7 @@ export default function AddToHomeScreen() {
         onClick={dismiss}
         aria-label="Dismiss"
       >
-        ×
+        <Icon name="close" />
       </button>
     </div>
   );

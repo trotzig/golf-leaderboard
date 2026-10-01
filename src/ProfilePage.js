@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import Icon from './Icon';
 import PlayerPhoto from './PlayerPhoto';
 import SignInForm from './SignInForm';
 import syncFavorites from './syncFavorites';
@@ -62,6 +63,7 @@ export default function ProfilePage({ account }) {
               Signed in as <b>{account.email}</b>
             </p>
             <a href="/api/auth/logout" className="icon-button">
+              <Icon name="sign-out" />
               Sign out
             </a>
           </div>
@@ -95,7 +97,7 @@ export default function ProfilePage({ account }) {
                     onClick={() => removeFavorite(player.id)}
                     aria-label={`Remove ${player.firstName} ${player.lastName} from favorites`}
                   >
-                    ×
+                    <Icon name="close" />
                   </button>
                 </div>
               ))}
