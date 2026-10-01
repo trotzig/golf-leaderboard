@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import Icon from './Icon';
+
 export default function FavoriteButton({
   onChange = () => {},
   playerId,
@@ -7,6 +9,8 @@ export default function FavoriteButton({
   lastFavoriteChanged,
 }) {
   const [isFavorite, setFavorite] = useState();
+  // Only animate the star when the user toggles it, not on page load
+  const [justToggled, setJustToggled] = useState(false);
   useEffect(() => {
     setFavorite(localStorage.getItem(playerId));
   }, [lastFavoriteChanged]);
@@ -24,19 +28,7 @@ export default function FavoriteButton({
     onChange(isFavorite);
   }, [isFavorite, playerId]);
 
-  const icon = (
-    <svg
-      height="24px"
-      viewBox="0 0 24 24"
-      width="24px"
-      fill="currentColor"
-      aria-hidden="true"
-    >
-      <path d="M0 0h24v24H0z" fill="none" stroke="none" />
-      <path d="M0 0h24v24H0z" fill="none" stroke="none" />
-      <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-    </svg>
-  );
+  const icon = <Icon name="star" />;
 
   const clickHandler = (confirm, e) => {
     e.preventDefault();
@@ -51,6 +43,7 @@ export default function FavoriteButton({
       }
     }
     setFavorite(!isFavorite);
+    setJustToggled(true);
     fetch(`/api/favorites/${playerId}`, {
       method: !isFavorite ? 'PUT' : 'DELETE',
       headers: {
@@ -61,6 +54,9 @@ export default function FavoriteButton({
   const classes = ['favorite-button'];
   if (isFavorite) {
     classes.push('is-favorite');
+  }
+  if (justToggled) {
+    classes.push('favorite-button-toggled');
   }
 
   if (large) {

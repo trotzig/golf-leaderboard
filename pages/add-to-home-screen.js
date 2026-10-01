@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import React from 'react';
 
+import Icon from '../src/Icon';
+
 export default function AddToHomeScreen() {
   return (
     <div className="add-to-home-screen-page">
@@ -22,12 +24,7 @@ export default function AddToHomeScreen() {
           <li>
             Tap the <strong>Share</strong> button{' '}
             <span className="aths-icon" aria-hidden="true">
-              {/* Share icon */}
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
-                <polyline points="16 6 12 2 8 6" />
-                <line x1="12" y1="2" x2="12" y2="15" />
-              </svg>
+              <Icon name="share" />
             </span>{' '}
             at the bottom of the screen.
           </li>
@@ -49,11 +46,7 @@ export default function AddToHomeScreen() {
           <li>
             Tap the <strong>menu</strong>{' '}
             <span className="aths-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <circle cx="12" cy="5" r="1.5" />
-                <circle cx="12" cy="12" r="1.5" />
-                <circle cx="12" cy="19" r="1.5" />
-              </svg>
+              <Icon name="more" />
             </span>{' '}
             in the top-right corner.
           </li>

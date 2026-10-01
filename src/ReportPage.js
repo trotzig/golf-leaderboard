@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 import { format } from 'date-fns';
 
+import Icon from './Icon';
 import PlayerPhoto from './PlayerPhoto';
 
 // Parse markdown links ([text](href)) in a paragraph into renderable segments
@@ -62,9 +63,7 @@ export default function ReportPage({ report, baseUrl }) {
 
         {report.isSeriesReport ? (
           <div className="report-series-icon-wrap">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="report-series-icon" aria-hidden="true">
-              <path d="M5 3V19H21V21H3V3H5ZM20.2929 6.29289L21.7071 7.70711L16 13.4142L13 10.415L8.70711 14.7071L7.29289 13.2929L13 7.58579L16 10.585L20.2929 6.29289Z" />
-            </svg>
+            <Icon name="chart" className="report-series-icon" />
           </div>
         ) : report.winnerImage && report.winnerPlayerId && (
           <div className="report-winner-image-wrap">
@@ -149,7 +148,7 @@ export default function ReportPage({ report, baseUrl }) {
               )}
               {' · '}
               <Link href={`/t/${report.competitionSlug}`} className="report-results-all">
-                View all scores →
+                View all scores <Icon name="arrow-right" />
               </Link>
             </div>
           </section>
@@ -223,7 +222,7 @@ export default function ReportPage({ report, baseUrl }) {
           LLM.
         </p>
         <p className="report-footer">
-          <Link href="/">← Back to home</Link>
+          <Link href="/"><Icon name="arrow-left" /> Back to home</Link>
         </p>
       </article>
     </div>

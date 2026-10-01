@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
 
+import Icon from './Icon';
 import ReportBlurbs from './ReportBlurbs';
 
 export default function ReportsIndexPage({ reports }) {
@@ -19,7 +20,7 @@ export default function ReportsIndexPage({ reports }) {
       <div className="reports-index-page">
         <ReportBlurbs reports={reports} />
         <p className="report-footer">
-          <Link href="/">← Back to home</Link>
+          <Link href="/"><Icon name="arrow-left" /> Back to home</Link>
         </p>
       </div>
     </div>

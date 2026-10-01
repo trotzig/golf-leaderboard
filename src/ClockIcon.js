@@ -4,13 +4,10 @@ import { getMinutes, getHours } from 'date-fns';
 function Clock({ date }) {
   const minutes = getMinutes(date);
   const hours = getHours(date);
-  const center = {
-    x: 15,
-    y: 15,
-  };
+  const center = 12;
   const lengths = {
-    hour: 9,
-    minutes: 12,
+    hour: 4,
+    minute: 6,
   };
   const floatingHour = (hours % 12) + minutes / 60;
   const angle = {
@@ -20,33 +17,28 @@ function Clock({ date }) {
 
   return (
     <svg
-      viewBox="0 0 30 30"
-      width="24"
-      height="24"
+      className="icon clock-icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
       role="img"
       aria-label={`Tee time ${hours}:${String(minutes).padStart(2, '0')}`}
-      style={{
-        border: '2px solid currentColor',
-        borderRadius: '50%',
-        opacity: '0.7',
-      }}
     >
-      <g id="hands">
-        <line
-          style={{ stroke: 'currentColor', strokeWidth: 2 }}
-          x1={center.x}
-          y1={center.y}
-          x2={center.x + lengths.hour * Math.sin(angle.hour)}
-          y2={center.y - lengths.hour * Math.cos(angle.hour)}
-        />
-        <line
-          style={{ stroke: 'currentColor', strokeWidth: 2 }}
-          x1={center.x}
-          y1={center.y}
-          x2={center.x + lengths.minutes * Math.sin(angle.minute)}
-          y2={center.y - lengths.minutes * Math.cos(angle.minute)}
-        />
-      </g>
+      <circle className="icon-tone" cx={center} cy={center} r="9.5" />
+      <line
+        x1={center}
+        y1={center}
+        x2={center + lengths.hour * Math.sin(angle.hour)}
+        y2={center - lengths.hour * Math.cos(angle.hour)}
+      />
+      <line
+        x1={center}
+        y1={center}
+        x2={center + lengths.minute * Math.sin(angle.minute)}
+        y2={center - lengths.minute * Math.cos(angle.minute)}
+      />
     </svg>
   );
 }

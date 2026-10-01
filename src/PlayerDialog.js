@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import FavoriteButton from './FavoriteButton';
 import FlagIcon from './FlagIcon';
+import Icon from './Icon';
 import PlayerPhoto from './PlayerPhoto';
 import fixParValue from './fixParValue';
 import generateSlug from './generateSlug.mjs';
@@ -355,7 +356,7 @@ export default function PlayerDialog({ entry, competition, data, onClose, collid
             className="player-dialog-back"
             onClick={handleClose}
           >
-            <span aria-hidden="true">←</span> {formatCompetitionName(competition.name)}
+            <Icon name="arrow-left" /> {formatCompetitionName(competition.name)}
           </button>
           <h3 className="player-dialog-title" id="player-dialog-title">{formatCompetitionName(competition.name)}</h3>
           <button
@@ -364,7 +365,7 @@ export default function PlayerDialog({ entry, competition, data, onClose, collid
             onClick={handleClose}
             aria-label="Close"
           >
-            ×
+            <Icon name="close" />
           </button>
         </div>
         <div className="player-dialog-main" ref={mainRef}>
@@ -391,6 +392,7 @@ export default function PlayerDialog({ entry, competition, data, onClose, collid
                       className="icon-button"
                       onClick={handleClose}
                     >
+                      <Icon name="user" />
                       View player profile
                     </Link>
                   </div>
@@ -420,9 +422,9 @@ export default function PlayerDialog({ entry, competition, data, onClose, collid
                   aria-live="polite"
                 >
                   {copied ? (
-                    <span aria-hidden="true">✓</span>
+                    <Icon name="check" />
                   ) : (
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.58582L18.2071 8.79292L16.7929 10.2071L13 6.41424V16H11V6.41424L7.20711 10.2071L5.79289 8.79292L12 2.58582ZM3 18V14H5V18C5 18.5523 5.44772 19 6 19H18C18.5523 19 19 18.5523 19 18V14H21V18C21 19.6569 19.6569 21 18 21H6C4.34315 21 3 19.6569 3 18Z"></path></svg>
+                    <Icon name="share" />
                   )}
                   {copied ? 'Copied!' : 'Share scorecard'}
                 </button>
