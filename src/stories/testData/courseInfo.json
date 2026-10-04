@@ -1,0 +1,610 @@
+{
+  "CompetitionData": {
+    "Id": 5398147,
+    "CustomerId": 1,
+    "CustomerName": "Nordic Golf League",
+    "ClassificationId": -2147483648,
+    "Name": "Destination Gotland Open",
+    "Type": "StrokePlay",
+    "StartDate": "20261006T000000",
+    "EndDate": "20261008T000000",
+    "Category": 13350,
+    "AgeDate": "00010101T000000",
+    "Logo": "https://cdn.golfbox.dk/gbtour/Uploads/CompetitionLogoes/fdb2c2be-86a0-421a-aa01-5e6dc3266f5c.png",
+    "IsFieldSelected": true,
+    "SignUpInformation": {
+      "EnableOnlineEntry": true,
+      "EntryOpens": "20260301T000000",
+      "EntryCloses": "20260922T120000",
+      "PaymentOpens": "20260925T200000",
+      "PaymentCloses": "20261003T230000",
+      "EntryWindowOpen": false,
+      "PaymentWindowOpen": false,
+      "TeeWishesOpenFor": "NoOne",
+      "AllowTeamName": true
+    },
+    "Venue": {
+      "Name": "Visby Golfklubb",
+      "Address": "<p>V&auml;stergarn Kronholmen 415, 62230 GOTLANDS TOFTA</p>",
+      "Accommodation": null,
+      "DrivingInstructions": "<p>Fr&aring;n Visby: k&ouml;r v&auml;g 140. 25 km s&ouml;der om Visby sv&auml;ng h&ouml;ger vid skylt Visby GK.</p>",
+      "Latitude": 57.44751,
+      "Longitude": 18.129517,
+      "Locations": [
+        {
+          "Name": "Visby Golfklubb",
+          "Latitude": 57.44751,
+          "Longitude": 18.129517,
+          "Order": 1
+        }
+      ]
+    },
+    "Sponsors": null,
+    "ClassSetup": {
+      "EqualSize": false,
+      "EnabledParameters": {
+        "Age": true,
+        "Gender": true,
+        "HCP": true,
+        "MaxPlayers": true,
+        "PlayerStatus": true
+      },
+      "MaxType": "SameForAll",
+      "HasAutomaticReservelist": false,
+      "EntriesInitiallyPending": false
+    },
+    "Classes": [
+      {
+        "Id": 4910797,
+        "Name": "Professionals",
+        "ShortName": "P",
+        "MaxPlayers": 50,
+        "MaxUnitType": null,
+        "ReserveListPrinciple": 7,
+        "ReserveListPrincipleText": "ManualFieldSelection",
+        "ClassType": "PlayerClass",
+        "Cut": {
+          "Enabled": false,
+          "Limit": 0,
+          "LimitType": "Players",
+          "LimitMethod": 0,
+          "AfterRound": 2,
+          "ExcludeAmateurs": false,
+          "IncludeScore": 0
+        },
+        "Cuts": [
+          {
+            "Enabled": false,
+            "Limit": 0,
+            "LimitType": "Players",
+            "LimitMethod": 0,
+            "AfterRound": 2,
+            "ExcludeAmateurs": false,
+            "IncludeScore": 0
+          }
+        ],
+        "OrderOfMerits": null
+      }
+    ],
+    "RoundSetup": [
+      {
+        "ID": 6743794,
+        "Class_RID": 4910797,
+        "CourseStart_RID": 7563523,
+        "Number": 1,
+        "Name": "Round 1",
+        "StartDate": "20261006T000000",
+        "IsHcpQualifying": true
+      },
+      {
+        "ID": 6743795,
+        "Class_RID": 4910797,
+        "CourseStart_RID": 7563524,
+        "Number": 2,
+        "Name": "Round 2",
+        "StartDate": "20261007T000000",
+        "IsHcpQualifying": true
+      },
+      {
+        "ID": 6743796,
+        "Class_RID": 4910797,
+        "CourseStart_RID": 7563525,
+        "Number": 3,
+        "Name": "Round 3",
+        "StartDate": "20261008T000000",
+        "IsHcpQualifying": true
+      }
+    ],
+    "CourseColours": [
+      {
+        "CourseID": 2364897,
+        "CssName": "course-1",
+        "Name": "VGK 18 hålsbanan"
+      }
+    ],
+    "Status": null,
+    "LivescoringSettings": {
+      "CountryFlag": {
+        "ShowOnPlayerList": true,
+        "ShowOnStartList": true,
+        "ShowOnLeaderboard": true
+      },
+      "CountryName": {
+        "ShowOnPlayerList": false,
+        "ShowOnStartList": false,
+        "ShowOnLeaderboard": false
+      },
+      "ClubName": {
+        "ShowOnPlayerList": true,
+        "ShowOnStartList": true,
+        "ShowOnLeaderboard": true
+      },
+      "Handicap": {
+        "ShowOnPlayerList": false,
+        "ShowOnStartList": false,
+        "ShowOnLeaderboard": false
+      },
+      "PlayingHandicap": {
+        "ShowOnPlayerList": false,
+        "ShowOnStartList": false,
+        "ShowOnLeaderboard": false
+      },
+      "MemberID": {
+        "ShowOnPlayerList": false,
+        "ShowOnStartList": false,
+        "ShowOnLeaderboard": false
+      },
+      "ClassName": {
+        "ShowOnPlayerList": false,
+        "ShowOnStartList": false,
+        "ShowOnLeaderboard": false
+      },
+      "CompanyName": {
+        "ShowOnPlayerList": false,
+        "ShowOnStartList": false,
+        "ShowOnLeaderboard": false
+      },
+      "TeamName": {
+        "ShowOnPlayerList": true,
+        "ShowOnStartList": true,
+        "ShowOnLeaderboard": false
+      },
+      "PlayerStatus": {
+        "ShowOnPlayerList": false,
+        "ShowOnStartList": false,
+        "ShowOnLeaderboard": false
+      },
+      "HandicapStatus": {
+        "ShowOnPlayerList": false,
+        "ShowOnStartList": false,
+        "ShowOnLeaderboard": false
+      },
+      "TeeName": {
+        "ShowOnPlayerList": false,
+        "ShowOnStartList": true,
+        "ShowOnLeaderboard": false
+      },
+      "WAGRRank": {
+        "ShowOnPlayerList": false,
+        "ShowOnStartList": false,
+        "ShowOnLeaderboard": false
+      },
+      "WR4GDRank": {
+        "ShowOnPlayerList": false,
+        "ShowOnStartList": false,
+        "ShowOnLeaderboard": false
+      },
+      "BirthYear": {
+        "ShowOnPlayerList": false,
+        "ShowOnStartList": false,
+        "ShowOnLeaderboard": false
+      },
+      "PlayerListSettings": {
+        "ShowPlayerList": true,
+        "ShowIneligibles": false,
+        "ShowReserves": true,
+        "ShowPending": true
+      },
+      "LeaderboardSettings": {
+        "ShowCutLine": false,
+        "ShowStartHole": true,
+        "ShowToParValue": true,
+        "ShowStrokeIndexes": false
+      },
+      "StartListSettings": {
+        "ShowStartHole": false
+      },
+      "ResultSettings": {
+        "ShowEntryHoleScoreSubscription": false,
+        "ShowBracket": false
+      },
+      "InfoPageSettings": {
+        "ShowEligibility": true,
+        "ShowRounds": true,
+        "ShowCut": true,
+        "ShowDecisions": true,
+        "ShowOrderOfMerits": true,
+        "ShowEntry": true,
+        "ShowVenue": true,
+        "ShowMap": true,
+        "ShowContacts": true
+      },
+      "ClassSettings": [
+        {
+          "ClassReferenceID": 4910797,
+          "ClassName": "Professionals",
+          "ShowOOMRank": true,
+          "OOMRID": 261726,
+          "ShowAdditionalGrossScore": false,
+          "ShowAdditionalNettScore": false,
+          "StatusText": null,
+          "StatusType": 2,
+          "IncludeInCourseStats": true,
+          "IncludeInPlayerStats": true,
+          "ShowStatusTextOnTeeTimePage": false
+        }
+      ],
+      "Infobars": null,
+      "RoundSettings": null
+    },
+    "MainCompetition": null,
+    "InterclubTournament": null,
+    "TimeZoneInfo": {
+      "Id": "W. Europe Standard Time",
+      "DisplayName": "(UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna",
+      "StandardName": "W. Europe Standard Time",
+      "DaylightName": "W. Europe Daylight Time",
+      "BaseUtcOffset": "01:00:00",
+      "AdjustmentRules": [
+        {
+          "DateStart": "00010101T000000",
+          "DateEnd": "99991231T000000",
+          "DaylightDelta": "01:00:00",
+          "DaylightTransitionStart": {
+            "TimeOfDay": "00010101T020000",
+            "Month": 3,
+            "Week": 5,
+            "Day": 1,
+            "DayOfWeek": 0,
+            "IsFixedDateRule": false
+          },
+          "DaylightTransitionEnd": {
+            "TimeOfDay": "00010101T030000",
+            "Month": 10,
+            "Week": 5,
+            "Day": 1,
+            "DayOfWeek": 0,
+            "IsFixedDateRule": false
+          },
+          "BaseUtcOffsetDelta": "00:00:00"
+        }
+      ],
+      "SupportsDaylightSavingTime": true
+    },
+    "UtcOffsetString": "(UTC+02:00)"
+  },
+  "Classes": {
+    "C4910797": {
+      "Id": 4910797,
+      "Name": "Professionals",
+      "ShortName": "P",
+      "ClassType": "PlayerClass",
+      "MaxPlayers": 50,
+      "MaxUnitType": null,
+      "Gender": "Male",
+      "OpenFor": null,
+      "AgeCriteria": {
+        "Female": {
+          "Min": 13,
+          "Max": 99
+        },
+        "Male": {
+          "Min": 13,
+          "Max": 99
+        }
+      },
+      "HcpCriteria": {
+        "Female": {
+          "Min": -100000,
+          "Max": 34000
+        },
+        "Male": {
+          "Min": -100000,
+          "Max": 34000
+        }
+      },
+      "PlayerStatusList": [
+        {
+          "Text": "Amateur",
+          "Value": 0
+        },
+        {
+          "Text": "PGA",
+          "Value": 1
+        },
+        {
+          "Text": "NonAmateur",
+          "Value": 2
+        },
+        {
+          "Text": "Olicenserad",
+          "Value": 3
+        },
+        {
+          "Text": "REAM",
+          "Value": 4
+        }
+      ],
+      "OrderOfMerits": {},
+      "Cuts": {
+        "Enabled": false,
+        "Limit": 0,
+        "LimitType": "Players",
+        "LimitMethod": 0,
+        "AfterRound": 2,
+        "ExcludeAmateurs": false,
+        "IncludeScore": 0
+      },
+      "CutList": [
+        {
+          "Enabled": false,
+          "Limit": 0,
+          "LimitType": "Players",
+          "LimitMethod": 0,
+          "AfterRound": 2,
+          "ExcludeAmateurs": false,
+          "IncludeScore": 0
+        }
+      ],
+      "Decision": {
+        "FirstPlaceByPlayOff": true,
+        "DecisionMethods": [
+          {
+            "DecisionMethodName": "EarliestStartTime",
+            "Order": 0
+          }
+        ]
+      },
+      "ReserveListPrinciple": "ManualFieldSelection",
+      "Rounds": {
+        "R1": {
+          "Number": 1,
+          "Name": "Round 1",
+          "Format": "Single",
+          "ScoringMethod": "Strokes",
+          "StrokeAllowance": 0,
+          "HasStrokeAllowanceDeviations": false,
+          "IsHcpQualifying": true,
+          "MaximumScoreType": "",
+          "MaximumScore": null,
+          "Courses": {
+            "Course2364897": {
+              "CourseID": 2364897,
+              "Name": "VGK 18 hålsbanan",
+              "StartTime": "20261006T083000",
+              "TeeWomen": "41",
+              "TeeMen": "63",
+              "HasTeeDeviations": false
+            }
+          }
+        },
+        "R2": {
+          "Number": 2,
+          "Name": "Round 2",
+          "Format": "Single",
+          "ScoringMethod": "Strokes",
+          "StrokeAllowance": 0,
+          "HasStrokeAllowanceDeviations": false,
+          "IsHcpQualifying": true,
+          "MaximumScoreType": "",
+          "MaximumScore": null,
+          "Courses": {
+            "Course2364897": {
+              "CourseID": 2364897,
+              "Name": "VGK 18 hålsbanan",
+              "StartTime": "20261007T073000",
+              "TeeWomen": "41",
+              "TeeMen": "63",
+              "HasTeeDeviations": false
+            }
+          }
+        },
+        "R3": {
+          "Number": 3,
+          "Name": "Round 3",
+          "Format": "Single",
+          "ScoringMethod": "Strokes",
+          "StrokeAllowance": 0,
+          "HasStrokeAllowanceDeviations": false,
+          "IsHcpQualifying": true,
+          "MaximumScoreType": "",
+          "MaximumScore": null,
+          "Courses": {
+            "Course2364897": {
+              "CourseID": 2364897,
+              "Name": "VGK 18 hålsbanan",
+              "StartTime": "20261008T073000",
+              "TeeWomen": "41",
+              "TeeMen": "63",
+              "HasTeeDeviations": false
+            }
+          }
+        }
+      }
+    }
+  },
+  "Courses": {
+    "C2364897T63": {
+      "CourseID": 2364897,
+      "CourseName": "VGK 18 hålsbanan",
+      "TeeName": "63",
+      "MeasureUnit": "Meters",
+      "RatingWomen": null,
+      "RatingMen": {
+        "Gender": 1,
+        "Rating": 73.5,
+        "Slope": 134,
+        "SSS": null
+      },
+      "Holes": {
+        "H1": {
+          "Number": 1,
+          "Name": null,
+          "IdealTime": 12,
+          "Par": 3,
+          "Index": 15,
+          "Length": 159
+        },
+        "H2": {
+          "Number": 2,
+          "Name": null,
+          "IdealTime": 16,
+          "Par": 4,
+          "Index": 7,
+          "Length": 411
+        },
+        "H3": {
+          "Number": 3,
+          "Name": null,
+          "IdealTime": 18,
+          "Par": 5,
+          "Index": 5,
+          "Length": 525
+        },
+        "H4": {
+          "Number": 4,
+          "Name": null,
+          "IdealTime": 16,
+          "Par": 4,
+          "Index": 13,
+          "Length": 310
+        },
+        "H5": {
+          "Number": 5,
+          "Name": null,
+          "IdealTime": 12,
+          "Par": 3,
+          "Index": 11,
+          "Length": 170
+        },
+        "H6": {
+          "Number": 6,
+          "Name": null,
+          "IdealTime": 18,
+          "Par": 5,
+          "Index": 3,
+          "Length": 447
+        },
+        "H7": {
+          "Number": 7,
+          "Name": null,
+          "IdealTime": 13,
+          "Par": 3,
+          "Index": 9,
+          "Length": 200
+        },
+        "H8": {
+          "Number": 8,
+          "Name": null,
+          "IdealTime": 15,
+          "Par": 4,
+          "Index": 1,
+          "Length": 414
+        },
+        "H9": {
+          "Number": 9,
+          "Name": null,
+          "IdealTime": 15,
+          "Par": 4,
+          "Index": 17,
+          "Length": 334
+        },
+        "H10": {
+          "Number": 10,
+          "Name": null,
+          "IdealTime": 19,
+          "Par": 5,
+          "Index": 18,
+          "Length": 476
+        },
+        "H11": {
+          "Number": 11,
+          "Name": null,
+          "IdealTime": 16,
+          "Par": 4,
+          "Index": 4,
+          "Length": 329
+        },
+        "H12": {
+          "Number": 12,
+          "Name": null,
+          "IdealTime": 14,
+          "Par": 4,
+          "Index": 8,
+          "Length": 321
+        },
+        "H13": {
+          "Number": 13,
+          "Name": null,
+          "IdealTime": 14,
+          "Par": 4,
+          "Index": 16,
+          "Length": 376
+        },
+        "H14": {
+          "Number": 14,
+          "Name": null,
+          "IdealTime": 14,
+          "Par": 3,
+          "Index": 12,
+          "Length": 155
+        },
+        "H15": {
+          "Number": 15,
+          "Name": null,
+          "IdealTime": 15,
+          "Par": 4,
+          "Index": 2,
+          "Length": 413
+        },
+        "H16": {
+          "Number": 16,
+          "Name": null,
+          "IdealTime": 19,
+          "Par": 5,
+          "Index": 10,
+          "Length": 482
+        },
+        "H17": {
+          "Number": 17,
+          "Name": null,
+          "IdealTime": 12,
+          "Par": 3,
+          "Index": 14,
+          "Length": 192
+        },
+        "H18": {
+          "Number": 18,
+          "Name": null,
+          "IdealTime": 19,
+          "Par": 5,
+          "Index": 6,
+          "Length": 516
+        },
+        "H-OUT": {
+          "Par": 35,
+          "Length": 2970
+        },
+        "H-IN": {
+          "Par": 37,
+          "Length": 3260
+        },
+        "H-TOTAL": {
+          "Par": 72,
+          "Length": 6230
+        }
+      }
+    }
+  },
+  "Loaded": "20261005T004237"
+}

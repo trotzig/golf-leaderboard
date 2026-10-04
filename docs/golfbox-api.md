@@ -9,8 +9,10 @@ embeddable widgets (`scores.golfbox.dk/api/js/...`); for anything else its
 support pages point to `support@golfbox.dk`. Everything below comes from:
 
 - the real recorded responses in `src/stories/testData/*.json` (see
-  [Fixtures](#fixtures)), and
-- the code that reads each field (file references are given throughout).
+  [Fixtures](#fixtures)),
+- the code that reads each field (file references are given throughout), and
+- GolfBox's own page scripts (see
+  [Endpoints at a glance](#endpoints-at-a-glance)).
 
 Field lists cover what we have seen or use. GolfBox returns many more
 settings fields than we need, and those are only summarized here.
@@ -28,6 +30,7 @@ settings fields than we need, and those are only summarized here.
   - [Team competitions](#team-competitions-leaderboardteams)
 - [Tee times](#tee-times--teetimeshandlergetteetimes)
 - [Players / entry list](#players--playershandlergetplayers)
+- [Course info](#course-info--infohandlergetinfo)
 - [Match play](#match-play--matchplayhandlergetmatchplay)
 - [Order of Merit](#order-of-merit--orderofmeritshandler)
 - [How competition state is derived](#how-competition-state-is-derived)
@@ -70,6 +73,8 @@ GolfBox's display order (for leaderboards, that is position order).
 | Prefix | Meaning                    | Example key                               |
 | ------ | -------------------------- | ----------------------------------------- |
 | `C`    | Class, or Course           | `C3066464`                                |
+| `C…T…` | Course and tee (`InfoHandler` only) | `C2364897T63`, `C1419642TSYSTEM_WHITE` |
+| `Course` | Course in a class's round setup (`InfoHandler` only) | `Course2364897`       |
 | `CS`   | Course start (round setup) | `CS4699776`                               |
 | `E`    | Entry (a player's entry)   | `E27393779`                               |
 | `T`    | Team, or Tee (GUID)        | `T16343208`, `T97CADC93-AA9A-...`         |
@@ -167,9 +172,25 @@ Names often have **trailing whitespace** (`FirstName: "John "`). Always
 | `LeaderboardHandler/GetLeaderboard`              | `CompetitionId`                          | Positions, scores, hole-by-hole data            | `syncData.mjs`, `syncCompetitionStats.mjs`, `notifySubscribers.mjs`, `CompetitionPage.js`, `TeeTimesPage.js`, `writeReport.mjs` |
 | `TeeTimesHandler/GetTeeTimes`                    | `CompetitionId`                          | Start lists per round                           | `CompetitionPage.js`, `TeeTimesPage.js`, `notifySubscribers.mjs` |
 | `PlayersHandler/GetPlayers`                      | `CompetitionId`                          | Entry list before tee times exist               | `syncData.mjs`, `CompetitionPage.js`                             |
+| `InfoHandler/GetInfo`                            | `CompetitionId`                          | Course details: holes, par, length, ratings     | `CoursePage.js`                                                  |
 | `MatchplayHandler/GetMatchplay`                  | `CompetitionId`                          | Knockout bracket (only when `Type === "MatchPlay"`) | `CompetitionPage.js`, `writeReport.mjs`                     |
 | `OrderOfMeritsHandler/GetOrderOfMerit`           | `CustomerId`, `OrderOfMeritID`           | Season OOM standings                            | `syncData.mjs`, `OrderOfMeritPage.js`                            |
 | `OrderOfMeritsHandler/GetOrderOfMerits`          | `CustomerId`                             | All OOMs, used to find a season's `OrderOfMeritID` | `scripts/find-oom-id.mjs`                                    |
+
+**Finding more endpoints.** GolfBox's own pages are built by the scripts under
+`https://scores.golfbox.dk/Scripts/pages/` (`pages.js` is the bundle; the
+widget loader at `scores.golfbox.dk/api/js/default/template/GolfBox/width/800`
+lists the per-page files, e.g. `info/courseinfo.js`). Grep them for
+`Handler/` to see what exists and how each response is read. Handlers they
+call that we don't use yet: `StatsHandler/GetCourseStats`,
+`StatsHandler/GetPlayerStats`, `LeaderboardHandler/GetBiggestMovers`,
+`LeaderboardHandler/GetBirdieBogeyStreaks`,
+`LeaderboardHandler/GetTopXLeaderboard`,
+`OrderOfMeritsHandler/GetTopXOrderOfMerit`, `SponsorHandler/GetSponsors`,
+`CustomersHandler/GetCustomer`, `PictureHandler/*`, and the team formats
+(`TeamMatchHandler`, `TeamMatchplayBracketHandler`, `RoundRobinHandler`,
+`RyderCupHandler`, `BuddyCupHandler`, `InterclubHandler`). Their response
+shapes are not mapped here.
 
 ---
 
@@ -293,7 +314,7 @@ This is the main feed. Top-level shape:
       "CourseHandicapAdjustments": { "C1419638": { CourseName, CourseParValues, CBARounds, CSSTees, ... } }
     }
   },
-  "Courses": {
+  "Courses": {                         // empty ({}) until scoring is set up, shortly before round 1. Use InfoHandler for course details
     "C1419638": {
       "RefId": 1419638, "Name": "Empordá Golf - Links Course", "MeasureUnit": "Meters",
       "Holes": {
@@ -508,6 +529,61 @@ in `syncData.mjs`, `getIndexedEntriesFromPlayersData` in `CompetitionPage.js`).
 **`PlayerStatus`**: `1` = accepted into the field. Other values (`0`, `2`)
 seem to be reserve-list or pending entries. Only `1` is shown or synced.
 
+## Course info — `InfoHandler/GetInfo`
+
+```
+/Handlers/InfoHandler/GetInfo/CompetitionId/{id}/language/2057/
+```
+
+Backs GolfBox's own "Info" and "Course info" pages. Unlike the leaderboard's
+`Courses`, this has the course and its holes as soon as the competition is
+published, and keeps them after it has finished.
+
+```jsonc
+{
+  "CompetitionData": { /* same as GetCompetition, incl. Venue */ },
+  "Classes": {
+    "C4910797": {
+      "Id": 4910797, "Name": "Professionals", "Gender": ..., "Cuts": [...],
+      "Rounds": {
+        "R1": {
+          "Number": 1, "Name": "Round 1", "Format": "Single", "ScoringMethod": "Strokes",
+          "Courses": {
+            "Course2364897": {       // note the "Course" prefix, not "C"
+              "CourseID": 2364897, "Name": "VGK 18 hålsbanan",
+              "StartTime": "20261006T083000", "TeeWomen": "41", "TeeMen": "63"
+            }
+          }
+        }
+      }
+    }
+  },
+  "Courses": {
+    "C2364897T63": {                 // C{CourseID}T{TeeName}: one entry per course *and* tee
+      "CourseID": 2364897, "CourseName": "VGK 18 hålsbanan", "TeeName": "63",  // or e.g. "SYSTEM_WHITE"
+      "MeasureUnit": "Meters",
+      "RatingWomen": null,
+      "RatingMen": { "Gender": 1, "Rating": 73.5, "Slope": 134, "SSS": null },
+      "Holes": {
+        "H1": { "Number": 1, "Name": null, "IdealTime": 12, "Par": 3, "Index": 15, "Length": 159 },
+        // ...
+        "H-OUT": { "Par": 35, "Length": 2970 },
+        "H-IN": { "Par": 37, "Length": 3260 },
+        "H-TOTAL": { "Par": 72, "Length": 6230 }
+      }
+    }
+  },
+  "Contacts": [ { FirstName, LastName, Role, Email, MobileNumber } ],
+  "PublicInformation": ..., "SignUpFees": { ... },
+  "Loaded": "..."
+}
+```
+
+Holes are flat here (`Par`, `Length`, `Index` directly on the hole), where the
+leaderboard nests them under `Tees.T{TeeID}`. When a course has several tee
+entries, `src/courseDetails.mjs` picks the longest one, since the tour always
+plays from the tips.
+
 ## Match play — `MatchplayHandler/GetMatchplay`
 
 ```
@@ -620,16 +696,17 @@ GolfBox has no single "status" field, so the app combines several signals:
 
 ## Fixtures
 
-Real recorded responses, used by Storybook (`src/stories/Competition.stories.js`):
+Real recorded responses, used by Storybook (mostly `src/stories/Competition.stories.js`):
 
 | File | Contains | Competition |
 | ---- | -------- | ----------- |
 | `src/stories/testData/finished.json` | `initialData` (leaderboard), `initialTimesData` (tee times) | GolfStar Winter Series I 2022, finished, 3 rounds, two courses |
 | `src/stories/testData/ongoing.json` | same | ECCO Tour Spanish Masters 2022, in progress (leaderboard on round 2 of 3) |
 | `src/stories/testData/upcoming.json` | same | Barncancerfonden Open 2022, before the draw |
+| `src/stories/testData/courseInfo.json` | `InfoHandler/GetInfo` response, with `Contacts`, `SignUpFees` and `PublicInformation` removed. Small (15 KB). Used by `CoursePage.stories.js` | Destination Gotland Open 2026, the day before round 1 |
 | `src/stories/testData/team.json` | `initialData` with `Leaderboard.Teams` (trimmed: `CompetitionData` only has `Type`), minimal tee times | Max Matthiessen Team Trophy 2026 |
 
-These files are 0.5–8 MB, so don't open them whole. Explore them with a
+The leaderboard files are 0.5–8 MB, so don't open them whole. Explore them with a
 quick script instead, for example:
 
 ```bash
