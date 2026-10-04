@@ -1,12 +1,19 @@
-import { format, startOfDay } from 'date-fns';
+import { startOfDay } from 'date-fns';
 import Link from 'next/link';
 import Head from 'next/head';
 import React, { useState, useEffect } from 'react';
 
+import CompetitionListItem from './CompetitionListItem.js';
+import Icon from './Icon';
+import Leaderboard from './Leaderboard.js';
+import { isGoodScore, isStablefordText } from './competitionFormat.mjs';
 import ensureDates from './ensureDates.js';
+import fixParValue from './fixParValue';
 import formatCompetitionName from './formatCompetitionName';
 import getCompetitionTour from './getCompetitionTour.mjs';
 import locations from './locations.json';
+import normalizeName from './normalizeName.js';
+import { shortDateRange, splitSchedule } from './scheduleSections.mjs';
 
 export default function SchedulePage({
   competitions,
@@ -16,10 +23,8 @@ export default function SchedulePage({
   showMap = true,
 }) {
   competitions.forEach(ensureDates);
-  const now = startOfDay(new Date(nowMs));
-  const currentCompetition = competitions.find(
-    c => c.start <= now && c.end >= now,
-  );
+  const now = new Date(nowMs);
+  const { upcoming, current, next, past } = splitSchedule(competitions, now);
   const [TourMap, setTourMap] = useState(null);
   useEffect(() => {
     if (!showMap) {
@@ -57,7 +62,7 @@ export default function SchedulePage({
             <TourMap
               competitions={competitions}
               locations={locations}
-              now={now}
+              now={startOfDay(now)}
             />
           )}
         </div>
@@ -75,69 +80,91 @@ export default function SchedulePage({
             </ul>
           </div>
         )}
-        <table className="results-table page-margin">
-
-          {competitions.length > 0 && (
-            <tbody>
-              {competitions.flatMap((c, i) => {
-                const month = format(new Date(c.start), 'MMMM');
-                const prevMonth =
-                  i > 0 ? format(new Date(competitions[i - 1].start), 'MMMM') : null;
-                const rows = [];
-                if (month !== prevMonth) {
-                  rows.push(
-                    <tr key={`month-${month}`} className="schedule-month-header">
-                      <td colSpan={2}>{month}</td>
-                    </tr>,
-                  );
-                }
-                rows.push(
-                  <CompetitionItem
-                    key={c.id}
-                    competition={c}
-                    now={now}
-                    current={currentCompetition && currentCompetition.id === c.id}
-                    previousYear={selectedYear < new Date(nowMs).getFullYear()}
-                  />,
-                );
-                return rows;
-              })}
-            </tbody>
-          )}
-        </table>
+        {upcoming.length > 0 && (
+          <>
+            <h3>Upcoming</h3>
+            <ul className="schedule-list">
+              {upcoming.map(c => (
+                <ScheduleRow key={c.id} competition={c} />
+              ))}
+            </ul>
+          </>
+        )}
+        {current.map(c => (
+          <Leaderboard
+            key={c.id}
+            competition={{
+              ...c,
+              leaderboardEntries: c.leaderboardEntries || [],
+            }}
+            now={now}
+          />
+        ))}
+        {next && (
+          <ul className="schedule-featured">
+            <CompetitionListItem competition={next} now={now} next />
+          </ul>
+        )}
+        {past.length > 0 && (
+          <>
+            <h3>Results</h3>
+            <ul className="schedule-list">
+              {past.map(c => (
+                <ScheduleRow key={c.id} competition={c} past />
+              ))}
+            </ul>
+          </>
+        )}
       </div>
     </div>
   );
 }
 
-function CompetitionItem({ competition, now, current, previousYear }) {
-  const queryString = now > competition.end ? '?finished=1' : '';
-  const past = !current && now > competition.end;
+function ScheduleRow({ competition, past }) {
   const tour = getCompetitionTour(competition.categories);
   return (
-    <tr
-      key={competition.id}
-      className={[
-        'competition-list-item',
-        current ? 'current' : '',
-        past ? 'past' : '',
-        previousYear ? 'previous-year' : '',
-      ]
-        .filter(Boolean)
-        .join(' ')}
-    >
-      <td>
-        <Link href={`/t/${competition.slug}${queryString}`}>
+    <li className="schedule-row">
+      <Link
+        href={`/t/${competition.slug}${past ? '?finished=1' : ''}`}
+        className="schedule-row-link"
+      >
+        <span className="schedule-row-date">
+          {shortDateRange(competition.start, competition.end)}
+        </span>
+        <span className="schedule-row-name">
           {formatCompetitionName(competition.name)}
-          <br />
-        </Link>
-        {tour && <span className="schedule-tour">{tour}</span>}
-        <span className="schedule-venue">{competition.venue}</span>
-      </td>
-      <td>
-        {format(competition.start, 'MMM d')} —{' '}
-        {format(competition.end, 'MMM d')}
-      </td>
-    </tr>
+        </span>
+        {past ? (
+          <Winner winner={competition.winner} />
+        ) : (
+          <span className="schedule-row-meta">
+            {[competition.venue, tour].filter(Boolean).join(' · ')}
+          </span>
+        )}
+      </Link>
+    </li>
+  );
+}
+
+function Winner({ winner }) {
+  if (!winner) {
+    return null;
+  }
+  const names = winner.names.map(normalizeName);
+  const format = isStablefordText(winner.scoreText)
+    ? 'stableford'
+    : 'strokeplay';
+  return (
+    <span className="schedule-row-winner">
+      <Icon name="trophy" />
+      <span className="schedule-row-winner-name">
+        {names.length > 2
+          ? `${names[0]} +${names.length - 1}`
+          : names.join(' & ')}
+      </span>
+      <b className={isGoodScore(format, winner.score) ? 'under-par' : ''}>
+        {fixParValue(winner.scoreText)}
+      </b>
+    </span>
   );
 }

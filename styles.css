@@ -166,6 +166,7 @@ button {
 }
 
 .competitions h3,
+.schedule h3,
 .leaderboard-section-heading,
 .tee-times-section-heading {
   margin-top: 20px;
@@ -648,14 +649,14 @@ html.display-standalone {
   color: var(--on-accent);
 }
 
-.competitions li.next .competition {
+.competition-list-item.next .competition {
   background: var(--surface);
   border-radius: var(--radius-md);
   align-items: start;
   column-gap: 16px;
   padding: 16px;
 }
-.competitions li.next .competition::before {
+.competition-list-item.next .competition::before {
   content: 'Next event';
   grid-column: 1 / -1;
   color: var(--accent);
@@ -665,18 +666,18 @@ html.display-standalone {
   text-transform: uppercase;
   margin-bottom: 12px;
 }
-.competitions li.next .calendar-event {
+.competition-list-item.next .calendar-event {
   border-color: currentColor;
   color: inherit;
 }
-.competitions li.next .competition h4 {
+.competition-list-item.next .competition h4 {
   font-weight: 600;
   font-size: 18px;
   white-space: normal;
   overflow: visible;
   text-overflow: unset;
 }
-.competitions li.next .competition p {
+.competition-list-item.next .competition p {
   opacity: 0.85;
 }
 
@@ -1882,47 +1883,79 @@ input.ios-switch:checked:after {
   padding: 20px 0;
 }
 
-.schedule-venue {
-  display: block;
-  opacity: 0.85;
+.schedule-featured {
+  padding: 10px;
+  margin: 14px 0 6px;
 }
 
-.schedule-tour {
-  display: block;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  opacity: 0.85;
+.schedule-list {
+  margin-bottom: 10px;
 }
-
-.schedule-month-header td {
-  padding-top: 24px;
-  padding-bottom: 4px;
-  font-weight: bold;
-  font-size: 0.85em;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  opacity: 0.85;
-  border: none;
+.schedule-row + .schedule-row {
+  border-top: 1px solid rgba(var(--text-rgb), 0.08);
 }
-
-.competition-list-item.past a {
-  color: var(--text);
-}
-
-.competition-list-item.past a {
-  text-decoration: line-through;
-  text-decoration-color: currentColor;
-}
-
-.competition-list-item.previous-year {
-  opacity: 1;
-}
-
-.competition-list-item.previous-year a {
+.schedule-row-link {
+  display: grid;
+  grid-template-columns: 108px minmax(0, 1.3fr) minmax(0, 1fr);
+  column-gap: 12px;
+  align-items: center;
+  padding: 9px 10px;
   color: inherit;
   text-decoration: none;
+}
+.schedule-row-link:hover .schedule-row-name {
+  text-decoration: underline;
+}
+.schedule-row-date {
+  font-size: 14px;
+  opacity: 0.85;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.schedule-row-name,
+.schedule-row-meta,
+.schedule-row-winner-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.schedule-row-meta,
+.schedule-row-winner {
+  font-size: 14px;
+  justify-self: end;
+  max-width: 100%;
+}
+.schedule-row-meta {
+  opacity: 0.85;
+}
+.schedule-row-winner {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.schedule-row-winner .icon {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  color: var(--accent);
+}
+.schedule-row-winner b.under-par {
+  color: var(--primary);
+}
+@media (max-width: 600px) {
+  .schedule-row-link {
+    grid-template-columns: 100px minmax(0, 1fr);
+  }
+  .schedule-row-meta {
+    display: none;
+  }
+  .schedule-row-winner {
+    grid-column: 2;
+    justify-self: start;
+    margin-top: 2px;
+    opacity: 0.85;
+  }
 }
 
 .tour-map-wrapper {
