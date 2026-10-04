@@ -126,7 +126,7 @@ export const orderOfMerit = (() => {
     };
   });
   return {
-    OrderOfMeritData: { Name: 'Road to the Final 2026' },
+    OrderOfMeritData: { Name: 'Road to Europe 2026' },
     Entries,
   };
 })();

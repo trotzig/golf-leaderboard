@@ -3,6 +3,12 @@ import path from 'path';
 
 import prisma from '../src/prisma';
 import StartPage from '../src/StartPage.js';
+import {
+  CHALLENGE_TOUR_SPOTS,
+  TEASER_MAX_EVENTS_LEFT,
+  getRemainingEvents,
+  parsePosition,
+} from '../src/roadToEurope.mjs';
 
 export default StartPage;
 
@@ -10,7 +16,13 @@ export async function getServerSideProps() {
   const now = Date.now();
   const h24 = 24 * 60 * 60 * 1000;
 
-  const [pastCompetitions, upcomingCompetitions, currentCompetition] = await Promise.all([
+  const [
+    pastCompetitions,
+    upcomingCompetitions,
+    currentCompetition,
+    unfinishedCompetitions,
+    oomPlayers,
+  ] = await Promise.all([
     prisma.competition.findMany({
       where: { visible: true, end: { lt: new Date(now - h24) } },
       orderBy: { end: 'desc' },
@@ -76,7 +88,47 @@ export async function getServerSideProps() {
         },
       },
     }),
+    prisma.competition.findMany({
+      where: {
+        visible: true,
+        finished: false,
+        end: { gte: new Date(now - h24) },
+      },
+      orderBy: { start: 'asc' },
+      take: 20,
+      select: { id: true, name: true, start: true, slug: true },
+    }),
+    prisma.player.findMany({
+      where: { oomPosition: { notIn: ['', '-'] } },
+      select: {
+        id: true,
+        slug: true,
+        firstName: true,
+        lastName: true,
+        clubName: true,
+        oomPosition: true,
+      },
+    }),
   ]);
+
+  const remainingEvents = getRemainingEvents(
+    unfinishedCompetitions.map(c => ({ ...c, start: c.start.getTime() })),
+  );
+  const roadToEurope =
+    remainingEvents.length <= TEASER_MAX_EVENTS_LEFT
+      ? {
+          remainingEvents,
+          players: oomPlayers
+            .filter(p => p.oomPosition)
+            .sort(
+              (a, b) =>
+                parsePosition(a.oomPosition) - parsePosition(b.oomPosition),
+            )
+            .filter(
+              p => parsePosition(p.oomPosition) <= CHALLENGE_TOUR_SPOTS + 3,
+            ),
+        }
+      : null;
 
   for (const c of pastCompetitions) {
     c.start = c.start.getTime();
@@ -129,6 +181,7 @@ export async function getServerSideProps() {
     upcomingCompetitions: upcomingSlice,
     reports,
     now,
+    roadToEurope,
   };
   if (nextCompetition) {
     props.nextCompetition = nextCompetition;

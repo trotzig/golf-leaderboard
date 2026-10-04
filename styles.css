@@ -3395,3 +3395,159 @@ input.ios-switch:focus-visible {
     scroll-behavior: auto !important;
   }
 }
+
+/* ── Road to Europe: race for the Challenge Tour ── */
+.oom-race {
+  margin: 0 10px 20px;
+  padding: 14px 16px;
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  line-height: 1.5;
+}
+.oom-race p {
+  margin: 0 0 8px;
+}
+.oom-race p:last-child {
+  margin-bottom: 0;
+}
+.oom-race-title {
+  margin: 0 0 6px;
+  padding: 0;
+  font-size: 17px;
+  font-weight: 600;
+}
+.oom-race-events {
+  padding: 0;
+  margin: 0 0 8px;
+}
+.leaderboard-page.oom .oom-race-events li {
+  border: none;
+  padding: 2px 0;
+}
+.oom-race-events a {
+  color: var(--accent);
+  font-weight: 600;
+}
+.oom-race-event-date {
+  font-size: 13px;
+  opacity: 0.85;
+}
+.oom-race-standing {
+  font-size: 14px;
+}
+.oom .player.oom-qualified {
+  box-shadow: inset 3px 0 0 var(--accent);
+  background: linear-gradient(
+    90deg,
+    rgba(var(--accent-rgb), 0.08),
+    rgba(var(--accent-rgb), 0) 70%
+  );
+}
+.oom-race-note {
+  display: block;
+  font-size: 12px;
+  color: rgba(var(--text-rgb), 0.85);
+  margin-top: 2px;
+}
+.oom-race-note--in {
+  color: var(--accent);
+  font-weight: 600;
+}
+.leaderboard-page ul li.oom-cut-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  border: none;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.oom-cut-line::before,
+.oom-cut-line::after {
+  content: '';
+  flex: 1;
+  border-top: 2px dashed var(--accent);
+  opacity: 0.6;
+}
+
+.rte-teaser-card {
+  margin: 0 10px 30px;
+  padding: 14px 16px;
+  background: var(--surface);
+  border-radius: var(--radius-md);
+}
+.rte-teaser-meta {
+  margin: 0 0 4px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+.rte-teaser-lead {
+  margin: 0 0 10px;
+  line-height: 1.4;
+}
+.rte-teaser-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  padding: 4px 0;
+}
+.rte-teaser-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 10px;
+}
+.rte-teaser-list a {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: none;
+}
+.rte-teaser-list a:hover {
+  text-decoration: underline;
+}
+.rte-teaser-position {
+  min-width: 28px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--on-accent);
+  background: var(--accent);
+  border-radius: var(--radius-pill);
+}
+.rte-teaser-list--chasers .rte-teaser-position {
+  color: inherit;
+  background: rgba(var(--text-rgb), 0.1);
+}
+.rte-teaser-club {
+  font-size: 12px;
+  opacity: 0.85;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rte-teaser-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 4px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.85;
+}
+.rte-teaser-line::after {
+  content: '';
+  flex: 1;
+  border-top: 2px dashed rgba(var(--text-rgb), 0.3);
+}
+.rte-teaser-link {
+  color: var(--accent);
+  font-weight: 600;
+}

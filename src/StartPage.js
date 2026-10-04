@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useMemo } from 'react';
 
 import ReportBlurbs from './ReportBlurbs.js';
+import RoadToEuropeTeaser from './RoadToEuropeTeaser.js';
 import Leaderboard from './Leaderboard.js';
 import CompetitionListItem from './CompetitionListItem.js';
 import ensureDates from './ensureDates.js';
@@ -15,6 +16,7 @@ export default function StartPage({
   nextCompetition,
   currentCompetition,
   reports,
+  roadToEurope,
   now: nowMs,
 }) {
   const router = useRouter();
@@ -116,6 +118,12 @@ export default function StartPage({
             <CompetitionListItem competition={nextCompetition} now={now} next />
           </ul>
         ) : null}
+        {roadToEurope && (
+          <RoadToEuropeTeaser
+            players={roadToEurope.players}
+            remainingEvents={roadToEurope.remainingEvents}
+          />
+        )}
         {reports && reports.length > 0 && (
           <ReportBlurbs reports={reports} showViewAll />
         )}

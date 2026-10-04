@@ -100,6 +100,34 @@ const leaderboardEntries = [
   },
 ];
 
+const roadToEurope = {
+  remainingEvents: [
+    { id: 30, name: 'Destination Gotland Open', slug: 'destination-gotland-open' },
+    {
+      id: 31,
+      name: 'Road to Europe Final by Sparekassen Danmark',
+      slug: 'road-to-europe-final',
+    },
+  ],
+  players: [
+    ['1', 'Anders', 'Lindqvist', 'Stockholms GK'],
+    ['2', 'Johan', 'Bergström', 'Vallda GK'],
+    ['3', 'Mikkel', 'Dahlgaard', 'Havnevig Golf Klub'],
+    ['4', 'Sindre', 'Berge', 'Fjordvik Golfklubb'],
+    ['5', 'Eero', 'Kallio', 'Tallholmen Golf'],
+    ['6', 'Viktor', 'Nyqvist', 'Björkvik Golfklubb'],
+    ['T7', 'Casper', 'Skov', 'Egeskov Park Golf'],
+    ['T7', 'Linus', 'Ståhl', 'Skogsberga GK'],
+  ].map(([oomPosition, firstName, lastName, clubName], i) => ({
+    id: `rte-${i}`,
+    slug: `${firstName}-${lastName}`.toLowerCase(),
+    firstName,
+    lastName,
+    clubName,
+    oomPosition,
+  })),
+};
+
 export default {
   title: 'StartPage',
   component: StartPage,
@@ -140,5 +168,25 @@ export const NoActiveCompetition = () => (
     pastCompetitions={pastCompetitions}
     upcomingCompetitions={upcomingCompetitions}
     nextCompetition={upcomingCompetitions[0]}
+  />
+);
+
+export const RoadToEuropeRace = () => (
+  <StartPage
+    now={now}
+    pastCompetitions={pastCompetitions}
+    upcomingCompetitions={upcomingCompetitions}
+    nextCompetition={upcomingCompetitions[0]}
+    roadToEurope={roadToEurope}
+  />
+);
+
+export const RoadToEuropeFinalStandings = () => (
+  <StartPage
+    now={now}
+    pastCompetitions={pastCompetitions}
+    upcomingCompetitions={upcomingCompetitions}
+    nextCompetition={upcomingCompetitions[0]}
+    roadToEurope={{ ...roadToEurope, remainingEvents: [] }}
   />
 );
