@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import fetchCompetitions from '../scripts/utils/fetchCompetitions.mjs';
 import generateSlug from './generateSlug.mjs';
+import isQualifyingEvent from './isQualifyingEvent.mjs';
 import parseJson from '../scripts/utils/parseJson.mjs';
 import prisma from './prisma.mjs';
 
@@ -385,7 +386,8 @@ export default async function syncData({ full = true } = {}) {
     if (!newCompetition) {
       if (
         competition.visible &&
-        competition.start.getFullYear() === fetchedYear
+        (competition.start.getFullYear() === fetchedYear ||
+          isQualifyingEvent(competition))
       ) {
         console.log(
           `Hiding competition "${competition.name}" (id=${competition.id}) as it's no longer in the fetched list`,
