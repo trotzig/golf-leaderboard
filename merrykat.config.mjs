@@ -1,4 +1,10 @@
 export default {
+  compare: {
+    // Fingerprints come from .storybook/merrykatFingerprints.mjs. 'verify' still
+    // compares every story and reports where the fingerprints were wrong;
+    // switch to 'auto' to start skipping unchanged stories.
+    fingerprints: 'verify',
+  },
   viewports: [
     { name: 'desktop', width: 1280, height: 800 },
     {
