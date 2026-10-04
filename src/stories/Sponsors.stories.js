@@ -124,7 +124,9 @@ const nordicGolfers = {
   logoSrc: nordicGolfersLogo,
   href: 'https://www.nordicgolfers.com/se/barsebaeck-resort/',
   color: '#ff0066',
-  onColor: '#ffffff',
+  // White on this pink falls short of the 4.5:1 contrast the button text
+  // needs, so the button text is dark.
+  onColor: '#1f000c',
   headline: 'Play where the pros play.',
   pitch: venue => `Stay and play at ${venue} with NordicGolfers.com.`,
   shortPitch: venue => `Stay and play at ${venue}`,
