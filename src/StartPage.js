@@ -5,6 +5,7 @@ import React, { useEffect, useMemo } from 'react';
 
 import ReportBlurbs from './ReportBlurbs.js';
 import RoadToEuropeTeaser from './RoadToEuropeTeaser.js';
+import Sponsor from './Sponsor.js';
 import Leaderboard from './Leaderboard.js';
 import CompetitionListItem from './CompetitionListItem.js';
 import CourseContours from './CourseContours.js';
@@ -18,6 +19,7 @@ export default function StartPage({
   currentCompetition,
   reports,
   roadToEurope,
+  sponsor,
   now: nowMs,
 }) {
   const router = useRouter();
@@ -102,6 +104,12 @@ export default function StartPage({
       <div className="competitions">
         {currentCompetition && (
           <Leaderboard competition={currentCompetition} now={now} />
+        )}
+        {sponsor && (
+          <Sponsor
+            sponsor={sponsor}
+            venue={(currentCompetition || nextCompetition)?.venue}
+          />
         )}
         <div className={currentCompetition ? 'intro intro--compact' : 'intro'}>
           {currentCompetition ? null : <CourseContours className="intro-contours" />}

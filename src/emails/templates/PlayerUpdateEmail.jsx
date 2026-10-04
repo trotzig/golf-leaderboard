@@ -3,6 +3,7 @@ import { Column, Heading, Link, Row, Section, Text } from 'react-email';
 
 import EmailLayout from '../components/EmailLayout.jsx';
 import PrimaryButton from '../components/PrimaryButton.jsx';
+import SponsorBlock from '../components/SponsorBlock.jsx';
 import * as styles from '../styles.mjs';
 
 function Stat({ label, value, width }) {
@@ -35,6 +36,7 @@ export default function PlayerUpdateEmail({
   leaderboardUrl,
   playerUrl,
   unsubscribeUrl,
+  sponsor,
 }) {
   return (
     <EmailLayout
@@ -74,6 +76,8 @@ export default function PlayerUpdateEmail({
           More about {firstName} {lastName}
         </Link>
       </Text>
+
+      {sponsor ? <SponsorBlock sponsor={sponsor} /> : null}
     </EmailLayout>
   );
 }

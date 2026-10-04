@@ -126,6 +126,43 @@ export const callout = {
   margin: '8px 0 16px',
 };
 
+/** The "presented by" box at the end of a notification email. */
+export const sponsorBox = {
+  backgroundColor: colors.surface,
+  borderRadius: '0 10px 10px 0',
+  padding: '16px 20px',
+  margin: '28px 0 0',
+};
+
+export const sponsorLogo = {
+  display: 'block',
+  // Keeps very wide wordmarks from dominating the box.
+  maxWidth: '120px',
+  objectFit: 'contain',
+  borderRadius: '6px',
+  padding: '5px 9px',
+  margin: '4px 0 12px',
+};
+
+export const sponsorHeadline = {
+  fontFamily: headingFontFamily,
+  fontSize: '20px',
+  fontWeight: 700,
+  lineHeight: '1.2',
+  margin: '0 0 4px',
+};
+
+export const sponsorPitch = {
+  fontSize: '15px',
+  lineHeight: '22px',
+  margin: '0 0 8px',
+};
+
+export const sponsorLink = {
+  ...link,
+  fontWeight: 'bold',
+};
+
 export const statLabel = {
   ...eyebrow,
   fontSize: '11px',

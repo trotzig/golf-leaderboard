@@ -82,7 +82,9 @@ const emailTemplates = {
     }),
   }),
 
-  'player-update': ({ result, notificationType, unsubscribeUrl }) => {
+  // `sponsor` is optional: { name, href, logoSrc, logoBackground, color,
+  // headline, pitch, cta }.
+  'player-update': ({ result, notificationType, unsubscribeUrl, sponsor }) => {
     const { subject, ...content } = playerUpdateContent(
       result,
       notificationType,
@@ -99,6 +101,7 @@ const emailTemplates = {
         leaderboardUrl: `${baseUrl}/t/${result.competitionSlug}`,
         playerUrl: `${baseUrl}/${result.slug}`,
         unsubscribeUrl,
+        sponsor,
       }),
     };
   },
