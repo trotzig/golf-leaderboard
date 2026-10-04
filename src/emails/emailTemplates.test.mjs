@@ -68,6 +68,31 @@ describe('player-update', () => {
     expect(text).toContain('Stefan Idstam just made an eagle on hole 7');
   });
 
+  it('adds the sponsor when there is one', async () => {
+    const sponsor = {
+      name: 'Acme Golf',
+      href: 'https://acme.example/',
+      logoSrc: 'https://acme.example/logo.png',
+      color: '#123456',
+      headline: 'Play more golf.',
+      pitch: 'Everything for your next round.',
+      cta: 'Visit Acme',
+    };
+    const email = emailTemplates['player-update']({
+      result,
+      notificationType: 'finished',
+      unsubscribeUrl,
+      sponsor,
+    });
+    const { html, text } = await renderEmail(email.element);
+    expect(html).toContain('href="https://acme.example/"');
+    expect(text).toContain('Presented by Acme Golf');
+    expect(text).toContain('Everything for your next round.');
+
+    const unsponsored = await renderEmail(playerUpdate('finished').element);
+    expect(unsponsored.text).not.toContain('Presented by');
+  });
+
   it('links to the unsubscribe page in both parts', async () => {
     const { html, text } = await renderEmail(playerUpdate('finished').element);
     expect(html).toContain(`href="${unsubscribeUrl}"`);

@@ -65,7 +65,8 @@ export const emailHeadStyles = `
       -webkit-text-fill-color: #10231b !important;
     }
 
-    .main-container .callout {
+    .main-container .callout,
+    .main-container .sponsor-box {
       background-color: #1b201e !important;
     }
 

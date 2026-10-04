@@ -23,6 +23,7 @@ import fixParValue from './fixParValue';
 import generateSlug from './generateSlug.mjs';
 import parseCET from './parseCET';
 import removeCommonCoursePrefix from './removeCommonCoursePrefix.js';
+import Sponsor from './Sponsor.js';
 import { withoutLaterUpcomingRounds } from './upcomingRounds.mjs';
 import YouTubeEmbed from './YouTubeEmbed';
 import VenueMapLink from './VenueMapLink';
@@ -973,6 +974,7 @@ export default function CompetitionPage({
   lazyItems = true,
   baseUrl,
   collidingSlugs: collidingSlugsArray = [],
+  sponsor,
 }) {
   const collidingSlugs = useMemo(() => new Map(collidingSlugsArray), [collidingSlugsArray]);
   ensureDates(competition);
@@ -1147,6 +1149,9 @@ export default function CompetitionPage({
             );
           })()}
         </p>
+      )}
+      {sponsor && (
+        <Sponsor sponsor={sponsor} venue={competition.venue} variant="inline" />
       )}
       {/* Match play shows tee times inline in the bracket, so it has no
           separate tee-times view. */}
