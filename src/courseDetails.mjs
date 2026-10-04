@@ -1,21 +1,5 @@
-// Picks a course's name and holes out of a GolfBox `InfoHandler/GetInfo`
-// response.
-//
-// `Courses` is keyed by course *and* tee (`C{CourseID}T{TeeName}`), so a
-// course played from several tees shows up more than once. We want the tee
-// the men play from, which the class's round setup names in `TeeMen`.
-export function getCourseDetails(data, courseId) {
-  const tees = Object.values(data.Courses || {}).filter(
-    c => String(c.CourseID) === String(courseId),
-  );
-  const mensTee = Object.values(data.Classes || {})
-    .flatMap(cls => Object.values(cls.Rounds || {}))
-    .map(round => (round.Courses || {})[`Course${courseId}`])
-    .filter(Boolean)
-    .map(c => c.TeeMen)[0];
-  const course = tees.find(c => c.TeeName === mensTee) || tees[0];
-
-  const holes = Object.entries((course && course.Holes) || {})
+function getHoles(course) {
+  return Object.entries(course.Holes || {})
     .filter(([key]) => /^H\d+$/.test(key))
     .map(([key, hole]) => ({
       key,
@@ -24,6 +8,23 @@ export function getCourseDetails(data, courseId) {
       par: hole.Par,
     }))
     .sort((a, b) => parseInt(a.number) - parseInt(b.number));
+}
 
-  return { name: course && course.CourseName, holes };
+function totalLength(holes) {
+  return holes.reduce((sum, hole) => sum + (hole.length || 0), 0);
+}
+
+// Picks a course's name and holes out of a GolfBox `InfoHandler/GetInfo`
+// response.
+//
+// `Courses` is keyed by course *and* tee (`C{CourseID}T{TeeName}`), so a
+// course with several tees shows up more than once. The tour always plays
+// from the tips, so we want the longest one.
+export function getCourseDetails(data, courseId) {
+  const tees = Object.values(data.Courses || {})
+    .filter(c => String(c.CourseID) === String(courseId))
+    .map(c => ({ name: c.CourseName, holes: getHoles(c) }))
+    .sort((a, b) => totalLength(b.holes) - totalLength(a.holes));
+
+  return tees[0] || { name: undefined, holes: [] };
 }

@@ -580,8 +580,9 @@ published, and keeps them after it has finished.
 ```
 
 Holes are flat here (`Par`, `Length`, `Index` directly on the hole), where the
-leaderboard nests them under `Tees.T{TeeID}`. `src/courseDetails.mjs` picks the
-entry whose `TeeName` matches the round setup's `TeeMen`.
+leaderboard nests them under `Tees.T{TeeID}`. When a course has several tee
+entries, `src/courseDetails.mjs` picks the longest one, since the tour always
+plays from the tips.
 
 ## Match play — `MatchplayHandler/GetMatchplay`
 

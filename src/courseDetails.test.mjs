@@ -29,22 +29,12 @@ test('getCourseDetails returns holes sorted by number, without the totals', () =
   });
 });
 
-test("getCourseDetails picks the men's tee when a course has several", () => {
+test('getCourseDetails picks the longest tee when a course has several', () => {
   const data = {
     Courses: {
       C2364897T41: course('41', 290),
       C2364897T63: course('63', 350),
-    },
-    Classes: {
-      C4910797: {
-        Rounds: {
-          R1: {
-            Courses: {
-              Course2364897: { CourseID: 2364897, TeeWomen: '41', TeeMen: '63' },
-            },
-          },
-        },
-      },
+      C2364897T56: course('56', 320),
     },
   };
   expect(getCourseDetails(data, '2364897').holes[0].length).toBe(350);
