@@ -66,6 +66,7 @@ Key env vars: `DATABASE_URL`, `NEXT_PUBLIC_GOLFBOX_CUSTOMER_ID`, `NEXT_PUBLIC_GO
 - **Player** — golfer (id from GolfBox MemberID, slug, name, club, OOM position)
 - **LeaderboardEntry** — live position per competition per player
 - **PlayerCompetitionScore** — final score after competition ends
+- **CompetitionStats** — per-competition round scores, cut line and birdie counts (JSON), stored by the sync once a competition has finished; feeds the season stats on `/players` (`src/seasonStats.mjs`)
 - **Account** — subscriber (email, notification preferences)
 - **Favorite** — account ↔ player many-to-many
 - **SignInAttempt** — passwordless auth tokens

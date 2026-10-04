@@ -1,4 +1,5 @@
 import PlayersPage from '../src/PlayersPage.js';
+import getSeasonStats from '../src/getSeasonStats.mjs';
 import prisma from '../src/prisma';
 import profileProps from '../src/profileProps.js';
 
@@ -16,6 +17,7 @@ export async function getServerSideProps({ req, res, query }) {
       props: { account },
     },
     players,
+    seasonStats,
   ] = await Promise.all([
     profileProps({ req, res }),
     prisma.player.findMany({
@@ -45,6 +47,10 @@ export async function getServerSideProps({ req, res, query }) {
         oomPosition: true,
       },
     }),
+    getSeasonStats().catch(e => {
+      console.warn('Failed to get season stats', e);
+      return null;
+    }),
   ]);
-  return { props: { account: account || null, players } };
+  return { props: { account: account || null, players, seasonStats } };
 }

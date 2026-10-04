@@ -164,7 +164,7 @@ Names often have **trailing whitespace** (`FirstName: "John "`). Always
 | ------------------------------------------------ | ---------------------------------------- | ---------------------------------------------- | ---------------------------------------------------------------- |
 | `ScheduleHandler/GetSchedule`                    | `CustomerId`, `Season`, `CompetitionId/0`| List of the season's competitions               | `scripts/utils/fetchCompetitions.mjs`                            |
 | `CompetitionHandler/GetCompetition`              | `CompetitionId`                          | Single competition: venue, `DefaultAction`, settings | `fetchCompetitions.mjs`, `syncData.mjs`, `notifySubscribers.mjs`, `CompetitionPage.js` |
-| `LeaderboardHandler/GetLeaderboard`              | `CompetitionId`                          | Positions, scores, hole-by-hole data            | `syncData.mjs`, `notifySubscribers.mjs`, `CompetitionPage.js`, `TeeTimesPage.js`, `writeReport.mjs` |
+| `LeaderboardHandler/GetLeaderboard`              | `CompetitionId`                          | Positions, scores, hole-by-hole data            | `syncData.mjs`, `syncCompetitionStats.mjs`, `notifySubscribers.mjs`, `CompetitionPage.js`, `TeeTimesPage.js`, `writeReport.mjs` |
 | `TeeTimesHandler/GetTeeTimes`                    | `CompetitionId`                          | Start lists per round                           | `CompetitionPage.js`, `TeeTimesPage.js`, `notifySubscribers.mjs` |
 | `PlayersHandler/GetPlayers`                      | `CompetitionId`                          | Entry list before tee times exist               | `syncData.mjs`, `CompetitionPage.js`                             |
 | `MatchplayHandler/GetMatchplay`                  | `CompetitionId`                          | Knockout bracket (only when `Type === "MatchPlay"`) | `CompetitionPage.js`, `writeReport.mjs`                     |
@@ -393,6 +393,12 @@ keys with a different shape**:
 "H-TOTAL": { "Par": 71, "Score": 67, ... }
 //          ^ Score is a plain number here, and Result uses ToPar/Actual (no Text/Value suffix)
 ```
+
+Players who miss the cut have no round object for the rounds after it, and a
+player who retires or is disqualified mid-round keeps that round with
+`IsCompleted: false` and only the holes played. Summing `Score.Value` and
+`Par` over `H1`…`H18` matches `ResultSum` and the entry's `ScoreStats`
+(`src/seasonStats.mjs`).
 
 Holes that haven't been played are missing or `null`. In unit-test fixtures
 an aggregate can be `null` too (`cutUtils.test.mjs`).

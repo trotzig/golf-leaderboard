@@ -91,6 +91,16 @@ model Competition {
   categories       Int[]     @default([])
   competitionScore PlayerCompetitionScore[]
   leaderboardEntries LeaderboardEntry[]
+  stats            CompetitionStats?
+}
+
+// Round and hole numbers boiled down from the GolfBox leaderboard once a
+// competition has finished (see src/seasonStats.mjs for the shape of `data`).
+model CompetitionStats {
+  competitionId Int      @id
+  competition   Competition @relation(fields: [competitionId], references: [id])
+  data          Json
+  updatedAt     DateTime @default(now())
 }
 
 model LeaderboardEntry {
