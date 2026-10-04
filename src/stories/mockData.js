@@ -59,6 +59,47 @@ function makePlayer(i) {
 
 export const players = Array.from({ length: 30 }, (_, i) => makePlayer(i));
 
+function statsPlayer(i) {
+  const { id, slug, firstName, lastName } = players[i];
+  return { playerId: id, slug, name: `${firstName} ${lastName}` };
+}
+
+// Same shape as getSeasonStats() returns.
+export const seasonStats = {
+  competitions: 18,
+  scoringAverage: {
+    minRounds: 24,
+    players: [
+      { ...statsPlayer(0), rounds: 47, average: 68.74 },
+      { ...statsPlayer(3), rounds: 41, average: 68.95 },
+      { ...statsPlayer(7), rounds: 28, average: 69.32 },
+    ],
+  },
+  finalRoundAverage: {
+    minRounds: 7,
+    players: [
+      { ...statsPlayer(3), rounds: 12, average: 68.33 },
+      { ...statsPlayer(11), rounds: 8, average: 68.5 },
+      { ...statsPlayer(0), rounds: 14, average: 68.86 },
+    ],
+  },
+  cut: { averageToPar: 1.39, competitions: 16 },
+  lowestRound: {
+    ...statsPlayer(5),
+    strokes: 61,
+    toPar: -10,
+    round: 2,
+    competition: {
+      name: 'Granbacka Open',
+      slug: 'granbacka-open-2026',
+      venue: 'Granbacka Golf',
+    },
+  },
+  birdies: 18342,
+  eaglesOrBetter: 561,
+  holeInOnes: 9,
+};
+
 const CUTTER_BUCK_TOUR = 13350;
 const ECCO_TOUR = 13360;
 

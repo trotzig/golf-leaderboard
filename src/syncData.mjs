@@ -5,6 +5,7 @@ import generateSlug from './generateSlug.mjs';
 import isQualifyingEvent from './isQualifyingEvent.mjs';
 import parseJson from '../scripts/utils/parseJson.mjs';
 import prisma from './prisma.mjs';
+import syncCompetitionStats from './syncCompetitionStats.mjs';
 
 async function promiseAllInBatches(task, items, batchSize = 10) {
   let position = 0;
@@ -379,6 +380,12 @@ export default async function syncData({ full = true } = {}) {
       data: { oomPosition: null, updatedAt: new Date() },
     });
   }, clearOomItems);
+
+  try {
+    await syncCompetitionStats();
+  } catch (e) {
+    console.warn('Failed to sync competition stats', e);
+  }
 
   const fetchedYear =
     competitions.length > 0

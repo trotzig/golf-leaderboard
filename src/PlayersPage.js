@@ -6,6 +6,7 @@ import debounce from 'lodash/debounce';
 
 import FavoriteButton from './FavoriteButton';
 import FlagIcon, { getCountryName } from './FlagIcon';
+import SeasonStatsCards from './SeasonStatsCards';
 import ordinal from './ordinal';
 import syncFavorites from './syncFavorites.js';
 
@@ -46,7 +47,11 @@ function Player({ player, onFavorite, lastFavoriteChanged }) {
   );
 }
 
-export default function PlayersPage({ account, players: rawPlayers }) {
+export default function PlayersPage({
+  account,
+  players: rawPlayers,
+  seasonStats,
+}) {
   const router = useRouter();
   const [lastFavoriteChanged, setLastFavoriteChanged] = useState();
   const [players, setPlayers] = useState(rawPlayers);
@@ -194,6 +199,13 @@ export default function PlayersPage({ account, players: rawPlayers }) {
         />
       </Head>
       <h2>Players</h2>
+      {seasonStats ? (
+        <>
+          <h3 className="leaderboard-section-heading">Player stats</h3>
+          <SeasonStatsCards stats={seasonStats} />
+          <h3 className="leaderboard-section-heading">List of Players</h3>
+        </>
+      ) : null}
       <p className="page-desc" style={{ marginBottom: 15 }}>
         Showing players with an active participation{' '}
         <select
