@@ -58,6 +58,8 @@ Tournament data is fetched from the GolfBox API (`scores.golfbox.dk`) and stored
 
 Key env vars: `DATABASE_URL`, `NEXT_PUBLIC_GOLFBOX_CUSTOMER_ID`, `NEXT_PUBLIC_GOLFBOX_OOM_ID`
 
+**GolfBox data structures:** see [`docs/golfbox-api.md`](docs/golfbox-api.md) before touching code that reads GolfBox responses. It maps every endpoint we use, the response shapes (leaderboard, tee times, players, match play, OOM, schedule), ID/key conventions, the ×10 000 score scaling, sentinel values, and how competition state is derived. GolfBox has no official API documentation, so update that doc when you learn something new.
+
 ## Database Models
 
 - **Competition** — tournament (id, name, slug, venue, start/end dates, finished flag)
