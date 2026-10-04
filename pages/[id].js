@@ -1,5 +1,6 @@
 import PlayerPage from '../src/PlayerPage.js';
 import isQualifyingEvent from '../src/isQualifyingEvent.mjs';
+import playerPhotoPath from '../src/playerPhotoPath.mjs';
 import prisma from '../src/prisma';
 
 export default PlayerPage;
@@ -64,6 +65,11 @@ export async function getServerSideProps({ params, query, req }) {
   const protocol = req.headers['x-forwarded-proto'] || 'https';
   const baseUrl = `${protocol}://${req.headers.host}`;
   return {
-    props: { player, season: query.season || null, baseUrl },
+    props: {
+      player,
+      season: query.season || null,
+      baseUrl,
+      photoPath: playerPhotoPath(player.id),
+    },
   };
 }

@@ -1080,16 +1080,16 @@ export default function CompetitionPage({
           content={`Follow the leaderboard and see tee times for ${formatCompetitionName(competition.name)}${competition.venue ? ` at ${competition.venue}` : ''}.`}
         />
         <meta property="og:type" content="website" />
-        {finishedResult?.youtubeId && (
+        {baseUrl && (
           <>
             <meta
+              key="og:image"
               property="og:image"
-              content={`https://img.youtube.com/vi/${finishedResult.youtubeId}/maxresdefault.jpg`}
+              content={`${baseUrl}/api/og/t/${competition.slug}`}
             />
-            <meta name="twitter:card" content="summary_large_image" />
             <meta
               name="twitter:image"
-              content={`https://img.youtube.com/vi/${finishedResult.youtubeId}/maxresdefault.jpg`}
+              content={`${baseUrl}/api/og/t/${competition.slug}`}
             />
           </>
         )}

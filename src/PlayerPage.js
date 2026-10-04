@@ -31,6 +31,7 @@ export default function PlayerPage({
   player,
   season: selectedSeason,
   baseUrl,
+  photoPath,
   now = Date.now(),
 }) {
   const router = useRouter();
@@ -66,19 +67,16 @@ export default function PlayerPage({
           content={`${player.firstName} ${player.lastName} from ${player.clubName} is competing on the ${process.env.NEXT_PUBLIC_INTRO_TITLE}. Follow their results and subscribe to updates.`}
         />
         <meta property="og:type" content="profile" />
-        {baseUrl && (
+        {baseUrl && photoPath && (
           <meta
+            key="og:image"
             property="og:image"
-            content={`${baseUrl}/players/${player.id}.jpg`}
+            content={`${baseUrl}${photoPath}`}
           />
         )}
         {baseUrl && (
           <link rel="canonical" href={`${baseUrl}/${player.slug}`} />
         )}
-        <meta
-          name="twitter:card"
-          content={baseUrl ? 'summary_large_image' : 'summary'}
-        />
         <meta
           name="twitter:title"
           content={`${player.firstName} ${player.lastName} | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`}
@@ -87,11 +85,8 @@ export default function PlayerPage({
           name="twitter:description"
           content={`${player.firstName} ${player.lastName} from ${player.clubName} is competing on the ${process.env.NEXT_PUBLIC_INTRO_TITLE}. Follow their results and subscribe to updates.`}
         />
-        {baseUrl && (
-          <meta
-            name="twitter:image"
-            content={`${baseUrl}/players/${player.id}.jpg`}
-          />
+        {baseUrl && photoPath && (
+          <meta name="twitter:image" content={`${baseUrl}${photoPath}`} />
         )}
       </Head>
       <div className="player-page-top">
