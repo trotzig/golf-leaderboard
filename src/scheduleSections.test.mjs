@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
   getPodium,
   getWinner,
+  isLongRunning,
   roundCount,
   shortDateRange,
   shortTourName,
@@ -167,6 +168,30 @@ describe('getPodium and getWinner', () => {
     expect(getWinner([])).toBe(null);
     expect(getWinner(undefined)).toBe(null);
     expect(getWinner(getPodium([score('MC', 'Bo', 'Ek')]))).toBe(null);
+  });
+});
+
+describe('isLongRunning', () => {
+  it('is false for a regular tournament', () => {
+    expect(isLongRunning(season[0])).toBe(false);
+    expect(
+      isLongRunning(comp(8, '2026-07-01T00:00:00Z', '2026-07-05T00:00:00Z')),
+    ).toBe(false);
+  });
+
+  it('is true for a month-long play-off series', () => {
+    expect(
+      isLongRunning(comp(9, '2026-09-14T00:00:00Z', '2026-10-16T00:00:00Z')),
+    ).toBe(true);
+  });
+
+  it('accepts timestamps as well as dates', () => {
+    expect(
+      isLongRunning({
+        start: Date.parse('2026-09-14T00:00:00Z'),
+        end: Date.parse('2026-10-16T00:00:00Z'),
+      }),
+    ).toBe(true);
   });
 });
 

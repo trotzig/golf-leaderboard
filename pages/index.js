@@ -9,8 +9,16 @@ import {
   getRemainingEvents,
   parsePosition,
 } from '../src/roadToEurope.mjs';
+import { isLongRunning } from '../src/scheduleSections.mjs';
 
 export default StartPage;
+
+// Umbrella entries (a play-off series, a sign-up period) span weeks and aren't
+// tournaments, so they're kept off the start page. The queries below fetch a
+// few extra rows to make up for the ones dropped here.
+function tournaments(competitions) {
+  return competitions.filter(c => !isLongRunning(c));
+}
 
 export async function getServerSideProps() {
   const now = Date.now();
@@ -19,14 +27,14 @@ export async function getServerSideProps() {
   const [
     pastCompetitions,
     upcomingCompetitions,
-    currentCompetition,
+    ongoingCompetitions,
     unfinishedCompetitions,
     oomPlayers,
   ] = await Promise.all([
     prisma.competition.findMany({
       where: { visible: true, end: { lt: new Date(now - h24) } },
       orderBy: { end: 'desc' },
-      take: 3,
+      take: 6,
       select: {
         id: true,
         name: true,
@@ -40,7 +48,7 @@ export async function getServerSideProps() {
     prisma.competition.findMany({
       where: { visible: true, start: { gt: new Date(now) } },
       orderBy: { start: 'asc' },
-      take: 4,
+      take: 6,
       select: {
         id: true,
         name: true,
@@ -51,7 +59,7 @@ export async function getServerSideProps() {
         categories: true,
       },
     }),
-    prisma.competition.findFirst({
+    prisma.competition.findMany({
       where: {
         visible: true,
         start: { lte: new Date(now) },
@@ -96,7 +104,7 @@ export async function getServerSideProps() {
       },
       orderBy: { start: 'asc' },
       take: 20,
-      select: { id: true, name: true, start: true, slug: true },
+      select: { id: true, name: true, start: true, end: true, slug: true },
     }),
     prisma.player.findMany({
       where: { oomPosition: { notIn: ['', '-'] } },
@@ -112,7 +120,10 @@ export async function getServerSideProps() {
   ]);
 
   const remainingEvents = getRemainingEvents(
-    unfinishedCompetitions.map(c => ({ ...c, start: c.start.getTime() })),
+    tournaments(unfinishedCompetitions).map(({ end, ...c }) => ({
+      ...c,
+      start: c.start.getTime(),
+    })),
   );
   const roadToEurope =
     remainingEvents.length <= TEASER_MAX_EVENTS_LEFT
@@ -130,11 +141,15 @@ export async function getServerSideProps() {
         }
       : null;
 
-  for (const c of pastCompetitions) {
+  const pastSlice = tournaments(pastCompetitions).slice(0, 3);
+  const upcomingTournaments = tournaments(upcomingCompetitions);
+  const currentCompetition = tournaments(ongoingCompetitions)[0];
+
+  for (const c of pastSlice) {
     c.start = c.start.getTime();
     c.end = c.end.getTime();
   }
-  for (const c of upcomingCompetitions) {
+  for (const c of upcomingTournaments) {
     c.start = c.start.getTime();
     c.end = c.end.getTime();
   }
@@ -143,8 +158,10 @@ export async function getServerSideProps() {
     currentCompetition.end = currentCompetition.end.getTime();
   }
 
-  const nextCompetition = currentCompetition ? undefined : upcomingCompetitions[0];
-  const upcomingSlice = upcomingCompetitions.slice(0, 3);
+  const nextCompetition = currentCompetition
+    ? undefined
+    : upcomingTournaments[0];
+  const upcomingSlice = upcomingTournaments.slice(0, 3);
 
   // Load reports from the src/reports/ directory
   const reportsDir = path.join(process.cwd(), 'src', 'reports');
@@ -177,7 +194,7 @@ export async function getServerSideProps() {
   }
 
   const props = {
-    pastCompetitions,
+    pastCompetitions: pastSlice,
     upcomingCompetitions: upcomingSlice,
     reports,
     now,

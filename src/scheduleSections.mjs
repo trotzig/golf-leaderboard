@@ -4,7 +4,7 @@ const DAY = 24 * 60 * 60 * 1000;
 
 // Entries spanning more than a few days aren't tournaments but umbrella
 // entries, like a play-off series or a sign-up period.
-function isLongRunning(c) {
+export function isLongRunning(c) {
   return +c.end - +c.start > 4 * DAY;
 }
 
