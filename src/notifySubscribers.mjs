@@ -1,7 +1,7 @@
 import { startOfDay } from 'date-fns';
 
+import emailTemplates from './emails/emailTemplates.mjs';
 import { sendMail } from './mailgun.mjs';
-import fixParValue from './fixParValue.mjs';
 import generateSlug from './generateSlug.mjs';
 import { describeHoleScore } from './holeScore.mjs';
 import getCollidingSlugs from './getCollidingSlugs.mjs';
@@ -9,7 +9,7 @@ import getCurrentCompetition from './getCurrentCompetition.mjs';
 import parseJson from '../scripts/utils/parseJson.mjs';
 import prisma from './prisma.mjs';
 
-const { BASE_URL, TEST_COMPETITION_ID, MAILGUN_DOMAIN } = process.env;
+const { BASE_URL, TEST_COMPETITION_ID } = process.env;
 
 function getHole(entry) {
   if (!entry.Rounds) {
@@ -156,32 +156,8 @@ async function fetchResults(competition, collidingSlugs) {
   };
 }
 
-function fixTotalScore(score) {
-  if (score === 'Par') {
-    return 'on even par';
-  }
-  return score;
-}
-
-async function sendEmail(
-  {
-    roundNumber,
-    playerId,
-    firstName,
-    lastName,
-    score,
-    scoreToPar,
-    totalScoreToPar,
-    slug,
-    position,
-    competitionId,
-    competitionName,
-    competitionSlug,
-    holesPlayed,
-    scoreLastHole,
-  },
-  notificationType,
-) {
+async function sendEmail(result, notificationType) {
+  const { roundNumber, playerId, competitionId } = result;
   const resultNotified = await prisma.resultNotified.findUnique({
     where: {
       roundNumber_competitionId_playerId_notificationType: {
@@ -232,59 +208,14 @@ async function sendEmail(
 
     const unsubscribeUrl = `${BASE_URL}/api/unsubscribe?token=${account.authToken}`;
 
-    const footer = `
-See the result from ${firstName} and others in the full leaderboard here:
-${BASE_URL}/t/${competitionSlug}
-
--------------------
-This email was sent via ${MAILGUN_DOMAIN}. To stop getting these emails,
-unsubscribe using this link: ${unsubscribeUrl}
-    `.trim();
-
-    const subject =
-      notificationType === 'finished'
-        ? `${firstName} ${lastName} finished round ${roundNumber} at ${fixParValue(
-            scoreToPar,
-          )}`
-        : notificationType === 'started'
-        ? `${firstName} ${lastName} is ${fixParValue(
-            scoreToPar,
-          )} after ${holesPlayed} holes at round ${roundNumber}`
-        : `${firstName} ${lastName} made ${scoreLastHole.scoreText} on hole ${scoreLastHole.hole} at round ${roundNumber}`;
-
-    const text =
-      notificationType === 'finished'
-        ? `
-${firstName} ${lastName} has position ${position} in the field after finishing round ${roundNumber} at ${fixParValue(
-            scoreToPar,
-          )} of ${competitionName}. ${firstName} is ${fixTotalScore(
-            totalScoreToPar,
-          )} total.
-
-${footer}
-    `.trim()
-        : notificationType === 'started'
-        ? `
-${firstName} ${lastName} has started playing round ${roundNumber} of ${competitionName}. ${firstName} is ${fixParValue(
-            scoreToPar,
-          )} after ${holesPlayed} holes played.
-
-${footer}
-    `.trim()
-        : `
-${firstName} ${lastName} just made ${scoreLastHole.scoreText} on hole ${
-            scoreLastHole.hole
-          } of ${competitionName}. ${firstName} is ${fixParValue(
-            scoreToPar,
-          )} after ${holesPlayed} holes played.
-
-${footer}
-    `.trim();
-    // console.log(`About to send this in an email to ${account.email}:`);
-    // console.log({ subject, text });
+    const email = emailTemplates['player-update']({
+      result,
+      notificationType,
+      unsubscribeUrl,
+    });
     await sendMail({
-      subject,
-      text,
+      subject: email.subject,
+      element: email.element,
       to: account.email,
       headers: {
         // Surface a native unsubscribe option in the email client and enable

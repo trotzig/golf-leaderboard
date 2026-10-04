@@ -1,8 +1,7 @@
+import emailTemplates from '../../../src/emails/emailTemplates.mjs';
 import { sendMail } from '../../../src/mailgun';
-import { CODE_TTL_MS, generateCode, normalizeEmail } from '../../../src/signIn.mjs';
+import { generateCode, normalizeEmail } from '../../../src/signIn.mjs';
 import prisma from '../../../src/prisma';
-
-const { NEXT_PUBLIC_TITLE = 'Nordic Golf Tour' } = process.env;
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -18,17 +17,7 @@ export default async function handler(req, res) {
   });
 
   await sendMail({
-    subject: `${token} is your ${NEXT_PUBLIC_TITLE} sign-in code`,
-    text: `
-Here's your code for signing in to ${NEXT_PUBLIC_TITLE}:
-
-${token}
-
-The code is valid for ${CODE_TTL_MS / (60 * 60 * 1000)} hours.
-
--------------------
-If you didn't try to sign in, it's safe to ignore this message.
-    `.trim(),
+    ...emailTemplates['sign-in-code']({ code: token }),
     to: email,
   });
   res.status(200).json({ id: attempt.id });

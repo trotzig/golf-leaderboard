@@ -28,6 +28,7 @@ const config = {
   framework: '@storybook/react-webpack5',
   staticDirs: [
     { from: '../public/404-bg.jpg', to: '/404-bg.jpg' },
+    { from: '../public/app-icon-192.png', to: '/app-icon-192.png' },
     ...winnerPhotoStaticDirs(),
   ],
   webpackFinal: async (config) => {
