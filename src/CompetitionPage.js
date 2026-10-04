@@ -366,11 +366,44 @@ function Player({
       ? 14 * visibleRounds.length
       : 17 * visibleRounds.length;
 
+  const href = `/${generateSlug(entry, collidingSlugs)}`;
+  const hasScorecard = rounds.length > 0 && rounds[0].Holes && onScorecardClick;
+
+  const name = (
+    <>
+      {entry.Position && entry.Position.Calculated ? (
+        <span className="position-inline">{entry.Position.Calculated}</span>
+      ) : null}
+      {normalizeName(entry.FirstName)} {normalizeName(entry.LastName)}
+      <br />
+      <span className="club">
+        <FlagIcon nationality={entry.Nationality} />
+        {entry.ClubName || entry.Country}
+        {process.env.NEXT_PUBLIC_SHOW_PHCP ? ` — HCP ${entry.PHCP}` : null}
+      </span>
+    </>
+  );
+  const stats = (
+    <StatsWrapper className="stats" minHeight={statsHeight}>
+      {visibleRounds.map(round => {
+        return (
+          <Round
+            key={round.StartDateTime}
+            round={round}
+            colors={colors}
+            now={now}
+            format={format}
+          />
+        );
+      })}
+    </StatsWrapper>
+  );
+
   return (
     <li className={classes.join(' ')}>
       {entry.isFirstCut ? <span id="cut" /> : null}
       {big ? (
-        <Link href={`/${generateSlug(entry, collidingSlugs)}`} className="player-big-position">
+        <Link href={href} className="player-big-position">
           <PlayerPhoto player={entry} />
           <div>
             <h2 className="player-big-name">
@@ -389,82 +422,70 @@ function Player({
           </span>
         </Link>
       ) : null}
-      {(() => {
-        const inner = (
-          <>
-            {!big ? (
-              <span className={positionClassname}>
-                <span>
-                  {entry.Position && entry.Position.Calculated ? (
-                    entry.Position.Calculated
-                  ) : rounds && rounds.length > 0 ? (
-                    <ClockIcon
-                      date={getFirstRoundStart(rounds[rounds.length - 1])}
-                    />
-                  ) : null}
-                </span>
-                <FavoriteButton
-                  playerId={entry.MemberID}
-                  onChange={onFavoriteChange}
-                  icon
-                  lastFavoriteChanged={lastFavoriteChanged}
-                />
-              </span>
-            ) : null}
-            {!big ? (
-              <span>
-                {entry.Position && entry.Position.Calculated ? (
-                  <span className="position-inline">{entry.Position.Calculated}</span>
-                ) : null}
-                {normalizeName(entry.FirstName)} {normalizeName(entry.LastName)}
-                <br />
-                <span className="club">
-                  <FlagIcon nationality={entry.Nationality} />
-                  {entry.ClubName || entry.Country}
-                  {process.env.NEXT_PUBLIC_SHOW_PHCP
-                    ? ` — HCP ${entry.PHCP}`
-                    : null}
-                </span>
-              </span>
-            ) : null}
-            {entry.ResultSum && !big ? (
-              <span
-                className={`score${
-                  isGoodScore(format, entry.ResultSum.ToParValue) ? ' under-par' : ''
-                }`}
-              >
-                {fixParValue(entry.ResultSum.ToParText)}
-              </span>
-            ) : null}
-            <StatsWrapper className="stats" minHeight={statsHeight}>
-              {visibleRounds.map(round => {
-                return (
-                  <Round
-                    key={round.StartDateTime}
-                    round={round}
-                    colors={colors}
-                    now={now}
-                    format={format}
-                  />
-                );
-              })}
-            </StatsWrapper>
-          </>
-        );
-        return rounds.length > 0 && rounds[0].Holes && onScorecardClick ? (
+      {big ? (
+        // The big entry has no nested controls, so the whole stats block can be
+        // the scorecard button/player link.
+        hasScorecard ? (
           <button
             type="button"
             className="player-link"
             onClick={() => onScorecardClick(entry)}
           >
-            {inner}
+            {stats}
           </button>
         ) : (
-          <Link href={`/${generateSlug(entry, collidingSlugs)}`} className="player-link">
-            {inner}
+          <Link href={href} className="player-link">
+            {stats}
           </Link>
-        );
-      })()}
+        )
+      ) : (
+        // The row itself isn't interactive. The player name is the primary
+        // control, stretched over the whole row with a pseudo-element, and the
+        // favorite button sits on top of it. This keeps interactive elements
+        // from being nested inside each other.
+        <div className="player-link">
+          <span className={positionClassname}>
+            <span>
+              {entry.Position && entry.Position.Calculated ? (
+                entry.Position.Calculated
+              ) : rounds && rounds.length > 0 ? (
+                <ClockIcon
+                  date={getFirstRoundStart(rounds[rounds.length - 1])}
+                />
+              ) : null}
+            </span>
+            <FavoriteButton
+              playerId={entry.MemberID}
+              onChange={onFavoriteChange}
+              icon
+              lastFavoriteChanged={lastFavoriteChanged}
+            />
+          </span>
+          {hasScorecard ? (
+            <button
+              type="button"
+              className="player-link-primary"
+              onClick={() => onScorecardClick(entry)}
+            >
+              {name}
+            </button>
+          ) : (
+            <Link href={href} className="player-link-primary">
+              {name}
+            </Link>
+          )}
+          {entry.ResultSum ? (
+            <span
+              className={`score${
+                isGoodScore(format, entry.ResultSum.ToParValue) ? ' under-par' : ''
+              }`}
+            >
+              {fixParValue(entry.ResultSum.ToParText)}
+            </span>
+          ) : null}
+          {stats}
+        </div>
+      )}
     </li>
   );
 }

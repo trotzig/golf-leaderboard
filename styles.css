@@ -713,10 +713,26 @@ html.display-standalone {
   background: rgba(var(--text-rgb), 0.03);
 }
 .leaderboard-page .player .player-link:focus-visible,
+.leaderboard-page .player .player-link-primary:focus-visible::after,
 .oom .player:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: -2px;
   border-radius: var(--radius-sm);
+}
+/* The row is a plain container; its primary control (the player name) is
+   stretched over the whole row so that the row stays clickable without nesting
+   the favorite button inside another interactive element. */
+.leaderboard-page .player .player-link {
+  position: relative;
+}
+.leaderboard-page .player .player-link-primary {
+  all: unset;
+  cursor: pointer;
+}
+.leaderboard-page .player .player-link-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
 }
 
 .leaderboard-page .stats {
@@ -731,6 +747,7 @@ html.display-standalone {
 
 .leaderboard-page .position .favorite-button {
   position: absolute;
+  z-index: 1;
   bottom: 0;
   left: 50%;
   padding: 0;
