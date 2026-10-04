@@ -74,3 +74,19 @@ export function getRemainingEvents(upcomingCompetitions) {
   const finalIndex = sorted.findIndex(c => /final/i.test(c.name));
   return finalIndex === -1 ? sorted : sorted.slice(0, finalIndex + 1);
 }
+
+// The intro paragraph for the start page teaser: how much of the season is
+// left (with the names of the remaining events) and what's at stake.
+export function getTeaserIntro(eventNames, spots = CHALLENGE_TOUR_SPOTS) {
+  if (eventNames.length === 0) {
+    return `The season is over. These ${spots} earned a Challenge Tour card.`;
+  }
+  const count =
+    eventNames.length === 1
+      ? 'One event left'
+      : `${eventNames.length} events left`;
+  const names = new Intl.ListFormat('en', { type: 'conjunction' }).format(
+    eventNames,
+  );
+  return `${count}: ${names}. The top ${spots} get a Challenge Tour card. Here's who's in line right now.`;
+}

@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
   getRaceStatus,
   getRemainingEvents,
+  getTeaserIntro,
   isRoadToEurope,
   parsePosition,
 } from './roadToEurope.mjs';
@@ -96,5 +97,26 @@ describe('getRemainingEvents', () => {
       { name: 'Q-School', start: 2 },
     ];
     expect(getRemainingEvents(events).map(e => e.name)).toEqual(['Open A']);
+  });
+});
+
+describe('getTeaserIntro', () => {
+  it('lists the remaining events ahead of the stakes', () => {
+    expect(getTeaserIntro(['Gotland Open', 'Road to Europe Final'])).toBe(
+      "2 events left: Gotland Open and Road to Europe Final. The top 5 get a Challenge Tour card. Here's who's in line right now.",
+    );
+    expect(getTeaserIntro(['A', 'B', 'C'])).toMatch(
+      /^3 events left: A, B, and C\./,
+    );
+  });
+  it('handles a single remaining event', () => {
+    expect(getTeaserIntro(['Road to Europe Final'])).toMatch(
+      /^One event left: Road to Europe Final\./,
+    );
+  });
+  it('wraps up when the season is over', () => {
+    expect(getTeaserIntro([])).toBe(
+      'The season is over. These 5 earned a Challenge Tour card.',
+    );
   });
 });

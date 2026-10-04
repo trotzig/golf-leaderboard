@@ -2,17 +2,11 @@ import Link from 'next/link';
 import React from 'react';
 
 import formatCompetitionName from './formatCompetitionName';
-import { CHALLENGE_TOUR_SPOTS, parsePosition } from './roadToEurope.mjs';
-
-function formatEventsLeft(count) {
-  if (count === 0) {
-    return 'Final standings';
-  }
-  if (count === 1) {
-    return 'One event left';
-  }
-  return `${count} events left`;
-}
+import {
+  CHALLENGE_TOUR_SPOTS,
+  getTeaserIntro,
+  parsePosition,
+} from './roadToEurope.mjs';
 
 export default function RoadToEuropeTeaser({ players, remainingEvents }) {
   if (!players || players.length === 0) {
@@ -29,16 +23,10 @@ export default function RoadToEuropeTeaser({ players, remainingEvents }) {
     <section className="rte-teaser" aria-labelledby="rte-teaser-title">
       <h3 id="rte-teaser-title">Road to Europe</h3>
       <div className="rte-teaser-card">
-        <p className="rte-teaser-meta">
-          {formatEventsLeft(remainingEvents.length)}
-          {remainingEvents.length > 0
-            ? ` · ${remainingEvents.map(c => formatCompetitionName(c.name)).join(', ')}`
-            : null}
-        </p>
         <p className="rte-teaser-lead">
-          {seasonOver
-            ? `These ${CHALLENGE_TOUR_SPOTS} earned a Challenge Tour card.`
-            : `The top ${CHALLENGE_TOUR_SPOTS} get a Challenge Tour card. Here's who's in line right now.`}
+          {getTeaserIntro(
+            remainingEvents.map(c => formatCompetitionName(c.name)),
+          )}
         </p>
         <ol className="rte-teaser-list">
           {qualified.map(p => (

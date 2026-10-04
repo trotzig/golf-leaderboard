@@ -3653,14 +3653,6 @@ input.ios-switch:focus-visible {
   background: var(--surface);
   border-radius: var(--radius-md);
 }
-.rte-teaser-meta {
-  margin: 0 0 4px;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--accent);
-}
 .rte-teaser-lead {
   margin: 0 0 10px;
   line-height: 1.4;
@@ -3688,15 +3680,7 @@ input.ios-switch:focus-visible {
 .rte-teaser-position {
   min-width: 28px;
   text-align: center;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--on-accent);
-  background: var(--accent);
-  border-radius: var(--radius-pill);
-}
-.rte-teaser-list--chasers .rte-teaser-position {
-  color: inherit;
-  background: rgba(var(--text-rgb), 0.1);
+  font-variant-numeric: tabular-nums;
 }
 .rte-teaser-club {
   font-size: 12px;
