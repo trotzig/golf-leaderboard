@@ -34,46 +34,58 @@ export default function Leaderboard({ competition, now }) {
           <div className="leaderboard-show-button">Show leaderboard</div>
         ) : (
           <>
-            <div className="leaderboard-table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Pos</th>
-                    <th>Player</th>
-                    <th>Total</th>
-                    {!finished && <th>Thru</th>}
-                  </tr>
-                </thead>
-                <tbody>
-                  {entries.slice(0, 3).map(entry => {
-                    const scoreClasses = ['leaderboard-score'];
-                    if (isGoodScore(format, entry.score)) {
-                      scoreClasses.push('under-par');
-                    }
-
-                    return (
-                      <tr key={entry.position}>
-                        <td>{entry.positionText}</td>
-                        <td>
-                          {normalizeName(entry.player.firstName)} {normalizeName(entry.player.lastName)}
-                          <div className="leaderboard-club">
-                            <FlagIcon nationality={entry.player.nationality} />
-                            {entry.player.clubName || getCountryName(entry.player.nationality)}
-                          </div>
-                        </td>
-                        <td className={scoreClasses.join(' ')}>
-                          {fixParValue(entry.scoreText)}
-                        </td>
-                        {!finished && <td>{entry.hole}</td>}
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
+            <LeaderboardTable entries={entries} finished={finished} />
             <div className="leaderboard-view-all">View full leaderboard <Icon name="arrow-right" /></div>
           </>
         )}
     </Link>
+  );
+}
+
+// The top of a leaderboard. Takes entries shaped like LeaderboardEntry rows.
+export function LeaderboardTable({ entries, finished, limit = 3 }) {
+  const format = detectFormat({
+    scoreTexts: entries.map(e => e.scoreText),
+  });
+  return (
+    <div className="leaderboard-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Pos</th>
+            <th>Player</th>
+            <th>Total</th>
+            {!finished && <th>Thru</th>}
+          </tr>
+        </thead>
+        <tbody>
+          {entries.slice(0, limit).map((entry, i) => {
+            const scoreClasses = ['leaderboard-score'];
+            if (isGoodScore(format, entry.score)) {
+              scoreClasses.push('under-par');
+            }
+
+            return (
+              <tr key={i}>
+                <td>{entry.positionText}</td>
+                <td>
+                  {normalizeName(entry.player.firstName)}{' '}
+                  {normalizeName(entry.player.lastName)}
+                  <div className="leaderboard-club">
+                    <FlagIcon nationality={entry.player.nationality} />
+                    {entry.player.clubName ||
+                      getCountryName(entry.player.nationality)}
+                  </div>
+                </td>
+                <td className={scoreClasses.join(' ')}>
+                  {fixParValue(entry.scoreText)}
+                </td>
+                {!finished && <td>{entry.hole}</td>}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
   );
 }

@@ -50,13 +50,27 @@ export function shortDateRange(start, end) {
   return `${format(start, 'MMM d')}–${format(end, sameMonth ? 'd' : 'MMM d')}`;
 }
 
-function isWinner(position) {
-  return position === '1' || position === 'T1';
+function rank(position) {
+  return parseInt(String(position).replace(/^T/, ''), 10);
 }
 
-// Picks the winner(s) out of a competition's final scores.
-export function getWinner(scores) {
-  const winners = (scores || []).filter(s => isWinner(s.position));
+// Picks the top three (and anyone tied with them) out of a competition's
+// final scores, shaped like leaderboard entries.
+export function getPodium(scores) {
+  return (scores || [])
+    .filter(s => rank(s.position) <= 3)
+    .sort((a, b) => rank(a.position) - rank(b.position))
+    .map(s => ({
+      position: rank(s.position),
+      positionText: s.position,
+      scoreText: s.scoreText,
+      score: s.score,
+      player: s.player,
+    }));
+}
+
+export function getWinner(podium) {
+  const winners = (podium || []).filter(e => e.position === 1);
   if (winners.length === 0) {
     return null;
   }
@@ -65,4 +79,38 @@ export function getWinner(scores) {
     scoreText: winners[0].scoreText,
     score: winners[0].score,
   };
+}
+
+// Number of rounds, or null for umbrella entries that aren't tournaments.
+export function roundCount(competition) {
+  if (isLongRunning(competition)) {
+    return null;
+  }
+  return Math.round((+competition.end - +competition.start) / DAY) + 1;
+}
+
+export function startsIn(start, now) {
+  const days = Math.ceil((+start - +now) / DAY);
+  if (days <= 0) {
+    return 'Started';
+  }
+  if (days === 1) {
+    return 'Tomorrow';
+  }
+  if (days < 14) {
+    return `In ${days} days`;
+  }
+  if (days < 60) {
+    return `In ${Math.round(days / 7)} weeks`;
+  }
+  return `In ${Math.round(days / 30)} months`;
+}
+
+const SHORT_TOUR_NAMES = {
+  'Cutter & Buck Tour': 'C&B',
+  'ECCO Tour': 'ECCO',
+};
+
+export function shortTourName(tour) {
+  return SHORT_TOUR_NAMES[tour] || tour;
 }

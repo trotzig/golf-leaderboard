@@ -6,31 +6,45 @@ import SchedulePage from '../SchedulePage.js';
 import { competitions2025, competitions2026, players } from './mockData.js';
 import withNav from './withNav.js';
 
-// Mimics what getServerSideProps adds: a winner for every event that has
-// been played, and the live leaderboard for the ongoing one.
+function podiumEntry(player, position, score) {
+  return {
+    position,
+    positionText: String(position),
+    score,
+    scoreText: String(score),
+    player,
+  };
+}
+
+// Mimics what getServerSideProps adds: the top three for every event that has
+// been played, the live leaderboard for the ongoing one, and the last visit
+// to the venue for some of the events still to come.
 function prepareCompetitions(competitions, now) {
   const day = 24 * 60 * 60 * 1000;
   // SchedulePage converts start/end to Date objects in place.
   return competitions.map((c, i) => {
-    const copy = { ...c, winner: null };
+    const copy = { ...c, podium: [] };
+    const score = -(8 + ((i * 5) % 11));
     if (c.end + day <= now) {
-      const names = [`${players[i].firstName} ${players[i].lastName}`];
-      if (i === 3) {
-        // A team event has two winners.
-        names.push(`${players[20].firstName} ${players[20].lastName}`);
+      // One event has no stored results, like team events.
+      if (i !== 3) {
+        copy.podium = [0, 1, 2].map(pos =>
+          podiumEntry(players[(i + pos * 7) % players.length], pos + 1, score + pos),
+        );
       }
-      const score = -(8 + ((i * 5) % 11));
-      copy.winner = { names, score, scoreText: String(score) };
     } else if (c.start <= now) {
       copy.finished = false;
       copy.leaderboardEntries = players.slice(10, 15).map((player, pos) => ({
-        position: pos + 1,
-        positionText: String(pos + 1),
-        score: pos - 7,
-        scoreText: String(pos - 7),
+        ...podiumEntry(player, pos + 1, pos - 7),
         hole: String(14 - pos),
-        player,
       }));
+    } else if (i % 2 === 0) {
+      copy.lastVisit = {
+        name: c.name,
+        slug: c.slug.replace(/\d+$/, '2025'),
+        year: 2025,
+        podium: [podiumEntry(players[i], 1, score)],
+      };
     }
     return copy;
   });

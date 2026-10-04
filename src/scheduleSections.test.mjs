@@ -1,6 +1,14 @@
 import { describe, expect, it } from 'vitest';
 
-import { getWinner, shortDateRange, splitSchedule } from './scheduleSections.mjs';
+import {
+  getPodium,
+  getWinner,
+  roundCount,
+  shortDateRange,
+  shortTourName,
+  splitSchedule,
+  startsIn,
+} from './scheduleSections.mjs';
 
 function comp(id, start, end) {
   return { id, start: new Date(start), end: new Date(end) };
@@ -106,7 +114,7 @@ describe('shortDateRange', () => {
   });
 });
 
-describe('getWinner', () => {
+describe('getPodium and getWinner', () => {
   const score = (position, firstName, lastName) => ({
     position,
     scoreText: '-13',
@@ -114,21 +122,82 @@ describe('getWinner', () => {
     player: { firstName, lastName },
   });
 
-  it('finds the player in first place', () => {
+  it('keeps the top three in order', () => {
+    const podium = getPodium([
+      score('3', 'Cy', 'Dahl'),
+      score('MC', 'Di', 'Berg'),
+      score('1', 'Algot', 'Kleén'),
+      score('T18', 'Ed', 'Lind'),
+      score('2', 'Bo', 'Ek'),
+    ]);
+    expect(podium.map(e => e.positionText)).toEqual(['1', '2', '3']);
+    expect(podium[0]).toEqual({
+      position: 1,
+      positionText: '1',
+      scoreText: '-13',
+      score: -13,
+      player: { firstName: 'Algot', lastName: 'Kleén' },
+    });
+  });
+
+  it('includes everyone tied inside the top three', () => {
+    const podium = getPodium([
+      score('T3', 'Cy', 'Dahl'),
+      score('T3', 'Di', 'Berg'),
+      score('1', 'Algot', 'Kleén'),
+      score('2', 'Bo', 'Ek'),
+    ]);
+    expect(podium.map(e => e.positionText)).toEqual(['1', '2', 'T3', 'T3']);
+  });
+
+  it('finds the winner', () => {
     expect(
-      getWinner([score('2', 'Bo', 'Ek'), score('1', 'Algot', 'Kleén')]),
+      getWinner(getPodium([score('2', 'Bo', 'Ek'), score('1', 'Algot', 'Kleén')])),
     ).toEqual({ names: ['Algot Kleén'], scoreText: '-13', score: -13 });
   });
 
   it('returns everyone tied for first', () => {
     expect(
-      getWinner([score('T1', 'Bo', 'Ek'), score('T1', 'Algot', 'Kleén')]).names,
-    ).toEqual(['Bo Ek', 'Algot Kleén']);
+      getWinner(getPodium([score('T1', 'Bo', 'Ek'), score('T1', 'Al', 'Ek')]))
+        .names,
+    ).toEqual(['Bo Ek', 'Al Ek']);
   });
 
-  it('returns null when there are no results yet', () => {
+  it('has no winner when there are no results yet', () => {
     expect(getWinner([])).toBe(null);
     expect(getWinner(undefined)).toBe(null);
-    expect(getWinner([score('MC', 'Bo', 'Ek')])).toBe(null);
+    expect(getWinner(getPodium([score('MC', 'Bo', 'Ek')]))).toBe(null);
+  });
+});
+
+describe('roundCount', () => {
+  it('counts the days of play', () => {
+    expect(roundCount(season[0])).toBe(3);
+  });
+
+  it('is unknown for umbrella entries', () => {
+    expect(
+      roundCount(comp(7, '2026-06-20T00:00:00Z', '2026-09-11T00:00:00Z')),
+    ).toBe(null);
+  });
+});
+
+describe('startsIn', () => {
+  const start = new Date('2026-07-15T00:00:00Z');
+  it.each([
+    ['2026-07-14T12:00:00Z', 'Tomorrow'],
+    ['2026-07-10T12:00:00Z', 'In 5 days'],
+    ['2026-06-24T12:00:00Z', 'In 3 weeks'],
+    ['2026-04-01T12:00:00Z', 'In 4 months'],
+    ['2026-07-15T12:00:00Z', 'Started'],
+  ])('at %s says %s', (now, expected) => {
+    expect(startsIn(start, new Date(now))).toBe(expected);
+  });
+});
+
+describe('shortTourName', () => {
+  it('abbreviates known tours and leaves others alone', () => {
+    expect(shortTourName('Cutter & Buck Tour')).toBe('C&B');
+    expect(shortTourName('Some Tour')).toBe('Some Tour');
   });
 });
