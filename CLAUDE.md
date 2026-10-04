@@ -31,7 +31,7 @@ checkout into the worktree if you need to run the app locally.
 - **Database**: PostgreSQL via Prisma ORM
 - **Deployment**: Vercel
 - **Styling**: Plain CSS (`styles.css`)
-- **Email**: Mailgun
+- **Email**: Mailgun, with templates built with [react-email](https://react.email)
 - **Visual testing**: Merrykat (screenshot testing of Storybook stories)
 
 ## Project Structure
@@ -94,6 +94,7 @@ Use `production.env` file (gitignored) for prod env vars with the `:prod` script
 - Unit-testable pure logic lives in `*.mjs` files alongside components; test files are `*.test.mjs` next to the code they test, using Vitest
 - Slugs are generated from player names and deduplicated with MD5 suffix if colliding
 - GolfBox API responses use JSONP format — parsed with `scripts/utils/parseJson.mjs`
+- Emails live in `src/emails/`: templates are react-email components (`templates/*.jsx`) built from the shared `EmailLayout` and `PrimaryButton`, with inline styles from `styles.mjs` that mirror the tokens in `styles.css`. `emailTemplates.mjs` maps each email to its subject and element, which `sendMail` renders to HTML + plain text. Every email has a story in `src/stories/Emails.stories.js`. Node scripts that send email need `--import ./scripts/registerJsxLoader.mjs` to load the `.jsx` templates
 - Dark mode is supported via CSS (check `styles.css` for `prefers-color-scheme`)
 
 ## Testing
