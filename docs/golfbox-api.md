@@ -143,6 +143,17 @@ Names often have **trailing whitespace** (`FirstName: "John "`). Always
 - Each schedule entry has `Categories: number[]` that tell you which tour it
   belongs to. `13350` = Cutter & Buck Tour, `13360` = ECCO Tour
   (`src/getCompetitionTour.mjs`).
+- Regular tour events carry two categories: the tour one plus `13361`
+  (meaning unknown), e.g. `[13350, 13361]`. Finnish events have
+  `[13361, 14118]`.
+- Q-School (qualifying for next season) has no flag or category of its own.
+  It shows up with a single category that differs between years (`[13350]`
+  in 2025, `[13361]` in 2026), so we detect it by name
+  (`src/isQualifyingEvent.mjs`) and leave it out of the sync, the schedule
+  and player results.
+- GolfBox may list next season's event under last season's name before
+  renaming it (seen with "NGL Q-School Final Stage 2026"), and may replace
+  an event with a new ID.
 - `CompetitionData.Type` is `"StrokePlay"` or `"MatchPlay"`.
 
 ---

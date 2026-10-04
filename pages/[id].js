@@ -1,4 +1,5 @@
 import PlayerPage from '../src/PlayerPage.js';
+import isQualifyingEvent from '../src/isQualifyingEvent.mjs';
 import prisma from '../src/prisma';
 
 export default PlayerPage;
@@ -54,6 +55,9 @@ export async function getServerSideProps({ params, query, req }) {
     }
     return { notFound: true };
   }
+  player.competitionScore = player.competitionScore.filter(
+    item => !isQualifyingEvent(item.competition),
+  );
   for (const item of player.competitionScore) {
     item.competition.start = item.competition.start.toISOString();
   }

@@ -1,6 +1,7 @@
 import { parse } from 'date-fns';
 
 import generateCompetitionSlug from '../../src/generateCompetitionSlug.mjs';
+import isQualifyingEvent from '../../src/isQualifyingEvent.mjs';
 import parseJson from './parseJson.mjs';
 
 const { QUICKRUN } = process.env;
@@ -59,9 +60,9 @@ export default async function fetchCompetitions() {
   for (const year of Object.values(json.CompetitionData)) {
     for (const month of Object.values(year.Months)) {
       result.push(
-        ...Object.values(month.Entries).map(e => {
-          return entryToCompetition(e, now);
-        }),
+        ...Object.values(month.Entries)
+          .map(e => entryToCompetition(e, now))
+          .filter(c => !isQualifyingEvent(c)),
       );
     }
   }
