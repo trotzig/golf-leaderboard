@@ -238,15 +238,21 @@ export default function PlayersPage({
         ) : null}
       </p>
       <div className="page-margin sort-by">
-        <label>
-          <span>Search</span>
-          <input
-            className="search-input"
-            onChange={handleSearchChange}
-            type="text"
-            value={currentFilter}
-          />
-        </label>
+        <div>
+          <label>
+            <span>Search</span>
+            <input
+              aria-describedby="players-search-help"
+              className="search-input"
+              onChange={handleSearchChange}
+              type="text"
+              value={currentFilter}
+            />
+          </label>
+          <p className="search-help" id="players-search-help">
+            Search by first name, last name or club.
+          </p>
+        </div>
         <label>
           <span>Sort by</span>
           <select

@@ -1634,8 +1634,13 @@ select {
   grid-template-columns: 3fr 1fr;
   gap: 10px;
   justify-content: flex-start;
-  align-items: center;
+  align-items: start;
   margin-bottom: 15px;
+}
+.players .sort-by .search-help {
+  margin: 5px 0 0;
+  font-size: 12px;
+  color: rgba(var(--text-rgb), 0.75);
 }
 .players .sort-by label span {
   display: block;
