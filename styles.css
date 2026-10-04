@@ -2373,6 +2373,7 @@ input.ios-switch:checked:after {
 }
 .leaderboard-club {
   display: flex;
+  gap: 6px;
   align-items: center;
   font-size: 12px;
   color: rgba(var(--text-rgb), 0.85);
