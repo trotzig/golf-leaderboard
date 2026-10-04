@@ -2,6 +2,8 @@
 // Fetches all Road to Europe OOM IDs from GolfBox and prints the current year's ID.
 // Usage: node scripts/find-oom-id.mjs [year]
 
+import parseJson from './utils/parseJson.mjs';
+
 const year = parseInt(process.argv[2] ?? new Date().getFullYear(), 10);
 const customerId = process.env.NEXT_PUBLIC_GOLFBOX_CUSTOMER_ID ?? 1;
 
@@ -9,9 +11,7 @@ const url = `https://scores.golfbox.dk/Handlers/OrderOfMeritsHandler/GetOrderOfM
 const res = await fetch(url);
 if (!res.ok) throw new Error(`Failed to fetch OOMs: ${res.status}`);
 
-const text = await res.text();
-// GolfBox returns JS-style booleans; normalize to valid JSON
-const data = JSON.parse(text.replace(/!0/g, 'true').replace(/!1/g, 'false'));
+const data = parseJson(await res.text());
 
 const entries = Object.values(data.OrderOfMeritData).flatMap(season =>
   Object.values(season.Entries),
