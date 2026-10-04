@@ -23,15 +23,14 @@ function Wordmark() {
   return (
     <Row style={styles.wordmark} data-skip-in-text="true">
       <Column style={styles.wordmarkIconCell}>
-        <Link href={baseUrl}>
-          <Img
-            src={`${baseUrl}/app-icon-192.png`}
-            alt=""
-            width={26}
-            height={26}
-            style={styles.wordmarkIcon}
-          />
-        </Link>
+        {/* Decorative: the site title next to it is the link. */}
+        <Img
+          src={`${baseUrl}/app-icon-192.png`}
+          alt=""
+          width={26}
+          height={26}
+          style={styles.wordmarkIcon}
+        />
       </Column>
       <Column>
         <Link
