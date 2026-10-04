@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import dedupeCompetitionSlugs from './dedupeCompetitionSlugs.mjs';
 import fetchCompetitions from '../scripts/utils/fetchCompetitions.mjs';
 import generateSlug from './generateSlug.mjs';
 import parseJson from '../scripts/utils/parseJson.mjs';
@@ -241,6 +242,14 @@ export default async function syncData({ full = true } = {}) {
   const players = await fetchAllPlayers(competitions, { full });
   const oomIndex = await fillOOM(players);
   assignSlugs(players);
+
+  dedupeCompetitionSlugs(
+    competitions,
+    await prisma.competition.findMany({
+      where: { slug: { in: competitions.map(c => c.slug) } },
+      select: { id: true, slug: true, start: true },
+    }),
+  );
 
   const compRes = await prisma.competition.createMany({
     data: competitions,
