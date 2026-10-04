@@ -21,7 +21,7 @@ function parseParagraph(text) {
   return segments;
 }
 
-export default function ReportPage({ report, baseUrl }) {
+export default function ReportPage({ report, baseUrl, winnerPhotoPath }) {
   const paragraphs = report.body
     .split(/\n\n+/)
     .map(p => p.trim())
@@ -37,14 +37,13 @@ export default function ReportPage({ report, baseUrl }) {
         <meta property="og:title" content={`${report.headline} | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
         <meta property="og:description" content={report.blurb} />
         <meta property="og:type" content="article" />
-        {report.winnerPlayerId && baseUrl && (
-          <meta property="og:image" content={`${baseUrl}/players/${report.winnerPlayerId}.jpg`} />
+        {winnerPhotoPath && baseUrl && (
+          <meta key="og:image" property="og:image" content={`${baseUrl}${winnerPhotoPath}`} />
         )}
-        <meta name="twitter:card" content={report.winnerPlayerId && baseUrl ? 'summary_large_image' : 'summary'} />
         <meta name="twitter:title" content={`${report.headline} | ${process.env.NEXT_PUBLIC_INTRO_TITLE}`} />
         <meta name="twitter:description" content={report.blurb} />
-        {report.winnerPlayerId && baseUrl && (
-          <meta name="twitter:image" content={`${baseUrl}/players/${report.winnerPlayerId}.jpg`} />
+        {winnerPhotoPath && baseUrl && (
+          <meta name="twitter:image" content={`${baseUrl}${winnerPhotoPath}`} />
         )}
       </Head>
       <article className="report-page">

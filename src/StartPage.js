@@ -7,6 +7,7 @@ import ReportBlurbs from './ReportBlurbs.js';
 import RoadToEuropeTeaser from './RoadToEuropeTeaser.js';
 import Leaderboard from './Leaderboard.js';
 import CompetitionListItem from './CompetitionListItem.js';
+import CourseContours from './CourseContours.js';
 import ensureDates from './ensureDates.js';
 import { preloadJsonPData } from './fetchJsonP.js';
 
@@ -103,7 +104,7 @@ export default function StartPage({
           <Leaderboard competition={currentCompetition} now={now} />
         )}
         <div className={currentCompetition ? 'intro intro--compact' : 'intro'}>
-          {currentCompetition ? null : <CourseContours />}
+          {currentCompetition ? null : <CourseContours className="intro-contours" />}
           <h1 className="intro-title">A launchpad for nordic golfers.</h1>
           <p className="page-desc">
             The Cutter &amp; Buck Tour is the first step for Nordic
@@ -156,38 +157,5 @@ export default function StartPage({
         )}
       </div>
     </div>
-  );
-}
-
-// Decorative elevation lines, like the green contours in a yardage book.
-function CourseContours() {
-  const rings = [
-    [150, 112, -8],
-    [122, 90, -4],
-    [96, 70, 0],
-    [72, 52, 4],
-    [50, 36, 8],
-    [30, 22, 12],
-    [13, 10, 16],
-  ];
-  return (
-    <svg
-      className="intro-contours"
-      viewBox="0 0 360 280"
-      fill="none"
-      stroke="currentColor"
-      aria-hidden="true"
-    >
-      {rings.map(([rx, ry, rotate], i) => (
-        <ellipse
-          key={rx}
-          cx={180 + i * 4}
-          cy={140 - i * 2}
-          rx={rx}
-          ry={ry}
-          transform={`rotate(${rotate - 12} 180 140)`}
-        />
-      ))}
-    </svg>
   );
 }

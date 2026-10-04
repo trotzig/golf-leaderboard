@@ -1,4 +1,5 @@
 import ReportPage from '../../src/ReportPage.js';
+import playerPhotoPath from '../../src/playerPhotoPath.mjs';
 import fs from 'fs';
 import path from 'path';
 
@@ -15,5 +16,11 @@ export async function getServerSideProps({ params, req }) {
   const report = JSON.parse(fs.readFileSync(filePath, 'utf8'));
   const protocol = req.headers['x-forwarded-proto'] || 'https';
   const baseUrl = `${protocol}://${req.headers.host}`;
-  return { props: { report, baseUrl } };
+  return {
+    props: {
+      report,
+      baseUrl,
+      winnerPhotoPath: playerPhotoPath(report.winnerPlayerId),
+    },
+  };
 }

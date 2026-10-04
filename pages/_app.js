@@ -23,6 +23,8 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const [themeColor, setThemeColor] = useState('#ffffff');
   const hideChrome = Boolean(pageProps?.hideChrome);
+  // og:image has to be an absolute URL
+  const baseUrl = pageProps?.baseUrl || process.env.BASE_URL;
 
   useEffect(() => {
     let fromPathname = null;
@@ -82,7 +84,21 @@ function MyApp({ Component, pageProps }) {
           property="og:site_name"
           content={process.env.NEXT_PUBLIC_INTRO_TITLE}
         />
-        <meta name="twitter:card" content="summary" />
+        {/* Default share image. Pages override it with their own og:image. */}
+        {baseUrl && (
+          <>
+            <meta
+              key="og:image"
+              property="og:image"
+              content={`${baseUrl}/api/og`}
+            />
+            <meta name="twitter:image" content={`${baseUrl}/api/og`} />
+          </>
+        )}
+        <meta
+          name="twitter:card"
+          content={baseUrl ? 'summary_large_image' : 'summary'}
+        />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" type="image/png" href="/favicon.png" />
         <link
