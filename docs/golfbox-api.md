@@ -46,8 +46,10 @@ settings fields than we need, and those are only summarized here.
 - **On the server** (cron jobs, scripts, `getServerSideProps`) the app calls
   plain `fetch` and parses the body with `scripts/utils/parseJson.mjs`.
   The body is JavaScript-flavoured JSON that can contain minified booleans
-  (`!0` / `!1`). That helper swaps them out before calling `JSON.parse`. See
-  [Open questions](#open-questions) for a caveat on which way they map.
+  (`!0` / `!1`). That helper swaps them for `true` / `false` (as JavaScript
+  evaluates them) before calling `JSON.parse`.
+- The body is the same either way: adding `?callback` only wraps it in
+  `<fn>(…)`. Both variants contain `!0` / `!1`, never `true` / `false`.
 
 ### URL shape
 
@@ -626,12 +628,15 @@ tee times and OOM shapes.
 
 Things we haven't confirmed. Update this section when you find out.
 
-- **Minified booleans.** `scripts/utils/parseJson.mjs` replaces `:!0` →
-  `:false` and `:!1` → `:true`. In JavaScript `!0 === true`, and
-  `scripts/find-oom-id.mjs` maps them that way. The two helpers disagree.
-  Check a raw server response before relying on server-side booleans such as
-  `IsLead` / `IsCompleted`. Browser (JSONP) data is evaluated as real JS, so
-  it isn't affected.
+- ~~Minified booleans.~~ Resolved 2026-10-04. Raw responses (no `?callback`)
+  do contain `!0` / `!1`, byte for byte the same as the JSONP body, and they
+  mean what they mean in JavaScript: `!0` is `true`, `!1` is `false`. Checked
+  against `GetMatchplay` for competition 5403939: in all 63 completed matches
+  the `"IsLead":!0` entry is the one that shows up in the next round.
+  `parseJson.mjs` had the mapping inverted until then, so server-side
+  booleans read before that date were flipped. The only server code that
+  reads one is the match play part of `scripts/writeReport.mjs`
+  (`IsLead` / `IsCompleted`), which swapped winner and loser.
 - `ScoringStatus` values (`0`/`30`/`50`/`70`), `CourseStarts.*.Status`,
   `ClassSettings.StatusType` values other than `4`, and `PlayerStatus` values
   other than `1` are unmapped.

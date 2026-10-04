@@ -6,13 +6,13 @@
   "startDate": "2026-07-08T00:00:00.000Z",
   "endDate": "2026-07-10T00:00:00.000Z",
   "slug": "sm-match-by-upfront-2026",
-  "headline": "Lilliedahl takes SM Match title with strong final win",
-  "blurb": "Oliver Lilliedahl from AIK Golfklubb won the SM Match by Upfront at The National Golfresort, beating Sebastian Eidsæther Syr 3 & 1 in the final.",
-  "body": "[Oliver Lilliedahl](/oliver-lilliedahl) won the SM Match by Upfront, a 64-player match play knockout tournament held at The National Golfresort from July 8 to 10. In the final, the AIK Golfklubb player beat [Sebastian Eidsæther Syr](/sebastian-eidsather-syr) 3 & 1, meaning he was three holes ahead with only one hole left to play.\n\nLilliedahl played well throughout the week, working his way through the bracket round by round to reach the final. His 3 & 1 win over Syr in the title match showed he was in control for most of the round and never let his opponent get back into the match.\n\nSyr had a good run through the draw to reach the final but could not keep up with Lilliedahl on the last day. The two losing semi-finalists were also knocked out earlier in the day as the field was cut from four to two.\n\nThe tournament brought together 64 players at The National Golfresort, with names like [Albin Tidén](/albin-tiden), [David Lundgren](/david-lundgren), [Jesper Sandborg](/jesper-sandborg) and [Morten Ørum Madsen](/morten-orum-madsen) among those competing in the knockout format. In the end, it was Lilliedahl who came out on top after three days of head-to-head golf.",
-  "winnerName": "Oliver Lilliedahl",
-  "winnerPlayerId": "980324-002",
-  "winnerPlayerSlug": "oliver-lilliedahl",
-  "winnerImage": null,
+  "headline": "Syr wins SM Match by Upfront at The National",
+  "blurb": "Sebastian Eidsæther Syr won the SM Match by Upfront at The National Golfresort, beating Oliver Lilliedahl 3 & 1 in the final of the 64-player match play knockout.",
+  "body": "[Sebastian Eidsæther Syr](/sebastian-eidsather-syr) won the SM Match by Upfront at The National Golfresort, beating [Oliver Lilliedahl](/oliver-lilliedahl) 3 & 1 in the final on July 10. Syr controlled the final match and closed it out on the 17th hole with a three-hole lead. The three-day tournament had 64 players competing in a match play knockout format.\n\nSyr was strong throughout the week. He opened with a 3 & 2 win over [Max Risvåg](/max-risvag), then beat [Fabian Wennerlöf](/fabian-wennerlof) 6 & 5 in the second round — his biggest win of the week. In the third round he beat [Jesper Hagborg Asp](/jesper-hagborg-asp) 2 & 1, and in the quarter-final he defeated [Christian Jacobsen](/christian-jacobsen) 4 & 2. The semi-final against [Sebastian Petersen](/sebastian-petersen) was his closest match. Syr won it 1 up after all 18 holes were played.\n\nLilliedahl had a good run through the bracket but could not match Syr in the final. The two losing semi-finalists were Petersen and [Thom Hoetmer](/thom-hoetmer), who were both knocked out in the last four.\n\nCorrection: An earlier version of this article incorrectly named Oliver Lilliedahl as the winner of the final. This was caused by a data error on our side. Sebastian Eidsæther Syr won the final 3 & 1. We are sorry for the mistake.",
+  "winnerName": "Sebastian Eidsæther Syr",
+  "winnerPlayerId": "72-2887",
+  "winnerPlayerSlug": "sebastian-eidsather-syr",
+  "winnerImage": "/players/72-2887.jpg",
   "format": "matchplay",
   "stats": {
     "format": "matchplay",
@@ -28,41 +28,41 @@
     "topFinishers": [
       {
         "position": "1",
-        "name": "Oliver Lilliedahl",
-        "club": "AIK Golfklubb",
-        "playerId": "980324-002",
-        "playerSlug": "oliver-lilliedahl",
+        "name": "Sebastian Eidsæther Syr",
+        "club": "Losby Golfklubb",
+        "playerId": "72-2887",
+        "playerSlug": "sebastian-eidsather-syr",
         "score": null,
         "scoreText": "3 & 1"
       },
       {
         "position": "2",
-        "name": "Sebastian Eidsæther Syr",
-        "club": "Losby Golfklubb",
-        "playerId": "72-2887",
-        "playerSlug": "sebastian-eidsather-syr",
-        "score": null,
-        "scoreText": ""
-      },
-      {
-        "position": "T3",
-        "name": "Sebastian Eidsæther Syr",
-        "club": "Losby Golfklubb",
-        "playerId": "72-2887",
-        "playerSlug": "sebastian-eidsather-syr",
-        "score": null,
-        "scoreText": ""
-      },
-      {
-        "position": "T3",
         "name": "Oliver Lilliedahl",
         "club": "AIK Golfklubb",
         "playerId": "980324-002",
         "playerSlug": "oliver-lilliedahl",
         "score": null,
         "scoreText": ""
+      },
+      {
+        "position": "T3",
+        "name": "Sebastian Petersen",
+        "club": "Djurgårdens IF Golfförening",
+        "playerId": "980821-001",
+        "playerSlug": "sebastian-petersen",
+        "score": null,
+        "scoreText": ""
+      },
+      {
+        "position": "T3",
+        "name": "Thom Hoetmer",
+        "club": null,
+        "playerId": "233162",
+        "playerSlug": "thom-hoetmer",
+        "score": null,
+        "scoreText": ""
       }
     ]
   },
-  "createdAt": "2026-07-24T22:57:11.423Z"
+  "createdAt": "2026-10-04T18:27:23.757Z"
 }
