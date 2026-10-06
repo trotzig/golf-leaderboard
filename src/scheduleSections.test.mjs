@@ -98,18 +98,18 @@ describe('splitSchedule', () => {
 describe('shortDateRange', () => {
   it('collapses the month when the event stays within it', () => {
     expect(
-      shortDateRange(new Date(2026, 9, 14), new Date(2026, 9, 16)),
+      shortDateRange(new Date(Date.UTC(2026, 9, 14)), new Date(Date.UTC(2026, 9, 16))),
     ).toBe('Oct 14–16');
   });
 
   it('spells out both months when the event crosses into the next', () => {
-    expect(shortDateRange(new Date(2026, 8, 30), new Date(2026, 9, 2))).toBe(
+    expect(shortDateRange(new Date(Date.UTC(2026, 8, 30)), new Date(Date.UTC(2026, 9, 2)))).toBe(
       'Sep 30–Oct 2',
     );
   });
 
   it('shows a single date for one-day events', () => {
-    expect(shortDateRange(new Date(2026, 9, 14), new Date(2026, 9, 14))).toBe(
+    expect(shortDateRange(new Date(Date.UTC(2026, 9, 14)), new Date(Date.UTC(2026, 9, 14)))).toBe(
       'Oct 14',
     );
   });

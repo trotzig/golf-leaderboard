@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { format } from 'date-fns';
 
+import calendarDate from './calendarDate.mjs';
+
 // Groups competitions by venue, returning a map of venue → [competition, …]
 function groupByVenue(competitions) {
   const groups = {};
@@ -79,8 +81,8 @@ export default function TourMap({ competitions, locations, now }) {
         });
 
         const popupLines = comps.map(c => {
-          const dateRange = `${format(new Date(c.start), 'MMM d')} – ${format(
-            new Date(c.end),
+          const dateRange = `${format(calendarDate(c.start), 'MMM d')} – ${format(
+            calendarDate(c.end),
             'MMM d',
           )}`;
           const finished = new Date(c.end) < now;

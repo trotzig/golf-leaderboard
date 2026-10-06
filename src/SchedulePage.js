@@ -9,6 +9,7 @@ import VenueMapLink from './VenueMapLink.js';
 import competitionDateString from './competitionDateString.js';
 import { isGoodScore, isStablefordText } from './competitionFormat.mjs';
 import ensureDates from './ensureDates.js';
+import calendarDate from './calendarDate.mjs';
 import fixParValue from './fixParValue';
 import formatCompetitionName from './formatCompetitionName';
 import getCompetitionTour from './getCompetitionTour.mjs';
@@ -226,8 +227,8 @@ function Facts({ competition, tour, now, kind }) {
         <>
           <dt>When</dt>
           <dd>
-            {format(competition.start, 'EEE d MMM')} –{' '}
-            {format(competition.end, 'EEE d MMM')}
+            {format(calendarDate(competition.start), 'EEE d MMM')} –{' '}
+            {format(calendarDate(competition.end), 'EEE d MMM')}
             {kind === 'upcoming' &&
               ` · ${startsIn(competition.start, now).toLowerCase()}`}
           </dd>

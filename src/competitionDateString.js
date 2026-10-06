@@ -1,5 +1,7 @@
 import { formatDistance, format, getDate, parse } from 'date-fns';
 
+import calendarDate from './calendarDate.mjs';
+
 function differenceInDays(after, before) {
   return Math.ceil(
     (new Date(after).getTime() - new Date(before).getTime()) /
@@ -30,17 +32,19 @@ export default function competitionDateString(
     competition.end ||
     parse(competition.EndDate, DATE_FORMAT, utcMidnight);
   const numberOfDays = differenceInDays(end, start);
-  const startDay = getDate(start);
-  const endDay = getDate(end);
+  const startDate = calendarDate(start);
+  const endDate = calendarDate(end);
+  const startDay = getDate(startDate);
+  const endDay = getDate(endDate);
 
   if (numberOfDays > 4) {
     // If the entry spans more than 4 days, we assume it's a "Sign up" entry.
     // These will show the entire date.
     if (endDay < startDay) {
       // crossing into different month
-      return `${format(start, 'MMMM d')}—${format(end, 'MMMM d')}`;
+      return `${format(startDate, 'MMMM d')}—${format(endDate, 'MMMM d')}`;
     }
-    return `${format(start, 'MMMM d')}—${format(end, 'd')}`;
+    return `${format(startDate, 'MMMM d')}—${format(endDate, 'd')}`;
   }
 
   let suffix = '';
@@ -68,8 +72,8 @@ export default function competitionDateString(
   }
   const dateStr =
     endDay < startDay
-      ? `${format(start, 'MMMM d')}—${format(end, 'MMMM d')}`
-      : `${format(start, 'MMMM d')}—${format(end, 'd')}`;
+      ? `${format(startDate, 'MMMM d')}—${format(endDate, 'MMMM d')}`
+      : `${format(startDate, 'MMMM d')}—${format(endDate, 'd')}`;
 
   if (parts) {
     return { date: dateStr, suffix };

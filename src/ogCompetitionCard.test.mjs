@@ -5,8 +5,8 @@ import ogCompetitionCard from './ogCompetitionCard.mjs';
 const competition = {
   name: 'Folksam Championship',
   venue: 'Barsebäck Golf & Resort',
-  start: new Date(2026, 8, 23),
-  end: new Date(2026, 8, 25),
+  start: new Date(Date.UTC(2026, 8, 23)),
+  end: new Date(Date.UTC(2026, 8, 25)),
   categories: [13350, 13361],
 };
 
@@ -33,8 +33,8 @@ describe('ogCompetitionCard', () => {
   it('spells out both months when the tournament crosses into a new one', () => {
     const card = ogCompetitionCard({
       ...competition,
-      start: new Date(2026, 8, 30),
-      end: new Date(2026, 9, 2),
+      start: new Date(Date.UTC(2026, 8, 30)),
+      end: new Date(Date.UTC(2026, 9, 2)),
     });
     expect(card.details[1]).toBe('September 30 – October 2, 2026');
   });
