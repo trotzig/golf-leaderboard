@@ -2,6 +2,7 @@ import { format } from 'date-fns';
 import Link from 'next/link';
 import React from 'react';
 
+import calendarDate from './calendarDate.mjs';
 import competitionDateString from './competitionDateString';
 import formatCompetitionName from './formatCompetitionName';
 import getCompetitionTour from './getCompetitionTour.mjs';
@@ -19,8 +20,8 @@ export default function CompetitionListItem({ competition, now, current, next })
         className="competition"
       >
         <div className="calendar-event">
-          <b>{format(competition.start, 'd')}</b>
-          <span>{format(competition.start, 'MMM')}</span>
+          <b>{format(calendarDate(competition.start), 'd')}</b>
+          <span>{format(calendarDate(competition.start), 'MMM')}</span>
         </div>
         <div className="competition-details">
           <h4 className="competition-name">

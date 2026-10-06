@@ -1,5 +1,7 @@
 import { format } from 'date-fns';
 
+import calendarDate from './calendarDate.mjs';
+
 const DAY = 24 * 60 * 60 * 1000;
 
 // Entries spanning more than a few days aren't tournaments but umbrella
@@ -42,7 +44,9 @@ export function splitSchedule(competitions, now) {
   };
 }
 
-export function shortDateRange(start, end) {
+export function shortDateRange(startDate, endDate) {
+  const start = calendarDate(startDate);
+  const end = calendarDate(endDate);
   const sameMonth = format(start, 'yyyy-MM') === format(end, 'yyyy-MM');
   if (sameMonth && format(start, 'd') === format(end, 'd')) {
     return format(start, 'MMM d');

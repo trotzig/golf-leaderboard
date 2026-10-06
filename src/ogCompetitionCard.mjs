@@ -1,8 +1,11 @@
 import { format } from 'date-fns';
 
+import calendarDate from './calendarDate.mjs';
 import formatCompetitionName from './formatCompetitionName.js';
 
-function dateRange(start, end) {
+function dateRange(startDate, endDate) {
+  const start = calendarDate(startDate);
+  const end = calendarDate(endDate);
   const year = format(end, 'yyyy');
   if (format(start, 'yyyyMMdd') === format(end, 'yyyyMMdd')) {
     return `${format(start, 'MMMM d')}, ${year}`;
