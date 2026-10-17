@@ -992,14 +992,19 @@ footer a:hover {
 
 .oom .round {
   justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 4px 3px;
   opacity: 1;
 }
 
 .oom .round-score {
-  width: 26px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: auto;
+  min-width: 28px;
   height: auto;
+  padding: 0 4px;
   line-height: 17px;
-  margin-right: 3px;
   border-radius: var(--radius-pill);
 }
 
