@@ -98,6 +98,19 @@ describe('getRemainingEvents', () => {
     ];
     expect(getRemainingEvents(events).map(e => e.name)).toEqual(['Open A']);
   });
+
+  it('only includes events from the given year', () => {
+    const events = [
+      { name: 'Open A', start: new Date('2026-10-06').getTime() },
+      { name: 'Open B', start: new Date('2027-05-01').getTime() },
+    ];
+    expect(getRemainingEvents(events, 2026).map(e => e.name)).toEqual([
+      'Open A',
+    ]);
+    expect(getRemainingEvents(events, 2027).map(e => e.name)).toEqual([
+      'Open B',
+    ]);
+  });
 });
 
 describe('getTeaserIntro', () => {

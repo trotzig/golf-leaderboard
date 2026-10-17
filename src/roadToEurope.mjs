@@ -66,10 +66,14 @@ export function getRaceStatus(entries, spots = CHALLENGE_TOUR_SPOTS) {
 
 // Upcoming events that still count for the Road to Europe: everything up to
 // and including the Road to Europe Final, but not qualifying schools for
-// next season (which are scheduled after the final).
-export function getRemainingEvents(upcomingCompetitions) {
+// next season (which are scheduled after the final). Pass `year` to also
+// leave out events from other seasons, e.g. next year's schedule.
+export function getRemainingEvents(upcomingCompetitions, year) {
   const sorted = [...upcomingCompetitions]
     .filter(c => !/qualif|q-school|kval/i.test(c.name))
+    .filter(
+      c => year === undefined || new Date(c.start).getFullYear() === year,
+    )
     .sort((a, b) => a.start - b.start);
   const finalIndex = sorted.findIndex(c => /final/i.test(c.name));
   return finalIndex === -1 ? sorted : sorted.slice(0, finalIndex + 1);

@@ -228,6 +228,7 @@ export default function OrderOfMeritPage({
           ensureDates(copy);
           return copy;
         }),
+        now.getFullYear(),
       )
     : undefined;
   // Once the final has been played there's no race left to preview.
