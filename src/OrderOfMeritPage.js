@@ -143,20 +143,16 @@ export function RoadToEuropeSummary({ name, race, remainingEvents, now }) {
         earn a card on the {year ? `${year} ` : ''}HotelPlanner Tour (the
         Challenge Tour).
         {remainingEvents ? (
-          remainingEvents.length === 0 ? (
-            <> The season is over.</>
-          ) : (
-            <>
-              {' '}
-              {remainingEvents.length === 1
-                ? 'One event'
-                : `${remainingEvents.length} events`}{' '}
-              left to play:
-            </>
-          )
+          <>
+            {' '}
+            {remainingEvents.length === 1
+              ? 'One event'
+              : `${remainingEvents.length} events`}{' '}
+            left to play:
+          </>
         ) : null}
       </p>
-      {remainingEvents && remainingEvents.length > 0 ? (
+      {remainingEvents ? (
         <ul className="oom-race-events">
           {remainingEvents.map(c => (
             <li key={c.id}>
@@ -234,6 +230,8 @@ export default function OrderOfMeritPage({
         }),
       )
     : undefined;
+  // Once the final has been played there's no race left to preview.
+  const seasonOver = remainingEvents?.length === 0;
   return (
     <div className="leaderboard-page oom">
       <Head>
@@ -249,7 +247,7 @@ export default function OrderOfMeritPage({
       <p className="page-desc">{description}</p>
       {data ? (
         <>
-          {race ? (
+          {race && !seasonOver ? (
             <RoadToEuropeSummary
               name={oomName}
               race={race}

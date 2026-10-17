@@ -52,6 +52,14 @@ export const Default = () => (
   />
 );
 
+export const SeasonOver = () => (
+  <OrderOfMeritPage
+    initialData={orderOfMerit}
+    upcomingCompetitions={[upcomingCompetitions[2]]}
+    now={now}
+  />
+);
+
 export const OtherOrderOfMerit = () => (
   <OrderOfMeritPage
     initialData={{
