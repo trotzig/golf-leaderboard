@@ -16,13 +16,15 @@ export default defineConfig({
   },
   targets: {
     chrome: { type: 'chrome', viewport: '1024x768' },
-    firefox: { type: 'firefox', viewport: '1024x768' },
-    safari: { type: 'safari', viewport: '1024x768' },
-    iphone: { type: 'ios-safari', viewport: '1024x768' },
-    edge: { type: 'edge', viewport: '1024x768' },
     'chrome-dark': {
       type: 'chrome',
       viewport: '1024x768',
+      prefersColorScheme: 'dark',
+    },
+    'safari-mobile': { type: 'safari', viewport: '390x844' },
+    'safari-mobile-dark': {
+      type: 'safari',
+      viewport: '390x844',
       prefersColorScheme: 'dark',
     },
   },
