@@ -32,7 +32,7 @@ checkout into the worktree if you need to run the app locally.
 - **Deployment**: Vercel
 - **Styling**: Plain CSS (`styles.css`)
 - **Email**: Mailgun, with templates built with [react-email](https://react.email)
-- **Visual testing**: Merrykat (screenshot testing of Storybook stories)
+- **Visual testing**: Happo (screenshot testing of Storybook stories)
 
 ## Project Structure
 
